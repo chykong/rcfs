@@ -11,7 +11,7 @@
 <body class="no-skin">
 <%@ include file="../common/top.jsp" %>
 <div class="main-container" id="main-container">
-    <%@ include file="../common/menu.jsp" %>
+   <%@ include file="../common/menu.jsp" %>
     <div class="main-content">
         <div class="main-content-inner">
             <!-- #section:basics/content.breadcrumbs -->
@@ -31,9 +31,11 @@
                            
 
                             <!-- /section:custom/widget-box.options -->
-                            <div >
-                                  <button type="button" class="btn btn-success btn-sm" id="btnAdd">
+                            <div ><c:if test="${bln:isP('BaseMeetingAdd')}">
+                                        <button type="button" class="btn btn-success btn-sm" id="btnAdd">
                                       <i class="ace-icon fa fa-plus bigger-110"></i>新增
+                                    </c:if> 
+                                  
                                   </button>
                                 </div>
                             </div>
@@ -72,10 +74,10 @@
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
-                                    <td><c:if test="${bln:isP('BaseCompanyUpdate')}">
-                                        <a href="toUpdate.htm?id=${company.id }&backUrl=${backUrl}"> 修改 </a>
-                                    </c:if> <c:if test="${bln:isP('BaseCompanyDelete')}">
-                                        <a href="javascript:delCompany(${company.id });"> 删除 </a>
+                                    <td><c:if test="${bln:isP('BaseMeetingUpdate')}">
+                                        <a href="toUpdate.htm?id=${meeting.id }&backUrl=${backUrl}"> 修改 </a>
+                                    </c:if> <c:if test="${bln:isP('BaseMeetingDelete')}">
+                                        <a href="javascript:delCompany(${meeting.id });"> 删除 </a>
                                     </c:if></td>
                                 </tr>
                             </c:forEach>
@@ -116,8 +118,8 @@
 				}
 				//新增
 				var addMeeting = function(id) {
-					var project_progress=$(".active:input").val()
-					window.location = 'toAdd.htm?backUrl=${backUrl }&project_progress='+project_progress;
+				 	var project_progress=$(".active").find("input").val()
+					window.location = 'toAdd.htm?backUrl=${backUrl }&project_progress='+project_progress; 
 				}
         </script>
 </body>

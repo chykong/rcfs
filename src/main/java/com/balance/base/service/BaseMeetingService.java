@@ -36,4 +36,4 @@ private BaseMeetingDao baseMeetingDao;
 public int add(BaseMeeting baseMeeting) {
 	return baseMeetingDao.add(baseMeeting);
 }
-}
+} 

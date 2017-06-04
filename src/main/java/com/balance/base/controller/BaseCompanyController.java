@@ -36,6 +36,7 @@ public class BaseCompanyController extends BaseController {
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, BaseCompanySearchVO baseCompanySearchVO) {
         ModelAndView mv = new ModelAndView();
+
         int recordCount = baseCompanyService.listCount(baseCompanySearchVO);// 获取查询总数
         String url = createUrl(baseCompanySearchVO);
         PageNavigate pageNavigate = new PageNavigate(url, baseCompanySearchVO.getPageIndex(), baseCompanySearchVO.getPageSize(), recordCount);//定义分页对象

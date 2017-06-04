@@ -58,7 +58,7 @@ public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse respon
 /**
  * 新增会议内容
  */
-@RequestMapping
+@RequestMapping("/add")
 public String add(HttpServletRequest request, HttpServletResponse response,BaseMeeting baseMeeting){
 	baseMeeting.setCreated_by(SessionUtil.getUserSession(request).getRealname());
 	int flag=baseMeetingService.add( baseMeeting);

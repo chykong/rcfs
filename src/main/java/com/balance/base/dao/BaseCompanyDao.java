@@ -4,6 +4,7 @@ import com.balance.base.model.BaseCompany;
 import com.balance.base.vo.BaseCompanySearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -79,5 +80,14 @@ public class BaseCompanyDao extends BaseDao<BaseCompany, BaseCompanySearchVO> {
     public int listCount(BaseCompanySearchVO baseCompanySearchVO) {
         String sql = "select count(*) from t_base_company t  ";
         return listCount(sql, baseCompanySearchVO);
+    }
+
+    /**
+     * 全部公司列表
+     * @return 列表
+     */
+    public List<BaseCompany> listAll() {
+        String sql = "select * from t_base_company t ";
+        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(BaseCompany.class));
     }
 }

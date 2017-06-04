@@ -10,7 +10,7 @@ import java.util.Date;
  */
 public class PrjPreallocation {
     private int id;
-    private String mapId;  //编号
+    private String map_id;  //编号
     private String host_name;  //产权人姓名（被搬迁人）
     private String lessee_name;  //承租人
     private String location;  //坐落
@@ -25,6 +25,7 @@ public class PrjPreallocation {
     private Double total_homestead_area; //总建筑面积
     private Double card_homestead_area; //证载建筑面积
     private Double no_card_homestead_area; //无证房屋面积
+    private Double management_homestead_area; //经营面积
     private Integer house_register_num;  //户籍人数
     private BigDecimal money_homestead;  //房屋补偿款
     private BigDecimal money_machine;  //机器补偿款
@@ -107,7 +108,7 @@ public class PrjPreallocation {
     private Double after_area;  //09年后面积
     private Double management_house_area;  //房屋营业面积
     private Double field_house_area;  //场地营业面积
-    private String no_sign_reson;//未签约原因
+    private String no_sign_reason;//未签约原因
     private Date audit_date;  //审核日期
     private String audit_user;  //审核人
     private String remarks;  //备注
@@ -134,12 +135,12 @@ public class PrjPreallocation {
         this.id = id;
     }
 
-    public String getMapId() {
-        return mapId;
+    public String getMap_id() {
+        return map_id;
     }
 
-    public void setMapId(String mapId) {
-        this.mapId = mapId;
+    public void setMap_id(String map_id) {
+        this.map_id = map_id;
     }
 
     public String getHost_name() {
@@ -902,12 +903,12 @@ public class PrjPreallocation {
         this.field_house_area = field_house_area;
     }
 
-    public String getNo_sign_reson() {
-        return no_sign_reson;
+    public String getNo_sign_reason() {
+        return no_sign_reason;
     }
 
-    public void setNo_sign_reson(String no_sign_reson) {
-        this.no_sign_reson = no_sign_reson;
+    public void setNo_sign_reason(String no_sign_reason) {
+        this.no_sign_reason = no_sign_reason;
     }
 
     public Date getAudit_date() {
@@ -988,5 +989,13 @@ public class PrjPreallocation {
 
     public void setOther_file_path(String other_file_path) {
         this.other_file_path = other_file_path;
+    }
+
+    public Double getManagement_homestead_area() {
+        return management_homestead_area;
+    }
+
+    public void setManagement_homestead_area(Double management_homestead_area) {
+        this.management_homestead_area = management_homestead_area;
     }
 }

@@ -40,4 +40,7 @@ public class BaseCompanyService {
     public int listCount(BaseCompanySearchVO baseCompanySearchVO) {
         return baseCompanyDao.listCount(baseCompanySearchVO);
     }
+    public List<BaseCompany> listAll() {
+        return baseCompanyDao.listAll();
+    }
 }

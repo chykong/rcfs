@@ -1,0 +1,143 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<div class="form-group">
+    <form:label path="leader" cssClass="col-sm-3 control-label no-padding-right">
+        包村干部：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="leader" cssClass="col-xs-10 col-sm-10 col-lg-6" placeholder="请输入包村干部..."
+                    maxlength="3"/>
+        <label id="leaderTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="management_co" cssClass="col-sm-3 control-label no-padding-right">
+        管理公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="management_co" name="management_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '管理公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.management_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="management_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="geo_co" cssClass="col-sm-3 control-label no-padding-right">
+        测绘公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="geo_co" name="geo_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '测绘公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.geo_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="geo_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="appraise_co" cssClass="col-sm-3 control-label no-padding-right">
+        评估公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="appraise_co"
+                name="appraise_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '评估公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.appraise_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="appraise_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="demolish_co" cssClass="col-sm-3 control-label no-padding-right">
+        拆迁公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="demolish_co"
+                name="demolish_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '拆迁公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.demolish_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="demolish_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="audit_co" cssClass="col-sm-3 control-label no-padding-right">
+        审计公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="audit_co"
+                name="audit_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '审计公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.audit_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="audit_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="pulledown_co" cssClass="col-sm-3 control-label no-padding-right">
+        拆除公司：
+    </form:label>
+    <div class="col-sm-9">
+        <select class="col-sm-3 control-label no-padding-right" id="pulledown_co"
+                name="pulledown_co">
+            <option value="">--请选择--</option>
+            <c:forEach items="${companyList}" var="company">
+                <c:if test="${company.type eq '拆除公司'}">
+                    <option value="${company.name}" <c:if test="${preallocation.pulledown_co eq company.name}">selected</c:if>>${company.name}</option>
+                </c:if>
+            </c:forEach>
+        </select>
+        <label id="pulledown_coTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="demolition_year_code" cssClass="col-sm-3 control-label no-padding-right">
+        拆迁许可证年号：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="demolition_year_code" cssClass="col-xs-10 col-sm-10 col-lg-6" placeholder="请输入拆迁许可证年号..."
+                    maxlength="3"/>
+        <label id="demolition_year_codeTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="demolition_card_code" cssClass="col-sm-3 control-label no-padding-right">
+        拆迁许可证证号：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="demolition_card_code" cssClass="col-xs-10 col-sm-10 col-lg-6" placeholder="请输入拆迁许可证证号..."
+                    maxlength="3"/>
+        <label id="demolition_card_codeTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="demolished_date" cssClass="col-sm-3 control-label no-padding-right">
+        搬迁日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="demolished_date" cssClass="col-xs-10 col-sm-10 col-lg-6" placeholder="请输入搬迁日期..."
+                    maxlength="3"/>
+        <label id="demolished_dateTip"></label>
+    </div>
+</div>

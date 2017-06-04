@@ -75,6 +75,11 @@ public class BaseDao<T, S> {
                 .getGenericSuperclass()).getActualTypeArguments()[0]);
     }
 
+    public List<T> list(String sql) {
+        List<T> list = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(getClazz()));
+        return list;
+    }
+
     public List<T> list(String sql, Object[] objects) {
         List<T> list = jdbcTemplate.query(sql, objects, BeanPropertyRowMapper.newInstance(getClazz()));
         return list;
@@ -85,6 +90,21 @@ public class BaseDao<T, S> {
         return list;
     }
 
+    /**
+     * 查询总数，无参数
+     * @param sql
+     * @return
+     */
+    public int listCount(String sql) {
+        return jdbcTemplate.queryForObject(sql, Integer.class);
+    }
+
+    /**
+     * 查询总数，带查询对象
+     * @param sql
+     * @param s
+     * @return
+     */
     public int listCount(String sql, S s) {
         return getNamedParameterJdbcTemplate().queryForObject(sql, new BeanPropertySqlParameterSource(s), Integer.class);
     }

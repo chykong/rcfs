@@ -179,5 +179,14 @@ public class SysUserDao extends BaseDao {
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(ComboboxVO.class));
     }
 
-
+    /**
+     * 切换项目
+     *
+     * @param sysUser
+     * @return
+     */
+    public int saveChangeProject(SysUser sysUser) {
+        String sql = "update t_sys_user set current_project_id=:current_project_id,current_land_status=:current_land_status,current_building_type=:current_building_type where id=:id ";
+        return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(sysUser));
+    }
 }

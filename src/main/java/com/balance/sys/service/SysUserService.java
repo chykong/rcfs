@@ -85,8 +85,8 @@ public class SysUserService {
      * @param sysUserSearchVO
      * @return
      */
-    public List<SysUser> list(SysUserSearchVO sysUserSearchVO ) {
-        List<SysUser> list = sysUserDao.list(sysUserSearchVO );
+    public List<SysUser> list(SysUserSearchVO sysUserSearchVO) {
+        List<SysUser> list = sysUserDao.list(sysUserSearchVO);
         return list;
     }
 
@@ -199,10 +199,10 @@ public class SysUserService {
         SysUser getUser = sysUserDao.get(id);
         // 判断原密码是否为空，不为空则修改新密码
         if (StringUtil.isNotNullOrEmpty(oldPass)) {
-            Md5SaltUtil md5SaltUtil=new Md5SaltUtil(getUser.getRandomcode());
-            if (md5SaltUtil.isPasswordValid(getUser.getPassword(),oldPass)) {
+            Md5SaltUtil md5SaltUtil = new Md5SaltUtil(getUser.getRandomcode());
+            if (md5SaltUtil.isPasswordValid(getUser.getPassword(), oldPass)) {
                 String newRandomcode = SerialNumUtil.createRandowmNum(6);
-                Md5SaltUtil md5SaltUtil12=new Md5SaltUtil(newRandomcode);
+                Md5SaltUtil md5SaltUtil12 = new Md5SaltUtil(newRandomcode);
                 String md5Pass = md5SaltUtil12.encode(newPass);
                 sysUserDao.updatePass(getUser.getId(), md5Pass, newRandomcode);
                 flag = 1;
@@ -222,7 +222,7 @@ public class SysUserService {
      */
     public boolean checkPass(SysUser sysUser, String password) {
         Md5SaltUtil md5SaltUtil = new Md5SaltUtil(sysUser.getRandomcode());
-        return md5SaltUtil.isPasswordValid(sysUser.getPassword(),password);
+        return md5SaltUtil.isPasswordValid(sysUser.getPassword(), password);
     }
 
     /**
@@ -265,6 +265,7 @@ public class SysUserService {
     public List<ComboboxVO> listAllUser() {
         return sysUserDao.listAllUser();
     }
+
     /**
      * 用户列表
      *
@@ -273,5 +274,14 @@ public class SysUserService {
     public List<SysUser> listAll() {
         List<SysUser> list = sysUserDao.listAll();
         return list;
+    }
+
+    /**
+     * 切换项目
+     *
+     * @return
+     */
+    public int saveChangeProject(SysUser sysUser) {
+        return sysUserDao.saveChangeProject(sysUser);
     }
 }

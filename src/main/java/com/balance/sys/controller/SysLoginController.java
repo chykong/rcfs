@@ -75,6 +75,8 @@ public class SysLoginController {
                 userSession.setRealname(sysUser.getRealname());
                 userSession.setType(sysUser.getType());
                 userSession.setCurrent_project_id(1);//设置项目id
+                userSession.setCurrent_land_status(1);//土地性质
+                userSession.setCurrent_building_type(1);//建筑类型
                 request.getSession().setAttribute("userSession", userSession);
 
                 request.getSession().setMaxInactiveInterval(1000 * 60 * 30);// 设置过期时间30分钟

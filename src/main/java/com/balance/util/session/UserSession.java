@@ -19,10 +19,37 @@ public class UserSession implements Serializable {
     private String role_name;//角色名称
 
     private int current_project_id;//当前项目id
+    private String current_project_name;//当前项目名称
     private int current_land_status;//当前土地性质
+    private String current_land_name;//当前土地性质名称
     private int current_building_type;//当前房屋类型
+    private String current_building_name;//当前房屋类型名称
 
     private int type;//类型
+
+    public String getCurrent_project_name() {
+        return current_project_name;
+    }
+
+    public void setCurrent_project_name(String current_project_name) {
+        this.current_project_name = current_project_name;
+    }
+
+    public String getCurrent_land_name() {
+        return current_land_name;
+    }
+
+    public void setCurrent_land_name(String current_land_name) {
+        this.current_land_name = current_land_name;
+    }
+
+    public String getCurrent_building_name() {
+        return current_building_name;
+    }
+
+    public void setCurrent_building_name(String current_building_name) {
+        this.current_building_name = current_building_name;
+    }
 
     public int getUser_id() {
         return user_id;

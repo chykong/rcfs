@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -255,4 +256,39 @@ public class SysUserController extends BaseController {
         else
             WebUtil.out(response, "false");
     }
+
+    /**
+     * 切换项目
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/changeProject")
+    public ModelAndView changeProject(HttpServletRequest request, HttpServletResponse response) {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/sys/changeProject");
+
+        List listProject = new ArrayList<>();//项目列表
+        mv.addObject("listProject", listProject);
+        return mv;
+    }
+
+    /**
+     * 切换项目
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/saveChangeProject")
+    public ModelAndView saveChangeProject(HttpServletRequest request, HttpServletResponse response,SysUser sysUser) {
+        sysUser.setId(SessionUtil.getUserSession(request).getUser_id());
+        sysUserService.saveChangeProject(sysUser);
+        UserSession userSession=SessionUtil.getUserSession(request);
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("redirect:/index.htm");
+        return mv;
+    }
+
+
 }

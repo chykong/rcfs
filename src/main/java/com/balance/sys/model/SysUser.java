@@ -21,6 +21,61 @@ public class SysUser {
     private String create_person;//创建人
     private int type;//类型
 
+    private int current_project_id;//当前项目id
+    private String current_project_name;//当前项目名称
+    private int current_land_status;//当前土地性质
+    private String current_land_name;//当前土地性质名称
+    private int current_building_type;//当前房屋类型
+    private String current_building_name;//当前房屋类型名称
+
+    public int getCurrent_project_id() {
+        return current_project_id;
+    }
+
+    public void setCurrent_project_id(int current_project_id) {
+        this.current_project_id = current_project_id;
+    }
+
+    public String getCurrent_project_name() {
+        return current_project_name;
+    }
+
+    public void setCurrent_project_name(String current_project_name) {
+        this.current_project_name = current_project_name;
+    }
+
+    public int getCurrent_land_status() {
+        return current_land_status;
+    }
+
+    public void setCurrent_land_status(int current_land_status) {
+        this.current_land_status = current_land_status;
+    }
+
+    public String getCurrent_land_name() {
+        return current_land_name;
+    }
+
+    public void setCurrent_land_name(String current_land_name) {
+        this.current_land_name = current_land_name;
+    }
+
+    public int getCurrent_building_type() {
+        return current_building_type;
+    }
+
+    public void setCurrent_building_type(int current_building_type) {
+        this.current_building_type = current_building_type;
+    }
+
+    public String getCurrent_building_name() {
+        return current_building_name;
+    }
+
+    public void setCurrent_building_name(String current_building_name) {
+        this.current_building_name = current_building_name;
+    }
+
     public int getId() {
         return id;
     }

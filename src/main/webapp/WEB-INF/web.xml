@@ -4,7 +4,7 @@
 		 version="3.1">
 	<!-- 统计在线 监听 -->
 	<listener>
-		<listener-class>com.critc.config.listener.OnLineListener</listener-class>
+		<listener-class>com.balance.config.listener.OnLineListener</listener-class>
 	</listener>
 	<session-config>
 		<session-timeout>30</session-timeout>

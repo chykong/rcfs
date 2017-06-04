@@ -16,11 +16,11 @@
 	http://www.springframework.org/schema/cache 
 	http://www.springframework.org/schema/cache/spring-cache.xsd"
        default-autowire="byName" default-lazy-init="true">
-    <bean class="com.critc.util.spring.SpringContextHolder"
+    <bean class="com.balance.util.spring.SpringContextHolder"
           lazy-init="false"/>
 
     <context:annotation-config/>
-    <context:component-scan base-package="com.critc"/><!--
+    <context:component-scan base-package="com.balance"/><!--
 		spring从该包下面自动扫描组件 -->
 
     <!-- spring从properties里面读取jdbc配置文件 -->
@@ -73,7 +73,7 @@
     </bean>
     <aop:config>
         <aop:pointcut id="bussinessService"
-                      expression="execution(public * com.critc.*.service.*.*(..))"/>
+                      expression="execution(public * com.balance.*.service.*.*(..))"/>
         <aop:advisor pointcut-ref="bussinessService" advice-ref="txAdvice"/>
     </aop:config>
 
@@ -92,10 +92,10 @@
         表示使用CGLib动态代理技术织入增强 -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!--dao和service异常切面 -->
-    <bean id="daoExceptionAspect" class="com.critc.config.aspect.DaoExceptionAspect"/>
-    <bean id="serviceExceptionAspect" class="com.critc.config.aspect.ServiceExceptionAspect"/>
+    <bean id="daoExceptionAspect" class="com.balance.config.aspect.DaoExceptionAspect"/>
+    <bean id="serviceExceptionAspect" class="com.balance.config.aspect.ServiceExceptionAspect"/>
     <!-- 系统性能监控切面-->
-    <bean id="performanceAspect" class="com.critc.config.aspect.PerformanceAspect"/>
+    <bean id="performanceAspect" class="com.balance.config.aspect.PerformanceAspect"/>
 
     <!--EhCache缓存配置
     <bean id="cacheManagerFactory"
@@ -116,7 +116,7 @@
           scope="prototype">
         <property name="patterns">
             <list>
-                <value>com.critc.*.service.*</value>
+                <value>com.balance.*.service.*</value>
             </list>
         </property>
     </bean>
@@ -141,7 +141,7 @@
     </bean>
 
     <!--设置公共参数 -->
-    <bean id="pubConfig" class="com.critc.util.config.PubConfig">
+    <bean id="pubConfig" class="com.balance.util.config.PubConfig">
         <property name="imageServer" value="${imageServer}"/>
         <property name="imageUploadPath" value="${imageUploadPath}"/>
         <property name="staticServer" value="${staticServer}"/>

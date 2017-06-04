@@ -10,52 +10,52 @@
 	<function>
 		<description>生成菜单</description>
 		<name>createMenu</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String createMenu(javax.servlet.http.HttpServletRequest)</function-signature>
 	</function>
 	<function>
 		<description>校验按钮权限</description>
 		<name>isP</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>boolean isPrivilege(java.lang.String)</function-signature>
 	</function>
 	<function>
 		<description>Url编码</description>
 		<name>encodeUrl</name>
-		<function-class>com.critc.util.string.StringUtil</function-class>
+		<function-class>com.balance.util.string.StringUtil</function-class>
 		<function-signature>java.lang.String encodeUrl(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<description>格式化日期</description>
 		<name>formatDate</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String formatDate(java.util.Date)</function-signature>
 	</function>
 
 	<function>
 		<description>格式化日期</description>
 		<name>formatDate2</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String formatDate2(java.util.Date,java.lang.String)</function-signature>
 	</function>
 	<function>
 		<description>截取日期</description>
 		<name>subString</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String subString(java.lang.String)</function-signature>
 	</function>
 	<function>
 		<description>截取长日期</description>
 		<name>subLongDate</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String subLongDate(java.lang.String)</function-signature>
 	</function>
 
 	<function>
 		<description>系统管理-用户管理获取用户状态</description>
 		<name>getUserStatus</name>
-		<function-class>com.critc.util.web.WebTag</function-class>
+		<function-class>com.balance.util.web.WebTag</function-class>
 		<function-signature>java.lang.String getUserStatus(java.lang.Integer)</function-signature>
 	</function>
 </taglib>

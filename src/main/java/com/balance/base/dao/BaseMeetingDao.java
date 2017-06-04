@@ -24,7 +24,7 @@ public class BaseMeetingDao extends BaseDao<BaseMeeting, BaseMeetingSearchVO>{
 		return  list(sql, baseMeetingSearchVO);
 	}
 	/**
-	 * 新增会议内容
+	 * 新增会议内容 
 	 * @param baseMeeting
 	 * @return
 	 */

@@ -17,6 +17,7 @@ import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
+import com.balance.util.session.UserSession;
 import com.balance.util.string.StringUtil;
 /**
  * 
@@ -60,7 +61,10 @@ public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse respon
  */
 @RequestMapping("/add")
 public String add(HttpServletRequest request, HttpServletResponse response,BaseMeeting baseMeeting){
-	baseMeeting.setCreated_by(SessionUtil.getUserSession(request).getRealname());
+	UserSession session=SessionUtil.getUserSession(request);
+	baseMeeting.setCreated_by(session.getRealname());//创建人
+	baseMeeting.setPrj_base_info_id(session.getCurrent_project_id());//项目id
+	
 	int flag=baseMeetingService.add( baseMeeting);
 	if(flag==0){
 		return "forward:/error.htm?msg="+StringUtil.encodeUrl("新增会议纪要失败");

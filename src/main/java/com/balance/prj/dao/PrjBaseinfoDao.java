@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
     /**
-     * 新增eeee
+     * 新增
      *
      * @param prjBaseinfo
      * @return

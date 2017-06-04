@@ -270,8 +270,8 @@ public class SysUserController extends BaseController {
     @RequestMapping("/changeProject")
     public ModelAndView changeProject(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/sys/changeProject");
-
+        mv.setViewName("/user/changeProject");
+        mv.addObject("userSession", SessionUtil.getUserSession(request));
         List<PrjBaseinfo> listProject = prjBaseinfoService.list();//项目列表
         mv.addObject("listProject", listProject);
         return mv;
@@ -283,8 +283,8 @@ public class SysUserController extends BaseController {
      * @param request
      * @param response
      */
-    @RequestMapping("/saveChangeProject")
-    public ModelAndView saveChangeProject(HttpServletRequest request, HttpServletResponse response, SysUser sysUser) {
+    @RequestMapping("/changeProjectSave")
+    public ModelAndView changeProjectSave(HttpServletRequest request, HttpServletResponse response, SysUser sysUser) {
         sysUser.setId(SessionUtil.getUserSession(request).getUser_id());
         sysUserService.saveChangeProject(sysUser);
         UserSession userSession = SessionUtil.getUserSession(request);
@@ -293,7 +293,7 @@ public class SysUserController extends BaseController {
         userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
         userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
         userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
-        userSession.setCurrent_building_name(sysUser.getCurrent_building_name());
+        userSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type()));
 
         request.getSession().setAttribute("userSession", userSession);//重设userSession
         ModelAndView mv = new ModelAndView();

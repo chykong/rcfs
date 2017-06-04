@@ -28,15 +28,15 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="inputForm" name="inputForm" class="form-horizontal" action="saveChangeProject.htm"
+                        <form id="inputForm" name="inputForm" class="form-horizontal" action="changeProjectSave.htm"
                               method="post">
                             <input type="hidden" name="backUrl" value="${backUrl }">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">可选项目：</label>
                                 <div class="col-sm-9">
-                                    <form:select path="sysLogSearchVO.user_id" class="form-control input-small"
-                                                 id="current_project_id">
-                                        <form:options items="${listProject}" itemValue="id" itemLabel="realname"/>
+                                    <form:select path="userSession.current_project_id"
+                                                 cssClass="col-xs-10 col-sm-5">
+                                        <form:options items="${listProject }" itemValue="id" itemLabel="prj_name"/>
                                     </form:select>
                                 </div>
                             </div>

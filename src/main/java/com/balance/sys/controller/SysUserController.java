@@ -130,12 +130,11 @@ public class SysUserController extends BaseController {
         sysUser.setStatus(1);
         UserSession userSession = SessionUtil.getUserSession(request);
         sysUser.setCreate_person(userSession.getRealname());
-        sysUser.setType(userSession.getType());//类型
         int flag = sysUserService.add(sysUser);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("用户信息新增失败");
         else if (flag == 2)
-            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("用户手机号已存在");
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("用户账号已存在");
         else
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("用户信息新增成功");
     }

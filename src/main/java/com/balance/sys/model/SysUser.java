@@ -16,10 +16,9 @@ public class SysUser {
     private String randomcode;//随机数
     private int status;//账号状态
     private String realname;//姓名
-    private String telephone;//手机号
+    private String mobile;//手机号
     private Date create_date;//创建时间
     private String create_person;//创建人
-    private int type;//类型
 
     private int current_project_id;//当前项目id
     private String current_project_name;//当前项目名称
@@ -148,31 +147,6 @@ public class SysUser {
         this.role_id = role_id;
     }
 
-    public String getRole_name() {
-        return role_name;
-    }
-
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
     @Override
     public String toString() {
         return "SysUser{" +
@@ -184,10 +158,32 @@ public class SysUser {
                 ", randomcode='" + randomcode + '\'' +
                 ", status=" + status +
                 ", realname='" + realname + '\'' +
-                ", telephone='" + telephone + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", create_date=" + create_date +
                 ", create_person='" + create_person + '\'' +
-                ", type=" + type +
+                ", current_project_id=" + current_project_id +
+                ", current_project_name='" + current_project_name + '\'' +
+                ", current_land_status=" + current_land_status +
+                ", current_land_name='" + current_land_name + '\'' +
+                ", current_building_type=" + current_building_type +
+                ", current_building_name='" + current_building_name + '\'' +
                 '}';
     }
+
+    public String getRole_name() {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.balance.sys.controller;
 
+import com.balance.prj.model.PrjBaseinfo;
 import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.sys.model.SysUser;
 import com.balance.sys.model.SysUserLogin;
@@ -77,13 +78,10 @@ public class SysLoginController {
                 userSession.setRole_id(sysUser.getRole_id());
                 userSession.setRole_name(sysUser.getRole_name());// 角色
                 userSession.setRealname(sysUser.getRealname());
-                userSession.setType(sysUser.getType());
-//                userSession.setCurrent_project_id(1);//设置项目id
-//                userSession.setCurrent_land_status(1);//土地性质
-//                userSession.setCurrent_building_type(1);//建筑类型
 
                 userSession.setCurrent_project_id(sysUser.getCurrent_project_id());
-                userSession.setCurrent_project_name(prjBaseinfoService.get(sysUser.getCurrent_project_id()).getPrj_name());//项目名称
+                PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(sysUser.getCurrent_project_id());
+                if (prjBaseinfo != null) userSession.setCurrent_project_name(prjBaseinfo.getPrj_name());//项目名称
                 userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
                 userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
                 userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
@@ -117,8 +115,12 @@ public class SysLoginController {
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         UserSession userSession = SessionUtil.getUserSession(request);
-        if (userSession != null) {
-            mv.setViewName("/index");
+        if (userSession != null) {//如果新增用户，没有选择项目，则跳转至选择项目页面
+            if (userSession.getCurrent_project_id() == 0) {
+                mv.setViewName("redirect:/sys/user/changeProject.htm");
+            } else {
+                mv.setViewName("/index");
+            }
         } else {
             mv.setViewName("redirect:/login.htm");
         }

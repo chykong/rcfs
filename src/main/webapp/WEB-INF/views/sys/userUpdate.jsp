@@ -51,6 +51,13 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="col-sm-3 control-label">手机：</label>
+									<div class="col-sm-9">
+										<input id="mobile" type="text" name="mobile" class="col-xs-10 col-sm-5" placeholder=""
+											value="${sysUser.mobile }"><label id="mobileTip"></label>
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="col-sm-3 control-label">角色：</label>
 									<div class="col-sm-9 ">
 										<form:select path="sysUser.role_id" name="role_id" class="col-xs-10 col-sm-5" id="role_id" >
@@ -95,6 +102,10 @@
 								},
 								role_id : {
 									required : true
+								},
+								mobile : {
+									required : true,
+									maxlength : 11
 								}
 							},
 							messages : {

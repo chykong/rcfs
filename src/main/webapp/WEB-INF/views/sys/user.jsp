@@ -91,6 +91,7 @@
                                 <th width=40>#</th>
                                 <th width=120>账号</th>
                                 <th width="120">姓名</th>
+                                <th width="120">手机</th>
                                 <th>角色</th>
                                 <th>创建人</th>
                                 <th>创建时间</th>
@@ -106,6 +107,7 @@
                                     <td>${st.index+1 }</td>
                                     <td>${sysUser.username }</td>
                                     <td>${sysUser.realname }</td>
+                                    <td>${sysUser.mobile }</td>
                                     <td>${sysUser.role_name }</td>
                                     <td>${sysUser.create_person }</td>
                                     <td><fmt:formatDate value="${sysUser.create_date }"

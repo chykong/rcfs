@@ -70,7 +70,7 @@ public class SysRoleController extends BaseController {
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response, SysRole sysRole) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/sys/roleAdd");
-        List<SysModule> listModule = sysModuleService.listByType(SessionUtil.getUserSession(request).getType());
+        List<SysModule> listModule = sysModuleService.list();
         mv.addObject("listModule", listModule);
         List<SysFunction> listFunction = sysFunctionService.getAll();
         mv.addObject("listFunction", listFunction);
@@ -92,7 +92,7 @@ public class SysRoleController extends BaseController {
         SysRole sysRole = sysRoleService.get(id);
         mv.addObject("sysRole", sysRole);
         mv.setViewName("/sys/roleUpdate");
-        List<SysModule> listModule = sysModuleService.listByType(SessionUtil.getUserSession(request).getType());
+        List<SysModule> listModule = sysModuleService.list();
         mv.addObject("listModule", listModule);
         List<SysFunction> listFunction = sysFunctionService.getAll();
         mv.addObject("listFunction", listFunction);

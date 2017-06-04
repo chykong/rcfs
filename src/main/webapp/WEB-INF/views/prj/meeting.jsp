@@ -57,7 +57,10 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjMeetingSearchVO.progress)}
+                    </div>
+                </div>
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
                 	<div class="col-xs-12">
@@ -134,7 +137,7 @@
 				//新增
 				var addMeeting = function(id) {
 				 	var project_progress=$(".active").find("input").val()
-					window.location = 'toAdd.htm?backUrl=${backUrl }&project_progress='+project_progress; 
+					window.location = 'toAdd.htm?progress=${prjMeetingSearchVO.progress}&backUrl=${backUrl }';
 				}
         </script>
 </body>

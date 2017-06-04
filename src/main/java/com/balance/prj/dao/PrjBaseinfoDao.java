@@ -97,7 +97,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public List<PrjBaseinfo> listSelectProject(int user_id) {
-        String sql = "select * from t_prj_baseinfo where id in (select prj_base_info_id from t_sys_userprojects where user_id=?";
+        String sql = "select * from t_prj_baseinfo where id in (select prj_base_info_id from t_sys_userprojects where user_id=?)";
         return list(sql, new Object[]{user_id});
     }
 }

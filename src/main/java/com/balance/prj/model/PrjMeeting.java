@@ -1,4 +1,4 @@
-package com.balance.base.model;
+package com.balance.prj.model;
 /**
  * 
  * @author 刘凯
@@ -7,7 +7,7 @@ package com.balance.base.model;
 
 import java.util.Date;
 
-public class BaseMeeting {
+public class PrjMeeting {
 private int id;//
 private int prj_base_info_id;//项目id
 private String content;//内容

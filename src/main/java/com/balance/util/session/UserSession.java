@@ -18,7 +18,10 @@ public class UserSession implements Serializable {
     private int role_id;//角色id
     private String role_name;//角色名称
 
-    private int prj_base_info_id;//项目id
+    private int current_project_id;//当前项目id
+    private int current_land_status;//当前土地性质
+    private int current_building_type;//当前房屋类型
+
     private int type;//类型
 
     public int getUser_id() {
@@ -82,12 +85,28 @@ public class UserSession implements Serializable {
         this.type = type;
     }
 
-    public int getPrj_base_info_id() {
-        return prj_base_info_id;
+    public int getCurrent_project_id() {
+        return current_project_id;
     }
 
-    public void setPrj_base_info_id(int prj_base_info_id) {
-        this.prj_base_info_id = prj_base_info_id;
+    public void setCurrent_project_id(int current_project_id) {
+        this.current_project_id = current_project_id;
+    }
+
+    public int getCurrent_land_status() {
+        return current_land_status;
+    }
+
+    public void setCurrent_land_status(int current_land_status) {
+        this.current_land_status = current_land_status;
+    }
+
+    public int getCurrent_building_type() {
+        return current_building_type;
+    }
+
+    public void setCurrent_building_type(int current_building_type) {
+        this.current_building_type = current_building_type;
     }
 
     @Override
@@ -99,7 +118,9 @@ public class UserSession implements Serializable {
                 ", realname='" + realname + '\'' +
                 ", role_id=" + role_id +
                 ", role_name='" + role_name + '\'' +
-                ", prj_base_info_id=" + prj_base_info_id +
+                ", current_project_id=" + current_project_id +
+                ", current_land_status=" + current_land_status +
+                ", current_building_type=" + current_building_type +
                 ", type=" + type +
                 '}';
     }

@@ -110,7 +110,8 @@
                                     <td>${sysUser.create_person }</td>
                                     <td><fmt:formatDate value="${sysUser.create_date }"
                                                         pattern="yyyy-MM-dd HH:mm"/></td>
-                                    <td>${bln:getUserStatus(sysUser.status)}</td>
+                                    <td>${bln:getUserStatus(sysUser.status)}
+                                    </td>
                                     <td>
                                         <a href="javascript:viewLoginHis('${sysUser.id}','${sysUser.username}')">查看 </a>
                                     </td>

@@ -1,13 +1,16 @@
 package com.balance.util.web;
 
+import com.balance.common.vo.ComboboxVO;
 import com.balance.sys.service.SysRoleService;
 import com.balance.util.date.DateUtil;
+import com.balance.util.dic.DicUtil;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.session.UserSession;
 import com.balance.util.spring.SpringContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 页面标签，用于直接处理页面数据，展示使用
@@ -178,5 +181,23 @@ public class WebTag {
             return "非住宅";
         else
             return "";
+    }
+
+    /**
+     * 页面显示阶段
+     *
+     * @param progress
+     * @return
+     */
+    public static String getProcessTab(String url, Integer progress) {
+        StringBuffer sb = new StringBuffer("");
+        List<ComboboxVO> list = DicUtil.listProjectProgress();
+        for (ComboboxVO vo : list) {
+            String btnClass = "";
+            if (Integer.parseInt(vo.getValue()) == progress) btnClass = "btn-success";
+            else btnClass = "btn-primary";
+            sb.append("<button class=\"btn " + btnClass + " btn-sm \" onclick='location.href=\"" + url + "?progress=" + vo.getValue() + "\"'>" + vo.getContent() + "</button> ");
+        }
+        return sb.toString();
     }
 }

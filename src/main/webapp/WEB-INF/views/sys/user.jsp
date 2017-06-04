@@ -75,13 +75,22 @@
                                                 </c:if>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="10" style="padding-top: 4px;">
+
+
+                                            </td>
+                                        </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-xs-12">${bln:getProcessTab('index.htm',2)}
+                    </div>
+                </div>
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
                     <div class="col-xs-12">
@@ -229,6 +238,7 @@
             });
         });
     }
+
 
 
 

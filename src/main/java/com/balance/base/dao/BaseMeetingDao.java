@@ -29,7 +29,7 @@ public class BaseMeetingDao extends BaseDao<BaseMeeting, BaseMeetingSearchVO>{
 	 * @return
 	 */
 	public int add(BaseMeeting baseMeeting) {
-		String sql="insert into t_prj_meeting(title,content,created_by,created_at)values(:title,:content,:created_by,now())";
+		String sql="insert into t_prj_meeting(prj_base_info_id,title,content,project_progress,last_modified_at,created_by,created_at)values(:prj_base_info_id,:title,:content,:project_progress,now(),:created_by,now())";
 		return update(sql, baseMeeting);
 	}
 }

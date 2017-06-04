@@ -21,7 +21,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
+        String sql = "insert   into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
         return update(sql, prjBaseinfo);
     }
 

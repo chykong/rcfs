@@ -32,7 +32,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update t_prj_baseinfo set  introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update    t_prj_baseinfo set  introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
     /**

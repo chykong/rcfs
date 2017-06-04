@@ -1,5 +1,7 @@
 package com.balance.sys.controller;
 
+import com.balance.prj.model.PrjBaseinfo;
+import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.sys.model.SysUser;
 import com.balance.sys.model.SysUserLogin;
 import com.balance.sys.service.SysRoleService;
@@ -14,6 +16,7 @@ import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.session.UserSession;
 import com.balance.util.string.StringUtil;
+import com.balance.util.web.WebTag;
 import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +25,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class SysUserController extends BaseController {
     private SysRoleService sysRoleService;
     @Autowired
     private PubConfig pubConfig;
+    @Autowired
+    private PrjBaseinfoService prjBaseinfoService;
 
     /**
      * 进入用户管理界面
@@ -268,7 +272,7 @@ public class SysUserController extends BaseController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/sys/changeProject");
 
-        List listProject = new ArrayList<>();//项目列表
+        List<PrjBaseinfo> listProject = prjBaseinfoService.list();//项目列表
         mv.addObject("listProject", listProject);
         return mv;
     }
@@ -280,11 +284,18 @@ public class SysUserController extends BaseController {
      * @param response
      */
     @RequestMapping("/saveChangeProject")
-    public ModelAndView saveChangeProject(HttpServletRequest request, HttpServletResponse response,SysUser sysUser) {
+    public ModelAndView saveChangeProject(HttpServletRequest request, HttpServletResponse response, SysUser sysUser) {
         sysUser.setId(SessionUtil.getUserSession(request).getUser_id());
         sysUserService.saveChangeProject(sysUser);
-        UserSession userSession=SessionUtil.getUserSession(request);
+        UserSession userSession = SessionUtil.getUserSession(request);
+        userSession.setCurrent_project_id(sysUser.getCurrent_project_id());
+        userSession.setCurrent_project_name(prjBaseinfoService.get(sysUser.getCurrent_project_id()).getPrj_name());//项目名称
+        userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
+        userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
+        userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
+        userSession.setCurrent_building_name(sysUser.getCurrent_building_name());
 
+        request.getSession().setAttribute("userSession", userSession);//重设userSession
         ModelAndView mv = new ModelAndView();
         mv.setViewName("redirect:/index.htm");
         return mv;

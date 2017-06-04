@@ -10,12 +10,21 @@ public class PrjSection {
 
     private int id;//
     private int prj_base_info_id;//项目
+    private String prj_name;//项目名称
     private String name;// 标段名
     private int total_homes;// 标段总户数
     private Date last_modified_at;  //最后更改时间
     private String last_modified_by;  //最后更改人
     private Date created_at;  //创建时间
     private String created_by;  //创建人
+
+    public String getPrj_name() {
+        return prj_name;
+    }
+
+    public void setPrj_name(String prj_name) {
+        this.prj_name = prj_name;
+    }
 
     @Override
     public String toString() {

@@ -55,7 +55,7 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
      * @return
      */
     public PrjSection get(int id) {
-        String sql = "select * from t_prj_section t where id=?";
+        String sql = "select t.*,(select name from t_prj_baseinfo where id=t.prj_base_info_id) prj_name from t_prj_section t where id=?";
         return get(sql, new Object[]{id});
     }
 
@@ -66,7 +66,7 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
      * @return
      */
     public List<PrjSection> list(PrjSectionSearchVO prjSectionSearchVO) {
-        String sql = "select * from t_prj_section t ";
+        String sql = "select t.*,(select name from t_prj_baseinfo where id=t.prj_base_info_id) prj_name from t_prj_section t ";
         sql = PageUtil.createMysqlPageSql(sql, prjSectionSearchVO.getPageIndex(), prjSectionSearchVO.getPageSize());
         return list(sql, prjSectionSearchVO);
     }

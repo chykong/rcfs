@@ -4,12 +4,14 @@ import com.balance.prj.model.PrjBaseinfo;
 import com.balance.prj.vo.PrjBaseinfoSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
+import com.balance.util.string.StringUtil;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * Author  孔垂云333
+ * Author  孔垂云
  * Date  2017/6/4.
  */
 @Repository
@@ -21,7 +23,8 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
+        String sql = "insert into t_prj_baseinfo(prj_name,created_at,created_by)" +
+                " values(:prj_name,now(),:created_by)";
         return update(sql, prjBaseinfo);
     }
 
@@ -32,9 +35,10 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update    t_prj_baseinfo set  introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_baseinfo set prj_name=:prj_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
+
     /**
      * 删除
      *
@@ -64,7 +68,8 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public List<PrjBaseinfo> list(PrjBaseinfoSearchVO prjBaseinfoSearchVO) {
-        String sql = "select * from t_prj_baseinfo t ";
+        String sql = "select * from t_prj_baseinfo t where 1=1";
+        sql += createSearchSql(prjBaseinfoSearchVO);
         sql = PageUtil.createMysqlPageSql(sql, prjBaseinfoSearchVO.getPageIndex(), prjBaseinfoSearchVO.getPageSize());
         return list(sql, prjBaseinfoSearchVO);
     }
@@ -76,8 +81,27 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int listCount(PrjBaseinfoSearchVO prjBaseinfoSearchVO) {
-        String sql = "select count(*) from t_prj_baseinfo t  ";
+        String sql = "select count(*) from t_prj_baseinfo t  where 1=1";
+        sql += createSearchSql(prjBaseinfoSearchVO);
         return listCount(sql, prjBaseinfoSearchVO);
+    }
+
+    private String createSearchSql(PrjBaseinfoSearchVO prjBaseinfoSearchVO) {
+        String sql = "";
+        if (StringUtil.isNotNullOrEmpty(prjBaseinfoSearchVO.getPrj_name())) {//名称模糊查询
+            sql += " and prj_name like :prj_name_str";
+        }
+        return sql;
+    }
+
+    /**
+     * 全部项目列表
+     *
+     * @return 列表
+     */
+    public List<PrjBaseinfo> listAll() {
+        String sql = "select * from t_prj_baseinfo t ";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(PrjBaseinfo.class));
     }
 
     /**
@@ -100,4 +124,5 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
         String sql = "select * from t_prj_baseinfo where id in (select prj_base_info_id from t_sys_userprojects where user_id=?)";
         return list(sql, new Object[]{user_id});
     }
+
 }

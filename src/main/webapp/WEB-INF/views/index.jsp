@@ -36,7 +36,7 @@
 						<li class="active">Dashboard</li>
 					</ul>
 					<!-- /.breadcrumb -->
-
+					<%@ include file="common/navigate.jsp"%>
 
 					<!-- /section:basics/content.searchbox -->
 				</div>

@@ -150,4 +150,33 @@ public class WebTag {
             return "";
     }
 
+    /**
+     * 获取土地性质
+     *
+     * @param current_land_status 1国有2集体
+     * @return
+     */
+    public static String getCurrentLandName(Integer current_land_status) {
+        if (current_land_status == 1)
+            return "国有";
+        else if (current_land_status == 2)
+            return "集体";
+        else
+            return "";
+    }
+
+    /**
+     * 获取建筑类型
+     *
+     * @param current_building_type 1住宅，2非住宅
+     * @return
+     */
+    public static String getCurrentBuildingName(Integer current_building_type) {
+        if (current_building_type == 1)
+            return "住宅";
+        else if (current_building_type == 2)
+            return "非住宅";
+        else
+            return "";
+    }
 }

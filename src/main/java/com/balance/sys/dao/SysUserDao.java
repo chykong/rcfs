@@ -18,8 +18,8 @@ import java.util.List;
 public class SysUserDao extends BaseDao {
 
     public int add(SysUser sysUser) {
-        String sql = "insert into t_sys_user(username,password,randomcode,status,realname,create_date,create_person,role_id,type)";
-        sql += " values(:username,:password,:randomcode,1,:realname,now(),:create_person,:role_id,:type)";
+        String sql = "insert into t_sys_user(username,password,randomcode,status,realname,mobile,create_date,create_person,role_id,current_project_id,current_land_status,current_building_type)";
+        sql += " values(:username,:password,:randomcode,1,:realname,:mobile,now(),:create_person,:role_id,0,0,0)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rc = getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(sysUser), keyHolder);
         if (rc > 0) {
@@ -30,7 +30,7 @@ public class SysUserDao extends BaseDao {
     }
 
     public int update(SysUser sysUser) {
-        String sql = "update t_sys_user set realname=:realname,role_id=:role_id where id=:id ";
+        String sql = "update t_sys_user set realname=:realname,role_id=:role_id,mobile=:mobile where id=:id ";
         return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(sysUser));
     }
 
@@ -55,7 +55,7 @@ public class SysUserDao extends BaseDao {
      * @return
      */
     public int updateInfo(SysUser sysUser) {
-        String sql = "update t_sys_user set realname=:realname,telephone=:telephone where id=:id";
+        String sql = "update t_sys_user set realname=:realname,mobile=:mobile where id=:id";
         return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(sysUser));
     }
 

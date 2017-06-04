@@ -14,12 +14,7 @@
     <%@ include file="../common/menu.jsp" %>
     <div class="main-content">
         <div class="main-content-inner">
-            <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-                <ul class="breadcrumb">
-                    <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                    <li class="active">切换项目</li>
-                </ul>
-            </div>
+            <%@ include file="../common/navigate.jsp" %>
 
             <div class="page-content">
                 <div class="page-header">
@@ -33,15 +28,15 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <form id="inputForm" name="inputForm" class="form-horizontal" action="saveChangeProject.htm"
+                        <form id="form" name="form" class="form-horizontal" action="changeProjectSave.htm"
                               method="post">
                             <input type="hidden" name="backUrl" value="${backUrl }">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">可选项目：</label>
                                 <div class="col-sm-9">
-                                    <form:select path="sysLogSearchVO.user_id" class="form-control input-small"
-                                                 id="current_project_id">
-                                        <form:options items="${listProject}" itemValue="id" itemLabel="realname"/>
+                                    <form:select path="userSession.current_project_id"
+                                                 cssClass="col-xs-10 col-sm-5">
+                                        <form:options items="${listProject }" itemValue="id" itemLabel="prj_name"/>
                                     </form:select>
                                 </div>
                             </div>
@@ -63,8 +58,10 @@
                                                    value="2"
                                                    <c:if test="${sessionScope.userSession.current_land_status eq 2}">checked </c:if> >
                                             <span class="lbl bigger-120">集体</span>
+
                                         </label>
                                     </div>
+                                    <div class="radio-inline"><label id="current_land_statusTip"></label></div>
 
                                 </div>
                             </div>
@@ -88,6 +85,8 @@
                                             <span class="lbl bigger-120">非住宅</span>
                                         </label>
                                     </div>
+                                    <div class="radio-inline"><label id="current_building_typeTip"></label></div>
+
                                 </div>
                             </div>
 
@@ -110,6 +109,32 @@
             <%@ include file="../common/js.jsp" %>
 
             <script type="text/javascript">
+                    $(document).ready(function() {
+						$("#form").validate({
+							//debug : true,
+							errorElement : "label",
+							errorClass : "valiError",
+							errorPlacement : function(error, element) {
+								error.appendTo($("#" + element.attr('name') + "Tip"));
+							},
+							rules : {
+								current_land_status : {
+									required : true
+								},
+								current_building_type : {
+									required : true
+								}
+							},
+							messages : {
+							},
+							submitHandler : function(form) {
+								form.submit();
+							}
+						});
+					});
+
+
+
 
             </script>
 </body>

@@ -22,7 +22,7 @@ public class BaseMeetingDao extends BaseDao<BaseMeeting, BaseMeetingSearchVO>{
 		String sql="select * from t_prj_meeting t";
 		sql= PageUtil.createMysqlPageSql(sql, baseMeetingSearchVO.getPageIndex(), baseMeetingSearchVO.getPageSize());
 		return  list(sql, baseMeetingSearchVO);
-	}
+	} 
 	/**
 	 * 新增会议内容 
 	 * @param baseMeeting

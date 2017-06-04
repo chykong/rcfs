@@ -280,7 +280,7 @@ public class SysUserController extends BaseController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/user/changeProject");
         mv.addObject("userSession", SessionUtil.getUserSession(request));
-        List<PrjBaseinfo> listProject = prjBaseinfoService.list();//项目列表
+        List<PrjBaseinfo> listProject = prjBaseinfoService.listSelectProject(SessionUtil.getUserSession(request).getUser_id());//项目列表
         mv.addObject("listProject", listProject);
         return mv;
     }

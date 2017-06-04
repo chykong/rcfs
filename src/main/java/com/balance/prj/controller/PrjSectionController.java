@@ -46,7 +46,7 @@ public class PrjSectionController extends BaseController {
         List<PrjSection> list = prjSectionService.list(prjSectionSearchVO);
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
-        mv.setViewName("/base/company");// 跳转至指定页面
+        mv.setViewName("/prj/section");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
     }
@@ -69,7 +69,7 @@ public class PrjSectionController extends BaseController {
         ModelAndView mv = new ModelAndView();
         PrjSection prjSection = new PrjSection();
         mv.addObject("prjSection", prjSection);
-        mv.addObject("listProjects", prjBaseinfoService.list());
+        mv.addObject("listProject", prjBaseinfoService.list());
         mv.setViewName("/prj/sectionAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -88,7 +88,7 @@ public class PrjSectionController extends BaseController {
         ModelAndView mv = new ModelAndView();
         PrjSection prjSection = prjSectionService.get(id);
         mv.addObject("prjSection", prjSection);
-        mv.addObject("listProjects", prjBaseinfoService.list());
+        mv.addObject("listProject", prjBaseinfoService.list());
         mv.setViewName("/prj/sectionUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;

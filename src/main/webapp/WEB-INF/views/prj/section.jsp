@@ -45,7 +45,7 @@
                                                 <button class="btn btn-primary btn-sm" id="btnSearch">
                                                     <i class="ace-icon fa fa-search"></i> 刷新
                                                 </button>
-                                                <c:if test="${bln:isP('PreSectionAdd')}">
+                                                <c:if test="${bln:isP('PrjSectionAdd')}">
                                                     <button type="button" class="btn btn-success btn-sm" id="btnAdd">
                                                         <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                     </button>
@@ -81,7 +81,7 @@
                                     <td>${section.prj_name }</td>
                                     <td>${section.name }</td>
                                     <td>${section.total_homes }</td>
-                                    <td>${company.created_by }</td>
+                                    <td>${section.created_by }</td>
                                     <th width=120><fmt:formatDate value="${section.created_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
                                     <td><c:if test="${bln:isP('PrjSectionUpdate')}">

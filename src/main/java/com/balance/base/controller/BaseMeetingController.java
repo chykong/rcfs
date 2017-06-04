@@ -73,7 +73,7 @@ public String add(HttpServletRequest request, HttpServletResponse response,BaseM
 	}else{
 		return "forward:/success.htm?msg="+StringUtil.encodeUrl("新增会议纪要成功");
 	}
-	
+	 
 }
 }
 

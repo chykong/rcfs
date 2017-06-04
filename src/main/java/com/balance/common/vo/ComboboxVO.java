@@ -1,22 +1,31 @@
 package com.balance.common.vo;
 
 public class ComboboxVO {
-	private String value;//字段值
-	private String content;//字段内容
+    private String value;//字段值
+    private String content;//字段内容
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ComboboxVO() {
+    }
+
+    public ComboboxVO(String value, String content) {
+
+        this.value = value;
+        this.content = content;
+    }
 }

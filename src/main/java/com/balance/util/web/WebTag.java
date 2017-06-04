@@ -127,4 +127,27 @@ public class WebTag {
             return "";
     }
 
+    /**
+     * 获取项目进度
+     *
+     * @param progress 1前期准备阶段2入户调查阶段3预分方案制作阶段4动迁准备阶段5动迁阶段6收尾阶段
+     * @return
+     */
+    public static String getProjectProgress(Integer progress) {
+        if (progress == 1)
+            return "<span class=\"label label-success arrowed\">前期准备阶段</span>";
+        else if (progress == 2)
+            return "<span class=\"label label-success arrowed\">入户调查阶段</span>";
+        else if (progress == 3)
+            return "<span class=\"label label-success arrowed\">预分方案制作阶段</span>";
+        else if (progress == 4)
+            return "<span class=\"label label-success arrowed\">动迁准备阶段</span>";
+        else if (progress == 5)
+            return "<span class=\"label label-success arrowed\">动迁阶段</span>";
+        else if (progress == 6)
+            return "<span class=\"label label-success arrowed\">收尾阶段</span>";
+        else
+            return "";
+    }
+
 }

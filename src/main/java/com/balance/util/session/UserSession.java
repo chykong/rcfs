@@ -18,6 +18,7 @@ public class UserSession implements Serializable {
     private int role_id;//角色id
     private String role_name;//角色名称
 
+    private int prj_base_info_id;//项目id
     private int type;//类型
 
     public int getUser_id() {
@@ -81,6 +82,13 @@ public class UserSession implements Serializable {
         this.type = type;
     }
 
+    public int getPrj_base_info_id() {
+        return prj_base_info_id;
+    }
+
+    public void setPrj_base_info_id(int prj_base_info_id) {
+        this.prj_base_info_id = prj_base_info_id;
+    }
 
     @Override
     public String toString() {
@@ -91,6 +99,7 @@ public class UserSession implements Serializable {
                 ", realname='" + realname + '\'' +
                 ", role_id=" + role_id +
                 ", role_name='" + role_name + '\'' +
+                ", prj_base_info_id=" + prj_base_info_id +
                 ", type=" + type +
                 '}';
     }

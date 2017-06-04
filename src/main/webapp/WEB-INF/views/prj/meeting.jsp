@@ -25,18 +25,33 @@
 
             <!-- /section:basics/content.breadcrumbs -->
             <div class="page-content">
-                <div class="row">
+            	 <div class="row">
                     <div class="col-xs-12">
                         <div class="widget-box widget-color-blue">
-                           
+                            <!-- #section:custom/widget-box.options -->
+                            <div class="widget-header">
+                                <h5 class="widget-title bigger lighter">
+                                    <i class="ace-icon fa fa-table"></i> 操作面板
+                                </h5>
+                            </div>
 
                             <!-- /section:custom/widget-box.options -->
-                            <div ><c:if test="${bln:isP('BaseMeetingAdd')}">
-                                        <button type="button" class="btn btn-success btn-sm" id="btnAdd">
-                                      <i class="ace-icon fa fa-plus bigger-110"></i>新增
-                                    </c:if> 
-                                  
-                                  </button>
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <table class="searchField" style="margin: 4px; padding: 4px;">
+                                        <tr>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" id="btnSearch">
+                                                    <i class="ace-icon fa fa-search"></i> 刷新
+                                                </button>
+                                                <c:if test="${bln:isP('PrjMeetingAdd')}">
+                                                    <button type="button" class="btn btn-success btn-sm" id="btnAdd">
+                                                        <i class="ace-icon fa fa-plus bigger-110"></i>新增
+                                                    </button>
+                                                </c:if>
+                                            </td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -74,9 +89,9 @@
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
-                                    <td><c:if test="${bln:isP('BaseMeetingUpdate')}">
+                                    <td><c:if test="${bln:isP('PrjMeetingUpdate')}">
                                         <a href="toUpdate.htm?id=${meeting.id }&backUrl=${backUrl}"> 修改 </a>
-                                    </c:if> <c:if test="${bln:isP('BaseMeetingDelete')}">
+                                    </c:if> <c:if test="${bln:isP('PrjMeetingDelete')}">
                                         <a href="javascript:delCompany(${meeting.id });"> 删除 </a>
                                     </c:if></td>
                                 </tr>

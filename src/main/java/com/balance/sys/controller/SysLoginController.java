@@ -1,5 +1,6 @@
 package com.balance.sys.controller;
 
+import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.sys.model.SysUser;
 import com.balance.sys.model.SysUserLogin;
 import com.balance.sys.service.SysLoginService;
@@ -8,6 +9,7 @@ import com.balance.util.json.JsonUtil;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.session.UserSession;
 import com.balance.util.string.StringUtil;
+import com.balance.util.web.WebTag;
 import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,8 @@ public class SysLoginController {
     private SysUserService sysUserService;
     @Autowired
     private SysLoginService userLoginService;
+    @Autowired
+    private PrjBaseinfoService prjBaseinfoService;
 
     /**
      * 进入系统登录界面
@@ -74,9 +78,16 @@ public class SysLoginController {
                 userSession.setRole_name(sysUser.getRole_name());// 角色
                 userSession.setRealname(sysUser.getRealname());
                 userSession.setType(sysUser.getType());
-                userSession.setCurrent_project_id(1);//设置项目id
-                userSession.setCurrent_land_status(1);//土地性质
-                userSession.setCurrent_building_type(1);//建筑类型
+//                userSession.setCurrent_project_id(1);//设置项目id
+//                userSession.setCurrent_land_status(1);//土地性质
+//                userSession.setCurrent_building_type(1);//建筑类型
+
+                userSession.setCurrent_project_id(sysUser.getCurrent_project_id());
+                userSession.setCurrent_project_name(prjBaseinfoService.get(sysUser.getCurrent_project_id()).getPrj_name());//项目名称
+                userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
+                userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
+                userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
+                userSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type()));
                 request.getSession().setAttribute("userSession", userSession);
 
                 request.getSession().setMaxInactiveInterval(1000 * 60 * 30);// 设置过期时间30分钟

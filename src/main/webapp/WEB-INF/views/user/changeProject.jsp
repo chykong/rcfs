@@ -14,12 +14,7 @@
     <%@ include file="../common/menu.jsp" %>
     <div class="main-content">
         <div class="main-content-inner">
-            <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
-                <ul class="breadcrumb">
-                    <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                    <li class="active">切换项目</li>
-                </ul>
-            </div>
+            <%@ include file="../common/navigate.jsp" %>
 
             <div class="page-content">
                 <div class="page-header">

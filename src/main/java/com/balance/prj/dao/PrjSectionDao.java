@@ -84,7 +84,7 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
 
 
     /**
-     * 分页列表
+     * 根据id查区段
      *
      * @param prj_base_info_id
      * @return

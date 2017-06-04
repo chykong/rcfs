@@ -35,7 +35,6 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
         String sql = "update t_prj_baseinfo set name=:name,introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
-
     /**
      * 删除
      *

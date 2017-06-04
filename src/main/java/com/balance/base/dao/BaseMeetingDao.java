@@ -17,7 +17,7 @@ public class BaseMeetingDao extends BaseDao<BaseMeeting, BaseMeetingSearchVO>{
 	public int listCount(BaseMeetingSearchVO baseMeetingSearchVO){
 		String sql="select count(*) from t_prj_meeting t";
 		return listCount(sql, baseMeetingSearchVO);
-	} 
+	}   
 	public List<BaseMeeting>list(BaseMeetingSearchVO baseMeetingSearchVO){
 		String sql="select * from t_prj_meeting t";
 		sql= PageUtil.createMysqlPageSql(sql, baseMeetingSearchVO.getPageIndex(), baseMeetingSearchVO.getPageSize());

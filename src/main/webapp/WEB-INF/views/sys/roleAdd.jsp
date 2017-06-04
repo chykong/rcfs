@@ -87,6 +87,12 @@
 																	<br />
 																</c:if>
 															</c:forEach>
+															<c:forEach items="${listFunction }" var="sysFunction" varStatus="st">
+																<c:if test="${sysFunction.module_id eq sysModule.id }">
+																	<label class="checkbox inline" style="color: blue"><input name="function" id="function_${sysFunction.id }"
+																															  type="checkbox" value="${sysFunction.id }" class="ace children" /> <span class="lbl"> ${sysFunction.name }</span> </label>
+																</c:if>
+															</c:forEach>
 														</div>
 													</div>
 												</div>

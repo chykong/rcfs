@@ -49,5 +49,13 @@ public class PrjBaseinfoService {
     public List<PrjBaseinfo> list() {
         return prjBaseinfoDao.list();
     }
-
+    /**
+     * 获取该用户的所有项目
+     *
+     * @param user_id
+     * @return
+     */
+    public List<PrjBaseinfo> listSelectProject(int user_id) {
+        return prjBaseinfoDao.listSelectProject(user_id);
+    }
 }

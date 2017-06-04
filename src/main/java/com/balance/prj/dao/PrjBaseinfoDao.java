@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Author  孔垂云
+ * Author  孔垂云333
  * Date  2017/6/4.
  */
 @Repository
@@ -21,7 +21,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert into t_prj_baseinfo(prj_name,created_at,created_by) values(:prj_name,now(),:created_by)";
+        String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
         return update(sql, prjBaseinfo);
     }
 
@@ -32,10 +32,9 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update t_prj_baseinfo set name=:name,type=:type,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update    t_prj_baseinfo set  introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
-
     /**
      * 删除
      *
@@ -89,5 +88,16 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
     public List<PrjBaseinfo> list() {
         String sql = "select id,prj_name from t_prj_baseinfo t order by id desc";
         return list(sql);
+    }
+
+    /**
+     * 获取该用户的所有项目
+     *
+     * @param user_id
+     * @return
+     */
+    public List<PrjBaseinfo> listSelectProject(int user_id) {
+        String sql = "select * from t_prj_baseinfo where id in (select prj_base_info_id from t_sys_userprojects where user_id=?)";
+        return list(sql, new Object[]{user_id});
     }
 }

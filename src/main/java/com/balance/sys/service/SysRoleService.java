@@ -293,7 +293,7 @@ public class SysRoleService {
      * @return
      */
     public String createMenuStr(int role_id) {
-        String menu =  EhCacheUtil.get("sysCache", "menu_" + role_id);
+        String menu = EhCacheUtil.get("sysCache", "menu_" + role_id);
         if (menu == null) {
             StringBuffer sb = new StringBuffer();
             List<SysModule> listModule = sysModuleDao.list();// 模块列表
@@ -314,11 +314,12 @@ public class SysRoleService {
                         }
                     }
                     sb.append("<li class=\"\"><a href=\"" + pubConfig.getDynamicServer() + "/" + sysModule.getUrl() + "\" ");
-                    if (flag) sb.append("class=\"dropdown-toggle\"> ");
+                    if (flag) sb.append("class=\"dropdown-toggle\" ");
+                    sb.append(">");
                     sb.append("<i class=\"menu-icon fa "
                             + sysModule.getIconImg() + "\"></i> <span class=\"menu-text\"> " + sysModule.getName()
                             + " </span> ");
-                    if (flag) sb.append("<b class=\"arrow fa fa-angle-down\"></b>");
+                    if (flag) sb.append("<b class=\"arrow fa fa-angle-down\"></b>");//只有有下级菜单时，才显示箭头㧼
                     sb.append("</a> <b class=\"arrow\"></b>");
                     if (flag) {
                         sb.append("<ul class=\"submenu\">");

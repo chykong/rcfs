@@ -7,6 +7,7 @@ import com.balance.sys.model.SysUserLogin;
 import com.balance.sys.service.SysRoleService;
 import com.balance.sys.service.SysUserLoginService;
 import com.balance.sys.service.SysUserService;
+import com.balance.sys.service.SysUserprojectsService;
 import com.balance.sys.vo.SysUserSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.config.PubConfig;
@@ -46,6 +47,8 @@ public class SysUserController extends BaseController {
     private PubConfig pubConfig;
     @Autowired
     private PrjBaseinfoService prjBaseinfoService;
+    @Autowired
+    private SysUserprojectsService sysUserprojectsService;
 
     /**
      * 进入用户管理界面
@@ -100,6 +103,8 @@ public class SysUserController extends BaseController {
         SysUser sysUser = new SysUser();
         mv.addObject("sysUser", sysUser);
         mv.setViewName("/sys/userAdd");
+        mv.addObject("listProject", prjBaseinfoService.list());//项目列表
+
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
     }
@@ -116,9 +121,13 @@ public class SysUserController extends BaseController {
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
         SysUser sysUser = sysUserService.get(id);
+        sysUser.setPrj_base_info_ids("23,24");
         mv.addObject("sysUser", sysUser);
         UserSession userSession = SessionUtil.getUserSession(request);
         mv.addObject("listRole", sysRoleService.list());// 角色列表
+        mv.addObject("listProject", prjBaseinfoService.list());//项目列表
+        mv.addObject("listPrjIds", sysUserprojectsService.getPrj_base_info_ids(id));//该用户具有项目列表
+
         mv.setViewName("/sys/userUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -271,7 +280,7 @@ public class SysUserController extends BaseController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/user/changeProject");
         mv.addObject("userSession", SessionUtil.getUserSession(request));
-        List<PrjBaseinfo> listProject = prjBaseinfoService.list();//项目列表
+        List<PrjBaseinfo> listProject = prjBaseinfoService.listSelectProject(SessionUtil.getUserSession(request).getUser_id());//项目列表
         mv.addObject("listProject", listProject);
         return mv;
     }

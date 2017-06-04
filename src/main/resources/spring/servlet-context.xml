@@ -85,11 +85,15 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/sys/*/*"/>
+            <mvc:mapping path="/base/*/*"/>
+            <mvc:mapping path="/prj/*/*"/>
             <bean class="com.balance.config.interceptor.CheckLoginInterceptor"></bean>
         </mvc:interceptor>
         <!-- -->
         <mvc:interceptor>
             <mvc:mapping path="/sys/*/*"/>
+            <mvc:mapping path="/base/*/*"/>
+            <mvc:mapping path="/prj/*/*"/>
             <bean class="com.balance.config.interceptor.AuthorityInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

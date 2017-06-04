@@ -9,19 +9,19 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Author  孔垂云
+ * Author  孔垂云333
  * Date  2017/6/4.
  */
 @Repository
 public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
     /**
-     * 新增
+     * 新增eeee
      *
      * @param prjBaseinfo
      * @return
      */
     public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert into t_prj_baseinfo(prj_name,created_at,created_by) values(:prj_name,now(),:created_by)";
+        String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
         return update(sql, prjBaseinfo);
     }
 
@@ -32,10 +32,9 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update t_prj_baseinfo set name=:name,type=:type,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update    t_prj_baseinfo set  introduction=:introduction,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
-
     /**
      * 删除
      *

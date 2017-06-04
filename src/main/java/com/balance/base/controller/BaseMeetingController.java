@@ -64,6 +64,8 @@ public String add(HttpServletRequest request, HttpServletResponse response,BaseM
 	UserSession session=SessionUtil.getUserSession(request);
 	baseMeeting.setCreated_by(session.getRealname());//创建人
 	baseMeeting.setPrj_base_info_id(session.getCurrent_project_id());//项目id
+	String project_progress=request.getParameter("project_progress");
+	baseMeeting.setProject_progress(project_progress);//项目进度
 	
 	int flag=baseMeetingService.add( baseMeeting);
 	if(flag==0){

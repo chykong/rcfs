@@ -75,7 +75,7 @@ public class SysUserController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     private String createUrl(SysUserSearchVO sysUserSearchVO) {
-        String url = "/sys/user/index.htm?";
+        String url = pubConfig.getDynamicServer() + "/sys/user/index.htm?";
         if (StringUtil.isNotNullOrEmpty(sysUserSearchVO.getUsername()))
             url += "&username=" + sysUserSearchVO.getUsername();
         if (StringUtil.isNotNullOrEmpty(sysUserSearchVO.getRealname()))//如果为模糊查询，要把该字段encode

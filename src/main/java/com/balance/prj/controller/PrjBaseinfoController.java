@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjBaseinfo;
 import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.prj.vo.PrjBaseinfoSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -28,6 +29,8 @@ public class PrjBaseinfoController extends BaseController {
 
     @Autowired
     private PrjBaseinfoService prjCompanyService;
+    @Autowired
+    private PubConfig pubConfig;
 
     /**
      * 进入用户管理界面
@@ -51,7 +54,7 @@ public class PrjBaseinfoController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     private String createUrl(PrjBaseinfoSearchVO prjCompanySearchVO) {
-        String url = "/prj/baseinfo/index.htm?";
+        String url = pubConfig.getDynamicServer() + "/prj/baseinfo/index.htm?";
         return url;
     }
 

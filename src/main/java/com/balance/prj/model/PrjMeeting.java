@@ -9,7 +9,7 @@ import java.util.Date;
 public class PrjMeeting {
     private int id;//
     private int prj_base_info_id;//项目id
-    private String content;//内容
+    private String content;//内容 
     private String title;//标题
     private int progress;//项目进度
     private Date last_modified_at;//最后修改时间

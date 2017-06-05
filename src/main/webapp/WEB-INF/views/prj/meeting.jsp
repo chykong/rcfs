@@ -63,16 +63,6 @@
                 </div>
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
-                	<div class="col-xs-12">
-                		<ul>
-                			<li class="active"><input type="hidden" value="1"/>前期准备阶段</li>
-                			<li><input type="hidden" value="2"/>入户调查阶段</li>
-                			<li><input type="hidden" value="3"/>预分方案制作阶段</li>
-                			<li><input type="hidden" value="4"/>动迁准备阶段</li>
-                			<li><input type="hidden" value="5"/>动迁阶段</li>
-                			<li><input type="hidden" value="6"/>收尾阶段</li>
-                		</ul>
-                	</div>
                     <div class="col-xs-12">
                         <table class="table table-striped table-bordered table-hover">
                             <thead>
@@ -128,7 +118,7 @@
 				}
 				// 删除
 				var delCompany = function(id) {
-					bootbox.confirm("你确定要删除该公司吗？", function(result) {
+					bootbox.confirm("你确定要删除该会议纪要吗？", function(result) {
 						if (result) {
 							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";
 						}

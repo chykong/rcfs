@@ -38,4 +38,13 @@ public class PrjMeetingService {
     public int add(PrjMeeting prjMeeting) {
         return prjMeetingDao.add(prjMeeting);
     }
+    public PrjMeeting findById(int id){
+    	return prjMeetingDao.findById(id);
+    }
+    public int update(PrjMeeting prjMeeting){
+    	return prjMeetingDao.update( prjMeeting);
+    }
+    public int delete(int id){
+    	return prjMeetingDao.delete(id);
+    }
 } 

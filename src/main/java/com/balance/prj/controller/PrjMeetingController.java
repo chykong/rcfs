@@ -83,11 +83,43 @@ public class PrjMeetingController extends BaseController {
     }
 
     /**
-     * 修改会议纪要
+     * 修改会议纪要页面
      */
+    @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
+        PrjMeeting prjMeeting=prjMeetingService.findById(id);
+        mv.addObject("prjMeeting", prjMeeting);
+        mv.setViewName("/prj/meetingUpdate");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
+    }
+    
+    /**
+     * 修改会议纪要
+     */
+    @RequestMapping("/update")
+    public String update(HttpServletRequest request, HttpServletResponse response,PrjMeeting prjMeeting){
+    	prjMeeting.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+    	int flag =prjMeetingService.update(prjMeeting);
+    	if(flag==0){
+    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改会议纪要失败");
+    	}else{
+    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改会议纪要成功");
+    	}
+    	
+    }
+    /**
+     * 删除会议纪要
+     */
+    @RequestMapping("/delete")
+    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
+    	int flag=prjMeetingService.delete(id);
+    	if(flag==0){
+    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除会议纪要失败");
+    	}else{
+    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除会议纪要成功");
+    	}
     }
 
 }

@@ -4,6 +4,8 @@ import com.balance.prj.model.PrjMeeting;
 import com.balance.prj.vo.PrjMeetingSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -45,5 +47,26 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
     public int add(PrjMeeting prjMeeting) {
         String sql = "insert into t_prj_meeting(prj_base_info_id,title,content,progress,created_by,created_at)values(:prj_base_info_id,:title,:content,:progress,:created_by,now())";
         return update(sql, prjMeeting);
+    }
+    /**
+     * 根据id查询prjMetting
+     */
+    public PrjMeeting findById(int id){
+    	String sql="select * from t_prj_meeting where id=?";
+    	return get(sql, new Object[]{id});
+    }
+    /**
+     * 修改会议纪要
+     */
+    public int update(PrjMeeting prjMeeting){
+    	String sql="update t_prj_meeting set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by";
+    	return update(sql,prjMeeting);
+    }
+    /**
+     * 删除会议纪要
+     */
+    public int delete(int id){
+    	String sql="delete from t_prj_meeting where id=?";
+    	return delete(sql,new Object[]{id});
     }
 }

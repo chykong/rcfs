@@ -32,6 +32,7 @@
                     <li class="active">公司管理</li>
                 </ul>
                 <!-- /.breadcrumb -->
+                <%@ include file="../common/navigate.jsp"%>
             </div>
             <div class="page-content">
                 <div class="row">
@@ -63,16 +64,16 @@
                                             </div>
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-4">被拆迁人：</label>
-                                                    <div class="col-xs-7 col-lg-8">
-                                                        <input type="text" id="hostName" class="col-xs-10 col-sm-10 col-lg-8" value=""/>
+                                                    <label class="control-label col-xs-5 col-lg-6">被拆除腾退人：</label>
+                                                    <div class="col-xs-7 col-lg-6 no-padding-left">
+                                                        <input type="text" id="hostName" class="col-xs-12 col-sm-12 col-lg-12" value=""/>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-4">房屋坐落：</label>
-                                                    <div class="col-xs-7 col-lg-8">
+                                                    <label class="control-label col-xs-5 col-lg-5">房屋坐落：</label>
+                                                    <div class="col-xs-7 col-lg-7">
                                                         <input type="text" id="location" class="col-xs-10 col-sm-10 col-lg-8" value=""/>
                                                     </div>
                                                 </div>
@@ -98,9 +99,9 @@
                                             </div>
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-4">组别：</label>
-                                                    <div class="col-xs-7 col-lg-8">
-                                                        <select class="col-xs-10 col-sm-10 col-lg-8" id="groups" name="groups">
+                                                    <label class="control-label col-xs-5 col-lg-6">组别：</label>
+                                                    <div class="col-xs-7 col-lg-6 no-padding-left">
+                                                        <select class="col-xs-12 col-sm-12 col-lg-12" id="groups" name="groups">
                                                             <option value="">--请选择--</option>
                                                         </select>
                                                     </div>
@@ -109,19 +110,17 @@
                                         </div>
                                         <div class="form-actions">
                                             <div class="row">
-                                                <div class="col-sm-6 col-sm-offset-6  col-lg-4 col-lg-offset-8">
+                                                <div class="col-sm-6 col-sm-offset-4  col-lg-4 col-lg-offset-8">
                                                     <button type="button" class="btn btn-primary btn-sm" id="btn-search">
                                                         <i class="ace-icon fa fa-search"></i> 查询
                                                     </button>
-                                                    <a href="<c:url value="/preallocations/basic/add"/>" class="btn btn-success btn-sm">
+                                                    <a href="<c:url value="/prj/preallocation/basic/toAdd.htm"/>" class="btn btn-success btn-sm">
                                                         <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                     </a>
                                                     <a href="#import-modal" class="btn btn-warning btn-sm" data-toggle="modal">
                                                         <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
                                                     </a>
-                                                    <a href="#hj-modal" class="btn btn-warning btn-sm" data-toggle="modal">
-                                                        <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入户籍信息
-                                                    </a>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -132,7 +131,7 @@
                         <div class="hr hr-18 dotted hr-double"></div>
                         <c:choose>
                             <c:when test="${__currentProject == null || __currentProject.landStatus == null ||
-                (__currentProject.landStatusValue == 2 && __currentProject.buildingTypeValue == 1)}">
+                                (__currentProject.landStatusValue == 2 && __currentProject.buildingTypeValue == 1)}">
                                 <%@ include file="_datatable.jsp" %>
                             </c:when>
                             <c:when test="${__currentProject != null && __currentProject.landStatusValue == 1}">

@@ -101,7 +101,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
 
     public boolean existByName(String name, int project_id) {
         String sql = "SELECT * FROM t_prj_preallocation WHERE host_name= ?  AND prj_base_info_id=?";
-        return jdbcTemplate.query(sql, new Object[]{name,project_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class)).size() > 0;
+        return jdbcTemplate.query(sql, new Object[]{name, project_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class)).size() > 0;
     }
 
     public List<PrjPreallocation> getHostNameByMapId(String mapId) {
@@ -170,60 +170,74 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
 
     private String createSearchSql(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         String sql = " where 1=1";
-//        if (prjPreallocationSearchVO.getLandStatus() != null) {
-//            sql += " and plc.house_property=:landStatus ";
-//        }
+        if (prjPreallocationSearchVO.getLand_status() != null) {
+            switch (prjPreallocationSearchVO.getLand_status()) {
+                case 1:
+                    sql += " and plc.land_property='国有'";
+                    break;
+                case 2:
+                    sql += " and plc.land_property='集体'";
+                    break;
+                default:
+                    sql += "";
+                    break;
+            }
+        }
+        if (prjPreallocationSearchVO.getHouse_status() != null) {
+            switch (prjPreallocationSearchVO.getHouse_status()) {
+                case 1:
+                    sql += " and plc.house_property='住宅'";
+                    break;
+                case 2:
+                    sql += " and plc.house_property='非住宅'";
+                    break;
+                default:
+                    sql += "";
+                    break;
+            }
+        }
         if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getMap_id())) {
             sql += " and plc.map_id like :map_id_param ";
         }
-//        if (prjPreallocationSearchVO.getPrjBaseInfoId() != null && prjPreallocationSearchVO.getPrjBaseInfoId() != 0) {
-//            sql += " and plc.prj_base_info_id = :prjBaseInfoId ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getHostName())) {
-//            sql += " and plc.host_name like :hostNameParam ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getLocation())) {
-//            sql += " and plc.location like :locationParam ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getIdCard())) {
-//            sql += " and plc.id_card like :idCardParam ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getHostPhone())) {
-//            sql += " and (plc.host_phone like :hostPhoneParam or plc.host_phone_back like :hostPhoneParam) ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getSection())) {
-//            sql += " and plc.section = :section ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getGroups())) {
-//            sql += " and plc.groups = :groups ";
-//        }
-//        if (StringUtils.isNotEmpty(prjPreallocationSearchVO.getSelectHouseCode())) {
-//            sql += " and plc.select_house_code like :selectHouseCodeParam";
-//        }
-//        if (prjPreallocationSearchVO.getStatus() != null) {
-//            sql += " and plc.status = :status";
-//        }
-//        if (prjPreallocationSearchVO.getStatusList() != null && prjPreallocationSearchVO.getStatusList().size() > 0) {
-//            sql += " and plc.status in (:statusList)";
-//        }
-//        if(prjPreallocationSearchVO.getIs_section() != null && prjPreallocationSearchVO.getIs_section() == 1){
-//            sql +=" and section in(select name from prj_sections where id in(select section_id from user_sections where user_id=:userId))";
-//        }
-//        if(prjPreallocationSearchVO.getIs_group() != null && prjPreallocationSearchVO.getIs_group() == 1){
-//            sql +=" and groups in(select name from prj_groups where id in(select group_id from user_groups where user_id=:userId))";
-//        }
-//        if (prjPreallocationSearchVO.getExportStatus() != null) {
-//            switch (prjPreallocationSearchVO.getExportStatus()) {
-//                case 10:
-//                    sql += " and plc.status < 30";
-//                    break;
-//                case 20:
-//                    sql += " and plc.status >= 30";
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
+        if (prjPreallocationSearchVO.getBase_info_id() != null && prjPreallocationSearchVO.getBase_info_id() != 0) {
+            sql += " and plc.prj_base_info_id = :base_info_id ";
+        }
+        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getLocation())) {
+            sql += " and plc.location like :location_param ";
+        }
+        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getHost_name())) {
+            sql += " and plc.host_name like :host_name_param ";
+        }
+        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getSection())) {
+            sql += " and plc.section = :section ";
+        }
+        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getGroups())) {
+            sql += " and plc.groups = :groups ";
+        }
+        if (prjPreallocationSearchVO.getStatus() != null) {
+            sql += " and plc.status = :status";
+        }
+        if (prjPreallocationSearchVO.getStatusList() != null && prjPreallocationSearchVO.getStatusList().size() > 0) {
+            sql += " and plc.status in (:statusList)";
+        }
+        if (prjPreallocationSearchVO.getIs_section() != null && prjPreallocationSearchVO.getIs_section() == 1) {
+            sql += " and section in(select name from prj_sections where id in(select section_id from user_sections where user_id=:userId))";
+        }
+        if (prjPreallocationSearchVO.getIs_group() != null && prjPreallocationSearchVO.getIs_group() == 1) {
+            sql += " and groups in(select name from prj_groups where id in(select group_id from user_groups where user_id=:userId))";
+        }
+        if (prjPreallocationSearchVO.getExport_status() != null) {
+            switch (prjPreallocationSearchVO.getExport_status()) {
+                case 10:
+                    sql += " and plc.status < 30";
+                    break;
+                case 20:
+                    sql += " and plc.status >= 30";
+                    break;
+                default:
+                    break;
+            }
+        }
         return sql;
     }
 }

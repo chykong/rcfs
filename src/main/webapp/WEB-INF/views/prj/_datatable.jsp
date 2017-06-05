@@ -5,17 +5,13 @@
     <thead>
     <tr>
         <th>ID号</th>
-        <th>被搬迁人</th>
+        <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
-        <th>门牌号</th>
-        <th>身份证号</th>
-        <th>联系电话</th>
-        <th>联系电话2</th>
-        <th>实测宅基地面积(m²)</th>
-        <th>认定宅基地面积(m²)</th>
-        <th>实测房屋面积(m²)</th>
-        <th>认定房屋面积(m²)</th>
-        <th>户籍人数</th>
+        <th>实际用地面积(m²)</th>
+        <th>总建筑面积(m²)</th>
+        <th>06年前面积(m²)</th>
+        <th>06-09年间面积(m²)</th>
+        <th>09年后面积(m²)</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -25,15 +21,11 @@
         <th>当前页合计：</th>
         <th></th>
         <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
-        <th></th>
+        <th class="isSum"></th>
         <th></th>
         <th></th>
     </tr>
@@ -84,18 +76,18 @@
             //data 这里是固定不变的，id，name，age，sex等为你数据里对应的属性
             columns: [
                 {
-                    data: "mapId",
+                    data: "map_id",
                     width: "200px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "hostName",
+                    data: "host_name",
                     width: "80px",
                     render: function (data, type, row) {
                         return '<a \
-                            href="<c:url value="/preallocations/basic/view/"/>' + row.id + '">'+ data+ '</a>';
+                            href="<c:url value="/prj/preallocation/basic/view.htm"/>' + row.id + '">'+ data+ '</a>';
                     }
                 },
                 {
@@ -106,64 +98,36 @@
                     }
                 },
                 {
-                    data: "mp",
-                    width: "80px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "idCard",
+                    data: "cog_land_area",
                     width: "150px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "hostPhone",
+                    data: "total_homestead_area",
                     width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "hostPhoneBack",
+                    data: "before_area",
                     width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "actualHomesteadArea",
+                    data: "between_area",
                     width: "100px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "cogHomesteadArea",
+                    data: "after_area",
                     width: "100px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "actualHouseArea",
-                    width: "100px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "cogHouseArea",
-                    width: "100px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "houseRegisterNum",
-                    width: "60px",
                     render: function (data) {
                         return data || "";
                     }
@@ -197,7 +161,7 @@
                     width: "80px",
                     render: function (data,type,row) {
                         if (row.status == 10 || row.status == 20) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/preallocations/basic/update/"/>' + data + '">\
+                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm"/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {
                             return '';

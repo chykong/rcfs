@@ -27,6 +27,16 @@ public class SysUser {
     private int current_building_type;//当前房屋类型
     private String current_building_name;//当前房屋类型名称
 
+    private String prj_base_info_ids;//当前用户选择的项目id
+
+    public String getPrj_base_info_ids() {
+        return prj_base_info_ids;
+    }
+
+    public void setPrj_base_info_ids(String prj_base_info_ids) {
+        this.prj_base_info_ids = prj_base_info_ids;
+    }
+
     public int getCurrent_project_id() {
         return current_project_id;
     }

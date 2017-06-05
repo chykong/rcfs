@@ -149,7 +149,6 @@ public class SysFunctionDao extends BaseDao {
      *
      * @return
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     public List<SysFunction> getAll() {
         String sql = "select *,(select name from t_sys_module where id=module_id) module_name from t_sys_function where type=1 ";
         List<SysFunction> list = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SysFunction.class));

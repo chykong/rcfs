@@ -81,7 +81,7 @@
                                     <td>${meeting.title }</td>
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
-                                                                  pattern="yyyy-MM-dd HH:mm"/></th>
+                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
                                     <td><c:if test="${bln:isP('PrjMeetingUpdate')}">
                                         <a href="toUpdate.htm?id=${meeting.id }&backUrl=${backUrl}"> 修改 </a>
                                     </c:if> <c:if test="${bln:isP('PrjMeetingDelete')}">

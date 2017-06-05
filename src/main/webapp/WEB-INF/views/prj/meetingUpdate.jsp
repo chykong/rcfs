@@ -55,7 +55,7 @@
 									<label class="col-sm-3 control-label">内容：</label>
 									<div class="col-sm-9">
 										<script id="content" name="content" type="text/plain"></script>
-
+ 
 										</label>
 									</div>
 								</div>

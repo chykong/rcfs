@@ -28,12 +28,13 @@
 					<!-- /.page-header -->
 					<div class="row">
 						<div class="col-xs-12">
-							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
+							<form id="form" name="form" class="form-horizontal" action="update.htm" method="post">
+							<input type="hidden" name="id" value="${prjMeeting.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
 									<label class="col-sm-3 control-label">阶段：</label>
 									<div class="col-sm-9">
-										<select id="progress" name="progress" value="${meeting.progress }">
+										<select id="progress" name="progress" value="${prjMeeting.progress }">
 											<option value="1">前期准备阶段</option>
 											<option value="2">入户调查阶段</option>
 											<option value="3">预分方案制作阶段</option>

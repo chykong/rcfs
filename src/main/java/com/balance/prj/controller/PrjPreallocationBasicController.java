@@ -1,5 +1,6 @@
 package com.balance.prj.controller;
 
+import com.balance.base.model.BaseCompany;
 import com.balance.base.service.BaseCompanyService;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.service.PrjPreallocationService;
@@ -31,6 +32,8 @@ import java.util.Map;
 public class PrjPreallocationBasicController extends BaseController {
     @Autowired
     private PrjPreallocationService preallocationService;
+    @Autowired
+    private BaseCompanyService baseCompanyService;
 
     @RequestMapping(value = {"", "index"})
     public String index() {
@@ -62,15 +65,16 @@ public class PrjPreallocationBasicController extends BaseController {
         mv.setViewName("/prj/preallocationAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         PrjPreallocation preallocation = new PrjPreallocation();
-//        preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_land_status());
-//        preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_land_status());
+
+        String land_status = SessionUtil.getUserSession(request).getCurrent_land_status()==1?"国有":"集体";
+        preallocation.setLand_property(land_status);
         mv.addObject("preallocation", preallocation);
 
 //        List<PrjSection> sectionList = projectService.getSectionsByProjectId(getCurrentProject().getProjectId());
 //        model.addAttribute("sectionList", sectionList);
 //
-//        List<Company> companyList = companiesService.search();
-//        model.addAttribute("companyList", companyList);
+        List<BaseCompany> companyList = baseCompanyService.listAll();
+        mv.addObject("companyList", companyList);
 
         return mv;
     }
@@ -145,7 +149,7 @@ public class PrjPreallocationBasicController extends BaseController {
     @ResponseBody
     public boolean checkMapId(String mapId, HttpServletRequest request) {
         int base_info_id = SessionUtil.getUserSession(request).getCurrent_project_id();
-        return preallocationService.existByMapId(mapId, base_info_id);
+        return !preallocationService.existByMapId(mapId, base_info_id);
     }
 
 }

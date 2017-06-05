@@ -1,6 +1,8 @@
 package com.balance.prj.model;
 
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,7 +12,7 @@ import java.util.Date;
  */
 public class PrjPreallocation {
     private int id;
-    private String mapId;  //编号
+    private String map_id;  //编号
     private String host_name;  //产权人姓名（被搬迁人）
     private String lessee_name;  //承租人
     private String location;  //坐落
@@ -25,6 +27,7 @@ public class PrjPreallocation {
     private Double total_homestead_area; //总建筑面积
     private Double card_homestead_area; //证载建筑面积
     private Double no_card_homestead_area; //无证房屋面积
+    private Double management_homestead_area; //经营面积
     private Integer house_register_num;  //户籍人数
     private BigDecimal money_homestead;  //房屋补偿款
     private BigDecimal money_machine;  //机器补偿款
@@ -43,6 +46,7 @@ public class PrjPreallocation {
     private BigDecimal money_rsqyjf;  //热水器移机费
     private BigDecimal subsidy_relocate;  //补助奖励费
     private BigDecimal total_compensation;  //总补偿款
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date in_host_date;  //入户时间
     private Double az_area; //安置面积
     private Double float_az_area;  //浮动安置面积
@@ -57,8 +61,11 @@ public class PrjPreallocation {
     private BigDecimal budget_compensation;  //预算房款
     private BigDecimal budget_sub;  //预算差价
     private String signed_code; //签约序号
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date signed_date; //签约日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date handover_house_date; //交房日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date handover_end_date; //交房截止日期
     private String select_house_code;  //选房序号
     private String choose_room_position;//选房位置
@@ -80,7 +87,9 @@ public class PrjPreallocation {
     private BigDecimal money_float_az_house;  //安置房浮动面积价款
     private BigDecimal total_az_pay_house;  //安置房购房款合计
     private BigDecimal first_calculate_sub;  //首次结算差价
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date choose_room_date; // 选房时间
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date handover_date; // 交房时间
     private int status;  //状态 10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房  50-已选房 60-已归档
     private String leader;  //包村干部
@@ -99,6 +108,7 @@ public class PrjPreallocation {
     private String groups;  //组别
     private int prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date demolished_date;  //拆迁日期
     private Double before_demolished_area;  //待拆除面积
     private Double after_demolished_area;  //已拆除面积
@@ -107,13 +117,16 @@ public class PrjPreallocation {
     private Double after_area;  //09年后面积
     private Double management_house_area;  //房屋营业面积
     private Double field_house_area;  //场地营业面积
-    private String no_sign_reson;//未签约原因
+    private String no_sign_reason;//未签约原因
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date audit_date;  //审核日期
     private String audit_user;  //审核人
     private String remarks;  //备注
     private String created_by;   //创建人
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date created_at;   //创建时间
     private String archives_cabinet_number;//档案柜号
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date archive_date;//存档时间
 
     private Integer rowIndex;  //导入时  行号
@@ -134,12 +147,12 @@ public class PrjPreallocation {
         this.id = id;
     }
 
-    public String getMapId() {
-        return mapId;
+    public String getMap_id() {
+        return map_id;
     }
 
-    public void setMapId(String mapId) {
-        this.mapId = mapId;
+    public void setMap_id(String map_id) {
+        this.map_id = map_id;
     }
 
     public String getHost_name() {
@@ -902,12 +915,12 @@ public class PrjPreallocation {
         this.field_house_area = field_house_area;
     }
 
-    public String getNo_sign_reson() {
-        return no_sign_reson;
+    public String getNo_sign_reason() {
+        return no_sign_reason;
     }
 
-    public void setNo_sign_reson(String no_sign_reson) {
-        this.no_sign_reson = no_sign_reson;
+    public void setNo_sign_reason(String no_sign_reason) {
+        this.no_sign_reason = no_sign_reason;
     }
 
     public Date getAudit_date() {
@@ -988,5 +1001,13 @@ public class PrjPreallocation {
 
     public void setOther_file_path(String other_file_path) {
         this.other_file_path = other_file_path;
+    }
+
+    public Double getManagement_homestead_area() {
+        return management_homestead_area;
+    }
+
+    public void setManagement_homestead_area(Double management_homestead_area) {
+        this.management_homestead_area = management_homestead_area;
     }
 }

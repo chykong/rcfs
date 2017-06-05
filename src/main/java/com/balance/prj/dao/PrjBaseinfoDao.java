@@ -94,9 +94,9 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
 
     private String createSearchSql(PrjBaseinfoSearchVO prjBaseinfoSearchVO) {
         String sql = "";
-        if (StringUtil.isNotNullOrEmpty(prjBaseinfoSearchVO.getPrj_name())) {//名称模糊查询
-            sql += " and prj_name like :prj_name_str";
-        }
+//        if (StringUtil.isNotNullOrEmpty(prjBaseinfoSearchVO.getPrj_name())) {//名称模糊查询
+//            sql += " and prj_name like :prj_name_str";
+//        }
         return sql;
     }
 

@@ -34,10 +34,10 @@ public class BaseProjectintroController extends BaseController {
 	public ModelAndView index(HttpServletRequest request, HttpServletResponse response,String type) {
 		ModelAndView mv = new ModelAndView();
 //		String type = request.getParameter("type");
-		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(24);
+		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
-		mv.setViewName("/base/projectIntro");
+		mv.setViewName("/base/projectIntro");//跳转至前台展示界面
 		mv.addObject("backUrl", createUrl(type));// 设置返回url
 		return mv;
 	}
@@ -49,7 +49,7 @@ public class BaseProjectintroController extends BaseController {
 	@RequestMapping("/flow")
 	public ModelAndView indexFlow(HttpServletRequest request, HttpServletResponse response,String type) {
 		ModelAndView mv = new ModelAndView();
-		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(24);
+		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
 //		String type = request.getParameter("type");
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
@@ -65,7 +65,7 @@ public class BaseProjectintroController extends BaseController {
 	@RequestMapping("/archi")
 	public ModelAndView indexArchi(HttpServletRequest request, HttpServletResponse response,String type) {
 		ModelAndView mv = new ModelAndView();
-		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(24);
+		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
 //		String type = request.getParameter("type");
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
@@ -74,6 +74,7 @@ public class BaseProjectintroController extends BaseController {
 		return mv;
 	}
 
+	//根据不同类型，获取不同的返回地址
 	private String createUrl(String type) {
 		String url = "/base/project/intro.htm?type="+type;
 		if (type.equals("2"))
@@ -84,7 +85,7 @@ public class BaseProjectintroController extends BaseController {
 	}
 
 	/**
-	 * 进入简介添加界面
+	 * 进入添加界面
 	 *
 	 * @param request
 	 * @param response
@@ -105,7 +106,7 @@ public class BaseProjectintroController extends BaseController {
 	}
 
 	/**
-	 * 进入简介修改界面
+	 * 进入修改界面
 	 * 
 	 * @param request
 	 * @param response
@@ -134,7 +135,7 @@ public class BaseProjectintroController extends BaseController {
 	}
 
 	/**
-	 * 简介修改操作
+	 * 修改操作
 	 * 
 	 * @param request
 	 * @param response

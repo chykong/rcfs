@@ -1,0 +1,279 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form:hidden path="id"/>
+<input type="hidden" id="update_mapId" name="update_mapId" value="${preallocation.map_id}"/>
+<input type="hidden" id="update_hostName" name="update_hostName" value="${preallocation.host_name}"/>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <form:label path="map_id" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                编号：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="map_id" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入编号..." maxlength="20"/>
+                <label id="map_idTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="land_property" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                土地性质：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="land_property" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地性质..."
+                            maxlength="200" readonly="true"/>
+                <label id="land_propertyTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="host_name" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                被拆除腾退人：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="host_name" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入被拆除腾退人..." maxlength="40"/>
+                <label id="host_nameTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="lessee_name" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                承租人：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="lessee_name" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入承租人..." maxlength="40"/>
+                <label id="lessee_nameTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="id_card" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                身份证号：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="id_card" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入身份证号..." maxlength="18"/>
+                <label id="id_cardTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="location" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                坐落：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="location" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入坐落..." maxlength="200"/>
+                <label id="locationTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="legal_name" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                营业执照法人：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="legal_name" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入营业执照法人..." maxlength="200"/>
+                <label id="legal_nameTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-lg-4 control-label">现场照片：</label>
+            <input type="hidden" id="other_file_path" name="other_file_path" value="${preallocation.other_file_path}"/>
+            <input type="hidden" id="other_file_name" name="other_file_name" value="${preallocation.other_file_name}"/>
+            <div class="col-sm-5 input-group" id="fileDiv" style="padding: 0 15px 0 15px">
+                    <div id="photoDiv" class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if>">
+                        <img id="photo" src="${preallocation.other_file_path}"/>
+                        <span class="input-group-btn">
+                            <button id='delFile' type="button" class="btn btn-purple btn-sm">
+                                <span class="ace-icon fa fa-trash-o icon-on-right bigger-110"></span>
+                                删除
+                            </button>
+                        </span>
+                    </div>
+                <button id="checkFile" href="#material-modal" type="button"
+                        class="btn btn-info btn-sm <c:if test="${!empty preallocation.other_file_path}">hidden</c:if>"
+                        data-toggle="modal">
+                    <i class="ace-icon fa fa-picture-o bigger-110"></i> 选择图片
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            <form:label path="total_land_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                土地总面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="total_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地总面积..." maxlength="12"/>
+                <label id="total_land_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="card_land_area" cssClass="col-sm-3 col-lg-4  control-label no-padding-right no-padding-left">
+                证载土地面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="card_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入证载土地面积..."
+                            maxlength="12"/>
+                <label id="card_land_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="cog_land_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                实际用地面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="cog_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入实际用地面积..."
+                            maxlength="12"/>
+                <label id="cog_land_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="lessee_land_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                土地租赁面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="lessee_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地租赁面积..."
+                            maxlength="10"/>
+                <label id="lessee_land_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="total_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                总建筑面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="total_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入总建筑面积..."
+                            maxlength="10"/>
+                <label id="total_homestead_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="card_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                证载建筑面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="card_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入证载建筑面积..."
+                            maxlength="10"/>
+                <label id="card_homestead_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="no_card_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                无证房屋建筑面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="no_card_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入无证房屋建筑面积..."
+                            maxlength="10"/>
+                <label id="no_card_homestead_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="management_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                经营面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="management_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入经营面积..."
+                            maxlength="10"/>
+                <label id="management_homestead_areaTip"></label>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            <form:label path="town" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                镇：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="town" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输镇.."
+                            maxlength="30"/>
+                <label id="townTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="village" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                村：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="village" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入村..."
+                            maxlength="30"/>
+                <label id="villageTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="section" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                标段：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <select class="col-sm-3 col-lg-9 control-label no-padding-right" id="section"
+                        name="section">
+                    <option value="">--请选择--</option>
+                    <c:forEach items="${sectionList}" var="section">
+                        <option value="${section.name}" <c:if test="${preallocation.section eq section.name}">selected</c:if> data-id="${section.id}">${section.name}</option>
+                    </c:forEach>
+                </select>
+                <label id="sectionTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="groups" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                组别：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <select class="col-sm-3 col-lg-9 control-label no-padding-right" id="groups"
+                        name="groups">
+                    <option value="">--请选择--</option>
+                </select>
+                <label id="groupsTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="before_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                06年前面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="before_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入06年前面积..."
+                            maxlength="10"/>
+                <label id="before_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="between_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                06-09年面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="between_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入06-09年间面积..."
+                            maxlength="10"/>
+                <label id="between_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="after_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                09年后面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="after_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入09年后面积..."
+                            maxlength="10"/>
+                <label id="after_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="management_house_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                房屋营业面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="management_house_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入房屋营业面积..."
+                            maxlength="10"/>
+                <label id="management_house_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="field_house_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                场地营业面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="field_house_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入场地营业面积..."
+                            maxlength="10"/>
+                <label id="field_house_area"></label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

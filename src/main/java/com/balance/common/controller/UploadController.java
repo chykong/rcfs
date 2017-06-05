@@ -38,12 +38,12 @@ public class UploadController {
         if (!targetFile.exists()) {
             targetFile.mkdirs();
         }
-        String json = getjson(file, createFilename, storePath, targetFile);
+        String json = getjson(file, createFilename, storePath, targetFile,fileName);
         WebUtil.out(response, json);
     }
 
 
-    public String getjson(MultipartFile file, String createFilename, String storePath, File targetFile) {
+    public String getjson(MultipartFile file, String createFilename, String storePath, File targetFile,String fileName) {
         String json = "";
         if (file.getSize() > 1 * 1024 * 1024) {
             json = "{success:" + false + ",msgText:'" + "文件超过1M" + "'}";
@@ -51,7 +51,8 @@ public class UploadController {
             //保存
             try {
                 file.transferTo(targetFile);
-                json = "{success:" + true + ",msgText:'" + "成功" + "',createFilename:'" + createFilename + "',createFilepath:'" + storePath + "'}";
+                json = "{success:" + true + ",msgText:'" + "成功" + "',createFilename:'" + createFilename + "',createFilepath:'" + storePath
+                        + "',original_name:'"+ fileName  + "'}";
             } catch (Exception e) {
                 json = "{success:" + false + ",msgText:'" + "上传失败" + e.getMessage() + "'}";
                 e.printStackTrace();

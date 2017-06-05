@@ -47,7 +47,7 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">标题：</label>
 									<div class="col-sm-9"> 
-										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="${prjMeeting.title }" value=""> <label
+										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value="${prjMeeting.title }"> <label
 											id="nameTip"></label>
 									</div>
 								</div>

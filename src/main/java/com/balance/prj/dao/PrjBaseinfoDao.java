@@ -22,22 +22,28 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @param prjBaseinfo
      * @return
      */
-    public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert into t_prj_baseinfo(prj_name,created_at,created_by)" +
-                " values(:prj_name,now(),:created_by)";
-        return update(sql, prjBaseinfo);
-    }
+	public int add(PrjBaseinfo prjBaseinfo) {
+		String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
+		return update(sql, prjBaseinfo);
+	}
 
-    /**
-     * 修改
-     *
-     * @param prjBaseinfo
-     * @return
-     */
-    public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update t_prj_baseinfo set prj_name=:prj_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
-        return update(sql, prjBaseinfo);
-    }
+	/**
+	 * 修改
+	 *
+	 * @param prjBaseinfo
+	 * @return
+	 */
+	public int update(PrjBaseinfo prjBaseinfo) {
+			String consql = "introduction=:introduction";
+			String type = prjBaseinfo.getType();
+			if (type.equals("2"))
+				consql = "flow=:flow";
+			if (type.equals("3"))
+				consql = "architecture=:architecture";
+			String sql = "update t_prj_baseinfo set  " + consql
+					+ ",last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+			return update(sql, prjBaseinfo);
+	}
 
     /**
      * 删除

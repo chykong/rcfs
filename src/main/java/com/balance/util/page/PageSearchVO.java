@@ -1,8 +1,6 @@
 package com.balance.util.page;
 
 
-import com.balance.util.global.GlobalConst;
-
 /**
  * 分页查询类的父类
  *
@@ -11,7 +9,7 @@ import com.balance.util.global.GlobalConst;
 public class PageSearchVO {
     private int total = 0;
     private int pageIndex = 1;
-    private int pageSize = GlobalConst.pageSize;
+    private int pageSize =2;// GlobalConst.pageSize;
 
     public int getTotal() {
         return total;

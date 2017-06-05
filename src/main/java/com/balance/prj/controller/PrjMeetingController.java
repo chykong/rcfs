@@ -92,7 +92,7 @@ public class PrjMeetingController extends BaseController {
         mv.addObject("prjMeeting", prjMeeting);
         mv.setViewName("/prj/meetingUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;
+        return mv;  
     }
     
     /**

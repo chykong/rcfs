@@ -7,7 +7,6 @@
 <head>
 <title>${webTitle }-管理公司人员</title>
 <%@ include file="../common/header.jsp"%>
-<%@ include file="../common/datatables.jsp"%>
 
 </head>
 

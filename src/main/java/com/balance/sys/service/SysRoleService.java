@@ -293,7 +293,7 @@ public class SysRoleService {
      * @return
      */
     public String createMenuStr(int role_id) {
-        String menu = EhCacheUtil.get("sysCache", "menu_" + role_id);
+        String menu = null;//EhCacheUtil.get("sysCache", "menu_" + role_id);
         if (menu == null) {
             StringBuffer sb = new StringBuffer();
             List<SysModule> listModule = sysModuleDao.list();// 模块列表
@@ -313,7 +313,7 @@ public class SysRoleService {
                             break;
                         }
                     }
-                    sb.append("<li class=\"\"><a href=\"" + pubConfig.getDynamicServer() + "/" + sysModule.getUrl() + "\" ");
+                    sb.append("<li class=\"\"><a href=\"" + pubConfig.getDynamicServer() + "/" + sysModule.getUrl() + "\" ck=\"F\" id=\"module_" + sysModule.getId() + "\" ");
                     if (flag) sb.append("class=\"dropdown-toggle\" ");
                     sb.append(">");
                     sb.append("<i class=\"menu-icon fa "
@@ -326,9 +326,9 @@ public class SysRoleService {
                         for (SysModule sysModuleChild : listModule) {
                             if (sysModuleChild.getParent_id() == sysModule.getId()
                                     && displayModuleIdList.contains(sysModuleChild.getId())) {
-                                sb.append("<li id=\"module_" + sysModuleChild.getId() + "\" class=\"\"><a href=\""
+                                sb.append("<li class=\"\"><a href=\""
                                         + pubConfig.getDynamicServer() + "/" + sysModuleChild.getUrl()
-                                        + "\"> <i class=\"menu-icon fa fa-caret-right\"></i>" + sysModuleChild.getName()
+                                        + "\" ck=\"S\" id=\"module_" + sysModuleChild.getId() + "\"> <i class=\"menu-icon fa fa-caret-right\"></i>" + sysModuleChild.getName()
                                         + "</a> <b class=\"arrow\"></b></li>");
                             }
                         }

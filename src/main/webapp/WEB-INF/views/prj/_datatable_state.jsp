@@ -81,7 +81,7 @@
                     data: "hostName",
                     width: "80px",
                     render: function (data, type, row) {
-                        return '<a href="<c:url value="/preallocations/basic/view/"/>' +
+                        return '<a href="<c:url value="/prj/preallocation/basic/view.htm"/>?id=' +
                             row.id + '">'+ data+ '</a>';
                     }
                 },

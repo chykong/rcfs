@@ -44,6 +44,7 @@ public class PrjPreallocation {
     private BigDecimal money_yxdsyjf;  //有线电视移机费
     private BigDecimal money_ktyjf;  //空调移机费
     private BigDecimal money_rsqyjf;  //热水器移机费
+    private BigDecimal money_qt;  //其他
     private BigDecimal subsidy_relocate;  //补助奖励费
     private BigDecimal total_compensation;  //总补偿款
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -63,6 +64,8 @@ public class PrjPreallocation {
     private String signed_code; //签约序号
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date signed_date; //签约日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date money_date; //放款日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date handover_house_date; //交房日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -109,7 +112,9 @@ public class PrjPreallocation {
     private int prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date demolished_date;  //拆迁日期
+    private Date demolished_date;  //拆除日期
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date relocate_date;  //搬迁日期
     private Double before_demolished_area;  //待拆除面积
     private Double after_demolished_area;  //已拆除面积
     private Double before_area;  //06年前面积
@@ -1009,5 +1014,29 @@ public class PrjPreallocation {
 
     public void setManagement_homestead_area(Double management_homestead_area) {
         this.management_homestead_area = management_homestead_area;
+    }
+
+    public BigDecimal getMoney_qt() {
+        return money_qt;
+    }
+
+    public void setMoney_qt(BigDecimal money_qt) {
+        this.money_qt = money_qt;
+    }
+
+    public Date getRelocate_date() {
+        return relocate_date;
+    }
+
+    public void setRelocate_date(Date relocate_date) {
+        this.relocate_date = relocate_date;
+    }
+
+    public Date getMoney_date() {
+        return money_date;
+    }
+
+    public void setMoney_date(Date money_date) {
+        this.money_date = money_date;
     }
 }

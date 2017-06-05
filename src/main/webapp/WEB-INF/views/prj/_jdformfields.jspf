@@ -1,0 +1,78 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="form-group">
+    <form:label path="status" cssClass="col-sm-3 control-label no-padding-right">
+        状态：
+    </form:label>
+    <div class="col-sm-9">
+        <form:select path="status" cssClass="col-xs-10 col-sm-10 col-lg-3" maxlength="20">
+            <form:option value="10">未签约</form:option>
+            <form:option value="20">已签约</form:option>
+            <form:option value="30">已审核</form:option>
+            <form:option value="40">已交房</form:option>
+            <form:option value="50">已拆除</form:option>
+            <form:option value="60">已放款</form:option>
+            <form:option value="70">已归档</form:option>
+        </form:select>
+    </div>
+</div>
+
+<div class="form-group">
+    <form:label path="signed_date" cssClass="col-sm-3  control-label no-padding-right no-padding-left">
+        签约日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="signed_date" cssClass="col-xs-10 col-sm-10 col-lg-3 date" placeholder="请输入签约日期..." maxlength="40"/>
+        <label id="signed_dateTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="handover_house_date" cssClass="col-sm-3 control-label no-padding-right">
+        交房日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="handover_house_date" cssClass="col-xs-10 col-sm-10 col-lg-3 date" placeholder="请输入交房日期..." maxlength="40"/>
+        <label id="handover_house_dateTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="demolished_date" cssClass="col-sm-3 control-label no-padding-right">
+        拆除日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="demolished_date" cssClass="col-xs-10 col-sm-10 col-lg-3 date" placeholder="请输入拆除日期..." maxlength="18"/>
+        <label id="demolished_dateTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="audit_date" cssClass="col-sm-3 control-label no-padding-right">
+        审核日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="audit_date" cssClass="col-xs-10 col-sm-10 col-lg-3 date" placeholder="请输入审核日期..." maxlength="200"/>
+        <label id="audit_dateTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="money_date" cssClass="col-sm-3 control-label no-padding-right no-padding-left">
+        放款日期：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="money_date" cssClass="col-xs-10 col-sm-10 col-lg-3 date" placeholder="请输入放款日期..."
+                    maxlength="200"/>
+        <label id="money_dateTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="no_sign_reason" cssClass="col-sm-3 control-label no-padding-right no-padding-left">
+        未签约原因：
+    </form:label>
+    <div class="col-sm-9">
+        <form:textarea path="no_sign_reason" cssClass="col-xs-10 col-sm-10 col-lg-3"  maxlength="200"></form:textarea>
+        <label id="no_sign_reasonTip"></label>
+    </div>
+</div>
+
+
+
+

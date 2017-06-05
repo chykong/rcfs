@@ -30,7 +30,7 @@
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
                     <li class="active">系统管理</li>
                     <li class="active">项目管理情况</li>
-                    <li class="active"><small>基本情况</small></li>
+                    <li class="active"><small>补偿情况</small></li>
                 </ul>
                 <!-- /.breadcrumb -->
                 <%@ include file="../common/navigate.jsp"%>
@@ -130,20 +130,21 @@
                             </div>
                         </div>
                         <div class="hr hr-18 dotted hr-double"></div>
-                        <c:choose>
-                            <c:when test="${__currentProject == null || __currentProject.landStatus == null ||
-                                (__currentProject.landStatusValue == 2 && __currentProject.buildingTypeValue == 1)}">
-                                <%@ include file="_datatable.jsp" %>
-                            </c:when>
-                            <c:when test="${__currentProject != null && __currentProject.landStatusValue == 1}">
-                                <%@ include file="_datatable_state.jsp" %>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="datatableName"
-                                       value="_datatable_${__currentProject.landStatus.name().toLowerCase()}_${__currentProject.buildingType.name().toLowerCase()}.jsp"/>
-                                <c:import url="${datatableName}" charEncoding="utf-8"/>
-                            </c:otherwise>
-                        </c:choose>
+                        <%@ include file="_bcdatatable.jsp" %>
+                        <%--<c:choose>--%>
+                            <%--<c:when test="${__currentProject == null || __currentProject.landStatus == null ||--%>
+                                <%--(__currentProject.landStatusValue == 2 && __currentProject.buildingTypeValue == 1)}">--%>
+                                <%--<%@ include file="_bcdatatable.jsp" %>--%>
+                            <%--</c:when>--%>
+                            <%--<c:when test="${__currentProject != null && __currentProject.landStatusValue == 1}">--%>
+                                <%--<%@ include file="_datatable_state.jsp" %>--%>
+                            <%--</c:when>--%>
+                            <%--<c:otherwise>--%>
+                                <%--<c:set var="datatableName"--%>
+                                       <%--value="_datatable_${__currentProject.landStatus.name().toLowerCase()}_${__currentProject.buildingType.name().toLowerCase()}.jsp"/>--%>
+                                <%--<c:import url="${datatableName}" charEncoding="utf-8"/>--%>
+                            <%--</c:otherwise>--%>
+                        <%--</c:choose>--%>
                     </div>
                     <!-- /.span -->
                 </div>
@@ -160,7 +161,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span class="white">&times;</span>
                     </button>
-                    导入拆迁户基本情况
+                    导入拆迁户补偿情况
                 </div>
             </div>
             <div class="modal-body no-padding">
@@ -171,7 +172,7 @@
                                 <div class="col-xs-12" style="margin-bottom: 10px">
                                     <span>请下载模板，按照模板格式整理数据：</span>
                                     <a href="<c:url value="/preallocations/basic/importTemp?type=1"/>" target="_blank">
-                                        导入拆迁户基本情况模板.xls
+                                        导入拆迁户补偿情况模板.xls
                                     </a>
                                 </div>
                             </div>
@@ -270,7 +271,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span class="white">&times;</span>
                     </button>
-                    基本情况导入结果
+                    补偿情况导入结果
                 </div>
             </div>
             <div class="modal-body no-padding">
@@ -371,7 +372,7 @@
                 });
             });
 
-            /*基本情况导入*/
+            /*补偿情况导入*/
             var $preallocations_import_input = $('#preallocations-import-input');
             $preallocations_import_input.ace_file_input({
                 style: 'well',

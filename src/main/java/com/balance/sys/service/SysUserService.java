@@ -29,6 +29,8 @@ public class SysUserService {
     private SysModuleDao sysModuleDao;
     @Autowired
     private SysFunctionDao sysFunctionDao;
+    @Autowired
+    private SysUserprojectsService sysUserprojectsService;
 
     /**
      * 用户新增，先判断用户名是否存在 返回2，账号已存在，返回1操作成功
@@ -49,7 +51,8 @@ public class SysUserService {
             String md5Pass = md5SaltUtil.encode(password);
             sysUser.setPassword(md5Pass);
             sysUser.setRandomcode(randomcode);
-            flag = sysUserDao.add(sysUser);
+            int user_id = sysUserDao.add(sysUser);
+            sysUserprojectsService.save(user_id,sysUser.getPrj_base_info_ids()); //设置该用户对应的项目
             flag = 1;
         }
         return flag;
@@ -57,6 +60,7 @@ public class SysUserService {
 
     public int update(SysUser sysUser) {
         int flag = 0;
+        sysUserprojectsService.save(sysUser.getId(),sysUser.getPrj_base_info_ids()); //设置该用户对应的项目
         flag = sysUserDao.update(sysUser);
         return flag;
     }

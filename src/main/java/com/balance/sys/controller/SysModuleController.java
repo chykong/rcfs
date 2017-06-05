@@ -44,7 +44,7 @@ public class SysModuleController extends BaseController {
         setBtnAutho(request, "SysModule");
         List<SysModule> list = sysModuleService.list();
         mv.addObject("list", list);// 把获取的记录放到mv里面
-        String url = "/sys/module/index.htm?";
+        String url = pubConfig.getDynamicServer() + "/sys/module/index.htm?";
         mv.addObject("backUrl", StringUtil.encodeUrl(url));
         return mv;
     }

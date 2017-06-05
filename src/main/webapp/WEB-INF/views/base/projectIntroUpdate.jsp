@@ -56,7 +56,7 @@
 							<form id="form" name="form" class="form-horizontal"
 								action="update.htm" method="post">
 								<input type="hidden" name="backUrl" value="${backUrl }">
-								<div class="form-group">
+								<div class="form-group" style="width: 1520px;">
 									<c:if test="${prjBaseinfo.type==1}">
 										<div class="col-sm-9">
 											<script id="introduction" name="introduction"

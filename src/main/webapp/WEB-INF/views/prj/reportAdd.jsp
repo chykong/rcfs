@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${webTitle }-会议纪要</title>
+<title>${webTitle }-汇报材料</title>
 <%@ include file="../common/header.jsp"%>
 
 </head>
@@ -19,7 +19,7 @@
 				<div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-						<li class="active">会议纪要</li>
+						<li class="active">汇报材料</li>
 					</ul>
 				</div>
 

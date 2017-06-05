@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${webTitle }-会议纪要</title>
+<title>${webTitle }-汇报材料</title>
 <%@ include file="../common/header.jsp"%>
 
 </head>
@@ -19,7 +19,7 @@
 				<div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-						<li class="active">会议纪要</li>
+						<li class="active">汇报材料</li>
 					</ul>
 				</div>
 
@@ -28,27 +28,35 @@
 					<!-- /.page-header -->
 					<div class="row">
 						<div class="col-xs-12">
-							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
-								<input type="hidden" name="progress" value="${progress }">
+							<form id="form" name="form" class="form-horizontal" action="update.htm" method="post">
+							<input type="hidden" name="id" value="${prjReport.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
 									<label class="col-sm-3 control-label">阶段：</label>
 									<div class="col-sm-9">
-										${bln:getProjectProgress(progress)}
+										<select id="progress" name="progress" value="${prjReport.progress }">
+											<option value="1">前期准备阶段</option>
+											<option value="2">入户调查阶段</option>
+											<option value="3">预分方案制作阶段</option>
+											<option value="4">动迁准备阶段</option>
+											<option value="5">动迁阶段</option>
+											<option value="6">收尾阶段</option>
+										</select>
+										
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">标题：</label>
 									<div class="col-sm-9"> 
-										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value=""> <label
+										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value="${prjReport.title }"> <label
 											id="nameTip"></label>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">内容：</label>
 									<div class="col-sm-9">
-										<script id="content" name="content" type="text/plain"></script>
-
+										<script id="introduction" name="architecture"
+											type="text/plain">${prjReport.content }</script>
 										</label>
 									</div>
 								</div>

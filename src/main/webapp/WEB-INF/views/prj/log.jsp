@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${webTitle }-会议纪要</title>
+    <title>${webTitle }-项目日志</title>
     <%@ include file="../common/header.jsp" %>
 </head>
 
@@ -18,7 +18,7 @@
             <div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                    <li class="active">会议纪要</li>
+                    <li class="active">项目日志</li>
                 </ul>
                 <!-- /.breadcrumb -->
             </div>
@@ -44,7 +44,7 @@
                                                 <button class="btn btn-primary btn-sm" id="btnSearch">
                                                     <i class="ace-icon fa fa-search"></i> 刷新
                                                 </button>
-                                                <c:if test="${bln:isP('PrjMeetingAdd')}">
+                                                <c:if test="${bln:isP('PrjLogAdd')}">
                                                     <button type="button" class="btn btn-success btn-sm" id="btnAdd">
                                                         <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                     </button>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjMeetingSearchVO.progress)}
+                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjLogSearchVO.progress)}
                     </div>
                 </div>
                 <!-- PAGE CONTENT BEGINS -->
@@ -78,13 +78,13 @@
                             <c:forEach items="${list }" var="meeting" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td><a href="toDetail?id=${meeting.id }">${meeting.title }</a></td>
+                                    <td>${meeting.title }</td>
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>
-                                    <td><c:if test="${bln:isP('PrjMeetingUpdate')}">
+                                    <td><c:if test="${bln:isP('PrjLogUpdate')}">
                                         <a href="toUpdate.htm?id=${meeting.id }&backUrl=${backUrl}"> 修改 </a>
-                                    </c:if> <c:if test="${bln:isP('PrjMeetingDelete')}">
+                                    </c:if> <c:if test="${bln:isP('PrjLogDelete')}">
                                         <a href="javascript:delCompany(${meeting.id });"> 删除 </a>
                                     </c:if></td>
                                 </tr>
@@ -108,7 +108,7 @@
         <script type="text/javascript">
 				$(function() {
 					$("#btnSearch").bind('click', searchCompany);
-					$("#btnAdd").bind('click', addMeeting);
+					$("#btnAdd").bind('click', addLog);
 				})
 
 				// 查询方法
@@ -118,16 +118,16 @@
 				}
 				// 删除
 				var delCompany = function(id) {
-					bootbox.confirm("你确定要删除该会议纪要吗？", function(result) {
+					bootbox.confirm("你确定要删除该项目日志吗？", function(result) {
 						if (result) {
 							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";
 						}
 					})
 				}
 				//新增
-				var addMeeting = function(id) {
+				var addLog = function(id) {
 				 	var project_progress=$(".active").find("input").val()
-					window.location = 'toAdd.htm?progress=${prjMeetingSearchVO.progress}&backUrl=${backUrl }';
+					window.location = 'toAdd.htm?progress=${prjLogSearchVO.progress}&backUrl=${backUrl }';
 				}
         </script>
 </body>

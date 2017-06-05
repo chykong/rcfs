@@ -4,6 +4,7 @@ import com.balance.base.model.BaseCompany;
 import com.balance.base.service.BaseCompanyService;
 import com.balance.base.vo.BaseCompanySearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -27,6 +28,8 @@ public class BaseCompanyController extends BaseController {
 
     @Autowired
     private BaseCompanyService baseCompanyService;
+    @Autowired
+    private PubConfig pubConfig;
 
     /**
      * 进入用户管理界面
@@ -50,7 +53,7 @@ public class BaseCompanyController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     private String createUrl(BaseCompanySearchVO baseCompanySearchVO) {
-        String url = "/base/company/index.htm?";
+        String url = pubConfig.getDynamicServer() + "/base/company/index.htm?";
         return url;
     }
 

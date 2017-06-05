@@ -32,7 +32,7 @@
 						<a href="${dynamicServer}${backUrl}">如果你的浏览器没有自动跳转，请点击此链接</a>
 						<script type="text/javascript">
 							setTimeout(function() {
-								location.href = "${dynamicServer}${backUrl}";
+								location.href = "${backUrl}";
 							}, 2000);
 						</script>
 					</div>

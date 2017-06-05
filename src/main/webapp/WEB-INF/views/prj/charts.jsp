@@ -63,17 +63,11 @@
      title: {
         text: '交房累计完成度'
     },
-    toolbox: {
-        show : false
-    },
     tooltip : {
         formatter: "{a} <br/>{b} : {c}%"
     },
     toolbox: {
-        feature: {
-            restore: {},
-            saveAsImage: {}
-        }
+     show : false
     },
     series: []
 };
@@ -95,6 +89,7 @@ $.get('${pageContext.request.contextPath}/prj/charts/loaddata.htm').done(functio
         series: data.data2
     });
 });
+
 
 
 

@@ -64,7 +64,7 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
     }
     /**
      * 删除会议纪要
-     */
+     */ 
     public int delete(int id){
     	String sql="delete from t_prj_meeting where id=?";
     	return delete(sql,new Object[]{id});

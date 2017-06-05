@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * Author  孔垂云
+ * Author   孔垂云
  * Date  2017/6/3.
  */
 @RequestMapping("/base/company")

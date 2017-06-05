@@ -3,7 +3,7 @@ package com.balance.prj.model;
 import java.util.Date;
 
 /**
- * Author  孔垂云
+ * Author  孔垂云 
  * Date  2017/6/4.
  */
 public class PrjBaseinfo {

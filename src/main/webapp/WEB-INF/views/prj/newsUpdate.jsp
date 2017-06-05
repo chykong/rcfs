@@ -29,10 +29,10 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<form id="form" name="form" class="form-horizontal" action="update.htm" method="post">
-							<input type="hidden" name="id" value="${prjNews.id }">
+								<input type="hidden" name="id" value="${prjNews.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">阶段：</label>
+									<label class="col-sm-3 control-label">标题：</label>	
 									<div class="col-sm-9">
 										<select id="progress" name="progress" value="${prjNews.progress }">
 											<option value="1">前期准备阶段</option>
@@ -42,7 +42,6 @@
 											<option value="5">动迁阶段</option>
 											<option value="6">收尾阶段</option>
 										</select>
-										
 									</div>
 								</div>
 								<div class="form-group">
@@ -55,8 +54,8 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">内容：</label>
 									<div class="col-sm-9">
-										<script id="introduction" name="architecture"
-											type="text/plain">${prjNews.content }</script>
+										<script id="content" name="content" type="text/plain">${prjNews.content }</script>
+
 										</label>
 									</div>
 								</div>

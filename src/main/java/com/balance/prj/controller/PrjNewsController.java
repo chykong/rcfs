@@ -1,6 +1,7 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjNews;
+import com.balance.prj.model.PrjNews;
 import com.balance.prj.service.PrjNewsService;
 import com.balance.prj.vo.PrjNewsSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -121,7 +122,19 @@ public class PrjNewsController extends BaseController {
     		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除新闻进度成功");
     	}
     }
-
+    /**
+     * 显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
+    	int id=Integer.parseInt(request.getParameter("id"));
+    	PrjNews prjNews=prjNewsService.findById(id);
+    	ModelAndView mv=new ModelAndView();
+    	mv.addObject("prjNews", prjNews);
+    	mv.setViewName("/prj/newsDetail");
+    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+    	return mv;
+    }
 }
 
 

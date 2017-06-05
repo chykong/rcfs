@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>${webTitle }-工作计划</title>
+<title>${webTitle }-项目简报</title>
 <%@ include file="../common/header.jsp"%>
 
 </head>
@@ -19,7 +19,7 @@
 				<div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-						<li class="active">工作计划</li>
+						<li class="active">项目简报</li>
 					</ul>
 				</div>
 
@@ -29,12 +29,12 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<form id="form" name="form" class="form-horizontal" action="update.htm" method="post">
-								<input type="hidden" name="id" value="${prjPlan.id }">
+								<input type="hidden" name="id" value="${prjBrief.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
 									<label class="col-sm-3 control-label">标题：</label>	
 									<div class="col-sm-9">
-										<select id="progress" name="progress" value="${prjPlan.progress }">
+										<select id="progress" name="progress" value="${prjBrief.progress }">
 											<option value="1">前期准备阶段</option>
 											<option value="2">入户调查阶段</option>
 											<option value="3">预分方案制作阶段</option>
@@ -47,14 +47,14 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">标题：</label>
 									<div class="col-sm-9"> 
-										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value="${prjPlan.title }"> <label
+										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value="${prjBrief.title }"> <label
 											id="nameTip"></label>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">内容：</label>
 									<div class="col-sm-9">
-										<script id="content" name="content" type="text/plain">${prjPlan.content }</script>
+										<script id="content" name="content" type="text/plain">${prjBrief.content }</script>
 
 										</label>
 									</div>

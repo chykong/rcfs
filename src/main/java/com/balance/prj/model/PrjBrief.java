@@ -10,7 +10,7 @@ import java.util.Date;
  * @author 刘凯
  * @date 2017年6月5日
  */
-public class PrjPresentation {
+public class PrjBrief {
     private int id;//
     private int prj_base_info_id;//项目id
     private String file_path;

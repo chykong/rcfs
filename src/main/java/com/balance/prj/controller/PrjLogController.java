@@ -1,6 +1,7 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjLog;
+import com.balance.prj.model.PrjMeeting;
 import com.balance.prj.service.PrjLogService;
 import com.balance.prj.vo.PrjLogSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -120,6 +121,19 @@ public class PrjLogController extends BaseController {
     	}else{
     		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除项目日志成功");
     	}
+    }
+    /**
+     * 显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
+    	int id=Integer.parseInt(request.getParameter("id"));
+    	PrjLog prjLog=prjLogService.findById(id);
+    	ModelAndView mv=new ModelAndView();
+    	mv.addObject("prjLog", prjLog);
+    	mv.setViewName("/prj/logDetail");
+    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+    	return mv;
     }
 
 }

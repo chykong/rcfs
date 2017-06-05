@@ -1,6 +1,7 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjPlan;
+import com.balance.prj.model.PrjPlan;
 import com.balance.prj.service.PrjPlanService;
 import com.balance.prj.vo.PrjPlanSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -120,6 +121,19 @@ public class PrjPlanController extends BaseController {
     	}else{
     		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除工作计划成功");
     	}
+    }
+    /**
+     * 显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
+    	int id=Integer.parseInt(request.getParameter("id"));
+    	PrjPlan prjPlan=prjPlanService.findById(id);
+    	ModelAndView mv=new ModelAndView();
+    	mv.addObject("prjPlan", prjPlan);
+    	mv.setViewName("/prj/planDetail");
+    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+    	return mv;
     }
 
 }

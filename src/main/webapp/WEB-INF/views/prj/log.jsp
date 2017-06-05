@@ -75,17 +75,17 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${list }" var="meeting" varStatus="st">
+                            <c:forEach items="${list }" var="log" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td>${meeting.title }</td>
-                                    <td>${meeting.created_by }</td>
-                                    <th width=120><fmt:formatDate value="${meeting.created_at}"
+                                    <td><a href="toDetail.htm?id=${log.id }">${log.title }</a></td>
+                                    <td>${log.created_by }</td>
+                                    <th width=120><fmt:formatDate value="${log.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>
                                     <td><c:if test="${bln:isP('PrjLogUpdate')}">
-                                        <a href="toUpdate.htm?id=${meeting.id }&backUrl=${backUrl}"> 修改 </a>
+                                        <a href="toUpdate.htm?id=${log.id }&backUrl=${backUrl}"> 修改 </a>
                                     </c:if> <c:if test="${bln:isP('PrjLogDelete')}">
-                                        <a href="javascript:delCompany(${meeting.id });"> 删除 </a>
+                                        <a href="javascript:delCompany(${log.id });"> 删除 </a>
                                     </c:if></td>
                                 </tr>
                             </c:forEach>

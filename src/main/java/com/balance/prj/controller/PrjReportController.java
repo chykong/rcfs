@@ -1,6 +1,7 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjReport;
+import com.balance.prj.model.PrjReport;
 import com.balance.prj.service.PrjReportService;
 import com.balance.prj.vo.PrjReportSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -123,6 +124,19 @@ public class PrjReportController extends BaseController {
     	}
     }
 
+    /**
+     * 显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
+    	int id=Integer.parseInt(request.getParameter("id"));
+    	PrjReport prjReport=prjReportService.findById(id);
+    	ModelAndView mv=new ModelAndView();
+    	mv.addObject("prjReport", prjReport);
+    	mv.setViewName("/prj/reportDetail");
+    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+    	return mv;
+    }
 }
 
 

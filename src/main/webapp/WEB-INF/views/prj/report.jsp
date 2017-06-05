@@ -78,7 +78,7 @@
                             <c:forEach items="${list }" var="report" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td>${report.title }</td>
+                                    <td><a href="toDetail.htm?id=${report.id }">${report.title }</a></td>
                                     <td>${report.created_by }</td>
                                     <th width=120><fmt:formatDate value="${report.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>

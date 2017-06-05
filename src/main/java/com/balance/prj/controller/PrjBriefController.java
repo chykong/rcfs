@@ -1,8 +1,8 @@
 package com.balance.prj.controller;
 
-import com.balance.prj.model.PrjPresentation;
-import com.balance.prj.service.PrjPresentationService;
-import com.balance.prj.vo.PrjPresentationSearchVO;
+import com.balance.prj.model.PrjBrief;
+import com.balance.prj.service.PrjBriefService;
+import com.balance.prj.vo.PrjBriefSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
@@ -23,33 +23,33 @@ import java.util.List;
  * @author 刘凯
  * @date 2017年6月4日
  */
-@RequestMapping("/prj/presentation")
+@RequestMapping("/prj/brief")
 @Controller
-public class PrjPresentationController extends BaseController {
+public class PrjBriefController extends BaseController {
     @Autowired
-    private PrjPresentationService prjPresentationService;
+    private PrjBriefService prjBriefService;
 
     @RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjPresentationSearchVO prjPresentationSearchVO) {
-        if (prjPresentationSearchVO.getProgress() == null) {
-            prjPresentationSearchVO.setProgress(1);
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjBriefSearchVO prjBriefSearchVO) {
+        if (prjBriefSearchVO.getProgress() == null) {
+            prjBriefSearchVO.setProgress(1);
         }
 
         ModelAndView mv = new ModelAndView();
-        int recordCount = prjPresentationService.listCount(prjPresentationSearchVO);// 获取查询总数
-        String url = createUrl(prjPresentationSearchVO);
-        PageNavigate pageNavigate = new PageNavigate(url, prjPresentationSearchVO.getPageIndex(), prjPresentationSearchVO.getPageSize(), recordCount);//定义分页对象
-        List<PrjPresentation> list = prjPresentationService.list(prjPresentationSearchVO);
+        int recordCount = prjBriefService.listCount(prjBriefSearchVO);// 获取查询总数
+        String url = createUrl(prjBriefSearchVO);
+        PageNavigate pageNavigate = new PageNavigate(url, prjBriefSearchVO.getPageIndex(), prjBriefSearchVO.getPageSize(), recordCount);//定义分页对象
+        List<PrjBrief> list = prjBriefService.list(prjBriefSearchVO);
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
-        mv.setViewName("/prj/presentation");// 跳转至指定页面
+        mv.setViewName("/prj/brief");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
     }
 
     // 设置分页url，一般有查询条件的才会用到
-    public String createUrl(PrjPresentationSearchVO prjPresentationSearchVO) {
-        String url = "/prj/presentation/index.htm?progress=" + prjPresentationSearchVO.getProgress();
+    public String createUrl(PrjBriefSearchVO prjBriefSearchVO) {
+        String url = "/prj/brief/index.htm?progress=" + prjBriefSearchVO.getProgress();
         return url;
     }
 
@@ -61,7 +61,7 @@ public class PrjPresentationController extends BaseController {
         int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
         mv.addObject("progress", progress);
-        mv.setViewName("/prj/presentationAdd");
+        mv.setViewName("/prj/briefAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
     }
@@ -70,11 +70,11 @@ public class PrjPresentationController extends BaseController {
      * 新增会议内容
      */
     @RequestMapping("/add")
-    public String add(HttpServletRequest request, HttpServletResponse response, PrjPresentation prjPresentation) {
+    public String add(HttpServletRequest request, HttpServletResponse response, PrjBrief prjBrief) {
         UserSession session = SessionUtil.getUserSession(request);
-        prjPresentation.setCreated_by(session.getRealname());//创建人
-        prjPresentation.setPrj_base_info_id(session.getCurrent_project_id());//项目id
-        int flag = prjPresentationService.add(prjPresentation);
+        prjBrief.setCreated_by(session.getRealname());//创建人
+        prjBrief.setPrj_base_info_id(session.getCurrent_project_id());//项目id
+        int flag = prjBriefService.add(prjBrief);
         if (flag == 0) {
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("新增项目简报失败");
         } else {
@@ -89,9 +89,9 @@ public class PrjPresentationController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjPresentation prjPresentation=prjPresentationService.findById(id);
-        mv.addObject("prjPresentation", prjPresentation);
-        mv.setViewName("/prj/presentationUpdate");
+        PrjBrief prjBrief=prjBriefService.findById(id);
+        mv.addObject("prjBrief", prjBrief);
+        mv.setViewName("/prj/briefUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;  
     }
@@ -100,9 +100,9 @@ public class PrjPresentationController extends BaseController {
      * 修改项目简报
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjPresentation prjPresentation){
-    	prjPresentation.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjPresentationService.update(prjPresentation);
+    public String update(HttpServletRequest request, HttpServletResponse response,PrjBrief prjBrief){
+    	prjBrief.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+    	int flag =prjBriefService.update(prjBrief);
     	if(flag==0){
     		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改项目简报失败");
     	}else{
@@ -115,7 +115,7 @@ public class PrjPresentationController extends BaseController {
      */
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjPresentationService.delete(id);
+    	int flag=prjBriefService.delete(id);
     	if(flag==0){
     		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除项目简报失败");
     	}else{

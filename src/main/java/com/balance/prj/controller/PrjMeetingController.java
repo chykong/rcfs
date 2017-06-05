@@ -121,7 +121,19 @@ public class PrjMeetingController extends BaseController {
     		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除会议纪要成功");
     	}
     }
-   
+    /**
+     * 显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
+    	int id=Integer.parseInt(request.getParameter("id"));
+    	PrjMeeting prjMeeting=prjMeetingService.findById(id);
+    	ModelAndView mv=new ModelAndView();
+    	mv.addObject("prjMeeting", prjMeeting);
+    	mv.setViewName("/prj/meetingDetail");
+    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+    	return mv;
+    }
 
 }
 

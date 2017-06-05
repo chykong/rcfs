@@ -78,7 +78,7 @@
                             <c:forEach items="${list }" var="plan" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td>${plan.title }</td>
+                                    <td><a href="toDetail.htm?id=${plan.id }">${plan.title }</a></td>
                                     <td>${plan.created_by }</td>
                                     <th width=120><fmt:formatDate value="${plan.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>

@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjMeetingSearchVO.progress)}
+                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjMeetingSearchVO.progress)} 
                     </div>
                 </div>
                 <!-- PAGE CONTENT BEGINS -->
@@ -78,7 +78,7 @@
                             <c:forEach items="${list }" var="meeting" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td><a href="toDetail?id=${meeting.id }">${meeting.title }</a></td>
+                                    <td><a href="toDetail.htm?id=${meeting.id }">${meeting.title }</a></td>
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>

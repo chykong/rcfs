@@ -47,17 +47,17 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, handover_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
-                " management_house_area, field_house_area, no_sign_reson) " +
+                " management_house_area, field_house_area, no_sign_reason) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
                 " :management_co, :geo_co, :appraise_co, :demolish_co, :pulledown_co, :prj_base_info_id, :appraise_compensation," +
-                " :archive_date, :demolished_date, :audit_date, :remarks, :created_by, :created_at, :section, :groups, :other_file_name," +
+                " :archive_date, :demolished_date, :audit_date, :remarks, :created_by, now(), :section, :groups, :other_file_name," +
                 " :other_file_path, :lessee_name, :legal_name, :land_property, :total_land_area, :card_land_area, :cog_land_area," +
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :handover_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
-                " :management_house_area, :field_house_area, :no_sign_reson)";
+                " :management_house_area, :field_house_area, :no_sign_reason)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -71,8 +71,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " handover_house_date=:handover_house_date,signed_date=:signed_date, leader=:leader," +
                 " management_co=:management_co, geo_co=:geo_co, appraise_co=:appraise_co, demolish_co=:demolish_co, pulledown_co=:pulledown_co," +
                 " prj_base_info_id=:prj_base_info_id, appraise_compensation=:appraise_compensation," +
-                " archive_date=:archive_date, demolished_date=:demolished_date, audit_date=:audit_date, remarks=:remarks, created_by=:created_by," +
-                " created_at=:created_at, section=:section, groups=:groups, other_file_name=:other_file_name," +
+                " archive_date=:archive_date, demolished_date=:demolished_date, audit_date=:audit_date, remarks=:remarks, section=:section, groups=:groups, other_file_name=:other_file_name," +
                 " other_file_path=:other_file_path, lessee_name=:lessee_name, legal_name=:legal_name, land_property=:land_property," +
                 " total_land_area=:total_land_area, card_land_area=:card_land_area, cog_land_area=:cog_land_area," +
                 " lessee_land_area=:lessee_land_area, total_homestead_area=:total_homestead_area, card_homestead_area=:card_homestead_area," +
@@ -81,7 +80,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " money_qt=:money_qt, relocate_date=:relocate_date, handover_date=:handover_date, audit_co=:audit_co, " +
                 " demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code, money_date=:money_date," +
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area," +
-                " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reson=:no_sign_reson" +
+                " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reason=:no_sign_reason" +
                 " WHERE id=:id AND map_id=:map_id";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);

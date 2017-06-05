@@ -73,11 +73,12 @@
             <label class="col-sm-3 col-lg-4 control-label">现场照片：</label>
             <input type="hidden" id="other_file_path" name="other_file_path" value="${preallocation.other_file_path}"/>
             <input type="hidden" id="other_file_name" name="other_file_name" value="${preallocation.other_file_name}"/>
-            <div class="col-sm-5 input-group" id="fileDiv" style="padding: 0 15px 0 15px">
-                    <div id="photoDiv" class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if>">
-                        <img id="photo" src="${preallocation.other_file_path}"/>
-                        <span class="input-group-btn">
-                            <button id='delFile' type="button" class="btn btn-purple btn-sm">
+            <div class="col-sm-9 col-lg-8 input-group" id="fileDiv" style="padding: 0 15px 0 15px">
+                    <div id="photoDiv" class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if> row">
+                        <img id="photo" class="col-lg-10" src="
+<c:if test="${!empty preallocation.other_file_path && !empty preallocation.other_file_name}">${imageServer}/${preallocation.other_file_path}</c:if>"/>
+                        <span class="input-group-btn col-lg-2">
+                            <button id='delFile' type="button" class="btn btn-danger btn-sm">
                                 <span class="ace-icon fa fa-trash-o icon-on-right bigger-110"></span>
                                 删除
                             </button>

@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <html>
 <head>
-    <title>${site_name} 拆除腾退户信息管理 - 添加基本情况</title>
+    <title>${site_name} 拆除腾退户信息管理 - 修改基本情况</title>
     <style>
         textarea {
             padding-left: 3px !important;
@@ -26,7 +26,7 @@
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
                     <li class="active">系统管理</li>
                     <li class="active">拆除腾退户信息管理</li>
-                    <li class="active"><small>添加基本情况</small></li>
+                    <li class="active"><small>修改基本情况</small></li>
                 </ul>
                 <!-- /.breadcrumb -->
                 <%@ include file="../common/navigate.jsp"%>
@@ -63,7 +63,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form:form servletRelativeAction="/prj/preallocation/basic/add.htm" id="save-form" method="post"
+                            <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
                                 <div class="tab-content no-border padding-24">
                                     <!-- 基本情况 begin-->
@@ -162,7 +162,6 @@
             language: "zh-CN",
             orientation: "bottom auto"
         });
-
         var $section = $("#section");
         var $group = $("#groups");
         $section.on('change', function () {

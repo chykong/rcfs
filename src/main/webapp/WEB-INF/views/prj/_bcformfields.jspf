@@ -1,0 +1,224 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <form:label path="money_homestead" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                房屋补偿款：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_homestead" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋补偿款..." maxlength="20"/>
+                <label id="money_homesteadTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_adjunct" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                附属物补偿款：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_adjunct" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入附属物补偿款..."
+                            maxlength="200"/>
+                <label id="money_adjunctTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_machine" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                机器设备补偿款：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_machine" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入机器设备补偿款..." maxlength="40"/>
+                <label id="money_machineTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="appraise_compensation" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                评估补偿款：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="appraise_compensation" readonly="true" cssClass="col-xs-10 col-sm-10 col-lg-9 huobi" placeholder="" maxlength="40"/>
+                <label id="appraise_compensationTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_ssbcf" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                停产停业综合补助费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_ssbcf" cssClass="col-xs-10 col-sm-10 col-lg-9 buzhu" placeholder="请输入停产停业综合补助费..." maxlength="18"/>
+                <label id="money_ssbcfTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="project_cooperate_award" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                工程配合奖：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="project_cooperate_award" cssClass="col-xs-10 col-sm-10 col-lg-9 buzhu" placeholder="请输入工程配合奖..." maxlength="200"/>
+                <label id="project_cooperate_awardTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_relocate" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                搬家补助费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_relocate" cssClass="col-xs-10 col-sm-10 col-lg-9 buzhu" placeholder="请输入搬家补助费..." maxlength="200"/>
+                <label id="money_relocateTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="total_compensation" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                总补偿款：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="total_compensation" readonly="true" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入总补偿款..." maxlength="200"/>
+                <label id="total_compensationTip"></label>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <form:label path="money_dhyjf" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                电话：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_dhyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入电话..." maxlength="12"/>
+                <label id="money_dhyjfTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_ktyjf" cssClass="col-sm-3 col-lg-4  control-label no-padding-right no-padding-left">
+                空调：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_ktyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入空调..."
+                            maxlength="12"/>
+                <label id="money_ktyjfTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_kd" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                宽带：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_kd" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入宽带..."
+                            maxlength="12"/>
+                <label id="money_kdTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_yxdsyjf" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                有线电视：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_yxdsyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入有线电视..."
+                            maxlength="10"/>
+                <label id="money_yxdsyjfTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_rsqyjf" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                热水器：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_rsqyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入热水器..."
+                            maxlength="10"/>
+                <label id="money_rsqyjfTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="card_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                移机费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <input id="total_tjf"  cssClass="col-xs-10 col-sm-10 col-lg-9  buzhu" type="text" readonly="true"
+                            maxlength="10"/>
+                <label id="card_homestead_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_qt" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                其他：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_qt" cssClass="col-xs-10 col-sm-10 col-lg-9  buzhu" placeholder="请输入其他..."
+                            maxlength="10"/>
+                <label id="money_qtTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="subsidy_relocate" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                补助奖励费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="subsidy_relocate" readonly="true" cssClass="col-xs-10 col-sm-10 col-lg-9 huobi" placeholder="请输入补助奖励费..."
+                            maxlength="10"/>
+                <label id="subsidy_relocateTip"></label>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function countAppraiseCompensation() {
+        var money_homestead = $("#money_homestead").val();
+        var money_machine = $("#money_machine").val();
+        var money_adjunct = $("#money_adjunct").val();
+        if (money_homestead != '' && money_adjunct != '' && money_machine != '') {
+            var sum = parseFloat(money_homestead) + parseFloat(money_adjunct) + parseFloat(money_machine);
+            $("#appraise_compensation").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
+        }
+    }
+    function countYjf() {
+        var money_dhyjf = $("#money_dhyjf").val();
+        var money_yxdsyjf = $("#money_yxdsyjf").val();
+        var money_ktyjf = $("#money_ktyjf").val();
+        var money_rsqyjf = $("#money_rsqyjf").val();
+        var money_kd = $("#money_kd").val();
+        if (money_dhyjf != '' && money_yxdsyjf != '' && money_ktyjf != '' && money_rsqyjf != '' && money_kd != '') {
+            var sum = parseFloat(money_dhyjf) + parseFloat(money_yxdsyjf) + parseFloat(money_ktyjf) +
+                parseFloat(money_rsqyjf) + parseFloat(money_kd);
+            $("#total_tjf").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
+        }
+    }
+
+    function countSubsidyRelocate() {
+        var money_ssbcf = $("#money_ssbcf").val();
+        var project_cooperate_award = $("#project_cooperate_award").val();
+        var money_relocate = $("#money_relocate").val();
+        var total_tjf = $("#total_tjf").val();
+        var money_qt = $("#money_qt").val();
+        if (money_ssbcf != '' && project_cooperate_award != '' && money_relocate != '' && total_tjf != '' && money_qt != '') {
+            var sum = parseFloat(money_ssbcf) + parseFloat(project_cooperate_award) + parseFloat(money_relocate) +
+                parseFloat(total_tjf) + parseFloat(money_qt);
+            $("#subsidy_relocate").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
+        }
+    }
+    function countTotalCompensation() {
+        var appraiseCompensation = $("#appraise_compensation").val();
+        var subsidyRelocate = $("#subsidy_relocate").val();
+
+        if (subsidyRelocate != '' && appraiseCompensation != '') {
+            var sum = parseFloat(appraiseCompensation) + parseFloat(subsidyRelocate);
+            $("#total_compensation").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
+        }
+    }
+    $(function () {
+        $(".pinggu").on('input propertychange', function () {
+            countAppraiseCompensation();
+        });
+
+        $(".yjf").on('input propertychange', function () {
+            countYjf();
+        });
+
+        $(".buzhu").on('input propertychange', function () {
+            countSubsidyRelocate();
+        });
+
+        $(".huobi").on('change', function () {
+            countTotalCompensation();
+        });
+
+    })
+</script>

@@ -36,8 +36,11 @@ public class PrjPreallocationBasicController extends BaseController {
     private BaseCompanyService baseCompanyService;
 
     @RequestMapping(value = {"", "index"})
-    public String index() {
-        return "prj/preallocationIndex";
+    public ModelAndView index(HttpServletRequest request) {
+        ModelAndView mv = new ModelAndView("prj/preallocationIndex");
+
+        BackUrlUtil.createBackUrl(mv, request, "/prj/preallocation/basic/index.htm");
+        return mv;
     }
 
     @RequestMapping(value = "getPreallocation", method = RequestMethod.GET)
@@ -108,8 +111,8 @@ public class PrjPreallocationBasicController extends BaseController {
 //        List<PrjPreallocation> sectionList = projectService.getSectionsByProjectId(getCurrentProject().getProjectId());
 //        model.addAttribute("sectionList", sectionList);
 //
-//        List<Company> companyList = companiesService.search();
-//        model.addAttribute("companyList", companyList);
+        List<BaseCompany> companyList = baseCompanyService.listAll();
+        mv.addObject("companyList", companyList);
 
         mv.addObject("preallocation", preallocation);
         return mv;
@@ -140,6 +143,9 @@ public class PrjPreallocationBasicController extends BaseController {
             mv.addObject("msg", "拆除腾退人不存在");
             return mv;
         }
+        List<BaseCompany> companyList = baseCompanyService.listAll();
+        mv.addObject("companyList", companyList);
+
         mv.addObject("preallocation", preallocation);
         mv.addObject("view_type", 1);
         return mv;

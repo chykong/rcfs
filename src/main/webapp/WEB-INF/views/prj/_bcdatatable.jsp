@@ -7,11 +7,9 @@
         <th>ID号</th>
         <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
-        <th>实际用地面积(m²)</th>
-        <th>总建筑面积(m²)</th>
-        <th>06年前面积(m²)</th>
-        <th>06-09年间面积(m²)</th>
-        <th>09年后面积(m²)</th>
+        <th>评估补偿款</th>
+        <th>补助奖励费</th>
+        <th>总补偿款</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -21,8 +19,6 @@
         <th>当前页合计：</th>
         <th></th>
         <th></th>
-        <th class="isSum"></th>
-        <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
@@ -98,36 +94,22 @@
                     }
                 },
                 {
-                    data: "cog_land_area",
+                    data: "appraise_compensation",
                     width: "150px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "total_homestead_area",
-                    width: "90px",
+                    data: "subsidy_relocate",
+                    width: "150px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "before_area",
-                    width: "90px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "between_area",
-                    width: "100px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "after_area",
-                    width: "100px",
+                    data: "total_compensation",
+                    width: "150px",
                     render: function (data) {
                         return data || "";
                     }

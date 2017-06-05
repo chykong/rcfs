@@ -34,12 +34,12 @@ public class PrjChartsController {
                 "\"name\":'累计交房'," +
                 "\"type\":\"bar\"," +
                 "\"data\":[12,33,44,22,32]" +
-                "}],\"data2\":{" +
+                "}],\"data2\":[{" +
                 "            name: '交房累计完成度'," +
                 "            type: 'gauge'," +
-                "            detail: {formatter:'{value}%'},\n" +
-                "            data: [{value: 50, name: '完成率'}]\n" +
-                "        }}";
+                "            detail: {formatter:'{value}%'}," +
+                "            data: [{value: 80, name: '完成率'}]" +
+                "        }]}";
         System.out.println(json);
         WebUtil.out(response, json);
     }

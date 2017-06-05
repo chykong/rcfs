@@ -63,6 +63,9 @@
      title: {
         text: '交房累计完成度'
     },
+    toolbox: {
+        show : false
+    },
     tooltip : {
         formatter: "{a} <br/>{b} : {c}%"
     },
@@ -72,14 +75,7 @@
             saveAsImage: {}
         }
     },
-    series: [
-        {
-            name: '交房累计完成度',
-            type: 'gauge',
-            detail: {formatter:'{value}%'},
-            data: [{value: 50, name: '完成率'}]
-        }
-    ]
+    series: []
 };
 myChart2.setOption(option2);
 
@@ -94,6 +90,9 @@ $.get('${pageContext.request.contextPath}/prj/charts/loaddata.htm').done(functio
             data: data.categories
         },
         series: data.data
+    });
+    myChart2.setOption({
+        series: data.data2
     });
 });
 

@@ -38,7 +38,14 @@
 					<div class="page-header">
 						<h1>
 							项目基本情况 <small> <i
-								class="ace-icon fa fa-angle-double-right"></i> 修改项目简介
+								class="ace-icon fa fa-angle-double-right"></i> <c:if
+									test="${prjBaseinfo.type==1}">
+									修改项目简介
+								</c:if> <c:if test="${prjBaseinfo.type==2}">
+									修改工作流程
+								</c:if> <c:if test="${prjBaseinfo.type==3}">
+									修改组织架构
+								</c:if> 
 							</small>
 						</h1>
 					</div>
@@ -51,25 +58,24 @@
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
 									<c:if test="${prjBaseinfo.type==1}">
-									<div class="col-sm-9">
-										<script id="introduction" name="introduction"
-											type="text/plain">${prjBaseinfo.introduction }</script>
-									</div>
+										<div class="col-sm-9">
+											<script id="introduction" name="introduction"
+												type="text/plain">${prjBaseinfo.introduction }</script>
+										</div>
 									</c:if>
 									<c:if test="${prjBaseinfo.type==2}">
-									<div class="col-sm-9">
-										<script id="introduction" name="flow"
-											type="text/plain">${prjBaseinfo.flow }</script>
-									</div>
+										<div class="col-sm-9">
+											<script id="introduction" name="flow" type="text/plain">${prjBaseinfo.flow }</script>
+										</div>
 									</c:if>
 									<c:if test="${prjBaseinfo.type==3}">
-									<div class="col-sm-9">
-										<script id="introduction" name="architecture"
-											type="text/plain">${prjBaseinfo.architecture }</script>
-									</div>
+										<div class="col-sm-9">
+											<script id="introduction" name="architecture"
+												type="text/plain">${prjBaseinfo.architecture }</script>
+										</div>
 									</c:if>
-									<input type="hidden" name= type value ="${prjBaseinfo.type}" />
-									<input type="hidden" name= id value ="${prjBaseinfo.id}" />
+									<input type="hidden" name=type value="${prjBaseinfo.type}" />
+									<input type="hidden" name=id value="${prjBaseinfo.id}" />
 								</div>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">

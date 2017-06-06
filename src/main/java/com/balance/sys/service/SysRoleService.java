@@ -293,7 +293,7 @@ public class SysRoleService {
      * @return
      */
     public String createMenuStr(int role_id) {
-        String menu = null;//EhCacheUtil.get("sysCache", "menu_" + role_id);
+        String menu = EhCacheUtil.get("sysCache", "menu_" + role_id);
         if (menu == null) {
             StringBuffer sb = new StringBuffer();
             List<SysModule> listModule = sysModuleDao.list();// 模块列表

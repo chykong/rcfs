@@ -1,7 +1,6 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjNews;
-import com.balance.prj.model.PrjNews;
 import com.balance.prj.service.PrjNewsService;
 import com.balance.prj.vo.PrjNewsSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -35,6 +34,7 @@ public class PrjNewsController extends BaseController {
         if (prjNewsSearchVO.getProgress() == null) {
             prjNewsSearchVO.setProgress(1);
         }
+        prjNewsSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjNewsService.listCount(prjNewsSearchVO);// 获取查询总数
         String url = createUrl(prjNewsSearchVO);

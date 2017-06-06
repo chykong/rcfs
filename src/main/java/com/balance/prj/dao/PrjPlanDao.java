@@ -18,13 +18,14 @@ public class PrjPlanDao extends BaseDao<PrjPlan, PrjPlanSearchVO> {
      */
     public int listCount(PrjPlanSearchVO prjPlanSearchVO) {
         String sql = "select count(*) from t_prj_plan t where 1=1";
-        sql+=createSearchSql(prjPlanSearchVO);
+        sql += createSearchSql(prjPlanSearchVO);
         return listCount(sql, prjPlanSearchVO);
     }
 
     public List<PrjPlan> list(PrjPlanSearchVO prjPlanSearchVO) {
         String sql = "select * from t_prj_plan t where 1=1";
-        sql+=createSearchSql(prjPlanSearchVO);
+        sql += createSearchSql(prjPlanSearchVO);
+        sql += " order by id desc";
         sql = PageUtil.createMysqlPageSql(sql, prjPlanSearchVO.getPageIndex(), prjPlanSearchVO.getPageSize());
         return list(sql, prjPlanSearchVO);
     }
@@ -33,6 +34,9 @@ public class PrjPlanDao extends BaseDao<PrjPlan, PrjPlanSearchVO> {
         String sql = "";
         if (prjPlanSearchVO.getProgress() != null) {//名称模糊查询
             sql += " and progress =:progress";
+        }
+        if (prjPlanSearchVO.getPrj_base_info_id() != null) {
+            sql += " and prj_base_info_id=:prj_base_info_id";
         }
         return sql;
     }
@@ -47,25 +51,28 @@ public class PrjPlanDao extends BaseDao<PrjPlan, PrjPlanSearchVO> {
         String sql = "insert into t_prj_plan(prj_base_info_id,title,content,progress,created_by,created_at)values(:prj_base_info_id,:title,:content,:progress,:created_by,now())";
         return update(sql, prjPlan);
     }
+
     /**
      * 根据id查询prjPlan
      */
-    public PrjPlan findById(int id){
-    	String sql="select * from t_prj_plan where id=?";
-    	return get(sql, new Object[]{id});
+    public PrjPlan findById(int id) {
+        String sql = "select * from t_prj_plan where id=?";
+        return get(sql, new Object[]{id});
     }
+
     /**
      * 修改会议纪要
      */
-    public int update(PrjPlan prjPlan){
-    	String sql="update t_prj_plan set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
-    	return update(sql,prjPlan);
+    public int update(PrjPlan prjPlan) {
+        String sql = "update t_prj_plan set title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        return update(sql, prjPlan);
     }
+
     /**
      * 删除会议纪要
-     */ 
-    public int delete(int id){
-    	String sql="delete from t_prj_plan where id=?";
-    	return delete(sql,new Object[]{id});
+     */
+    public int delete(int id) {
+        String sql = "delete from t_prj_plan where id=?";
+        return delete(sql, new Object[]{id});
     }
 }

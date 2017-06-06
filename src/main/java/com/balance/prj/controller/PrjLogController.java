@@ -1,7 +1,6 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjLog;
-import com.balance.prj.model.PrjMeeting;
 import com.balance.prj.service.PrjLogService;
 import com.balance.prj.vo.PrjLogSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -34,7 +33,7 @@ public class PrjLogController extends BaseController {
         if (prjLogSearchVO.getProgress() == null) {
             prjLogSearchVO.setProgress(1);
         }
-
+        prjLogSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjLogService.listCount(prjLogSearchVO);// 获取查询总数
         String url = createUrl(prjLogSearchVO);

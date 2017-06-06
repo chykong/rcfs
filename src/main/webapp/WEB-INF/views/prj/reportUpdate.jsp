@@ -32,28 +32,21 @@
 								<input type="hidden" name="id" value="${prjReport.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">标题：</label>	
-									<div class="col-sm-9">
-										<select id="progress" name="progress" value="${prjReport.progress }">
-											<option value="1">前期准备阶段</option>
-											<option value="2">入户调查阶段</option>
-											<option value="3">预分方案制作阶段</option>
-											<option value="4">动迁准备阶段</option>
-											<option value="5">动迁阶段</option>
-											<option value="6">收尾阶段</option>
-										</select>
+									<label class="col-sm-2 control-label">标题：</label>
+									<div class="col-sm-10">
+										${bln:getProjectProgress(prjReport.progress)}
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">标题：</label>
-									<div class="col-sm-9"> 
+									<label class="col-sm-2 control-label">标题：</label>
+									<div class="col-sm-10">
 										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value="${prjBief.title }"> <label
 											id="nameTip"></label>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">内容：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">内容：</label>
+									<div class="col-sm-10">
 										<script id="content" name="content" type="text/plain">${prjReport.content }</script>
 
 										</label>

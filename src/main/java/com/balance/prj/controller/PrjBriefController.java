@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjBrief;
 import com.balance.prj.service.PrjBriefService;
 import com.balance.prj.vo.PrjBriefSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -20,6 +21,7 @@ import java.util.List;
 
 /**
  * 项目简报
+ *
  * @author 刘凯
  * @date 2017年6月4日
  */
@@ -28,13 +30,15 @@ import java.util.List;
 public class PrjBriefController extends BaseController {
     @Autowired
     private PrjBriefService prjBriefService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjBriefSearchVO prjBriefSearchVO) {
         if (prjBriefSearchVO.getProgress() == null) {
             prjBriefSearchVO.setProgress(1);
         }
-
+        prjBriefSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjBriefService.listCount(prjBriefSearchVO);// 获取查询总数
         String url = createUrl(prjBriefSearchVO);
@@ -49,7 +53,7 @@ public class PrjBriefController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjBriefSearchVO prjBriefSearchVO) {
-        String url = "/prj/brief/index.htm?progress=" + prjBriefSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/brief/index.htm?progress=" + prjBriefSearchVO.getProgress();
         return url;
     }
 
@@ -89,42 +93,51 @@ public class PrjBriefController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjBrief prjBrief=prjBriefService.findById(id);
+        PrjBrief prjBrief = prjBriefService.findById(id);
         mv.addObject("prjBrief", prjBrief);
         mv.setViewName("/prj/briefUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改项目简报
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjBrief prjBrief){
-    	prjBrief.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjBriefService.update(prjBrief);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改项目简报失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改项目简报成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjBrief prjBrief) {
+        prjBrief.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        int flag = prjBriefService.update(prjBrief);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改项目简报失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改项目简报成功");
+        }
+
     }
+
     /**
      * 删除项目简报
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjBriefService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除项目简报失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除项目简报成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjBriefService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除项目简报失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除项目简报成功");
+        }
     }
 
+    /**
+     * 详细
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response, int id) {
+        ModelAndView mv = new ModelAndView();
+        PrjBrief prjBrief = prjBriefService.findById(id);
+        mv.addObject("prjBrief", prjBrief);
+        mv.setViewName("/prj/briefDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
+    }
 }
-
-
-
-

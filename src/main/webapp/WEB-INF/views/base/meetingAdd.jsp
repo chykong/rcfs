@@ -31,15 +31,15 @@
 							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">标题：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">标题：</label>
+									<div class="col-sm-10">
 										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value=""> <label
 											id="nameTip"></label>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">内容：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">内容：</label>
+									<div class="col-sm-10">
 										<script id="content" name="content" type="text/plain"></script>
 
 										</label>

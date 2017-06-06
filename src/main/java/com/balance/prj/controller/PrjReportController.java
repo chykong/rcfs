@@ -1,10 +1,10 @@
 package com.balance.prj.controller;
 
 import com.balance.prj.model.PrjReport;
-import com.balance.prj.model.PrjReport;
 import com.balance.prj.service.PrjReportService;
 import com.balance.prj.vo.PrjReportSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -21,6 +21,7 @@ import java.util.List;
 
 /**
  * 汇报材料
+ *
  * @author 刘凯
  * @date 2017年6月4日
  */
@@ -29,13 +30,15 @@ import java.util.List;
 public class PrjReportController extends BaseController {
     @Autowired
     private PrjReportService prjReportService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjReportSearchVO prjReportSearchVO) {
         if (prjReportSearchVO.getProgress() == null) {
             prjReportSearchVO.setProgress(1);
         }
-
+        prjReportSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjReportService.listCount(prjReportSearchVO);// 获取查询总数
         String url = createUrl(prjReportSearchVO);
@@ -50,7 +53,7 @@ public class PrjReportController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjReportSearchVO prjReportSearchVO) {
-        String url = "/prj/report/index.htm?progress=" + prjReportSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/report/index.htm?progress=" + prjReportSearchVO.getProgress();
         return url;
     }
 
@@ -90,52 +93,53 @@ public class PrjReportController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjReport prjReport=prjReportService.findById(id);
+        PrjReport prjReport = prjReportService.findById(id);
         mv.addObject("prjReport", prjReport);
         mv.setViewName("/prj/reportUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改汇报材料
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjReport prjReport){
-    	prjReport.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjReportService.update(prjReport);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改汇报材料失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改汇报材料成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjReport prjReport) {
+        prjReport.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        int flag = prjReportService.update(prjReport);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改汇报材料失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改汇报材料成功");
+        }
+
     }
+
     /**
      * 删除汇报材料
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjReportService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除汇报材料失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除汇报材料成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjReportService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除汇报材料失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除汇报材料成功");
+        }
     }
 
     /**
      * 显示文本内容
      */
     @RequestMapping("/toDetail")
-    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
-    	int id=Integer.parseInt(request.getParameter("id"));
-    	PrjReport prjReport=prjReportService.findById(id);
-    	ModelAndView mv=new ModelAndView();
-    	mv.addObject("prjReport", prjReport);
-    	mv.setViewName("/prj/reportDetail");
-    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-    	return mv;
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjReport prjReport = prjReportService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("prjReport", prjReport);
+        mv.setViewName("/prj/reportDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
     }
 }
 

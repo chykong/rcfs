@@ -32,16 +32,9 @@
 								<input type="hidden" name="id" value="${prjPlan.id }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">标题：</label>	
+									<label class="col-sm-3 control-label">阶段：</label>
 									<div class="col-sm-9">
-										<select id="progress" name="progress" value="${prjPlan.progress }">
-											<option value="1">前期准备阶段</option>
-											<option value="2">入户调查阶段</option>
-											<option value="3">预分方案制作阶段</option>
-											<option value="4">动迁准备阶段</option>
-											<option value="5">动迁阶段</option>
-											<option value="6">收尾阶段</option>
-										</select>
+										${bln:getProjectProgress(prjPlan.progress)}
 									</div>
 								</div>
 								<div class="form-group">

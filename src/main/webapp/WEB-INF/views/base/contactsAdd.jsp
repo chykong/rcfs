@@ -38,6 +38,7 @@
 						<div class="col-xs-12">
 							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
 								<input type="hidden" name="backUrl" value="${backUrl }">
+								<input name="type" type="hidden" value="${type }"/>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">姓名：</label>
 									<div class="col-sm-9">
@@ -49,8 +50,28 @@
 									<label class="col-sm-3 control-label">手机：</label>
 									<div class="col-sm-9">
 										<input id="mobile" type="text" name="mobile" class="col-xs-10 col-sm-5" placeholder="" value=""><label
-											id="typeTip"></label>
-									<input name="type" type="hidden" value="${type }"/>
+											id="mobileTip"></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">职务：</label>
+									<div class="col-sm-9">
+										<input id="duty" type="text" name="duty" class="col-xs-10 col-sm-5" placeholder="" value=""><label
+											id="dutyTip"></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">职责：</label>
+									<div class="col-sm-9">
+										<input id="project_duty" type="text" name="project_duty" class="col-xs-10 col-sm-5" placeholder="" value=""><label
+											id="project_dutyTip"></label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">备注：</label>
+									<div class="col-sm-9">
+										<input id="note" type="text" name="note" class="col-xs-10 col-sm-10" placeholder="" value=""><label
+											id="noteTip"></label>
 									</div>
 								</div>
 								<div class="clearfix form-actions">
@@ -89,7 +110,16 @@
 								},
 								mobile : {
 									required : true,
-									maxlength : 20
+									maxlength : 11
+								},
+								duty : {
+									maxlength : 100
+								},
+								project_duty : {
+									maxlength : 100
+								},
+								note : {
+									maxlength : 100
 								}
 							},
 							messages : {

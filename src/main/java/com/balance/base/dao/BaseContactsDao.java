@@ -1,12 +1,10 @@
 package com.balance.base.dao;
 
 import com.balance.base.model.BaseContacts;
-import com.balance.base.model.BaseContacts;
-import com.balance.base.vo.BaseContactsSearchVO;
 import com.balance.base.vo.BaseContactsSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
-
+import com.balance.util.string.StringUtil;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -51,10 +49,19 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
         if (baseContactsSearchVO.getType() != null) {//类型
             sql += " and type=:type";
         }
+        if (baseContactsSearchVO.getPrj_base_info_id() != null) {
+            sql += " and prj_base_info_id=:prj_base_info_id";//项目id
+        }
+        if (StringUtil.isNotNullOrEmpty(baseContactsSearchVO.getName())) {
+            sql += " and name =:name";//姓名
+        }
+        if (StringUtil.isNotNullOrEmpty(baseContactsSearchVO.getMobile())) {
+            sql += " and mobile=:mobile";//手机号
+        }
         return sql;
     }
-    
-    
+
+
     /**
      * 新增
      *
@@ -62,7 +69,8 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
      * @return
      */
     public int add(BaseContacts baseContacts) {
-        String sql = "insert into t_base_contacts(name,type,mobile,created_at,created_by,prj_base_info_id) values(:name,:type,:mobile,now(),:created_by,:prj_base_info_id)";
+        String sql = "insert into t_base_contacts(prj_base_info_id,name,type,mobile,duty,project_duty,note,created_at,created_by)" +
+                " values(:prj_base_info_id,:name,:type,:mobile,:duty,:project_duty,:note,now(),:created_by)";
         return update(sql, baseContacts);
     }
 
@@ -73,7 +81,7 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
      * @return
      */
     public int update(BaseContacts baseContacts) {
-        String sql = "update t_base_contacts set mobile=:mobile,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_base_contacts set mobile=:mobile,duty=:duty,project_duty=:project_duty,note=:note,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, baseContacts);
     }
 
@@ -102,10 +110,13 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
 
     /**
      * 全部公司列表
+     *
      * @return 列表
      */
-    public List<BaseContacts> listAll() {
-        String sql = "select * from t_base_contacts t ";
-        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(BaseContacts.class));
+    public List<BaseContacts> listAll(int prj_base_info_id) {
+        String sql = "select * from t_base_contacts t where  ";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BaseContacts.class));
     }
+
+
 }

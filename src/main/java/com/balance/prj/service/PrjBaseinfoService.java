@@ -49,6 +49,7 @@ public class PrjBaseinfoService {
     public List<PrjBaseinfo> list() {
         return prjBaseinfoDao.list();
     }
+
     /**
      * 获取该用户的所有项目
      *
@@ -57,5 +58,14 @@ public class PrjBaseinfoService {
      */
     public List<PrjBaseinfo> listSelectProject(int user_id) {
         return prjBaseinfoDao.listSelectProject(user_id);
+    }
+
+    /**
+     * 修改简介、流程、框架字段
+     *
+     * @return
+     */
+    public int updateIntro(int id, int type, String content) {
+        return prjBaseinfoDao.updateIntro(id, type, content);
     }
 }

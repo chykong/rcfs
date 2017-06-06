@@ -4,7 +4,6 @@ import com.balance.prj.model.PrjBaseinfo;
 import com.balance.prj.vo.PrjBaseinfoSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
-import com.balance.util.string.StringUtil;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -22,28 +21,21 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @param prjBaseinfo
      * @return
      */
-	public int add(PrjBaseinfo prjBaseinfo) {
-		String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
-		return update(sql, prjBaseinfo);
-	}
+    public int add(PrjBaseinfo prjBaseinfo) {
+        String sql = "insert     into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
+        return update(sql, prjBaseinfo);
+    }
 
-	/**
-	 * 修改
-	 *
-	 * @param prjBaseinfo
-	 * @return
-	 */
-	public int update(PrjBaseinfo prjBaseinfo) {
-			String consql = "introduction=:introduction";
-			String type = prjBaseinfo.getType();
-			if (type.equals("2"))
-				consql = "flow=:flow";
-			if (type.equals("3"))
-				consql = "architecture=:architecture";
-			String sql = "update t_prj_baseinfo set  " + consql
-					+ ",last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
-			return update(sql, prjBaseinfo);
-	}
+    /**
+     * 修改
+     *
+     * @param prjBaseinfo
+     * @return
+     */
+    public int update(PrjBaseinfo prjBaseinfo) {
+        String sql = "update t_prj_baseinfo set prj_name=:prj_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        return update(sql, prjBaseinfo);
+    }
 
     /**
      * 删除
@@ -66,6 +58,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
         String sql = "select * from t_prj_baseinfo t where id=?";
         return get(sql, new Object[]{id});
     }
+
 
     /**
      * 分页列表
@@ -131,4 +124,20 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
         return list(sql, new Object[]{user_id});
     }
 
+    /**
+     * 修改简介、流程、框架字段
+     *
+     * @return
+     */
+    public int updateIntro(int id, int type, String content) {
+        String field = "=";
+        if (type == 1)
+            field = "introduction ";
+        else if (type == 2)
+            field = "flow ";
+        else if (type == 3)
+            field = "architecture ";
+        String sql = "update t_prj_baseinfo set " + field + "=?where id=?";
+        return update(sql, content, id);
+    }
 }

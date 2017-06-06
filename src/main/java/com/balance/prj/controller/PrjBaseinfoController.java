@@ -9,6 +9,7 @@ import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.StringUtil;
+import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +29,7 @@ import java.util.List;
 public class PrjBaseinfoController extends BaseController {
 
     @Autowired
-    private PrjBaseinfoService prjCompanyService;
+    private PrjBaseinfoService prjBaseinfoService;
     @Autowired
     private PubConfig pubConfig;
 
@@ -41,10 +42,10 @@ public class PrjBaseinfoController extends BaseController {
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjBaseinfoSearchVO prjCompanySearchVO) {
         ModelAndView mv = new ModelAndView();
 
-        int recordCount = prjCompanyService.listCount(prjCompanySearchVO);// 获取查询总数
+        int recordCount = prjBaseinfoService.listCount(prjCompanySearchVO);// 获取查询总数
         String url = createUrl(prjCompanySearchVO);
         PageNavigate pageNavigate = new PageNavigate(url, prjCompanySearchVO.getPageIndex(), prjCompanySearchVO.getPageSize(), recordCount);//定义分页对象
-        List<PrjBaseinfo> list = prjCompanyService.list(prjCompanySearchVO);
+        List<PrjBaseinfo> list = prjBaseinfoService.list(prjCompanySearchVO);
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
         mv.setViewName("/prj/baseinfo");// 跳转至指定页面
@@ -84,7 +85,7 @@ public class PrjBaseinfoController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjBaseinfo prjBaseinfo = prjCompanyService.get(id);
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(id);
         mv.addObject("prjBaseinfo", prjBaseinfo);
         mv.setViewName("/prj/baseinfoUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
@@ -94,7 +95,7 @@ public class PrjBaseinfoController extends BaseController {
     @RequestMapping("/add")
     public String add(HttpServletRequest request, HttpServletResponse response, PrjBaseinfo prjCompany) {
         prjCompany.setCreated_by(SessionUtil.getUserSession(request).getRealname());
-        int flag = prjCompanyService.add(prjCompany);
+        int flag = prjBaseinfoService.add(prjCompany);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("项目新增失败");
         else
@@ -103,7 +104,7 @@ public class PrjBaseinfoController extends BaseController {
 
     @RequestMapping("/update")
     public String update(HttpServletRequest request, HttpServletResponse response, PrjBaseinfo prjCompany) {
-        int flag = prjCompanyService.update(prjCompany);
+        int flag = prjBaseinfoService.update(prjCompany);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("项目修改失败");
         else
@@ -112,10 +113,67 @@ public class PrjBaseinfoController extends BaseController {
 
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
-        int flag = prjCompanyService.delete(id);
+        int flag = prjBaseinfoService.delete(id);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("项目删除失败");
         else
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("项目删除成功");
     }
+
+    /**
+     * 进入用户管理界面
+     *
+     * @return
+     */
+    @RequestMapping("/projectIntro")
+    public ModelAndView projectIntro(HttpServletRequest request, HttpServletResponse response, Integer type) {
+        ModelAndView mv = new ModelAndView();
+        if (type == null) type = 1;
+        String url = pubConfig.getDynamicServer() + "/prj/baseinfo/projectIntro.htm?type=" + type;
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("prjBaseinfo", prjBaseinfo);
+        mv.addObject("type", type);//l类型
+        mv.setViewName("/prj/projectIntro");// 跳转至介绍页面
+        BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
+        return mv;
+    }
+
+    /**
+     * 进入修改界面
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/toUpdateProjectIntro")
+    public ModelAndView toUpdateProjectIntro(HttpServletRequest request, HttpServletResponse response, Integer type) {
+        ModelAndView mv = new ModelAndView();
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.setViewName("/prj/projectIntroUpdate");
+        mv.addObject("prjBaseinfo", prjBaseinfo);
+        mv.addObject("type", type);
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
+    }
+
+    /**
+     * 修改操作
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/updateProjectIntro")
+    public String updateProjectIntro(HttpServletRequest request, HttpServletResponse response, Integer type) {
+        int flag = prjBaseinfoService.updateIntro(SessionUtil.getUserSession(request).getCurrent_project_id(), type, WebUtil.getSafeStr(request.getParameter("content")));
+        String str = "项目简介";
+        if (type.equals(2)) str = "工作流程";
+        if (type.equals(3)) str = "组织架构";
+        if (flag == 0)
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl(str + "修改失败");
+        else
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl(str + "修改成功");
+    }
+
+
 }

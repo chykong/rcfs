@@ -40,12 +40,12 @@ public class BaseDao<T, S> {
         return getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(t));
     }
 
-    public int update(String sql, Object[] objects) {
+    public int update(String sql, Object... objects) {
         return jdbcTemplate.update(sql, objects);
     }
 
 
-    public int delete(String sql, Object[] objects) {
+    public int delete(String sql, Object... objects) {
         return jdbcTemplate.update(sql, objects);
     }
 
@@ -56,14 +56,32 @@ public class BaseDao<T, S> {
      * @param objects
      * @return
      */
-    public T get(String sql, Object[] objects) {
+   /* public T get(String sql, Object[] objects) {
+        List<T> list = jdbcTemplate.query(sql, objects, BeanPropertyRowMapper.newInstance(getClazz()));
+        if (list.size() > 0)
+            return list.get(0);
+        else
+            return null;
+    }*/
+
+    /**
+     * 增加多参数模式
+     *
+     * @param sql
+     * @param objects
+     * @return
+     */
+    public T get(String sql, Object... objects) {
+       /* Object[] params = new Object[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            params[i] = objects[i];
+        }*/
         List<T> list = jdbcTemplate.query(sql, objects, BeanPropertyRowMapper.newInstance(getClazz()));
         if (list.size() > 0)
             return list.get(0);
         else
             return null;
     }
-
 
     /**
      * 取得当前泛型的实际class名
@@ -80,7 +98,7 @@ public class BaseDao<T, S> {
         return list;
     }
 
-    public List<T> list(String sql, Object[] objects) {
+    public List<T> list(String sql, Object... objects) {
         List<T> list = jdbcTemplate.query(sql, objects, BeanPropertyRowMapper.newInstance(getClazz()));
         return list;
     }
@@ -92,6 +110,7 @@ public class BaseDao<T, S> {
 
     /**
      * 查询总数，无参数
+     *
      * @param sql
      * @return
      */
@@ -101,6 +120,7 @@ public class BaseDao<T, S> {
 
     /**
      * 查询总数，带查询对象
+     *
      * @param sql
      * @param s
      * @return

@@ -37,16 +37,16 @@
                             <input type="hidden" name="backUrl" value="${backUrl }">
                             <input type="hidden" name="id" value="${basePolicy.id }">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">政策标题：</label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-2 control-label">政策标题：</label>
+                                <div class="col-sm-10">
                                     <input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder=""
                                            value="${basePolicy.title }" readonly=""><label
                                         id="titleTip"></label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">政策类型：</label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-2 control-label">政策内容：</label>
+                                <div class="col-sm-10">
                                     <script id="content" name="content"
                                             type="text/plain">${basePolicy.content }</script>
                                     </label>

@@ -138,17 +138,17 @@ public class WebTag {
      */
     public static String getProjectProgress(Integer progress) {
         if (progress == 1)
-            return "<span class=\"label label-success arrowed\">前期准备阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed \">前期准备阶段</span>";
         else if (progress == 2)
-            return "<span class=\"label label-success arrowed\">入户调查阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">入户调查阶段</span>";
         else if (progress == 3)
-            return "<span class=\"label label-success arrowed\">预分方案制作阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">预分方案制作阶段</span>";
         else if (progress == 4)
-            return "<span class=\"label label-success arrowed\">动迁准备阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">动迁准备阶段</span>";
         else if (progress == 5)
-            return "<span class=\"label label-success arrowed\">动迁阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">动迁阶段</span>";
         else if (progress == 6)
-            return "<span class=\"label label-success arrowed\">收尾阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">收尾阶段</span>";
         else
             return "";
     }

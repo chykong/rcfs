@@ -39,7 +39,7 @@ public class BasePolicyController extends BaseController {
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, BasePolicySearchVO basePolicySearchVO) {
         ModelAndView mv = new ModelAndView();
-
+        basePolicySearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         int recordCount = basePolicyService.listCount(basePolicySearchVO);// 获取查询总数
         String url = createUrl(basePolicySearchVO);
         PageNavigate pageNavigate = new PageNavigate(url, basePolicySearchVO.getPageIndex(), basePolicySearchVO.getPageSize(), recordCount);//定义分页对象

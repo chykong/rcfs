@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjMeeting;
 import com.balance.prj.service.PrjMeetingService;
 import com.balance.prj.vo.PrjMeetingSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -27,13 +28,15 @@ import java.util.List;
 public class PrjMeetingController extends BaseController {
     @Autowired
     private PrjMeetingService prjMeetingService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjMeetingSearchVO prjMeetingSearchVO) {
         if (prjMeetingSearchVO.getProgress() == null) {
             prjMeetingSearchVO.setProgress(1);
         }
-
+        prjMeetingSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjMeetingService.listCount(prjMeetingSearchVO);// 获取查询总数
         String url = createUrl(prjMeetingSearchVO);
@@ -48,7 +51,7 @@ public class PrjMeetingController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjMeetingSearchVO prjMeetingSearchVO) {
-        String url = "/prj/meeting/index.htm?progress=" + prjMeetingSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/meeting/index.htm?progress=" + prjMeetingSearchVO.getProgress();
         return url;
     }
 
@@ -88,51 +91,53 @@ public class PrjMeetingController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjMeeting prjMeeting=prjMeetingService.findById(id);
+        PrjMeeting prjMeeting = prjMeetingService.findById(id);
         mv.addObject("prjMeeting", prjMeeting);
         mv.setViewName("/prj/meetingUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改会议纪要
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjMeeting prjMeeting){
-    	prjMeeting.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjMeetingService.update(prjMeeting);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改会议纪要失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改会议纪要成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjMeeting prjMeeting) {
+        prjMeeting.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        int flag = prjMeetingService.update(prjMeeting);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改会议纪要失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改会议纪要成功");
+        }
+
     }
+
     /**
      * 删除会议纪要
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjMeetingService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除会议纪要失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除会议纪要成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjMeetingService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除会议纪要失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除会议纪要成功");
+        }
     }
+
     /**
      * 显示文本内容
      */
     @RequestMapping("/toDetail")
-    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
-    	int id=Integer.parseInt(request.getParameter("id"));
-    	PrjMeeting prjMeeting=prjMeetingService.findById(id);
-    	ModelAndView mv=new ModelAndView();
-    	mv.addObject("prjMeeting", prjMeeting);
-    	mv.setViewName("/prj/meetingDetail");
-    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-    	return mv;
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjMeeting prjMeeting = prjMeetingService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("prjMeeting", prjMeeting);
+        mv.setViewName("/prj/meetingDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
     }
 
 }

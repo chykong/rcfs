@@ -48,8 +48,6 @@
 									<label class="col-sm-2 control-label">内容：</label>
 									<div class="col-sm-10">
 										<script id="content" name="content" type="text/plain"></script>
-
-										</label>
 									</div>
 								</div>
 								<div class="clearfix form-actions">

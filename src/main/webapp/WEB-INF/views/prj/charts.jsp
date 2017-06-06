@@ -83,10 +83,10 @@ $.get('${pageContext.request.contextPath}/prj/charts/loaddata.htm').done(functio
         xAxis: {
             data: data.categories
         },
-        series: data.data
+        series: data.barData
     });
     myChart2.setOption({
-        series: data.data2
+        series: data.guageData
     });
 });
 

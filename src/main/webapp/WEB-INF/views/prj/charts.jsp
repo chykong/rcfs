@@ -18,7 +18,7 @@
             <div id="left" style="width: 600px;height:300px;flow:left;"></div>
         </td>
         <td>
-            <div id="right" style="width: 300px;height:300px;float: left;">rerw</div>
+            <div id="right" style="width: 300px;height:300px;float: left;"> </div>
         </td>
     </tr>
 </table>
@@ -27,6 +27,8 @@
         var myChart = echarts.init(document.getElementById('left'),'shine');
         var myChart2 = echarts.init(document.getElementById('right'),'shine');
         var option = {
+            title:{ text: '交房各组进组统计'
+            },
             tooltip : {
                 trigger: 'axis',
                 axisPointer : {            // 坐标轴指示器，坐标轴触发有效

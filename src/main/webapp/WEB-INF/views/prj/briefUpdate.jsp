@@ -101,10 +101,10 @@
 						});
 
 						UE.getEditor('content', {
-                toolbars: ueditorToolbar1,
-                initialFrameHeight: 300,
-                imagePath: '${pageContext.request.contextPath}/'
-            	});
+                			toolbars: ueditorToolbar1,
+                			initialFrameHeight: 300,
+                			imagePath: '${pageContext.request.contextPath}/'
+            				});
 					});
 
 				</script>

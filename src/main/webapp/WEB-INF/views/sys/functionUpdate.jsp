@@ -65,8 +65,8 @@
 									<label class="col-sm-3 control-label">操作类型：</label>
 									<div class="col-sm-9">
 										<select name="type" class="col-xs-10 col-sm-5">
-											<option value="0" <c:if test="${sysFunction.type eq 0}  "> selected</c:if>>读</option>
-											<option value="1" <c:if test="${sysFunction.type  eq 1} "> selected</c:if>>写</option>
+											<option value="0" <c:if test="${sysFunction.type eq 0}"> selected</c:if>>读</option>
+											<option value="1" <c:if test="${sysFunction.type eq 1}"> selected</c:if>>写</option>
 										</select>
 									</div>
 								</div>

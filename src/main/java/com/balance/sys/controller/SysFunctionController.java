@@ -46,7 +46,7 @@ public class SysFunctionController extends BaseController {
         mv.addObject("functionList", functionList);// 把获取的记录放到mv里面
         SysModule sysModule = sysModuleService.get(module_id);
         mv.addObject("sysModule", sysModule);
-        String url = "/sys/function/index.htm?module_id=" + sysModule.getId();
+        String url = pubConfig.getDynamicServer() + "/sys/function/index.htm?module_id=" + sysModule.getId();
         mv.addObject("backUrl", StringUtil.encodeUrl(url));
         mv.setViewName("/sys/function");
 

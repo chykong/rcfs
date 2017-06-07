@@ -142,7 +142,7 @@ public class WebTag {
         else if (progress == 2)
             return "<span class=\"label label-xlg label-success arrowed\">入户调查阶段</span>";
         else if (progress == 3)
-            return "<span class=\"label label-xlg label-success arrowed\">预分方案制作阶段</span>";
+            return "<span class=\"label label-xlg label-success arrowed\">内业整理阶段</span>";
         else if (progress == 4)
             return "<span class=\"label label-xlg label-success arrowed\">动迁准备阶段</span>";
         else if (progress == 5)

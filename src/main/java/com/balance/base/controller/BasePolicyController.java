@@ -1,5 +1,15 @@
 package com.balance.base.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.balance.base.model.BasePolicy;
 import com.balance.base.service.BasePolicyService;
 import com.balance.base.vo.BasePolicySearchVO;
@@ -9,14 +19,6 @@ import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.StringUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Author   孔垂云
@@ -121,4 +123,18 @@ public class BasePolicyController extends BaseController {
         else
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("政策删除成功");
     }
+    /**
+     *   显示文本内容
+     */
+    @RequestMapping("/toDetail")
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        BasePolicy basePolicy = basePolicyService.get(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("basePolicy", basePolicy);
+        mv.setViewName("/base/policyDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
+    }
+
 }

@@ -7,7 +7,6 @@
 <head>
     <title>${webTitle }-项目参与人员</title>
     <%@ include file="../common/header.jsp" %>
-
 </head>
 
 <body class="no-skin">

@@ -38,7 +38,7 @@
                         <div class="tabbable">
                             <!-- #section:pages/faq -->
                             <ul class="nav nav-tabs padding-18 tab-size-bigger" id="myTab">
-                                <li class="active" data-type="1">
+                                <li class="<c:if test="${type == 1}">active</c:if>" data-type="1">
                                     <a data-toggle="tab" href="#faq-tab-basic" aria-expanded="true">
                                         <i class="blue ace-icon fa fa-user bigger-120"></i>
                                         基本信息
@@ -50,7 +50,7 @@
                                         进度信息
                                     </a>
                                 </li>
-                                <li class="" data-type="3">
+                                <li class="<c:if test="${type == 2}">active</c:if>" data-type="3">
                                     <a data-toggle="tab" href="#faq-tab-bc" aria-expanded="true">
                                         <i class="blue ace-icon fa fa-jpy bigger-120"></i>
                                         补偿信息
@@ -68,13 +68,13 @@
                                 <div class="tab-content no-border padding-24">
                                     <input type="hidden" name="backUrl" value="${backUrl}"/>
                                     <!-- 基本情况 begin-->
-                                    <div id="faq-tab-basic" class="tab-pane fade active in" data-type="1">
+                                    <div id="faq-tab-basic" class="tab-pane fade <c:if test="${type == 1}">active in</c:if>" data-type="1">
                                         <%@ include file="_formfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-jd" class="tab-pane fade" data-type="2">
                                         <%@ include file="_jdformfields.jspf" %>
                                     </div>
-                                    <div id="faq-tab-bc" class="tab-pane fade" data-type="3">
+                                    <div id="faq-tab-bc" class="tab-pane fade <c:if test="${type == 2}">active in</c:if>" data-type="3">
                                         <%@ include file="_bcformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
@@ -156,6 +156,7 @@
 
 <script>
     $(function () {
+        countYjf();
         $(".date").datepicker({
             format: "yyyy-mm-dd",
             autoclose: true,

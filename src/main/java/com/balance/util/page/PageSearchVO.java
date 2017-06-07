@@ -9,7 +9,7 @@ package com.balance.util.page;
 public class PageSearchVO {
     private int total = 0;
     private int pageIndex = 1;
-    private int pageSize =2;// GlobalConst.pageSize;
+    private int pageSize =20;// GlobalConst.pageSize;
 
     public int getTotal() {
         return total;

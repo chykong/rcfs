@@ -4,6 +4,7 @@
 <table id="basic-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
+        <th>序号</th>
         <th>ID号</th>
         <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
@@ -20,6 +21,7 @@
     <tfoot id="table-foot">
     <tr>
         <th>当前页合计：</th>
+        <th></th>
         <th></th>
         <th></th>
         <th class="isSum"></th>
@@ -86,7 +88,13 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "200px",
+                    width: "40px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },{
+                    data: "map_id",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }
@@ -176,7 +184,7 @@
                     data: "id",
                     width: "80px",
                     render: function (data,type,row) {
-                        if (row.status == 60) {
+                        if (row.status != 70) {
                             return '<a class="btn-sm btn-info" href="javascript:archive(\''+ data +'\',\'' + row.map_id +'\',\''+ row.host_name +'\')">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>归档</a>';
                         } else {
@@ -191,6 +199,11 @@
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
+            },
+            fnDrawCallback : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
             },
             footerCallback: function () {
                 var api = this.api();
@@ -211,6 +224,7 @@
                         // 修改底部菜单
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 元");
                     }
+                    $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
                 });
             }
 

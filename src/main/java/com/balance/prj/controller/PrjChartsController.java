@@ -1,14 +1,20 @@
 package com.balance.prj.controller;
 
+import com.balance.prj.model.PrjChart;
+import com.balance.prj.service.PrjChartsService;
 import com.balance.prj.vo.ChartsDataVO;
+import com.balance.prj.vo.PrjChartsSearchVO;
+import com.balance.util.session.SessionUtil;
 import com.balance.util.string.ChartsUtil;
 import com.balance.util.web.WebUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Author  孔垂云
@@ -17,11 +23,30 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/prj/charts")
 @Controller
 public class PrjChartsController {
+    @Autowired
+    private PrjChartsService prjChartsService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/prj/charts");
+        return mv;
+    }
+
+    @RequestMapping("/entiretyIndex")
+    public ModelAndView entiretyIndex(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
+        ModelAndView mv = new ModelAndView();
+
+        prjChartsSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        List<PrjChart> inHostList = prjChartsService.getInHostList(prjChartsSearchVO);
+        List<PrjChart> contractList = prjChartsService.getContractList(prjChartsSearchVO);
+        List<PrjChart> handoverList = prjChartsService.getHandoverList(prjChartsSearchVO);
+
+        mv.addObject("inHostList",inHostList);
+        mv.addObject("contractList",contractList);
+        mv.addObject("handoverList",handoverList);
+
+        mv.setViewName("/prj/entiretyChartIndex");
         return mv;
     }
 

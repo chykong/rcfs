@@ -4,6 +4,7 @@
 <table id="basic-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
+        <th>序号</th>
         <th>ID号</th>
         <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
@@ -19,6 +20,7 @@
     <tfoot id="table-foot">
     <tr>
         <th>当前页合计：</th>
+        <th></th>
         <th></th>
         <th></th>
         <th class="isSum"></th>
@@ -77,7 +79,13 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "200px",
+                    width: "40px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },{
+                    data: "map_id",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }
@@ -161,7 +169,7 @@
                     width: "80px",
                     render: function (data,type,row) {
                         if (row.status != 70) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&id="/>' + data + '">\
+                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {
                             return '';
@@ -175,6 +183,11 @@
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
+            },
+            fnDrawCallback : function(){
+                this.api().column(0).nodes().each(function(cell, i) {
+                    cell.innerHTML =  i + 1;
+                });
             },
             footerCallback: function () {
                 var api = this.api();
@@ -190,6 +203,8 @@
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " m²");
                     }
                 });
+                $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
+
             }
 
         });

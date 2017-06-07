@@ -93,7 +93,6 @@ public class PrjPreallocation {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date choose_room_date; // 选房时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date handover_date; // 交房时间
     private int status;  //状态 10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房  50-已选房 60-已归档
     private String leader;  //包村干部
     private String management_co;  //管理公司
@@ -718,14 +717,6 @@ public class PrjPreallocation {
 
     public void setChoose_room_date(Date choose_room_date) {
         this.choose_room_date = choose_room_date;
-    }
-
-    public Date getHandover_date() {
-        return handover_date;
-    }
-
-    public void setHandover_date(Date handover_date) {
-        this.handover_date = handover_date;
     }
 
     public int getStatus() {

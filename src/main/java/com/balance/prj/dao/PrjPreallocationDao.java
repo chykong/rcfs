@@ -47,7 +47,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, handover_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
-                " management_house_area, field_house_area, no_sign_reason) " +
+                " management_house_area, field_house_area, no_sign_reason,in_host_date) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
@@ -57,7 +57,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :handover_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
-                " :management_house_area, :field_house_area, :no_sign_reason)";
+                " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -68,7 +68,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " money_homestead=:money_homestead, money_adjunct=:money_adjunct, incentive_fees=:incentive_fees," +
                 " money_relocate=:money_relocate, money_ssbcf=:money_ssbcf, money_dhyjf=:money_dhyjf,money_yxdsyjf=:money_yxdsyjf," +
                 " money_ktyjf=:money_ktyjf, money_rsqyjf=:money_rsqyjf, subsidy_relocate=:subsidy_relocate,total_compensation=:total_compensation," +
-                " handover_house_date=:handover_house_date,signed_date=:signed_date, leader=:leader," +
+                " handover_house_date=:handover_house_date,signed_date=:signed_date, leader=:leader,in_host_date=:in_host_date," +
                 " management_co=:management_co, geo_co=:geo_co, appraise_co=:appraise_co, demolish_co=:demolish_co, pulledown_co=:pulledown_co," +
                 " prj_base_info_id=:prj_base_info_id, appraise_compensation=:appraise_compensation," +
                 " archive_date=:archive_date, demolished_date=:demolished_date, audit_date=:audit_date, remarks=:remarks, section=:section, groups=:groups, other_file_name=:other_file_name," +

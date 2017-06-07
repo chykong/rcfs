@@ -3,7 +3,9 @@ package com.balance.prj.controller;
 import com.balance.base.model.BaseCompany;
 import com.balance.base.service.BaseCompanyService;
 import com.balance.prj.model.PrjPreallocation;
+import com.balance.prj.model.PrjSection;
 import com.balance.prj.service.PrjPreallocationService;
+import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -47,6 +49,8 @@ public class PrjPreallocationBasicController extends BaseController {
     @Autowired
     private PrjPreallocationService preallocationService;
     @Autowired
+    private PrjSectionService prjSectionService;
+    @Autowired
     private BaseCompanyService baseCompanyService;
 
     @RequestMapping(value = {"", "index"})
@@ -61,11 +65,11 @@ public class PrjPreallocationBasicController extends BaseController {
     @ResponseBody
     public Map getBasic(PrjPreallocationSearchVO preallocationSearchVO, HttpServletRequest request) {
         Map<Object, Object> map = new HashMap<>();
+        preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
 
         int count = preallocationService.count(preallocationSearchVO);
 
-        preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
-        preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
         List<PrjPreallocation> preallocations = preallocationService.findAll(preallocationSearchVO);
 
         map.put("data", preallocations);
@@ -110,7 +114,7 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "toUpdate", method = RequestMethod.GET)
-    public ModelAndView toUpdate(int id, HttpServletRequest request) {
+    public ModelAndView toUpdate(int id,int type, HttpServletRequest request) {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/prj/preallocationUpdate");
@@ -122,11 +126,13 @@ public class PrjPreallocationBasicController extends BaseController {
             mv.addObject("msg", "拆除腾退人不存在");
             return mv;
         }
-//        List<PrjPreallocation> sectionList = projectService.getSectionsByProjectId(getCurrentProject().getProjectId());
-//        model.addAttribute("sectionList", sectionList);
+        List<PrjSection> sectionList = prjSectionService.list(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("sectionList", sectionList);
 //
         List<BaseCompany> companyList = baseCompanyService.listAll();
         mv.addObject("companyList", companyList);
+
+        mv.addObject("type", type);
 
         mv.addObject("preallocation", preallocation);
         return mv;

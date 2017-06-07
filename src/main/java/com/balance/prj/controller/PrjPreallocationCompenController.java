@@ -304,7 +304,7 @@ public class PrjPreallocationCompenController extends BaseController {
         preallocation.setTotal_compensation(StringUtil.isNullOrEmpty(total_compensation) ? new BigDecimal(0) : new BigDecimal(total_compensation));
 
         preallocation.setRelocate_date(DateUtil.stringToDate(signed_date, "yyyy-MM-dd"));
-        preallocation.setHandover_date(DateUtil.stringToDate(handover_house_date, "yyyy-MM-dd"));
+        preallocation.setHandover_house_date(DateUtil.stringToDate(handover_house_date, "yyyy-MM-dd"));
         preallocation.setDemolished_date(DateUtil.stringToDate(demolished_date, "yyyy-MM-dd"));
         preallocation.setRelocate_date(DateUtil.stringToDate(audit_date, "yyyy-MM-dd"));
         preallocation.setRelocate_date(DateUtil.stringToDate(money_date, "yyyy-MM-dd"));

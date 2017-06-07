@@ -50,7 +50,7 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
             sql += " and prj_base_info_id=:prj_base_info_id";//项目id
         }
         if (StringUtil.isNotNullOrEmpty(baseParticipantSearchVO.getName())) {
-            sql += " and name =:name";//姓名
+            sql += " and name like :name_str";//姓名
         }
         if (StringUtil.isNotNullOrEmpty(baseParticipantSearchVO.getMobile())) {
             sql += " and mobile=:mobile";//手机号

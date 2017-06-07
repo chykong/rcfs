@@ -19,8 +19,8 @@
             <div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                     <li class="active">项目参与人员</li>
-                </ul>
+                    <li class="active">项目参与人员</li>
+                </ul> <%@ include file="../common/navigate.jsp" %>
                 <!-- /.breadcrumb -->
             </div>
 
@@ -44,11 +44,11 @@
                                             <td>姓名：</td>
                                             <td><input type="text" id="txtName" class="form-control input-middle"
                                                        placeholder=""
-                                                       value="${baseContactsSearchVO.name }"></td>
+                                                       value="${baseParticipantSearchVO.name }"></td>
                                             <td>手机号：</td>
                                             <td><input type="text" id="txtMobile" class="form-control input-middle"
                                                        placeholder=""
-                                                       value="${baseContactsSearchVO.mobile }"></td>
+                                                       value="${baseParticipantSearchVO.mobile }"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" id="btnSearch">
                                                     <i class="ace-icon fa fa-search"></i> 查询
@@ -75,14 +75,14 @@
                                class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th width=150>工作职能</th>
+                                <th width=120>工作职能</th>
                                 <th width=100>姓名</th>
-                                <th width=130>手机号</th>
+                                <th width=100>手机号</th>
                                 <th width=100>组别</th>
-                                <th width=150>公司名称</th>
-                                <th width=150>工作职责</th>
-                                <th width=150>发布人</th>
-                                <th width=250>发布日期</th>
+                                <th width=120>公司名称</th>
+                                <th width=120>工作职责</th>
+                                <th width=80>发布人</th>
+                                <th width=140>发布日期</th>
                                 <th width="140">操作</th>
                             </tr>
                             </thead>
@@ -99,7 +99,7 @@
                                     <td>${participant.release_date }</td>
                                     <td><c:if test="${bln:isP('BaseParticipantUpdate')}">
                                         <a href="toUpdate.htm?id=${participant.id }&backUrl=${backUrl}">
-                                        	 修改 </a>
+                                            修改 </a>
                                     </c:if> <c:if test="${bln:isP('BaseParticipantDelete')}">
                                         <a href="javascript:delParticipant(${participant.id });"> 删除
                                         </a>
@@ -109,14 +109,15 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">${ pageNavigate.pageModel}</div>
-                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">${ pageNavigate.pageModel}</div>
                 </div>
             </div>
-            <!-- /.main-content -->
         </div>
+        <!-- /.main-content -->
     </div>
+</div>
 </div>
 <!-- /.main-container -->
 <%@ include file="../common/js.jsp" %>
@@ -125,7 +126,7 @@
 
 				$(function() {
 					$("#btnSearch").bind('click', searchContacts);
-					$("#btnAdd").bind('click', addContacts);
+					$("#btnAdd").bind('click', addParticipant);
 				})
 
 				// 查询方法
@@ -146,9 +147,10 @@
 					})
 				}
 				//新增
-				var addContacts = function(id) {
+				var addParticipant = function(id) {
 					window.location = "toAdd.htm?backUrl=${backUrl }";
 				}
+
 
 
 </script>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ include file="../common/taglib.jsp" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
 <body class="no-skin">
 <%@ include file="../common/top.jsp" %>
 <div class="main-container" id="main-container">
-   <%@ include file="../common/menu.jsp" %>
+    <%@ include file="../common/menu.jsp" %>
     <div class="main-content">
         <div class="main-content-inner">
             <!-- #section:basics/content.breadcrumbs -->
@@ -19,13 +18,14 @@
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
                     <li class="active">项目简报</li>
-                </ul> <%@ include file="../common/navigate.jsp"%>
+                </ul>
+                <%@ include file="../common/navigate.jsp" %>
                 <!-- /.breadcrumb -->
             </div>
 
             <!-- /section:basics/content.breadcrumbs -->
             <div class="page-content">
-            	 <div class="row">
+                <div class="row">
                     <div class="col-xs-12">
                         <div class="widget-box widget-color-blue">
                             <!-- #section:custom/widget-box.options -->
@@ -81,7 +81,7 @@
                                     <td><a href="toDetail.htm?id=${brief.id }">${brief.title }</a></td>
                                     <td>${brief.created_by }</td>
                                     <th width=120><fmt:formatDate value="${brief.created_at}"
-                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
+                                                                  pattern="yyyy-MM-dd HH:mm"/></th>
                                     <td><c:if test="${bln:isP('PrjBriefUpdate')}">
                                         <a href="toUpdate.htm?id=${brief.id }&backUrl=${backUrl}"> 修改 </a>
                                     </c:if> <c:if test="${bln:isP('PrjBriefDelete')}">
@@ -92,20 +92,20 @@
                             </tbody>
                         </table>
                     </div>
-                    <!-- /.span -->
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-xs-12">${ pageNavigate.pageModel}</div>
-                </div>
+                    <div class="row">
+                        <div class="col-xs-12">${ pageNavigate.pageModel}</div>
+                    </div>
 
+                </div>
+                <!-- /.main-content -->
             </div>
-            <!-- /.main-content -->
         </div>
-        <!-- /.main-container -->
-        <%@ include file="../common/js.jsp" %>
+    </div>
+</div>
+<!-- /.main-container -->
+<%@ include file="../common/js.jsp" %>
 
-        <script type="text/javascript">
+<script type="text/javascript">
 				$(function() {
 					$("#btnSearch").bind('click', searchCompany);
 					$("#btnAdd").bind('click', addLog);
@@ -129,6 +129,7 @@
 				 	var project_progress=$(".active").find("input").val()
 					window.location = 'toAdd.htm?progress=${prjBriefSearchVO.progress}&backUrl=${backUrl }';
 				}
-        </script>
+
+</script>
 </body>
 </html>

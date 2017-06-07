@@ -50,7 +50,7 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
             sql += " and prj_base_info_id=:prj_base_info_id";//项目id
         }
         if (StringUtil.isNotNullOrEmpty(baseContactsSearchVO.getName())) {
-            sql += " and name =:name";//姓名
+            sql += " and name like:name_str";//姓名
         }
         if (StringUtil.isNotNullOrEmpty(baseContactsSearchVO.getMobile())) {
             sql += " and mobile=:mobile";//手机号

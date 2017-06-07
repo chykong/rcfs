@@ -26,7 +26,7 @@ public class BaseProjectintroController extends BaseController {
 	private PrjBaseinfoService prjBaseinfoService;
 
 	/**
-	 * 进入项目简介界面
+	 *  进入项目简介界面
 	 *
 	 * @return
 	 */

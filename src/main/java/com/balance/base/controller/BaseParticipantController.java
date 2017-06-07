@@ -1,5 +1,8 @@
 package com.balance.base.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -73,6 +76,11 @@ public class BaseParticipantController {
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
+        
+        Date date=new Date();
+        DateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+        String time=format.format(date);
+        mv.addObject("release_date", time);
         mv.setViewName("/base/participantAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;

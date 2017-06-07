@@ -98,11 +98,10 @@
                                     <td>${participant.created_by}</td>
                                     <td>${participant.release_date }</td>
                                     <td><c:if test="${bln:isP('BaseParticipantUpdate')}">
-                                        <a
-                                                href="toUpdate.htm?id=${participant.id }&backUrl=${backUrl}">
-                                            修改 </a>
+                                        <a href="toUpdate.htm?id=${participant.id }&backUrl=${backUrl}">
+                                        	 修改 </a>
                                     </c:if> <c:if test="${bln:isP('BaseParticipantDelete')}">
-                                        <a href="javascript:delContacts(${participant.id });"> 删除
+                                        <a href="javascript:delParticipant(${participant.id });"> 删除
                                         </a>
                                     </c:if></td>
                                 </tr>
@@ -139,7 +138,7 @@
 					window.location = encodeURI(url);
 				}
 				// 删除
-				var delContacts = function(id) {
+				var delParticipant = function(id) {
 					bootbox.confirm("你确定要删除吗？", function(result) {
 						if (result) {
 							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";

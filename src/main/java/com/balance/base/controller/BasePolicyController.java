@@ -124,7 +124,7 @@ public class BasePolicyController extends BaseController {
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("政策删除成功");
     }
     /**
-     * 显示文本内容
+     *   显示文本内容
      */
     @RequestMapping("/toDetail")
     public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {

@@ -30,7 +30,8 @@
                         <li class="active">组织架构</li>
                     </c:if>
                 </ul>
-                <!-- /.breadcrumb -->
+                <!-- /.breadcrumb -->                <%@ include file="../common/navigate.jsp"%>
+
             </div>
 
             <div class="page-content">

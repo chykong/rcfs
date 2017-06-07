@@ -3,6 +3,7 @@ package com.balance.prj.controller;
 import com.balance.prj.model.PrjGroup;
 import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.prj.service.PrjGroupService;
+import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PrjGroupSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.config.PubConfig;
@@ -32,6 +33,8 @@ public class PrjGroupController extends BaseController {
     private PrjBaseinfoService prjBaseinfoService;
     @Autowired
     private PubConfig pubConfig;
+    @Autowired
+    private PrjSectionService prjSectionService;
 
     /**
      * 进入用户管理界面
@@ -47,6 +50,7 @@ public class PrjGroupController extends BaseController {
         List<PrjGroup> list = prjGroupService.list(prjGroupSearchVO);
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
+        mv.addObject("listProject", prjBaseinfoService.list());
         mv.setViewName("/prj/group");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
@@ -55,6 +59,12 @@ public class PrjGroupController extends BaseController {
     // 设置分页url，一般有查询条件的才会用到
     private String createUrl(PrjGroupSearchVO prjGroupSearchVO) {
         String url = pubConfig.getDynamicServer() + "/prj/group/index.htm?";
+        if (prjGroupSearchVO.getPrj_base_info_id() != null) {
+            url += "&prj_base_info_id=" + prjGroupSearchVO.getPrj_base_info_id();
+        }
+        if (prjGroupSearchVO.getSection_id() != null) {
+            url += "&section_id=" + prjGroupSearchVO.getSection_id();
+        }
         return url;
     }
 
@@ -90,6 +100,8 @@ public class PrjGroupController extends BaseController {
         PrjGroup prjGroup = prjGroupService.get(id);
         mv.addObject("prjGroup", prjGroup);
         mv.addObject("listProject", prjBaseinfoService.list());
+        mv.addObject("listSection", prjSectionService.listByprj_base_info_id(prjGroup.getPrj_base_info_id()));
+
         mv.setViewName("/prj/groupUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;

@@ -66,10 +66,12 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
      * @return
      */
     public List<PrjSection> list(PrjSectionSearchVO prjSectionSearchVO) {
-        String sql = "select t.*,(select prj_name from t_prj_baseinfo where id=t.prj_base_info_id) prj_name from t_prj_section t ";
+        String sql = "select t.*,(select prj_name from t_prj_baseinfo where id=t.prj_base_info_id) prj_name from t_prj_section t where 1=1";
+        sql += createSearchSql(prjSectionSearchVO);
         sql = PageUtil.createMysqlPageSql(sql, prjSectionSearchVO.getPageIndex(), prjSectionSearchVO.getPageSize());
         return list(sql, prjSectionSearchVO);
     }
+
 
     /**
      * 查询总数
@@ -78,10 +80,18 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
      * @return
      */
     public int listCount(PrjSectionSearchVO prjSectionSearchVO) {
-        String sql = "select count(*) from t_prj_section t  ";
+        String sql = "select count(*) from t_prj_section t  where 1=1";
+        sql += createSearchSql(prjSectionSearchVO);
         return listCount(sql, prjSectionSearchVO);
     }
 
+    private String createSearchSql(PrjSectionSearchVO prjSectionSearchVO) {
+        String sql = "";
+        if (prjSectionSearchVO.getPrj_base_info_id() != null) {//项目id
+            sql += " and prj_base_info_id=:prj_base_info_id";
+        }
+        return sql;
+    }
 
     /**
      * 根据id查区段
@@ -89,7 +99,7 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
      * @param prj_base_info_id
      * @return
      */
-    public List<PrjSection> list(int prj_base_info_id) {
+    public List<PrjSection> listByprj_base_info_id(int prj_base_info_id) {
         String sql = "select * from t_prj_section t where prj_base_info_id=? ";
         return list(sql, new Object[]{prj_base_info_id});
     }

@@ -27,7 +27,6 @@ import java.util.List;
 @Controller
 public class PrjSectionController extends BaseController {
 
-
     @Autowired
     private PrjSectionService prjSectionService;
     @Autowired
@@ -49,6 +48,8 @@ public class PrjSectionController extends BaseController {
         List<PrjSection> list = prjSectionService.list(prjSectionSearchVO);
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
+        mv.addObject("listProject", prjBaseinfoService.list());
+
         mv.setViewName("/prj/section");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
@@ -57,6 +58,9 @@ public class PrjSectionController extends BaseController {
     // 设置分页url，一般有查询条件的才会用到
     private String createUrl(PrjSectionSearchVO prjSectionSearchVO) {
         String url = pubConfig.getDynamicServer() + "/prj/section/index.htm?";
+        if (prjSectionSearchVO.getPrj_base_info_id() != null) {
+            url += "&prj_base_info_id=" + prjSectionSearchVO.getPrj_base_info_id();
+        }
         return url;
     }
 

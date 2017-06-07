@@ -1,6 +1,8 @@
 package com.balance.common.controller;
 
 import com.balance.common.service.CommonService;
+import com.balance.prj.service.PrjGroupService;
+import com.balance.prj.service.PrjSectionService;
 import com.balance.sys.service.SysModuleService;
 import com.balance.sys.service.SysRoleService;
 import com.balance.sys.service.SysUserService;
@@ -31,6 +33,10 @@ public class CommonController {
     private SysModuleService sysModuleService;
     @Autowired
     private SysRoleService sysRoleService;
+    @Autowired
+    private PrjSectionService prjSectionService;
+    @Autowired
+    private PrjGroupService prjGroupService;
 
     /**
      * 下拉列表，公共方法
@@ -111,5 +117,27 @@ public class CommonController {
         WebUtil.out(response, json);
     }
 
+    /**
+     * 根据项目id选区段
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/listSecionByPrj")
+    public void listSecionByPrj(HttpServletRequest request, HttpServletResponse response, int prj_base_info_id) {
+        String json = JsonUtil.toStr(prjSectionService.listByprj_base_info_id(prj_base_info_id));
+        WebUtil.out(response, json);
+    }
 
+    /**
+     * 根据区段选组别
+     *
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/listGroupBySec")
+    public void listGroupBySec(HttpServletRequest request, HttpServletResponse response, int section_id) {
+        String json = JsonUtil.toStr(prjGroupService.listBySection_id(section_id));
+        WebUtil.out(response, json);
+    }
 }

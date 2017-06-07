@@ -41,9 +41,15 @@
                                 <div class="widget-main">
                                     <table class="searchField" style="margin: 4px; padding: 4px;">
                                         <tr>
+                                            <td>项目：</td>
+                                            <td><form:select path="prjSectionSearchVO.prj_base_info_id" class="form-control"
+                                                             id="cmbPrj_base_info_id">
+                                                <form:option value="" label="--全部--"/>
+                                                <form:options items="${listProject}" itemValue="id" itemLabel="prj_name"/>
+                                            </form:select></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" id="btnSearch">
-                                                    <i class="ace-icon fa fa-search"></i> 刷新
+                                                    <i class="ace-icon fa fa-search"></i> 查询
                                                 </button>
                                                 <c:if test="${bln:isP('PrjSectionAdd')}">
                                                     <button type="button" class="btn btn-success btn-sm" id="btnAdd">
@@ -116,6 +122,8 @@
 				// 查询方法
 				var searchSection = function() {
 					var url = "index.htm?";
+					if ($("#cmbPrj_base_info_id").val() != '')
+						url += "prj_base_info_id=" + $("#cmbPrj_base_info_id").val();
 					window.location = encodeURI(url);
 				}
 				// 删除

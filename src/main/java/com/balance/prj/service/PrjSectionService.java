@@ -48,7 +48,7 @@ public class PrjSectionService {
      * @param prj_base_info_id
      * @return
      */
-    public List<PrjSection> list(int prj_base_info_id) {
-        return prjSectionDao.list(prj_base_info_id);
+    public List<PrjSection> listByprj_base_info_id(int prj_base_info_id) {
+        return prjSectionDao.listByprj_base_info_id(prj_base_info_id);
     }
 }

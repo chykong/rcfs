@@ -45,10 +45,10 @@ public class PrjGroupService {
     /**
      * 根据id查组别
      *
-     * @param prj_base_info_id
+     * @param section_id
      * @return
      */
-    public List<PrjGroup> list(int prj_base_info_id, int section_id) {
-        return prjGroupDao.list(prj_base_info_id, section_id);
+    public List<PrjGroup> listBySection_id(int section_id) {
+        return prjGroupDao.listBySection_id(section_id);
     }
 }

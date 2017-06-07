@@ -53,7 +53,7 @@
                                 <label class="col-sm-3 control-label">标段名称：</label>
                                 <div class="col-sm-9">
                                     <input id="name" name="name" type="text" class="col-xs-10 col-sm-5" placeholder=""
-                                           value="${prjSection.name }" readonly="readonly"><label id="nameTip"></label>
+                                           value="${prjSection.name }" ><label id="nameTip"></label>
                                 </div>
                             </div>
                             <div class="form-group">

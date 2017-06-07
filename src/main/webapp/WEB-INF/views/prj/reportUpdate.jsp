@@ -38,7 +38,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">标题：</label>
+                                <label class="col-sm-2 control-label">文件名称：</label>
                                 <div class="col-sm-10">
                                     <input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder=""
                                            value="${prjReport.title }"> <label

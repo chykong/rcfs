@@ -69,7 +69,7 @@
                             <thead>
                             <tr>
                                 <th width=60>序号</th>
-                                <th>标题</th>
+                                <th>文件名称</th>
                                 <th width="100">下载</th>
                                 <th width=150>发布人</th>
                                 <th width=140>发布时间</th>

@@ -21,7 +21,7 @@ public class DicUtil {
         List<ComboboxVO> list = new ArrayList<>();
         ComboboxVO vo1 = new ComboboxVO("1", "前期准备阶段");
         ComboboxVO vo2 = new ComboboxVO("2", "入户调查阶段");
-        ComboboxVO vo3 = new ComboboxVO("3", "预分方案制作阶段");
+        ComboboxVO vo3 = new ComboboxVO("3", "内业整理阶段");
         ComboboxVO vo4 = new ComboboxVO("4", "动迁准备阶段");
         ComboboxVO vo5 = new ComboboxVO("5", "动迁阶段");
         ComboboxVO vo6 = new ComboboxVO("6", "收尾阶段");

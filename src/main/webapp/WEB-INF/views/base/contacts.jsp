@@ -20,12 +20,7 @@
             <div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                    <c:if test="${type==1}">
-                        <li class="active">管理公司人员</li>
-                    </c:if>
-                    <c:if test="${type==2}">
-                        <li class="active">项目参与人员</li>
-                    </c:if>
+                    <li class="active">管理公司人员</li>
                 </ul>
                 <!-- /.breadcrumb -->
             </div>
@@ -131,7 +126,7 @@
 
 				// 查询方法
 				var searchContacts = function() {
-					var url = "index.htm?type="+${type};
+					var url = "index.htm?=";
 					if ($("#txtName").val() != '')
 						url += "&name=" + $("#txtName").val();
 					if ($("#txtMobile").val() != '')
@@ -142,13 +137,13 @@
 				var delContacts = function(id) {
 					bootbox.confirm("你确定要删除吗？", function(result) {
 						if (result) {
-							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}&type="+${type};
+							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";
 						}
 					})
 				}
 				//新增
 				var addContacts = function(id) {
-					window.location = "toAdd.htm?backUrl=${backUrl }&type="+${type};
+					window.location = "toAdd.htm?backUrl=${backUrl }";
 				}
 
 

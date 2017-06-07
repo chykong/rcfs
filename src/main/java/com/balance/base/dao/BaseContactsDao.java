@@ -46,9 +46,6 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
 
     private String createSearchSql(BaseContactsSearchVO baseContactsSearchVO) {
         String sql = "";
-        if (baseContactsSearchVO.getType() != null) {//类型
-            sql += " and type=:type";
-        }
         if (baseContactsSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";//项目id
         }
@@ -69,8 +66,8 @@ public class BaseContactsDao extends BaseDao<BaseContacts, BaseContactsSearchVO>
      * @return
      */
     public int add(BaseContacts baseContacts) {
-        String sql = "insert into t_base_contacts(prj_base_info_id,name,type,mobile,duty,project_duty,note,created_at,created_by)" +
-                " values(:prj_base_info_id,:name,:type,:mobile,:duty,:project_duty,:note,now(),:created_by)";
+        String sql = "insert into t_base_contacts(prj_base_info_id,name,mobile,duty,project_duty,note,created_at,created_by)" +
+                " values(:prj_base_info_id,:name,:mobile,:duty,:project_duty,:note,now(),:created_by)";
         return update(sql, baseContacts);
     }
 

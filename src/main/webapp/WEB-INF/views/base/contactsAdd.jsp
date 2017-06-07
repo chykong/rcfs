@@ -19,14 +19,8 @@
 				<div class="breadcrumbs  breadcrumbs-fixed" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-						<c:if test="${type==1}">
-							<li class="active">管理公司人员</li>
-							<li class="active">新增公司人员</li>
-						</c:if>
-						<c:if test="${type==2}">
-							<li class="active">项目参与人员</li>
-							<li class="active">新增参与人员</li>
-						</c:if>
+						<li class="active">管理公司人员</li>
+						<li class="active">新增公司人员</li>
 					</ul>
 				</div>
 
@@ -38,7 +32,6 @@
 						<div class="col-xs-12">
 							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
 								<input type="hidden" name="backUrl" value="${backUrl }">
-								<input name="type" type="hidden" value="${type }"/>
 								<div class="form-group">
 									<label class="col-sm-3 control-label">姓名：</label>
 									<div class="col-sm-9">

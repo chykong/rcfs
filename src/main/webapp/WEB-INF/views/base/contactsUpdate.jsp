@@ -18,12 +18,7 @@
             <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs">
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
-                    <c:if test="${baseContacts.type==1}">
-                        <li class="active">管理公司人员</li>
-                    </c:if>
-                    <c:if test="${baseContacts.type==2}">
-                        <li class="active">项目参与人员</li>
-                    </c:if>
+                    <li class="active">管理公司人员</li>
                     <li class="active">修改人员信息</li>
                 </ul>
             </div>

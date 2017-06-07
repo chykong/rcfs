@@ -35,25 +35,23 @@ public class BaseContactsController {
      * @return
      */
     @RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, BaseContactsSearchVO baseContactsSearchVO, int type) {
+    public ModelAndView index(HttpServletRequest request, HttpServletResponse response, BaseContactsSearchVO baseContactsSearchVO) {
         ModelAndView mv = new ModelAndView();
-        String url = createUrl(baseContactsSearchVO, type);
-        baseContactsSearchVO.setType(type);
+        String url = createUrl(baseContactsSearchVO);
         baseContactsSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());//项目id
         int recordCount = baseContactsService.listCount(baseContactsSearchVO);// 获取查询总数
         PageNavigate pageNavigate = new PageNavigate(url, baseContactsSearchVO.getPageIndex(), baseContactsSearchVO.getPageSize(), recordCount);//定义分页对象
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         List<BaseContacts> list = baseContactsService.list(baseContactsSearchVO);
         mv.addObject("list", list);// 把获取的记录放到mv里面
-        mv.addObject("type", type);// 把获取的记录放到mv里面
         mv.setViewName("/base/contacts");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
     }
 
     // 设置分页url，一般有查询条件的才会用到
-    private String createUrl(BaseContactsSearchVO baseContactsSearchVO, int type) {
-        String url = pubConfig.getDynamicServer() + "/base/contacts/index.htm?type=" + type;
+    private String createUrl(BaseContactsSearchVO baseContactsSearchVO) {
+        String url = pubConfig.getDynamicServer() + "/base/contacts/index.htm?";
         if (StringUtil.isNotNullOrEmpty(baseContactsSearchVO.getName())) {
             url += "&name=" + baseContactsSearchVO.getName();
         }
@@ -71,10 +69,8 @@ public class BaseContactsController {
      * @param
      */
     @RequestMapping("/toAdd")
-    public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response, int type) {
-        System.out.println(request.getParameter("type"));
+    public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("type", type);
         mv.setViewName("/base/contactsAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -89,10 +85,9 @@ public class BaseContactsController {
      * @return
      */
     @RequestMapping("/toUpdate")
-    public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
-        System.out.println(request.getParameter("id"));
+    public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mv = new ModelAndView();
-        BaseContacts baseContacts = baseContactsService.get(id);
+        BaseContacts baseContacts = baseContactsService.get(Integer.parseInt(request.getParameter("id")));
         mv.addObject("baseContacts", baseContacts);
         mv.setViewName("/base/contactsUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
@@ -104,36 +99,29 @@ public class BaseContactsController {
         baseContacts.setCreated_by(SessionUtil.getUserSession(request).getRealname());
         baseContacts.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         int flag = baseContactsService.add(baseContacts);
-        String msg = "公司人员";
-        if (baseContacts.getType() == 2) msg = "参与人员";
         if (flag == 0)
-            return "forward:/error.htm?msg=" + StringUtil.encodeUrl(msg + "新增失败");
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("公司人员新增失败");
         else
-            return "forward:/success.htm?msg=" + StringUtil.encodeUrl(msg + "新增成功");
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("公司人员新增成功");
     }
 
     @RequestMapping("/update")
     public String update(HttpServletRequest request, HttpServletResponse response, BaseContacts baseContacts) {
+        baseContacts.setCreated_by(SessionUtil.getUserSession(request).getRealname());
         int flag = baseContactsService.update(baseContacts);
-        String msg = "公司人员";
-        if (baseContacts.getType() == 2) msg = "参与人员";
         if (flag == 0)
-            return "forward:/error.htm?msg=" + StringUtil.encodeUrl(msg + "信息修改失败");
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("公司人员信息修改失败");
         else
-            return "forward:/success.htm?msg=" + StringUtil.encodeUrl(msg + "信息修改成功");
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("公司人员信息修改成功");
     }
 
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response, int id, int type) {
-        System.out.println(request.getParameter("id"));
-        System.out.println(request.getParameter("type"));
-        int flag = baseContactsService.delete(id);
-        String msg = "公司人员";
-        if (type == 2) msg = "参与人员";
+    public String delete(HttpServletRequest request, HttpServletResponse response) {
+        int flag = baseContactsService.delete(Integer.parseInt(request.getParameter("id")));
         if (flag == 0)
-            return "forward:/error.htm?msg=" + StringUtil.encodeUrl(msg + "删除失败");
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("公司人员删除失败");
         else
-            return "forward:/success.htm?msg=" + StringUtil.encodeUrl(msg + "公司人员删除成功");
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("公司人员删除成功");
     }
 
 }

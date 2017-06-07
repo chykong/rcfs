@@ -193,7 +193,7 @@
                             <form:form action="" id="import_result_form">
                                 <div class="form-group">
                                     <div class="col-xs-12" id="result_text" style="height: 200px;">
-                                        <textarea id="importResult" style="width:500px;height: 200px"></textarea>
+                                        <textarea id="importResult" style="width:560px;height: 200px"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

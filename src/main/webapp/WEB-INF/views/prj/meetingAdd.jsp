@@ -29,12 +29,11 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
-								<input type="hidden" name="progress" value="${progress }">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
 									<label class="col-sm-3 control-label">阶段：</label>
 									<div class="col-sm-9">
-										${bln:getProjectProgress(progress)}
+										${bln:showProgressSelect(0)}
 									</div>
 								</div>
 								<div class="form-group">

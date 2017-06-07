@@ -63,7 +63,7 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjMeeting prjMeeting) {
-        String sql = "update t_prj_meeting set title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_meeting set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjMeeting);
     }
 

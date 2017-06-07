@@ -54,7 +54,8 @@ public class PrjBriefDao extends BaseDao<PrjBrief, PrjBriefSearchVO> {
      * @return
      */
     public int add(PrjBrief prjBrief) {
-        String sql = "insert into t_prj_brief(prj_base_info_id,title,content,file_name,file_path,progress,created_by,created_at)values(:prj_base_info_id,:title,:content,:file_name,:file_path,:progress,:created_by,now())";
+        String sql = "insert into t_prj_brief(prj_base_info_id,title,content,file_name,file_path,progress,created_by,created_at)" +
+                "values(:prj_base_info_id,:title,:content,:file_name,:file_path,:progress,:created_by,now())";
         return update(sql, prjBrief);
     }
 
@@ -70,7 +71,7 @@ public class PrjBriefDao extends BaseDao<PrjBrief, PrjBriefSearchVO> {
      * 修改项目简报
      */
     public int update(PrjBrief prjBrief) {
-        String sql = "update t_prj_brief set title=:title,content=:content,file_name=:file_name,file_path=:file_path,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_brief set progress=:progress,title=:title,content=:content,file_name=:file_name,file_path=:file_path,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBrief);
     }
 

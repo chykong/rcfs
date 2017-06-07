@@ -65,7 +65,7 @@ public class PrjReportDao extends BaseDao<PrjReport, PrjReportSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjReport prjReport) {
-        String sql = "update t_prj_report set title=:title,file_path=:file_path,file_name=:file_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_report set progress=:progress,title=:title,file_path=:file_path,file_name=:file_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjReport);
     }
 

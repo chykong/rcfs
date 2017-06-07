@@ -70,4 +70,10 @@
         <function-class>com.balance.util.web.WebTag</function-class>
         <function-signature>java.lang.String getProcessTab(java.lang.String,java.lang.Integer)</function-signature>
     </function>
+    <function>
+        <description>显示进度的下拉框</description>
+        <name>showProgressSelect</name>
+        <function-class>com.balance.util.web.WebTag</function-class>
+        <function-signature>java.lang.String showProgressSelect(java.lang.Integer)</function-signature>
+    </function>
 </taglib>

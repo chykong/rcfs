@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">阶段：</label>
                                 <div class="col-sm-10">
-                                    ${bln:getProjectProgress(prjReport.progress)}
+                                    ${bln:showProgressSelect(prjReport.progress)}
                                 </div>
                             </div>
                             <div class="form-group">

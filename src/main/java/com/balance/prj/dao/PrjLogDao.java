@@ -63,7 +63,7 @@ public class PrjLogDao extends BaseDao<PrjLog, PrjLogSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjLog prjLog) {
-        String sql = "update t_prj_log set title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_log set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjLog);
     }
 

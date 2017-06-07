@@ -200,4 +200,22 @@ public class WebTag {
         }
         return sb.toString();
     }
+
+    /**
+     * 项目进度的下拉框
+     *
+     * @param progress 1前期准备阶段2入户调查阶段3预分方案制作阶段4动迁准备阶段5动迁阶段6收尾阶段
+     * @return
+     */
+    public static String showProgressSelect(Integer progress) {
+        StringBuilder sb = new StringBuilder("<select id=\"progress\" name=\"progress\" class=\"col-xs-10 col-sm-5\">");
+        List<ComboboxVO> list = DicUtil.listProjectProgress();
+        for (ComboboxVO vo : list) {
+            String selected = "";
+            if (progress == Integer.parseInt(vo.getValue())) selected = "selected";
+            sb.append("<option value=" + vo.getValue() + " " + selected + ">" + vo.getContent() + "</option>");
+        }
+        sb.append("</select>");
+        return sb.toString();
+    }
 }

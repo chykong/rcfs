@@ -79,7 +79,7 @@
                             <c:forEach items="${list }" var="policy" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td>${policy.title }</td>
+                                     <td><a href="toDetail.htm?id=${policy.id }">${policy.title }</a></td>
                                     <td>${policy.created_by }</td>
                                     <th width=120><fmt:formatDate value="${policy.created_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>

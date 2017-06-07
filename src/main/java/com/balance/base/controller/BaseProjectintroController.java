@@ -37,7 +37,7 @@ public class BaseProjectintroController extends BaseController {
 		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
-		mv.setViewName("/base/projectIntro");//跳转至前台展示界面
+		mv.setViewName("/prj/projectIntro");//跳转至前台展示界面
 		mv.addObject("backUrl", createUrl(type));// 设置返回url
 		return mv;
 	}
@@ -53,7 +53,7 @@ public class BaseProjectintroController extends BaseController {
 //		String type = request.getParameter("type");
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
-		mv.setViewName("/base/projectIntro");
+		mv.setViewName("/prj/projectIntro");
 		mv.addObject("backUrl", createUrl(type));// 设置返回url
 		return mv;
 	}
@@ -69,7 +69,7 @@ public class BaseProjectintroController extends BaseController {
 //		String type = request.getParameter("type");
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);// 把获取的对象放到mv里面
-		mv.setViewName("/base/projectIntro");
+		mv.setViewName("/prj/projectIntro");
 		mv.addObject("backUrl", createUrl(type));// 设置返回url
 		return mv;
 	}
@@ -95,11 +95,11 @@ public class BaseProjectintroController extends BaseController {
 	public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
 		ModelAndView mv = new ModelAndView();
 		String type = request.getParameter("type");
-		String viewName = "/base/projectIntroAdd";// 跳转至项目简介页面
+		String viewName = "/prj/projectIntroAdd";// 跳转至项目简介页面
 		if (type.equals("2"))
-			viewName = "/base/projectFlowAdd";// 跳转至工作流程 页面
+			viewName = "/prj/projectFlowAdd";// 跳转至工作流程 页面
 		if (type.equals("3"))
-			viewName = "/base/projectArchiAdd";// 跳转至组织架构页面
+			viewName = "/prj/projectArchiAdd";// 跳转至组织架构页面
 		mv.setViewName(viewName);
 		BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
 		return mv;
@@ -117,7 +117,7 @@ public class BaseProjectintroController extends BaseController {
 	public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id, String type) {
 		ModelAndView mv = new ModelAndView();
 		PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(id);
-		mv.setViewName("/base/projectIntroUpdate");
+		mv.setViewName("/prj/projectIntroUpdate");
 		prjBaseinfo.setType(type);
 		mv.addObject("prjBaseinfo", prjBaseinfo);
 		BackUrlUtil.setBackUrl(mv, request);// 设置返回的url

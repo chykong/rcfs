@@ -22,7 +22,7 @@ public class SuccessController {
         mv.setViewName("success");
         mv.addObject("msg", StringUtil.decodeUrl(request.getParameter("msg")));
         String backUrl = request.getParameter("backUrl");
-        if (backUrl.indexOf("http") == -1)
+        if (StringUtil.isNotNullOrEmpty(backUrl) && backUrl.indexOf("http") == -1)
             backUrl = pubConfig.getDynamicServer() + backUrl;
         mv.addObject("backUrl", StringUtil.decodeUrl(backUrl));
         return mv;

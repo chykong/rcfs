@@ -14,9 +14,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -28,6 +26,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 
 /**
  * excel工具，读取2007文件格式
@@ -37,6 +37,39 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
  */
 public class Excel2007Util {
 
+	/**
+	 * 获取93-07 *.xls单元格中的字符串值（不是字符串类型则进行强制转换）
+	 *
+	 * @param hssfRow 行
+	 * @param cellNum 单元格下标
+	 * @return 单元格内容
+	 */
+	public static String getHssfCellStringValue(HSSFRow hssfRow, int cellNum) {
+		HSSFCell cell = hssfRow.getCell(cellNum);
+		if (cell == null) return null;
+		if (cell.getCellType() != Cell.CELL_TYPE_STRING) {
+			cell.setCellType(Cell.CELL_TYPE_STRING);
+		}
+
+		return cell.getStringCellValue();
+	}
+
+	/**
+	 * 获取07+ *.xlsx单元格中的字符串值（不是字符串类型则进行强制转换）
+	 *
+	 * @param xssfRow 行
+	 * @param cellNum 单元格下标值
+	 * @return 单元格中的字符串值
+	 */
+	public static String getXssfCellStringValue(XSSFRow xssfRow, int cellNum) {
+		XSSFCell cell = xssfRow.getCell(cellNum);
+		if (cell == null) return null;
+		if (cell.getCellType() != Cell.CELL_TYPE_STRING) {
+			cell.setCellType(Cell.CELL_TYPE_STRING);
+		}
+
+		return cell.getStringCellValue();
+	}
 	/**
 	 * 读取excel
 	 * 

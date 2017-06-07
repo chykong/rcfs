@@ -165,21 +165,21 @@
                     render: function (data) {
                         switch (data) {
                             case 10:
-                                return '<span class="label label-default ">未入户</span>';
+                                return '<span class="label label-default ">未签约</span>';
                             case 20:
-                                return '<span class="label label-warning ">已入户未签约</span>';
-                            case 21:
-                                return '<span class="label label-success ">已审核</span>';
+                                return '<span class="label label-warning ">已签约</span>';
                             case 30:
-                                return '<span class="label label-warning ">已签约未交房</span>';
+                                return '<span class="label label-warning ">已审核</span>';
                             case 40:
-                                return '<span class="label label-success ">已签约已交房</span>';
+                                return '<span class="label label-success ">已交房</span>';
                             case 50:
-                                return '<span class="label label-success ">已选房</span>';
+                                return '<span class="label label-success ">已拆除</span>';
                             case 60:
+                                return '<span class="label label-success ">已放款</span>';
+                            case 70:
                                 return '<span class="label label-success ">已归档</span>';
                             default:
-                                return '<span class="label label-error ">状态错误</span>';
+                                return '<span class="label label-error ">已归档</span>';
                         }
                     }
                 },
@@ -188,7 +188,7 @@
                     width: "80px",
                     render: function (data,type,row) {
                         if (row.status == 10 || row.status == 20) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/preallocations/basic/update/"/>' + data + '">\
+                            return '<a class="btn-sm btn-info" href="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {
                             return '';

@@ -65,6 +65,7 @@
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/add.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
+                                <input type="hidden" name="backUrl" value="${backUrl}"/>
                                 <div class="tab-content no-border padding-24">
                                     <!-- 基本情况 begin-->
                                     <div id="faq-tab-basic" class="tab-pane fade active in" data-type="1">
@@ -195,7 +196,7 @@
             no_icon: 'ace-icon fa fa-picture-o',
             droppable: false,
             thumbnail: 'large',
-            maxSize: 1024 * 1000 * 10,
+            maxSize: 1024 * 1024 * 10,
             before_remove: function () {
                 return true;
             }
@@ -236,20 +237,20 @@
             return false;
         });
         $("#fileDiv").on("click", "#delFile", function () {
-            bootbox.confirm('你确定要删除该图片吗("<b style="color: red">删除以后将会彻底删除图片文件</b>")？', function (result) {
+            bootbox.confirm('你确定要删除该图片吗(<b style="color: red">删除以后将会彻底删除图片文件</b>)？', function (result) {
                 if (result) {
                     $.ajax({
                         url: '<c:url value="/common/delFile.htm"/>',
                         data: {
-                            path: $("#filePath").val()
+                            path: $("#other_file_path").val()
                         },
                         type: 'post',
                         success: function (result) {
-                            console.log($("#filePath").val());
-                            if (result.success) {
+                            var json = eval('('+result + ')');
+                            console.log($("#other_file_path").val());
+                            if (json.success) {
                                 $("#checkFile").removeClass("hidden");
-                                $("#fileDiv input").remove();
-                                $("#fileDiv span").remove();
+                                $("#photoDiv").addClass("hidden");
                             } else {
                                 $.notify({message: "文件路径错误!", z_index: 15111});
                             }

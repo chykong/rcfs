@@ -5,15 +5,20 @@
         状态：
     </form:label>
     <div class="col-sm-9">
-        <form:select path="status" cssClass="col-xs-10 col-sm-10 col-lg-3" maxlength="20">
-            <form:option value="10">未签约</form:option>
-            <form:option value="20">已签约</form:option>
-            <form:option value="30">已审核</form:option>
-            <form:option value="40">已交房</form:option>
-            <form:option value="50">已拆除</form:option>
-            <form:option value="60">已放款</form:option>
-            <form:option value="70">已归档</form:option>
-        </form:select>
+        <c:if test="${preallocation.status != 70}">
+            <form:select path="status" cssClass="col-xs-10 col-sm-10 col-lg-3" maxlength="20">
+                <option value="">--请选择--</option>
+                <form:option value="10">未签约</form:option>
+                <form:option value="20">已签约</form:option>
+                <form:option value="30">已审核</form:option>
+                <form:option value="40">已交房</form:option>
+                <form:option value="50">已拆除</form:option>
+                <form:option value="60">已放款</form:option>
+            </form:select>
+        </c:if>
+        <c:if test="${preallocation.status == 70}">
+            <span class="label label-success">已归档</span>
+        </c:if>
     </div>
 </div>
 

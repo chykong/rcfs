@@ -105,6 +105,10 @@
         $("input").attr('readonly','true');
         $("select").attr('disabled','true');
         $("textarea").attr('readonly','true');
+        $("#delFile").addClass('hidden');
+        $("#checkFile").addClass('hidden');
+
+        countYjf();
     })
 </script>
 </body>

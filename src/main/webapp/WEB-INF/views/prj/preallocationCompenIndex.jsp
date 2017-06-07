@@ -50,7 +50,7 @@
                             </div>
                             <div class="widget-body">
                                 <div class="widget-main no-padding">
-                                    <c:url value="/prj/preallocation/basic/index.htm" var="index_url"/>
+                                    <c:url value="/prj/preallocation/compensation/index.htm" var="index_url"/>
                                     <form:form action="${index_url}" method="post"
                                                cssClass="form-horizontal" role="form" modelAttribute="preallocationSearchVO"
                                                cssStyle="padding-top: 10px;" data-ajax="true">
@@ -115,11 +115,11 @@
                                                     <button type="button" class="btn btn-primary btn-sm" id="btn-search">
                                                         <i class="ace-icon fa fa-search"></i> 查询
                                                     </button>
-                                                    <a href="<c:url value="/prj/preallocation/basic/toAdd.htm"/>" class="btn btn-success btn-sm">
+                                                    <a href="<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl=${backUrl}"/>" class="btn btn-success btn-sm">
                                                         <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                     </a>
                                                     <a href="#import-modal" class="btn btn-warning btn-sm" data-toggle="modal">
-                                                        <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
+                                                        <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入补偿情况
                                                     </a>
 
                                                 </div>
@@ -161,7 +161,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span class="white">&times;</span>
                     </button>
-                    导入拆迁户补偿情况
+                    导入补偿情况
                 </div>
             </div>
             <div class="modal-body no-padding">
@@ -171,75 +171,19 @@
                             <div class="form-group">
                                 <div class="col-xs-12" style="margin-bottom: 10px">
                                     <span>请下载模板，按照模板格式整理数据：</span>
-                                    <a href="<c:url value="/preallocations/basic/importTemp?type=1"/>" target="_blank">
-                                        导入拆迁户补偿情况模板.xls
+                                    <a href="<c:url value="/assets/templates/import-preallocations-compen-template.xlsx"/>" target="_blank">
+                                        导入补偿情况模板.xls
                                     </a>
                                 </div>
                             </div>
-                            <c:url value="/preallocations/basic/import?${_csrf.parameterName}=${_csrf.token}"
+                            <c:url value="/prj/preallocation/compensation/import.htm"
                                    var="import_url"/>
-                            <c:url value="/preallocations/basic/checkImport?${_csrf.parameterName}=${_csrf.token}"
-                                   var="check_import_url"/>
-                            <form:form action="${check_import_url}" enctype="multipart/form-data" method="post"
+                            <form:form action="${import_url}" enctype="multipart/form-data" method="post"
                                        id="preallocations-upload-form" cssClass="form-horizontal">
                                 <input type="hidden" name="file_type" value="preallocations">
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <input name="excel_file" type="file" id="preallocations-import-input"
-                                               accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
-                                    </div>
-                                    <div class="col-xs-12" align="center">
-                                        <button class="btn btn-white btn-primary" type="submit">
-                                            <i class="ace-icon fa fa-cloud-upload bigger-110"></i> 确定
-                                        </button>
-                                        <button class="btn btn-white btn-primary" type="button"
-                                                data-dismiss="modal">
-                                            <i class="ace-icon fa fa-undo bigger-110"></i> 取消
-                                        </button>
-                                    </div>
-                                </div>
-                            </form:form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer no-margin-top"></div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<div id="hj-modal" class="modal fade" tabindex="-21">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header no-padding">
-                <div class="table-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <span class="white">&times;</span>
-                    </button>
-                    导入拆迁户户籍情况
-                </div>
-            </div>
-            <div class="modal-body no-padding">
-                <div class="widget-box" style="border: none">
-                    <div class="widget-body">
-                        <div class="widget-main">
-                            <div class="form-group">
-                                <div class="col-xs-12" style="margin-bottom: 10px">
-                                    <span>请下载模板，按照模板格式整理数据：</span>
-                                    <a href="<c:url value="/preallocations/basic/importTemp?type=2"/>" target="_blank">
-                                        导入拆迁户户籍情况模板.xls
-                                    </a>
-                                </div>
-                            </div>
-                            <c:url value="/preallocations/basic/import-hj?${_csrf.parameterName}=${_csrf.token}"
-                                   var="import_hj_url"/>
-                            <form:form action="${import_hj_url}" enctype="multipart/form-data" method="post"
-                                       id="preallocations-hj-form" cssClass="form-horizontal">
-                                <input type="hidden" name="file_type" value="preallocations">
-                                <div class="form-group">
-                                    <div class="col-xs-12">
-                                        <input name="excel_file" type="file" id="hj-import-input"
                                                accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"/>
                                     </div>
                                     <div class="col-xs-12" align="center">
@@ -283,10 +227,7 @@
                                 </div>
                                 <div class="col-xs-12" align="center">
                                     <button class="btn btn-white btn-primary" type="button" id="result-btn">
-                                        <i class="ace-icon fa fa-pencil bigger-110"></i> 更新
-                                    </button>
-                                    <button class="btn btn-white btn-primary" type="button" id="resultadd-btn">
-                                        <i class="ace-icon fa fa-plus bigger-110"></i> 新增
+                                        <i class="ace-icon fa fa-check"></i> 确认
                                     </button>
                                 </div>
                             </div>
@@ -300,40 +241,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<div id="hj-result-modal" class="modal fade" tabindex="-21">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header no-padding">
-                <div class="table-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        <span class="white">&times;</span>
-                    </button>
-                    户籍情况导入结果
-                </div>
-            </div>
-            <div class="modal-body no-padding">
-                <div class="widget-box" style="border: none">
-                    <div class="widget-body">
-                        <div class="widget-main">
-                            <div class="row">
-                                <div class="col-xs-12 text-danger" id="hj-result-text">
-                                </div>
-                                <div class="col-xs-12" align="center">
-                                    <button class="btn btn-white btn-primary" type="button" id="hj-result-btn">
-                                        <i class="ace-icon fa fa-check-o bigger-110"></i> 确认
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer no-margin-top"></div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
+
 </body>
 
 <javascripts>

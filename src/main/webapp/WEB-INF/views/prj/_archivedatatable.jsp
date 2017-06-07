@@ -5,22 +5,28 @@
     <thead>
     <tr>
         <th>ID号</th>
-        <th>被征收人</th>
+        <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
-        <th>门牌号</th>
-        <th>建筑面积(m²)</th>
-        <th>户主</th>
+        <th>实际用地面积(m²)</th>
+        <th>06年前面积(m²)</th>
+        <th>06-09年间面积(m²)</th>
+        <th>09年后面积(m²)</th>
+        <th>总补偿款</th>
+        <th>档案柜号</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
     </thead>
     <tfoot id="table-foot">
     <tr>
-        <th>合计：</th>
-        <th></th>
+        <th>当前页合计：</th>
         <th></th>
         <th></th>
         <th class="isSum"></th>
+        <th class="isSum"></th>
+        <th class="isSum"></th>
+        <th class="isSum"></th>
+        <th class="isMoney"></th>
         <th></th>
         <th></th>
         <th></th>
@@ -29,6 +35,13 @@
 </table>
 
 <script>
+    function archive(id,map_id,host_name){
+        var text = "编号:" + map_id + ", 被拆除腾退人：" + host_name + "";
+        $("#title").html(text);
+        $("#map_id").val(map_id);
+        $("#host_name").val(host_name);
+        $("#archive-modal").modal('show');
+    }
     $(function () {
         var $table_id = $("#basic-table");
         var table = $table_id.DataTable({
@@ -38,6 +51,7 @@
             ordering: false, //排序功能
             info: true,//页脚信息
             autoWidth: true,//自动宽度
+            scrollX: true,
             scrollY: true,
             paginate: true, //翻页功能
             sortable: false,
@@ -45,7 +59,7 @@
             lengthMenu: [15, 25, 50, 75, 100],
             processing: true,
             serverSide: true,
-            ajax: function (data, callback, settings) {//ajax配置为function,手动调用异步查询
+            ajax: function (data, callback, settings) {
                 $.ajax({
                     async: false,
                     type: "GET",
@@ -65,24 +79,24 @@
                         result.draw = result.searchDTO.draw;
                         callback(result);
                     }
-                })
+                });
             },
             //使用对象数组，一定要配置columns，告诉 DataTables 每列对应的属性
             //data 这里是固定不变的，id，name，age，sex等为你数据里对应的属性
             columns: [
                 {
-                    data: "mapId",
+                    data: "map_id",
                     width: "200px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "hostName",
+                    data: "host_name",
                     width: "80px",
                     render: function (data, type, row) {
-                        return '<a href="<c:url value="/prj/preallocation/basic/view.htm"/>?id=' +
-                            row.id + '">'+ data+ '</a>';
+                        return '<a \
+                            href="<c:url value="/prj/preallocation/basic/view.htm"/>?id=' + row.id + '">'+ data+ '</a>';
                     }
                 },
                 {
@@ -93,22 +107,43 @@
                     }
                 },
                 {
-                    data: "mp",
-                    width: "80px",
+                    data: "cog_land_area",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "cogHouseArea",
+                    data: "before_area",
+                    width: "120px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "between_area",
+                    width: "120px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "after_area",
                     width: "100px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
-                    data: "hostName",
-                    width: "80px",
+                    data: "total_compensation",
+                    width: "90px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "archives_cabinet_number",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
@@ -141,9 +176,9 @@
                     data: "id",
                     width: "80px",
                     render: function (data,type,row) {
-                        if (row.status != 70) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&id="/>' + data + '">\
-                                    <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
+                        if (row.status == 60) {
+                            return '<a class="btn-sm btn-info" href="javascript:archive(\''+ data +'\',\'' + row.map_id +'\',\''+ row.host_name +'\')">\
+                                    <i class="ace-icon fa fa-pencil-square-o "></i>归档</a>';
                         } else {
                             return '';
                         }
@@ -169,9 +204,16 @@
                         }, 0);
                         // 修改底部菜单
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " m²");
+                    }else if($(item).hasClass("isMoney")){
+                        var pageTotal = api.column(i, {page: 'current'}).data().reduce(function (a, b) {
+                            return intVal(a) + intVal(b);
+                        }, 0);
+                        // 修改底部菜单
+                        $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 元");
                     }
                 });
             }
+
         });
         $("#btn-search").on("click", table.draw);
     });

@@ -109,7 +109,7 @@ public class PrjPreallocation {
     private String town;  //镇
     private String section;  //标段
     private String groups;  //组别
-    private int prj_base_info_id;  //项目id
+    private Integer prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date demolished_date;  //拆除日期
@@ -840,11 +840,11 @@ public class PrjPreallocation {
         this.groups = groups;
     }
 
-    public int getPrj_base_info_id() {
+    public Integer getPrj_base_info_id() {
         return prj_base_info_id;
     }
 
-    public void setPrj_base_info_id(int prj_base_info_id) {
+    public void setPrj_base_info_id(Integer prj_base_info_id) {
         this.prj_base_info_id = prj_base_info_id;
     }
 

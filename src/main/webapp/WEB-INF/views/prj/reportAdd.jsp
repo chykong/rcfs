@@ -99,7 +99,7 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <input name="file" type="file" id="uploadImg-input"
-                                               accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.pdf,.csv,.htm,.html,.jpg,.jpeg,.tif,.tiff,.bmp,.png,.gif"/>
+                                               accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.pdf,.csv"/>
                                     </div>
                                     <div class="col-xs-12">
                                         <p class="center">上传文件格式为

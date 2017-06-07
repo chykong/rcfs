@@ -100,7 +100,7 @@
                                 <div class="form-group">
                                     <div class="col-xs-12">
                                         <input name="file" type="file" id="uploadImg-input"
-                                               accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.pdf,.csv,.htm,.html,.jpg,.jpeg,.tif,.tiff,.bmp,.png,.gif"/>
+                                               accept=".doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.pdf,.csv"/>
                                     </div>
                                     <div class="col-xs-12">
                                         <p class="center">上传文件格式为
@@ -155,7 +155,6 @@ $(document).ready(function() {
 			form.submit();
 		}
 	});
-
 	//上传图片
 	$('#uploadImg-input').ace_file_input({
 		style : 'well',
@@ -195,8 +194,8 @@ $(document).ready(function() {
 			// 需要提交的 url
 			success : function(data) { // data 保存提交后返回的数据，一般为 json 数据
 				var dataObj = eval("(" + data + ")");
-				var file_path = dataObj.createFilepath ;
-				var file_name =   dataObj.createFilename;
+				var file_path = dataObj.createFilepath;
+				var file_name = dataObj.createFilename;
 				$("#close-modal").click();
 				//$("#deleteImg").attr("style", "");
 				$("#file_path").val(file_path);
@@ -206,7 +205,7 @@ $(document).ready(function() {
 		return false;
 	});
 	var delMchPic = function() {
-		var ev =$("#file_path").val()+"/" +$("#file_name").val();
+		var ev = $("#file_path").val() + "/" + $("#file_name").val();
 		$.ajax({
 			type : "post",
 			url : "${dynamicServer}/common/delFile.htm",
@@ -226,7 +225,6 @@ $(document).ready(function() {
 	}
 });
 
-
-
+</script>
 </body>
 </html>

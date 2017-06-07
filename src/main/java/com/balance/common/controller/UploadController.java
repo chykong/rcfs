@@ -6,7 +6,6 @@ import com.balance.util.date.DateUtil;
 import com.balance.util.string.StringUtil;
 import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +31,7 @@ public class UploadController {
     @RequestMapping("/upload")
     public void upload(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request, HttpServletResponse response, ModelMap model) {
         String uploadPath = pubConfig.getImageUploadPath();
-        String storePath = "/proPic/" + DateUtil.getShortSystemDate() + "/";
+        String storePath = "/uploadfile/" + DateUtil.getShortSystemDate() + "/";
         String fileName = file.getOriginalFilename();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
         //        String fileName = new Date().getTime()+".jpg";

@@ -11,11 +11,29 @@ public class PrjReport {
     private int prj_base_info_id;//项目id
     private String content;//内容 
     private String title;//标题
+    private String file_path;//文件路径
+    private String file_name;//文件名
     private int progress;//项目进度
     private Date last_modified_at;//最后修改时间
     private String last_modified_by;//最后修改人
     private String created_by;//创建人
     private Date created_at;//创建时间
+
+    public String getFile_name() {
+        return file_name;
+    }
+
+    public void setFile_name(String file_name) {
+        this.file_name = file_name;
+    }
+
+    public String getFile_path() {
+        return file_path;
+    }
+
+    public void setFile_path(String file_path) {
+        this.file_path = file_path;
+    }
 
     public int getId() {
         return id;

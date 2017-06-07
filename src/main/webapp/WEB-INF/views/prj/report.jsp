@@ -11,7 +11,7 @@
 <body class="no-skin">
 <%@ include file="../common/top.jsp" %>
 <div class="main-container" id="main-container">
-   <%@ include file="../common/menu.jsp" %>
+    <%@ include file="../common/menu.jsp" %>
     <div class="main-content">
         <div class="main-content-inner">
             <!-- #section:basics/content.breadcrumbs -->
@@ -19,13 +19,14 @@
                 <ul class="breadcrumb">
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
                     <li class="active">汇报材料</li>
-                </ul> <%@ include file="../common/navigate.jsp"%>
+                </ul>
+                <%@ include file="../common/navigate.jsp" %>
                 <!-- /.breadcrumb -->
             </div>
 
             <!-- /section:basics/content.breadcrumbs -->
             <div class="page-content">
-            	 <div class="row">
+                <div class="row">
                     <div class="col-xs-12">
                         <div class="widget-box widget-color-blue">
                             <!-- #section:custom/widget-box.options -->
@@ -69,6 +70,7 @@
                             <tr>
                                 <th width=60>序号</th>
                                 <th>标题</th>
+                                <th width="100">下载</th>
                                 <th width=150>发布人</th>
                                 <th width=140>发布时间</th>
                                 <th width="140">操作</th>
@@ -79,9 +81,10 @@
                                 <tr>
                                     <td>${st.index+1 }</td>
                                     <td><a href="toDetail.htm?id=${report.id }">${report.title }</a></td>
+                                    <td><a href="download.htm?id=${report.id }">下载</a></td>
                                     <td>${report.created_by }</td>
                                     <th width=120><fmt:formatDate value="${report.created_at}"
-                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
+                                                                  pattern="yyyy-MM-dd HH:mm"/></th>
                                     <td><c:if test="${bln:isP('PrjReportUpdate')}">
                                         <a href="toUpdate.htm?id=${report.id }&backUrl=${backUrl}"> 修改 </a>
                                     </c:if> <c:if test="${bln:isP('PrjReportDelete')}">
@@ -129,6 +132,7 @@
 				 	var project_progress=$(".active").find("input").val()
 					window.location = 'toAdd.htm?progress=${prjReportSearchVO.progress}&backUrl=${backUrl }';
 				}
+
         </script>
 </body>
 </html>

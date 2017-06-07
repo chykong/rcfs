@@ -48,7 +48,8 @@ public class PrjReportDao extends BaseDao<PrjReport, PrjReportSearchVO> {
      * @return
      */
     public int add(PrjReport prjReport) {
-        String sql = "insert into t_prj_report(prj_base_info_id,title,content,progress,created_by,created_at)values(:prj_base_info_id,:title,:content,:progress,:created_by,now())";
+        String sql = "insert into t_prj_report(prj_base_info_id,title,file_path,file_name,progress,created_by,created_at) " +
+                "values(:prj_base_info_id,:title,:file_path,:file_name,:progress,:created_by,now())";
         return update(sql, prjReport);
     }
 
@@ -64,7 +65,7 @@ public class PrjReportDao extends BaseDao<PrjReport, PrjReportSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjReport prjReport) {
-        String sql = "update t_prj_report set title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_report set title=:title,file_path=:file_path,file_name=:file_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjReport);
     }
 

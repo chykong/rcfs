@@ -6,6 +6,7 @@ import com.balance.prj.vo.PrjReportSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
+import com.balance.util.file.DownloadUtil;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.session.UserSession;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -140,6 +142,16 @@ public class PrjReportController extends BaseController {
         mv.setViewName("/prj/reportDetail");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
+    }
+
+    /**
+     * 导出
+     */
+    @RequestMapping("/download")
+    public void download(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjReport prjReport = prjReportService.findById(id);
+        DownloadUtil.download(response, pubConfig.getImageUploadPath() + File.separator + prjReport.getFile_path() + File.separator + prjReport.getFile_name(), prjReport.getFile_name(), "UTF-8");
     }
 }
 

@@ -126,7 +126,7 @@ public class PrjPreallocationBasicController extends BaseController {
             mv.addObject("msg", "拆除腾退人不存在");
             return mv;
         }
-        List<PrjSection> sectionList = prjSectionService.list(SessionUtil.getUserSession(request).getCurrent_project_id());
+        List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("sectionList", sectionList);
 //
         List<BaseCompany> companyList = baseCompanyService.listAll();

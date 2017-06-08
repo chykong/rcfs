@@ -92,15 +92,16 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12">${ pageNavigate.pageModel}</div>
-                    </div>
-
                 </div>
-                <!-- /.main-content -->
+                <div class="row">
+                    <div class="col-xs-12">${ pageNavigate.pageModel}</div>
+                </div>
+
             </div>
+            <!-- /.main-content -->
         </div>
     </div>
+</div>
 </div>
 <!-- /.main-container -->
 <%@ include file="../common/js.jsp" %>
@@ -129,6 +130,7 @@
 				 	var project_progress=$(".active").find("input").val()
 					window.location = 'toAdd.htm?progress=${prjBriefSearchVO.progress}&backUrl=${backUrl }';
 				}
+
 
 </script>
 </body>

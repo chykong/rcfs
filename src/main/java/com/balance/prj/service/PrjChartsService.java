@@ -64,4 +64,21 @@ public class PrjChartsService {
 
         return overList;
     }
+
+    public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
+        return prjChartsDao.getGroupInHostList(prjChartsSearchVO);
+    }
+    public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
+        return prjChartsDao.getGroupSignList(prjChartsSearchVO);
+    }
+    public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
+        return prjChartsDao.getGroupHandoverList(prjChartsSearchVO);
+    }
+    public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
+        return prjChartsDao.getGroupMoneyList(prjChartsSearchVO);
+    }
+
+    public int getTotalHomes(int prj_project_id){
+        return prjChartsDao.getTotalHomes(prj_project_id);
+    }
 }

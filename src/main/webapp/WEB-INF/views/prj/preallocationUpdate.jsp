@@ -166,11 +166,14 @@
         });
         var $section = $("#section");
         var $group = $("#groups");
+        var old_group = '${preallocation.groups}';
         $section.on('change', function () {
             if($(this).val() == ''){
+                $group.empty();
+                $group.append('<option value="">--请选择标段--</option>');
                 return;
             }
-            var url = '<c:url value="/projects/getGroupsBySection?${_csrf.parameterName}=${_csrf.token}"/>';
+            var url = '<c:url value="/common/listGroupBySec.htm"/>';
             $.ajax({
                 url: url,
                 data: {
@@ -179,16 +182,24 @@
                 },
                 type: 'post',
                 success: function (result) {
+                    var json = eval('('+result + ')');
                     $group.empty();
-                    if (result && result.length) {
+                    if (json && json.length) {
                         $group.append('<option value="">--请选择--</option>');
-                        $.each(result, function (i, group) {
-                            $group.append('<option value="' + group.name + '">' + group.name + '</option>');
+                        $.each(json, function (i, group) {
+                            if(old_group == group.name){
+                                $group.append('<option value="' + group.name + '" selected>' + group.name + '</option>');
+                            }else{
+                                $group.append('<option value="' + group.name + '">' + group.name + '</option>');
+                            }
                         });
                     }
                 }
             });
         });
+        $section.change();
+
+
         $('#material-input').ace_file_input({
             style: 'well',
             btn_choose: '点击选择',

@@ -37,9 +37,7 @@
                     <div class="col-xs-12">
                         <div class="hr hr-18 dotted hr-double"></div>
                         <div style="overflow: auto">
-                            <div id="container" style="min-width: 400px;height: 400px;
-                            <c:if test="${inHostList.size()>15}">width: ${inHostList.size() * 100}px</c:if>
-                                    "></div>
+                            <div id="container" style="width: 100%;height: 400px;"></div>
                         </div>
                     </div>
                     <!-- /.span -->

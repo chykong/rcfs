@@ -8,6 +8,10 @@ public class PrjChart {
     private String title;
     private int countLeftDay;
 
+    private String groups; //分组
+    private Integer total;  //累积
+    private Integer today;  //今日
+
     public PrjChart() {
 
     }
@@ -31,5 +35,30 @@ public class PrjChart {
 
     public void setCountLeftDay(int countLeftDay) {
         this.countLeftDay = countLeftDay;
+    }
+
+
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getToday() {
+        return today;
+    }
+
+    public void setToday(Integer today) {
+        this.today = today;
     }
 }

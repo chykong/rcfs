@@ -10,6 +10,8 @@ public class PrjChartsSearchVO {
     private String village;  //村
     private String date; //日期
 
+    private Integer search_type; // 查询类型 1-入户 2-签约 3-交房  4-放款
+
     private String search_date_type;  //查询类型
 
     public Integer getPrj_base_info_id() {
@@ -50,5 +52,13 @@ public class PrjChartsSearchVO {
 
     public void setSearch_date_type(String search_date_type) {
         this.search_date_type = search_date_type;
+    }
+
+    public Integer getSearch_type() {
+        return search_type;
+    }
+
+    public void setSearch_type(Integer search_type) {
+        this.search_type = search_type;
     }
 }

@@ -78,4 +78,57 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         }
         return sql;
     }
+
+    public int getTotalHomes(int project_id) {
+        String sql = "SELECT count(*) FROM t_prj_preallocation WHERE prj_base_info_id=?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{project_id}, Integer.class);
+    }
+
+    public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+                "from t_prj_preallocation  where  in_host_date is not null " +
+                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
+                "(select groups,count(*) today " +
+                "from t_prj_preallocation  where in_host_date= CURDATE() " +
+                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+                "from t_prj_preallocation  where  signed_date is not null " +
+                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
+                "(select groups,count(*) today " +
+                "from t_prj_preallocation  where signed_date= CURDATE() " +
+                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+                "from t_prj_preallocation  where  handover_house_date is not null " +
+                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
+                "(select groups,count(*) today " +
+                "from t_prj_preallocation  where handover_house_date= CURDATE() " +
+                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+                "from t_prj_preallocation  where  money_date is not null " +
+                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
+                "(select groups,count(*) today " +
+                "from t_prj_preallocation  where money_date= CURDATE() " +
+                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
+
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
 }

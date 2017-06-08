@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjChart;
 import com.balance.prj.service.PrjChartsService;
 import com.balance.prj.vo.ChartsDataVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
+import com.balance.util.number.NumberUtil;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.ChartsUtil;
 import com.balance.util.web.WebUtil;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,42 +44,112 @@ public class PrjChartsController {
         List<PrjChart> contractList = prjChartsService.getContractList(prjChartsSearchVO);
         List<PrjChart> handoverList = prjChartsService.getHandoverList(prjChartsSearchVO);
 
-        mv.addObject("inHostList",inHostList);
-        mv.addObject("contractList",contractList);
-        mv.addObject("handoverList",handoverList);
+        mv.addObject("inHostList", inHostList);
+        mv.addObject("contractList", contractList);
+        mv.addObject("handoverList", handoverList);
 
         mv.setViewName("/prj/entiretyChartIndex");
         return mv;
     }
 
-    @RequestMapping("/loaddata")
-    public void loaddata(HttpServletRequest request, HttpServletResponse response) {
-/*        String json = "{\"categories\": [\"一组\",\"二组\",\"三组\",\"四组\",\"五组\"], \"data\": [{" +
-                "\"name\":'当日交房'," +
-                "\"type\":\"bar\"," +
-                "\"data\":[2, 4,5,2,8]" +
-                "}," +
-                "{" +
-                "\"name\":'累计交房'," +
-                "\"type\":\"bar\"," +
-                "\"data\":[12,33,44,22,32]" +
-                "}],\"data2\":[{" +
-                "            name: '交房累计完成度'," +
-                "            type: 'gauge'," +
-                "            detail: {formatter:'{value}%'}," +
-                "            data: [{value: 80, name: '完成率'}]" +
-                "        }]}";*/
+    @RequestMapping("/groupIndex")
+    public ModelAndView groupIndex(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
+        ModelAndView mv = new ModelAndView();
+
+
+        mv.setViewName("/prj/groupChartIndex");
+        return mv;
+    }
+
+    @RequestMapping("/getGroup")
+    public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
+
+        int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
+        prjChartsSearchVO.setPrj_base_info_id(project_id);
+        List<PrjChart> list = new ArrayList<>();
+        int total_homes = prjChartsService.getTotalHomes(project_id);
+        int over_homes = 0;
 
         ChartsDataVO vo = new ChartsDataVO();
-        vo.setBarTitle1("当日交房");//
-        vo.setBarTitle2("累计交房");//
-        vo.setBarData1(new int[]{2, 4, 5, 2, 8});//第一组数据
-        vo.setBarData2(new int[]{12, 33, 44, 22, 32});//第二组数据
-        vo.setBarCategories(new String[]{"一组", "二组", "三组", "四组", "五组"});//整体分组
-        vo.setGuageTitle("交房累计完成度");//仪表盘标题
-        vo.setGuageData(76);//仪表单数据
-        String json = ChartsUtil.createChartsJson(vo);
+        String title1 = "";
+        if (prjChartsSearchVO.getSearch_type() != null) {
+            switch (prjChartsSearchVO.getSearch_type()) {
+                case 1:
+                    title1 = "入户";
+                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    break;
+                case 2:
+                    title1 = "签约";
+                    list = prjChartsService.getGroupSignList(prjChartsSearchVO);
+                    break;
+                case 3:
+                    title1 = "交房";
+                    list = prjChartsService.getGroupHandoverList(prjChartsSearchVO);
+                    break;
+                case 4:
+                    title1 = "放款";
+                    list = prjChartsService.getGroupMoneyList(prjChartsSearchVO);
+                    break;
+                default:
+                    title1 = "入户";
+                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    break;
+            }
+        }
+        vo.setBarTitle1("当日" + title1);//
+        vo.setBarTitle2("累计"  + title1);//
+
+        int[] today_int = new int[list.size()];
+        int[] total_int = new int[list.size()];
+        String[] groups = new String[list.size()];
+
+        for (int i = 0; i < list.size(); i++) {
+            PrjChart prjChart = list.get(i);
+            today_int[i] = prjChart.getToday();
+            total_int[i] = prjChart.getTotal();
+            over_homes += prjChart.getTotal();
+            groups[i] = prjChart.getGroups();
+        }
+        vo.setBarData1(today_int);//今日
+        vo.setBarData2(total_int);//累计
+        vo.setBarCategories(groups);//整体分组
+        vo.setGuageTitle(title1 + "累计完成度");//仪表盘标题
+
+        vo.setGuageData(NumberUtil.formatFloat((float) over_homes * 100 / total_homes));//仪表单数据
+        String json = ChartsUtil.createChartsJson(vo, total_homes);
         System.out.println(json);
         WebUtil.out(response, json);
     }
+
+    @RequestMapping("/loaddata")
+    public void loaddata(HttpServletRequest request, HttpServletResponse response) {
+///*        String json = "{\"categories\": [\"一组\",\"二组\",\"三组\",\"四组\",\"五组\"], \"data\": [{" +
+//                "\"name\":'当日交房'," +
+//                "\"type\":\"bar\"," +
+//                "\"data\":[2, 4,5,2,8]" +
+//                "}," +
+//                "{" +
+//                "\"name\":'累计交房'," +
+//                "\"type\":\"bar\"," +
+//                "\"data\":[12,33,44,22,32]" +
+//                "}],\"data2\":[{" +
+//                "            name: '交房累计完成度'," +
+//                "            type: 'gauge'," +
+//                "            detail: {formatter:'{value}%'}," +
+//                "            data: [{value: 80, name: '完成率'}]" +
+//                "        }]}";*/
+//
+//        ChartsDataVO vo = new ChartsDataVO();
+//        vo.setBarTitle1("当日入户");//
+//        vo.setBarTitle2("累计入户");//
+//        vo.setBarData1(new int[]{2, 4, 5, 2, 8});//第一组数据
+//        vo.setBarData2(new int[]{12, 33, 44, 22, 32});//第二组数据
+//        vo.setBarCategories(new String[]{"一组", "二组", "三组", "四组", "五组"});//整体分组
+//        vo.setGuageTitle("入户累计完成度");//仪表盘标题
+//        vo.setGuageData(76);//仪表单数据
+//        String json = ChartsUtil.createChartsJson(vo);
+//        System.out.println(json);
+//        WebUtil.out(response, json);
+    }
+
 }

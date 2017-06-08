@@ -14,7 +14,7 @@ public class ChartsUtil {
      * @param vo
      * @return
      */
-    public static String createChartsJson(ChartsDataVO vo) {
+    public static String createChartsJson(ChartsDataVO vo,int total) {
         String json = "{\"categories\": " + JsonUtil.toStr(vo.getBarCategories()) + ", \"barData\": [{" +
                 "\"name\":\"" + vo.getBarTitle1() + "\"," +
                 "\"type\":\"bar\"," +
@@ -28,7 +28,7 @@ public class ChartsUtil {
                 "\"name\": \"" + vo.getGuageTitle() + "\"," +
                 "\"type\": \"gauge\"," +
                 "\"detail\": {formatter:'{value}%'}," +
-                "\"data\": [{\"value\": " + vo.getGuageData() + ", \"name\": \"完成率\"}]" +
+                "\"data\": [{\"value\": " + vo.getGuageData() + ", \"name\": \"总户数:" + total +"\"}]" +
                 " }]}";
         return json;
     }

@@ -91,8 +91,8 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setLand_property(land_status);
         mv.addObject("preallocation", preallocation);
 
-//        List<PrjSection> sectionList = projectService.getSectionsByProjectId(getCurrentProject().getProjectId());
-//        model.addAttribute("sectionList", sectionList);
+       List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("sectionList", sectionList);
 //
         List<BaseCompany> companyList = baseCompanyService.listAll();
         mv.addObject("companyList", companyList);
@@ -104,7 +104,6 @@ public class PrjPreallocationBasicController extends BaseController {
     public String add(PrjPreallocation preallocation, HttpServletRequest request) {
         preallocation.setCreated_by(SessionUtil.getUserSession(request).getUser_name());
         preallocation.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
-        preallocation.setStatus(20);
         int flag = preallocationService.add(preallocation);
 
         if (flag == 0)

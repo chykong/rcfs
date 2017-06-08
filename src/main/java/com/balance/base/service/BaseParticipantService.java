@@ -1,12 +1,19 @@
 package com.balance.base.service;
 
-import com.balance.base.dao.BaseParticipantDao;
-import com.balance.base.model.BaseParticipant;
-import com.balance.base.vo.BaseParticipantSearchVO;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.balance.base.dao.BaseParticipantDao;
+import com.balance.base.model.BaseParticipant;
+import com.balance.base.vo.BaseParticipantSearchVO;
+import com.balance.util.excel.Excel2007Util;
+import com.balance.util.string.StringUtil;
 
 /**
  * Author 孔垂云 Date 2017/6/3.
@@ -41,4 +48,81 @@ public class BaseParticipantService {
 		return baseParticipantDao.get(id);
 	}
 
+	public String saveImport(String file_path, String create_person, int prj_base_info_id) {
+		// 1读取excel数据
+		List<String[]> list = new Excel2007Util().readExcelContent(file_path, 2);
+		// 2校验数据
+		String checkResult = checkData(list);
+		if (checkResult.length() != 0)
+			return checkResult;
+		// 3导入数据
+		List<BaseParticipant> listTrans = transData(list);
+		Date date = new Date();
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String time = format.format(date);
+		for (BaseParticipant baseParticipant : listTrans) {
+			baseParticipant.setCreated_by(create_person);// 导入人
+			baseParticipant.setPrj_base_info_id(prj_base_info_id);// 项目
+			baseParticipant.setRelease_date(time);//发布时间
+			baseParticipantDao.add(baseParticipant);
+		}
+		return "";
+	}
+
+	/**
+	 * 校验数据
+	 *
+	 * @param list
+	 * @return
+	 */
+	private String checkData(List<String[]> list) {
+		StringBuffer sb = new StringBuffer();
+		int i = 2;
+		for (String[] str : list) {
+			if (str.length != 8) {
+				sb.append("第" + i + "行数据不全" + "\\\n");
+			}
+			if (str[1].length() > 100) {
+				sb.append("第" + i + "行工作职能错误-" + str[1] + "\\\n");
+			}
+			if (StringUtil.isNullOrEmpty(str[2]) || str[2].length() > 10) {
+				sb.append("第" + i + "行姓名错误-" + str[2] + "\\\n");
+			}
+			if (str[3].length() > 11) {
+				sb.append("第" + i + "行手机超长-" + str[3] + "\\\n");
+			}
+			if (str[4].length() > 100) {
+				sb.append("第" + i + "行组别超长-" + str[4] + "\\\n");
+			}
+			if (str[5].length() > 100) {
+				sb.append("第" + i + "行公司名称超长-" + str[5] + "\\\n");
+			}
+			if (str[6].length() > 100) {
+				sb.append("第" + i + "行工作职责超长-" + str[6] + "\\\n");
+			}
+			i++;
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 转换数据
+	 *
+	 * @param list
+	 * @return
+	 */
+	private List<BaseParticipant> transData(List<String[]> list) {
+		List<BaseParticipant> listTrans = new ArrayList<>();
+		for (String[] str : list) {
+			BaseParticipant baseParticipant = new BaseParticipant();
+			baseParticipant.setProject_duty(str[1]);// 工作职能
+			baseParticipant.setName(str[2]);// 姓名
+			baseParticipant.setMobile(str[3]);// 手机
+			baseParticipant.setGroups(str[4].substring(0,str[4].indexOf(".")));// 组别
+			baseParticipant.setDuty(str[5]);// 职务
+			baseParticipant.setCompany(str[6]);// 公司名称
+			listTrans.add(baseParticipant);
+		}
+		return listTrans;
+	}
 }

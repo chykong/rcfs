@@ -1,5 +1,6 @@
 package com.balance.base.controller;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,16 +12,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.balance.base.model.BaseParticipant;
 import com.balance.base.service.BaseParticipantService;
 import com.balance.base.vo.BaseParticipantSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.code.SerialNumUtil;
 import com.balance.util.config.PubConfig;
+import com.balance.util.date.DateUtil;
+import com.balance.util.file.FileUtil;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.StringUtil;
+import com.balance.util.web.WebUtil;
 
 /**
  * Author  孔垂云
@@ -134,5 +141,46 @@ public class BaseParticipantController {
         else
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("参与人员删除成功");
     }
+    /**
+     * 导入数据
+     *
+     * @param excel_file
+     * @param request
+     * @param response
+     */
+    @RequestMapping("/importData")
+    public void importData(@RequestParam(value = "excel_file", required = false) MultipartFile excel_file, HttpServletRequest request,
+                           HttpServletResponse response) {
+        String create_person = SessionUtil.getUserSession(request).getRealname();
+        String uploadPath = pubConfig.getImageUploadPath();
+        String storePath = "/upload/" + DateUtil.getShortSystemDate() + "/";
+        String fileName = excel_file.getOriginalFilename();
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+        String createFilename = DateUtil.getShortSystemTime() + SerialNumUtil.createRandowmNum(6) + "." + suffix;
+        File targetFile = new File(uploadPath + storePath, createFilename);
+        if (!targetFile.exists()) {
+            targetFile.mkdirs();
+        }
+        String json;
 
+        if (excel_file.getSize() > 10 * 1024 * 1024) {
+            json = "{success:" + false + ",msgText:'" + "文件超过10M" + "'}";
+        } else {
+            // 保存
+            try {
+                excel_file.transferTo(targetFile);
+                String result = baseParticipantService.saveImport(uploadPath + storePath + File.separator + createFilename, create_person, SessionUtil.getUserSession(request).getCurrent_project_id());
+                if (result.equals("")) {
+                    json = "{success:" + true + ",msgText:'" + "导入成功" + "'}";
+                } else {
+                    json = "{success:" + false + ",msgText:'" + "导入失败" + "',errorInfo:'" + result + "'}";
+                }
+                FileUtil.delete(uploadPath + storePath + File.separator + createFilename);
+            } catch (Exception e) {
+                json = "{success:" + false + ",msgText:'" + "上传失败" + e.getMessage() + "'}";
+                e.printStackTrace();
+            }
+        }
+        WebUtil.out(response, json);
+    }
 }

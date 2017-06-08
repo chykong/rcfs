@@ -1,14 +1,15 @@
 package com.balance.base.dao;
 
+import java.util.List;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
+
 import com.balance.base.model.BaseParticipant;
 import com.balance.base.vo.BaseParticipantSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
 import com.balance.util.string.StringUtil;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Author  孔垂云
@@ -114,6 +115,4 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
         String sql = "select * from t_base_participant t where  ";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BaseParticipant.class));
     }
-
-
 }

@@ -48,4 +48,4 @@
 		document.write("<script src='${staticServer }/assets/components/_mod/jquery.mobile.custom/jquery.mobile.custom.js?versionNo=${versionNo}'>" + "<"+"/script>");
 </script>
 
-<link rel="shortcut icon" href="${staticServer }/assets/images/favicon.ico" mce_href="${staticServer }/assets/images/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="${staticServer }/assets/images/fav.ico" mce_href="${staticServer }/assets/images/favicon.ico" type="image/x-icon" />

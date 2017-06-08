@@ -22,7 +22,7 @@
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <h4 class="header blue lighter bigger">
-                                        <i class="ace-icon fa fa-wechat green"></i> <b>${webTitle}-登录</b>
+                                        <i class="ace-icon fa fa-wechat green"></i> <b>${webTitle}</b>
                                     </h4>
                                     <div class="space-6"></div>
                                     <form id="loginForm" action="checkLogin.htm" method="post">

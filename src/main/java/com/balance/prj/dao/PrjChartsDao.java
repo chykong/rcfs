@@ -20,7 +20,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(in_host_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where in_host_date<DATE_ADD(title,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where in_host_date<DATE_ADD(in_host_date,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and in_host_date is not null " +
                 createSql(prjChartsSearchVO) +
@@ -32,7 +32,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getContractList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(signed_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where signed_date<DATE_ADD(title,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where signed_date<DATE_ADD(signed_date,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and signed_date is not null " +
                 createSql(prjChartsSearchVO) +
@@ -44,7 +44,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(handover_house_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where handover_house_date<DATE_ADD(title,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where handover_house_date<DATE_ADD(handover_house_date,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and handover_house_date is not null " +
                 createSql(prjChartsSearchVO) +

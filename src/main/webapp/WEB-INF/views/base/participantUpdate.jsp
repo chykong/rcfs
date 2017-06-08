@@ -91,7 +91,7 @@
 										<input id="release_date" type="text" name="release_date"
 											class="col-xs-10 col-sm-5" placeholder=""
 											value="${baseParticipant.release_date }"><label
-											id="greated_atTip"></label>
+											id="release_dateTip"></label>
 									</div>
 								</div>
 								<div class="clearfix form-actions">

@@ -63,7 +63,7 @@
 													<div class="widget-header">
 														<h4 class="widget-title">
 															<label> <input name="module" class="ace father" type="checkbox" id="mod_${sysModule.id }"
-																value="${sysModule.id }" /> <span class="lbl">${sysModule.name }</span>
+																value="${sysModule.id }" /> <span class="lbl"> <small><i class="ace-icon fa fa-pencil-square-o"></i></small> ${sysModule.name }</span>
 															</label>
 														</h4>
 														<div class="widget-toolbar">
@@ -76,12 +76,16 @@
 															<c:forEach items="${listModule }" var="secModule" varStatus="st">
 																<c:if test="${sysModule.id eq secModule.parent_id }">
 																	<label> <input name="module" id="mod_${secModule.id }" type="checkbox" value="${secModule.id }"
-																		class="ace children" /> <span class="lbl"> ${secModule.name}</span>
+																		class="ace children" /> <span class="lbl">  <small>
+                                                            <i class="ace-icon fa fa-pencil-square-o"></i>
+                                                        </small>${secModule.name}</span>
 																	</label>
 																	<c:forEach items="${listFunction }" var="sysFunction" varStatus="st">
 																			<c:if test="${sysFunction.module_id eq secModule.id }">
 																				<label class="checkbox inline" style="color: blue"><input name="function" id="function_${sysFunction.id }"
-																					type="checkbox" value="${sysFunction.id }" class="ace children" /> <span class="lbl"> ${sysFunction.name }</span> </label>
+																					type="checkbox" value="${sysFunction.id }" class="ace children" /> <span class="lbl">  <small>
+                                                                  <i class="ace-icon fa fa-align-justify"></i>
+                                                              </small>${sysFunction.name }</span> </label>
 																			</c:if>
 																		</c:forEach> 
 																	<br />
@@ -90,7 +94,9 @@
 															<c:forEach items="${listFunction }" var="sysFunction" varStatus="st">
 																<c:if test="${sysFunction.module_id eq sysModule.id }">
 																	<label class="checkbox inline" style="color: blue"><input name="function" id="function_${sysFunction.id }"
-																															  type="checkbox" value="${sysFunction.id }" class="ace children" /> <span class="lbl"> ${sysFunction.name }</span> </label>
+																															  type="checkbox" value="${sysFunction.id }" class="ace children" /> <span class="lbl"> <small>
+                                                                  <i class="ace-icon fa fa-align-justify"></i>
+                                                              </small> ${sysFunction.name }</span> </label>
 																</c:if>
 															</c:forEach>
 														</div>

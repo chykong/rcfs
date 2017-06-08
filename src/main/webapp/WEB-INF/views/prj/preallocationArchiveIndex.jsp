@@ -40,17 +40,13 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="widget-box" id="widget-box-search">
-                            <h4 class="pull-left">操作面板</h4>
+                        <div class="widget-box widget-color-blue" id="widget-box-search">
                             <div class="widget-header">
-                                <div class="widget-toolbar">
-                                    <strong>操作面板</strong>
-                                    <a href="#" data-action="collapse">
-                                        <i class="ace-icon fa fa-chevron-up"></i>
-                                    </a>
-                                </div>
+                                <h5 class="widget-title bigger lighter">
+                                    <i class="ace-icon fa fa-table"></i> 操作面板
+                                </h5>
                             </div>
-                            <div class="widget-body">
+                            <div class="widget-body widget-color-blue">
                                 <div class="widget-main no-padding">
                                     <c:url value="/prj/preallocation/archive/index.htm" var="index_url"/>
                                     <form:form action="${index_url}" method="post"

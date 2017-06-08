@@ -38,15 +38,11 @@
             <div class="page-content">
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="widget-box" id="widget-box-search">
-                            <h4 class="pull-left">操作面板</h4>
+                        <div class="widget-box widget-color-blue" id="widget-box-search">
                             <div class="widget-header">
-                                <div class="widget-toolbar">
-                                    <strong>操作面板</strong>
-                                    <a href="#" data-action="collapse">
-                                        <i class="ace-icon fa fa-chevron-up"></i>
-                                    </a>
-                                </div>
+                                <h5 class="widget-title bigger lighter">
+                                    <i class="ace-icon fa fa-table"></i> 操作面板
+                                </h5>
                             </div>
                             <div class="widget-body">
                                 <div class="widget-main no-padding">
@@ -118,7 +114,7 @@
                                                     <a href="<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl=${backUrl}"/>" class="btn btn-success btn-sm">
                                                         <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                     </a>
-                                                    <a href="#import-modal" class="btn btn-warning btn-sm" data-toggle="modal">
+                                                    <a href="#import-modal" class="btn btn-success btn-sm" data-toggle="modal">
                                                         <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
                                                     </a>
 

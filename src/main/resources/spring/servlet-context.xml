@@ -58,6 +58,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+
     <!-- aspect拦截controller
             <aop:aspectj-autoproxy proxy-target-class="true" />
             <bean id="controllerExceptionAspect" class="com.balance.config.aspect.ControllerExceptionAspect" />
@@ -96,6 +97,11 @@
             <mvc:mapping path="/base/*/*"/>
             <mvc:mapping path="/prj/*/*"/>
             <bean class="com.balance.config.interceptor.AuthorityInterceptor"></bean>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/api/*/*"/>
+            <bean class="com.balance.config.interceptor.CheckAppAuthorizationInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

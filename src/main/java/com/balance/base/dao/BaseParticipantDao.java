@@ -1,15 +1,15 @@
 package com.balance.base.dao;
 
-import java.util.List;
-
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.stereotype.Repository;
-
+import com.balance.api.dto.ContactsGroupsDTO;
 import com.balance.base.model.BaseParticipant;
 import com.balance.base.vo.BaseParticipantSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
 import com.balance.util.string.StringUtil;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Author  孔垂云
@@ -114,5 +114,17 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
     public List<BaseParticipant> listAll(int prj_base_info_id) {
         String sql = "select * from t_base_participant t where  ";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BaseParticipant.class));
+    }
+
+
+    /**
+     * 全部公司列表
+     *
+     * @return 列表
+     */
+    public List<ContactsGroupsDTO> listByGroup(int prj_base_info_id) {
+        String sql = "select company name,count(*) total from t_base_participant t where prj_base_info_id=? group by company\n" +
+                " order by CONVERT(company USING gbk);  ";
+        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id}, new BeanPropertyRowMapper<>(ContactsGroupsDTO.class));
     }
 }

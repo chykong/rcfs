@@ -1,35 +1,20 @@
 package com.balance.util.json;
 
-import java.util.List;
-
+/**
+ * Author  孔垂云
+ * Date  2017/6/10.
+ */
 public class JsonResult {
-    private int status;
-    private String message;//
-    private int total;
-    private List list;
-    private Object data;
+    private boolean success;//是否成功
+    private String message;//消息
+    private Object data;//额外的数据
 
-    public int getStatus() {
-        return status;
+    public boolean isSuccess() {
+        return success;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public JsonResult(int status, String message, int total) {
-        this(status, message);
-        this.total = total;
-    }
-
-    public JsonResult(int status, String message, Object data) {
-        this(status, message);
-        this.data = data;
-    }
-
-    public JsonResult(int status, String message) {
-        this.status = status;
-        this.message = message;
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 
     public String getMessage() {
@@ -40,27 +25,42 @@ public class JsonResult {
         this.message = message;
     }
 
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List getList() {
-        return list;
-    }
-
-    public void setList(List list) {
-        this.list = list;
-    }
-
     public Object getData() {
         return data;
     }
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public JsonResult(boolean success, String message, Object data) {
+        this(success, message);
+        this.data = data;
+    }
+
+    public JsonResult() {
+    }
+
+    public JsonResult(boolean success) {
+        this.success = success;
+    }
+
+    public JsonResult(boolean success, String message) {
+        this(success);
+        this.message = message;
+    }
+
+    /**
+     * 成功的Json结果
+     */
+    private static final JsonResult success_instance = new JsonResult(true);
+
+    /**
+     * 获取成功的Json结果
+     *
+     * @return 成功的Json结果
+     */
+    public static JsonResult getSuccess_instance() {
+        return success_instance;
     }
 }

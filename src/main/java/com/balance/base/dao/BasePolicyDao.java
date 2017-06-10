@@ -5,7 +5,6 @@ import com.balance.base.vo.BasePolicySearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
 import com.balance.util.string.StringUtil;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -67,7 +66,7 @@ public class BasePolicyDao extends BaseDao<BasePolicy, BasePolicySearchVO> {
      * @return
      */
     public List<BasePolicy> list(BasePolicySearchVO basePolicySearchVO) {
-        String sql = "select * from t_base_policy t where 1=1";
+        String sql = "select id,title,prj_base_info_id,created_by,created_at,last_modified_by,last_modified_at from t_base_policy t where 1=1";
         sql += createSearchSql(basePolicySearchVO);
         sql += " order by id desc";
         sql = PageUtil.createMysqlPageSql(sql, basePolicySearchVO.getPageIndex(), basePolicySearchVO.getPageSize());
@@ -103,8 +102,8 @@ public class BasePolicyDao extends BaseDao<BasePolicy, BasePolicySearchVO> {
      *
      * @return 列表
      */
-    public List<BasePolicy> listAll() {
-        String sql = "select * from t_base_policy t ";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BasePolicy.class));
+    public List<BasePolicy> listAll(int prj_base_info_id) {
+        String sql = "select id,title,prj_base_info_id,created_by,created_at,last_modified_by,last_modified_at from t_base_policy t where prj_base_info_id=?";
+        return list(sql, prj_base_info_id);
     }
 }

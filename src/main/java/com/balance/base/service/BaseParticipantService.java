@@ -1,5 +1,6 @@
 package com.balance.base.service;
 
+import com.balance.api.dto.ContactsGroupsDTO;
 import com.balance.base.dao.BaseParticipantDao;
 import com.balance.base.model.BaseParticipant;
 import com.balance.base.vo.BaseParticipantSearchVO;
@@ -120,5 +121,14 @@ public class BaseParticipantService {
             listTrans.add(baseParticipant);
         }
         return listTrans;
+    }
+
+    /**
+     * 全部公司列表
+     *
+     * @return 列表
+     */
+    public List<ContactsGroupsDTO> listByGroup(int prj_base_info_id) {
+        return baseParticipantDao.listByGroup(prj_base_info_id);
     }
 }

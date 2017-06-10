@@ -31,6 +31,7 @@
         <jedis.version>2.9.0</jedis.version>
         <dom4j.version>2.0.0</dom4j.version>
         <jdk.version>1.8</jdk.version>
+        <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
         <maven-compiler-plugin.version>3.5.1</maven-compiler-plugin.version>
         <maven-war-plugin.version>2.1.1</maven-war-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -220,7 +221,11 @@
             <artifactId>sitemesh</artifactId>
             <version>3.0.1</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
     </dependencies>
 
     <profiles>

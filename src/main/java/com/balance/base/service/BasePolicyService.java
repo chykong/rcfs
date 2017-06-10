@@ -40,7 +40,7 @@ public class BasePolicyService {
     public int listCount(BasePolicySearchVO basePolicySearchVO) {
         return basePolicyDao.listCount(basePolicySearchVO);
     }
-    public List<BasePolicy> listAll() {
-        return basePolicyDao.listAll();
+    public List<BasePolicy> listAll(int prj_base_info_id) {
+        return basePolicyDao.listAll(prj_base_info_id);
     }
 }

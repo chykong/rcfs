@@ -23,9 +23,6 @@
 <script src="${staticServer }/assets/js/src/ace.sidebar-scroll-1.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.submenu-hover.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.widget-box.js?versionNo=${versionNo}"></script>
-<script src="${staticServer }/assets/js/src/ace.settings.js?versionNo=${versionNo}"></script>
-<script src="${staticServer }/assets/js/src/ace.settings-rtl.js?versionNo=${versionNo}"></script>
-<script src="${staticServer }/assets/js/src/ace.settings-skin.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.widget-on-reload.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.searchbox-autocomplete.js?versionNo=${versionNo}"></script>
 

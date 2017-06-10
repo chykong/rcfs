@@ -8,8 +8,12 @@
     <script src="${staticServer }/assets/js/userBrower.js"></script>
     <script src="${staticServer }/assets/js/jCookie.js"></script>
 </head>
-
-<body class="login-layout">
+<style>
+  .login-back{
+        background: url('${staticServer}${loginBack}') top center no-repeat ;
+            }
+</style>
+<body class="login-layout login-back">
 <div class="main-container login-main-container">
     <div class="main-content">
         <div class="row">
@@ -152,6 +156,7 @@
 				}
 			});
 		}
+
 
 
 

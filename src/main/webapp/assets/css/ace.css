@@ -12668,7 +12668,6 @@ tr.detail-row > td {
   margin: 0 auto;
 }
 .login-layout {
-   background: url('../images/banner.jpg') top center no-repeat ;
    background-size:cover;
 }
 .login-layout .main-container:before {

@@ -34,6 +34,7 @@
                 <prop key="staticServer">${staticServer}</prop>
                 <prop key="dynamicServer">${dynamicServer}</prop>
                 <prop key="webTitle">${webTitle}</prop>
+                <prop key="loginBack">${loginBack}</prop>
             </props>
         </property>
     </bean>

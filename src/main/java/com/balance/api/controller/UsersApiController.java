@@ -8,6 +8,7 @@ package com.balance.api.controller;
 
 import com.balance.api.dto.ChangePassDTO;
 import com.balance.sys.service.SysUserService;
+import com.balance.util.controller.BaseApiController;
 import com.balance.util.json.JsonResult;
 import com.balance.util.session.AppSession;
 import com.balance.util.session.SessionUtil;
@@ -22,7 +23,7 @@ import javax.validation.Valid;
 
 @RequestMapping("/api/users")
 @RestController
-public class UsersApiController {
+public class UsersApiController extends BaseApiController {
     @Autowired
     private SysUserService sysUserService;
 

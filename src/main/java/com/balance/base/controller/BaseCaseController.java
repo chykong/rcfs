@@ -116,7 +116,7 @@ public class BaseCaseController extends BaseController {
     @RequestMapping("/delete")
     public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
         int flag = baseCaseService.delete(id);
-        if (flag == 0)
+        if (flag == 0) 
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("经典项目删除失败");
         else
             return "forward:/success.htm?msg=" + StringUtil.encodeUrl("经典项目删除成功");

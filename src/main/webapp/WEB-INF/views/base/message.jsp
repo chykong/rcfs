@@ -125,7 +125,7 @@
 				}
 				// 删除
 				var delMessage = function(id) {
-					bootbox.confirm("你确定要删除该政策吗？", function(result) {
+					bootbox.confirm("你确定要删除该消息吗？", function(result) {
 						if (result) {
 							window.location = "delete.htm?id=" + id
 									+ "&backUrl=${backUrl}";

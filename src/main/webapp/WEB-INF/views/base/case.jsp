@@ -66,24 +66,23 @@
                             <thead>
                             <tr>
                                 <th width=60>序号</th>
-                                <th width=150>项目名称</th>
+                                <th>项目名称</th>
                                 <th width=100>创建人</th>
                                 <th width=140>创建时间</th>
                                 <th width="140">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${list }" var="case" varStatus="st">
+                            <c:forEach items="${list }" var="baseCase" varStatus="st">
                                 <tr>
                                     <td>${st.index+1 }</td>
-                                    <td><a href="toDetail.htm?id=${case.id }">${case.title }</a></td>
-                                    <td>${case.created_by }</td>
-                                    <th width=120><fmt:formatDate value="${case.created_at}"
-                                                                  pattern="yyyy-MM-dd HH:mm"/></th>
+                                    <td><a href="toDetail.htm?id=${baseCase.id }">${baseCase.title }</a></td>
+                                    <td>${baseCase.created_by }</td>
+                                    <td width=120><fmt:formatDate value="${baseCase.created_at}" pattern="yyyy-MM-dd HH:mm"/></td>
                                     <td><c:if test="${bln:isP('BaseCaseUpdate')}">
-                                        <a href="toUpdate.htm?id=${case.id }&backUrl=${backUrl}"> 修改 </a>
+                                        <a href="toUpdate.htm?id=${baseCase.id }&backUrl=${backUrl}"> 修改 </a>
                                     </c:if> <c:if test="${bln:isP('BaseCaseDelete')}">
-                                        <a href="javascript:delCase(${case.id });"> 删除 </a>
+                                        <a href="javascript:delCase(${baseCase.id });"> 删除 </a>
                                     </c:if></td>
                                 </tr>
                             </c:forEach>

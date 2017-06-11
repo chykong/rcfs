@@ -132,7 +132,7 @@
 									});
 
 					//时间
-					$('#release_date').datetimepicker({
+					$('#send_at').datetimepicker({
 						lang : 'ch',
 						timepicker : false,
 						format : 'Y-m-d',

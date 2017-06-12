@@ -6,24 +6,30 @@
     <tr>
         <th>序号</th>
         <th>编号</th>
-        <th>被拆迁腾退人</th>
-        <th>房屋坐落</th>
-        <th>评估补偿款</th>
-        <th>补助奖励费</th>
-        <th>总补偿款</th>
-        <th>状态</th>
+        <th>被拆除腾退人</th>
+        <th>坐落</th>
+        <th>入户日期</th>
+        <th>签约日期</th>
+        <th>交房日期)</th>
+        <th>拆除日期</th>
+        <th>审核日期</th>
+        <th>放款日期</th>
+        <th>备注</th>
         <th>操作</th>
     </tr>
     </thead>
     <tfoot id="table-foot">
     <tr>
-        <th>当前页合计：</th>
-        <th class="isHu"></th>
+        <th>合计：</th>
         <th></th>
         <th></th>
-        <th class="isSum"></th>
-        <th class="isSum"></th>
-        <th class="isSum"></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
         <th></th>
         <th></th>
     </tr>
@@ -42,7 +48,7 @@
             autoWidth: true,//自动宽度
             scrollX: true,
             scrollY: true,
-            paginate: true, //翻页功能
+            paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
             lengthMenu: [15, 25, 50, 75, 100],
@@ -105,50 +111,51 @@
                     }
                 },
                 {
-                    data: "appraise_compensation",
-                    width: "150px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "subsidy_relocate",
-                    width: "150px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "total_compensation",
-                    width: "150px",
-                    render: function (data) {
-                        return data || "";
-                    }
-                },
-                {
-                    data: "status",
+                    data: "in_host_date",
                     width: "120px",
                     render: function (data) {
-                        switch (data) {
-                            case 0:
-                                return '<span class="label label-default ">未入户</span>';
-                            case 10:
-                                return '<span class="label label-default ">已入户未签约</span>';
-                            case 20:
-                                return '<span class="label label-warning ">已签约</span>';
-                            case 30:
-                                return '<span class="label label-warning ">已审核</span>';
-                            case 40:
-                                return '<span class="label label-success ">已交房</span>';
-                            case 50:
-                                return '<span class="label label-success ">已拆除</span>';
-                            case 60:
-                                return '<span class="label label-success ">已放款</span>';
-                            case 70:
-                                return '<span class="label label-success ">已归档</span>';
-                            default:
-                                return '<span class="label label-error ">已归档</span>';
-                        }
+                        return data || "";
+                    }
+                },
+                {
+                    data: "signed_date",
+                    width: "100px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "handover_house_date",
+                    width: "100px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "demolished_date",
+                    width: "120px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "audit_date",
+                    width: "100px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },{
+                    data: "money_date",
+                    width: "100px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
+                    data: "remarks",
+                    width: "120px",
+                    render: function (data) {
+                        return data || "";
                     }
                 },
                 {
@@ -156,7 +163,7 @@
                     width: "80px",
                     render: function (data,type,row) {
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=2&id="/>' + data + '">\
+                                return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {
                             return '';
@@ -187,10 +194,11 @@
                             return intVal(a) + intVal(b);
                         }, 0);
                         // 修改底部菜单
-                        $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 元");
+                        $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " m²");
                     }
                 });
                 $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
+
             }
 
         });

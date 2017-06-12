@@ -5,13 +5,13 @@
     <thead>
     <tr>
         <th>序号</th>
-        <th>ID号</th>
+        <th>编号</th>
         <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
-        <th>实际用地面积(m²)</th>
-        <th>06年前面积(m²)</th>
-        <th>06-09年间面积(m²)</th>
-        <th>09年后面积(m²)</th>
+        <th>实际用地面积</th>
+        <th>06年前面积</th>
+        <th>06-09年间面积</th>
+        <th>09年后面积</th>
         <th>总补偿款</th>
         <th>档案柜号</th>
         <th>状态</th>
@@ -97,7 +97,7 @@
                     }
                 },{
                     data: "map_id",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
@@ -112,35 +112,35 @@
                 },
                 {
                     data: "location",
-                    width: "300px",
+                    width: "200px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "cog_land_area",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "before_area",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "between_area",
-                    width: "120px",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "after_area",
-                    width: "100px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }

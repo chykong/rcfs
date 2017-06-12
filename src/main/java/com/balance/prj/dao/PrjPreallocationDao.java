@@ -25,7 +25,6 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         String sql = "select plc.* from t_prj_preallocation plc";
         sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by status,plc.id desc";
-        sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
@@ -48,7 +47,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
-                " management_house_area, field_house_area, no_sign_reason,in_host_date,status) " +
+                " management_house_area, field_house_area, no_sign_reason,in_host_date,status,totalyjf) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
@@ -58,7 +57,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
-                " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status)";
+                " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status,:totalyjf)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -78,7 +77,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area=:lessee_land_area, total_homestead_area=:total_homestead_area, card_homestead_area=:card_homestead_area," +
                 " no_card_homestead_area=:no_card_homestead_area, management_homestead_area=:management_homestead_area," +
                 " money_machine=:money_machine, project_cooperate_award=:project_cooperate_award, money_kd=:money_kd," +
-                " money_qt=:money_qt, relocate_date=:relocate_date, audit_co=:audit_co, " +
+                " money_qt=:money_qt, relocate_date=:relocate_date, audit_co=:audit_co,totalyjf=:totalyjf, " +
                 " demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code, money_date=:money_date," +
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area," +
                 " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reason=:no_sign_reason,status=:status" +

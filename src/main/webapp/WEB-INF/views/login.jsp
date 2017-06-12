@@ -10,8 +10,37 @@
 </head>
 <style>
   .login-back{
-        background: url('${staticServer}${loginBack}') top center no-repeat ;
-            }
+        background: url('${staticServer}${loginBack}') round;
+  }
+  .login-container {
+      width: 300px;
+      margin-top: 4%;
+      position: absolute;
+      right: 0;
+  }
+  .login-layout .widget-box{
+      border: none;
+      border-radius: 0;
+      background: none;
+      padding-top: 0;
+      margin-top: 0;
+  }
+  .widget-body {
+       background: none;
+  }
+  .login-layout .widget-box .widget-main{
+      background: rgba(0,0,0,0.5);
+  }
+  .btn-login{
+      border: #00AAEE!important;
+      background: #00AAEE!important;
+      border-radius: 5px!important;
+  }
+  .btn-login:hover{
+      border: #00AAEE!important;
+      background: #00AAEE!important;
+      border-radius: 5px!important;
+  }
 </style>
 <body class="login-layout login-back">
 <div class="main-container login-main-container">
@@ -19,14 +48,12 @@
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
                 <div class="login-container">
-                    <div class="space-6"></div>
-
                     <div class="position-relative">
                         <div id="login-box" class="login-box visible widget-box no-border">
                             <div class="widget-body">
                                 <div class="widget-main">
-                                    <h4 class="header blue lighter bigger">
-                                        <i class="ace-icon fa fa-wechat green"></i> <b>${webTitle}</b>
+                                    <h4 class="header blue lighter bigger center" style="margin-top: 0">
+                                         <b class="white">登录</b>
                                     </h4>
                                     <div class="space-6"></div>
                                     <form id="loginForm" action="checkLogin.htm" method="post">
@@ -52,20 +79,19 @@
 												</span>
                                             <div class="space"></div>
                                             <div class="clearfix">
-                                                <label class="inline"> <input type="checkbox" class="ace" id="chk"/>
-                                                    <span class="lbl"> 记住我</span>
-                                                </label>
+                                                <%--<label class="inline"> <input type="checkbox" class="ace" id="chk"/>--%>
+                                                    <%--<span class="lbl"> 记住我</span>--%>
+                                                <%--</label>--%>
                                                 <button type="submit"
-                                                        class="width-35 pull-right btn btn-sm btn-primary">
-                                                    <i class="ace-icon fa fa-key"></i> <span
-                                                        class="bigger-110">登录</span>
+                                                        class="col-xs-12 btn btn-login btn-primary">
+                                                     <span class="bigger-110">登录</span>
                                                 </button>
                                             </div>
                                             <div class="space-4"></div>
                                             <br/> <label class=" clearfix"> <span
                                                     class="block input-icon ">
-															<span class="inline input-icon input-icon-right"><a
-                                                                    href="http://www.balance-soft.com" target="_blank">北京百乐思技术有限公司</a> © 2017 提供技术支持
+															<span class="inline input-icon input-icon-right" style="color: white"><a
+                                                                    href="http://www.balance-soft.com" target="_blank" style="color: #00AAEE">北京百乐思技术有限公司</a> © 2017 提供技术支持
                                                             </span>
 														</span></label>
                                         </fieldset>

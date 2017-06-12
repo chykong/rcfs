@@ -5,21 +5,21 @@
     <thead>
     <tr>
         <th>序号</th>
-        <th>ID号</th>
+        <th>编号</th>
         <th>被拆除腾退人</th>
         <th>房屋坐落</th>
-        <th>实际用地面积(m²)</th>
-        <th>总建筑面积(m²)</th>
-        <th>06年前面积(m²)</th>
-        <th>06-09年间面积(m²)</th>
-        <th>09年后面积(m²)</th>
+        <th>实际用地面积</th>
+        <th>总建筑面积</th>
+        <th>06年前面积</th>
+        <th>06-09年间面积</th>
+        <th>09年后面积</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
     </thead>
     <tfoot id="table-foot">
     <tr>
-        <th>当前页合计：</th>
+        <th>合计：</th>
         <th></th>
         <th></th>
         <th></th>
@@ -46,7 +46,7 @@
             autoWidth: true,//自动宽度
             scrollX: true,
             scrollY: true,
-            paginate: true, //翻页功能
+            paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
             lengthMenu: [15, 25, 50, 75, 100],
@@ -88,7 +88,7 @@
                     }
                 },{
                     data: "map_id",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
@@ -103,42 +103,42 @@
                 },
                 {
                     data: "location",
-                    width: "300px",
+                    width: "200px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "cog_land_area",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "total_homestead_area",
-                    width: "100px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "before_area",
-                    width: "100px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "between_area",
-                    width: "120px",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "after_area",
-                    width: "100px",
+                    width: "80px",
                     render: function (data) {
                         return data || "";
                     }

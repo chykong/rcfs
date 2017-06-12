@@ -1,6 +1,7 @@
 package com.balance.prj.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
@@ -44,10 +45,12 @@ public class PrjPreallocation {
     private BigDecimal money_yxdsyjf;  //有线电视移机费
     private BigDecimal money_ktyjf;  //空调移机费
     private BigDecimal money_rsqyjf;  //热水器移机费
+    private BigDecimal total_yjf;  //总移机费
     private BigDecimal money_qt;  //其他
     private BigDecimal subsidy_relocate;  //补助奖励费
     private BigDecimal total_compensation;  //总补偿款
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date in_host_date;  //入户时间
     private Double az_area; //安置面积
     private Double float_az_area;  //浮动安置面积
@@ -63,12 +66,16 @@ public class PrjPreallocation {
     private BigDecimal budget_sub;  //预算差价
     private String signed_code; //签约序号
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date signed_date; //签约日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date money_date; //放款日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date handover_house_date; //交房日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date handover_end_date; //交房截止日期
     private String select_house_code;  //选房序号
     private String choose_room_position;//选房位置
@@ -91,8 +98,10 @@ public class PrjPreallocation {
     private BigDecimal total_az_pay_house;  //安置房购房款合计
     private BigDecimal first_calculate_sub;  //首次结算差价
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date choose_room_date; // 选房时间
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private int status;  //状态 10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房  50-已选房 60-已归档
     private String leader;  //包村干部
     private String management_co;  //管理公司
@@ -111,8 +120,10 @@ public class PrjPreallocation {
     private Integer prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date demolished_date;  //拆除日期
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date relocate_date;  //搬迁日期
     private Double before_demolished_area;  //待拆除面积
     private Double after_demolished_area;  //已拆除面积
@@ -123,14 +134,17 @@ public class PrjPreallocation {
     private Double field_house_area;  //场地营业面积
     private String no_sign_reason;//未签约原因
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date audit_date;  //审核日期
     private String audit_user;  //审核人
     private String remarks;  //备注
     private String created_by;   //创建人
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date created_at;   //创建时间
     private String archives_cabinet_number;//档案柜号
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date archive_date;//存档时间
 
     private Integer rowIndex;  //导入时  行号
@@ -1029,5 +1043,13 @@ public class PrjPreallocation {
 
     public void setMoney_date(Date money_date) {
         this.money_date = money_date;
+    }
+
+    public BigDecimal getTotal_yjf() {
+        return total_yjf;
+    }
+
+    public void setTotal_yjf(BigDecimal total_yjf) {
+        this.total_yjf = total_yjf;
     }
 }

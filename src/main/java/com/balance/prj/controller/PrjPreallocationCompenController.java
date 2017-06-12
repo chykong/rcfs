@@ -312,6 +312,7 @@ public class PrjPreallocationCompenController extends BaseController {
         preallocation.setMoney_kd(StringUtil.isNullOrEmpty(money_kd) ? new BigDecimal(0) : new BigDecimal(money_kd));
         preallocation.setMoney_yxdsyjf(StringUtil.isNullOrEmpty(money_yxdsyjf) ? new BigDecimal(0) : new BigDecimal(money_yxdsyjf));
         preallocation.setMoney_rsqyjf(StringUtil.isNullOrEmpty(money_rsqyjf) ? new BigDecimal(0) : new BigDecimal(money_rsqyjf));
+        preallocation.setTotal_yjf(StringUtil.isNullOrEmpty(total_yjf) ? new BigDecimal(0) : new BigDecimal(total_yjf));
 
         preallocation.setMoney_qt(StringUtil.isNullOrEmpty(money_qt) ? new BigDecimal(0) : new BigDecimal(money_qt));
         preallocation.setSubsidy_relocate(StringUtil.isNullOrEmpty(subsidy_relocate) ? new BigDecimal(0) : new BigDecimal(subsidy_relocate));

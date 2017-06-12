@@ -81,7 +81,7 @@
                 电话：
             </form:label>
             <div class="col-sm-9 col-lg-8">
-                <form:input path="money_dhyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入电话移机费..." maxlength="12"/>
+                <form:input path="money_dhyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入电话..." maxlength="12"/>
                 <label id="money_dhyjfTip"></label>
             </div>
         </div>
@@ -90,7 +90,7 @@
                 空调：
             </form:label>
             <div class="col-sm-9 col-lg-8">
-                <form:input path="money_ktyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入空调移机费..."
+                <form:input path="money_ktyjf" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入空调..."
                             maxlength="12"/>
                 <label id="money_ktyjfTip"></label>
             </div>
@@ -100,7 +100,7 @@
                 宽带：
             </form:label>
             <div class="col-sm-9 col-lg-8">
-                <form:input path="money_kd" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入宽带移机费..."
+                <form:input path="money_kd" cssClass="col-xs-10 col-sm-10 col-lg-9 yjf" placeholder="请输入宽带..."
                             maxlength="12"/>
                 <label id="money_kdTip"></label>
             </div>
@@ -130,9 +130,8 @@
                 移机费：
             </form:label>
             <div class="col-sm-9 col-lg-8">
-                <input id="total_tjf"  cssClass="col-xs-10 col-sm-10 col-lg-9  buzhu" type="text" readonly="true"
-                            maxlength="20"/>
-                <label id="card_homestead_areaTip"></label>
+                <input id="total_yjf" name="total_yjf"  class="col-xs-10 col-sm-10 col-lg-9  buzhu" type="text"  maxlength="20"/>
+                <label id="total_yjfTip"></label>
             </div>
         </div>
         <div class="form-group">
@@ -178,7 +177,7 @@
         if (money_dhyjf != '' && money_yxdsyjf != '' && money_ktyjf != '' && money_rsqyjf != '' && money_kd != '') {
             var sum = parseFloat(money_dhyjf) + parseFloat(money_yxdsyjf) + parseFloat(money_ktyjf) +
                 parseFloat(money_rsqyjf) + parseFloat(money_kd);
-            $("#total_tjf").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
+            $("#total_yjf").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
         }
     }
 
@@ -186,11 +185,11 @@
         var money_ssbcf = $("#money_ssbcf").val();
         var project_cooperate_award = $("#project_cooperate_award").val();
         var money_relocate = $("#money_relocate").val();
-        var total_tjf = $("#total_tjf").val();
+        var total_yjf = $("#total_yjf").val();
         var money_qt = $("#money_qt").val();
-        if (money_ssbcf != '' && project_cooperate_award != '' && money_relocate != '' && total_tjf != '' && money_qt != '') {
+        if (money_ssbcf != '' && project_cooperate_award != '' && money_relocate != '' && total_yjf != '' && money_qt != '') {
             var sum = parseFloat(money_ssbcf) + parseFloat(project_cooperate_award) + parseFloat(money_relocate) +
-                parseFloat(total_tjf) + parseFloat(money_qt);
+                parseFloat(total_yjf) + parseFloat(money_qt);
             $("#subsidy_relocate").val(parseFloat(sum).toFixed(2)).focusin().focusout().change();
         }
     }
@@ -208,9 +207,9 @@
             countAppraiseCompensation();
         });
 
-        $(".yjf").on('input propertychange', function () {
-            countYjf();
-        });
+//        $(".yjf").on('input propertychange', function () {
+//            countYjf();
+//        });
 
         $(".buzhu").on('input propertychange', function () {
             countSubsidyRelocate();

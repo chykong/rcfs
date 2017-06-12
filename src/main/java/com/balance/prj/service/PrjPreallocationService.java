@@ -1,5 +1,6 @@
 package com.balance.prj.service;
 
+import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.dao.PrjPreallocationDao;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.vo.PreallocationImportVO;
@@ -130,5 +131,15 @@ public class PrjPreallocationService {
 
     public int updateArchive(String map_id, String host_name, String archives_code, int status) {
         return prjPreallocationDao.updateArchive(map_id, host_name, archives_code, status);
+    }
+
+    public List<ComboboxVO> getTown(int prj_base_info_id){
+        return prjPreallocationDao.getTown(prj_base_info_id);
+    }
+    public List<ComboboxVO> getVillage(int prj_base_info_id){
+        return prjPreallocationDao.getVillage(prj_base_info_id);
+    }
+    public List<ComboboxVO> getVillageByTown(int prj_base_info_id, String town) {
+        return prjPreallocationDao.getVillageByTown(prj_base_info_id, town);
     }
 }

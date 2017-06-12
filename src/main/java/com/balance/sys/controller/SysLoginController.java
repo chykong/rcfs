@@ -119,7 +119,7 @@ public class SysLoginController {
             if (userSession.getCurrent_project_id() == 0) {
                 mv.setViewName("redirect:/sys/user/changeProject.htm");
             } else {
-                mv.setViewName("/index");
+                mv.setViewName("redirect:/prj/charts/groupIndex.htm");
             }
         } else {
             mv.setViewName("redirect:/login.htm");

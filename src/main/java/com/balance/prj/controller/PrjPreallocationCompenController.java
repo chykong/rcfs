@@ -2,8 +2,11 @@ package com.balance.prj.controller;
 
 import com.balance.base.model.BaseCompany;
 import com.balance.base.service.BaseCompanyService;
+import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
+import com.balance.prj.model.PrjSection;
 import com.balance.prj.service.PrjPreallocationService;
+import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
@@ -47,10 +50,21 @@ import java.util.Map;
 public class PrjPreallocationCompenController extends BaseController {
     @Autowired
     private PrjPreallocationService preallocationService;
+    @Autowired
+    private PrjSectionService prjSectionService;
 
     @RequestMapping(value = {"", "index"})
-    public ModelAndView index(HttpServletRequest request) {
+    public ModelAndView index(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
+        setBtnAutho(request, "PrjPreallocationComp");
+
         ModelAndView mv = new ModelAndView("prj/preallocationCompenIndex");
+        List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("sectionList", sectionList);
+
+        List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("townList",townList);
+
+        mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
         BackUrlUtil.createBackUrl(mv, request, "/prj/preallocation/compensation/index.htm");
         return mv;

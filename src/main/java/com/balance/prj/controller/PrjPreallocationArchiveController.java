@@ -1,9 +1,13 @@
 package com.balance.prj.controller;
 
+import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
+import com.balance.prj.model.PrjSection;
 import com.balance.prj.service.PrjPreallocationService;
+import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.controller.BaseController;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,13 +29,24 @@ import java.util.Map;
 @Controller
 @RequestMapping("/prj/preallocation/archive")
 
-public class PrjPreallocationArchiveController {
+public class PrjPreallocationArchiveController extends BaseController{
     @Autowired
     private PrjPreallocationService preallocationService;
+    @Autowired
+    private PrjSectionService prjSectionService;
 
     @RequestMapping(value = {"", "index"})
-    public ModelAndView index(HttpServletRequest request) {
+    public ModelAndView index(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
+        setBtnAutho(request, "PrjPreallocationArch");
+
         ModelAndView mv = new ModelAndView("prj/preallocationArchiveIndex");
+        List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("sectionList", sectionList);
+
+        List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("townList",townList);
+
+        mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
         BackUrlUtil.createBackUrl(mv, request, "/prj/preallocation/archive/index.htm");
         return mv;

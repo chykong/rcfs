@@ -55,7 +55,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-xs-5 col-lg-4">ID号：</label>
                                                     <div class="col-xs-7 col-lg-8">
-                                                        <input type="text" id="mapId" class="col-xs-10 col-sm-10 col-lg-8" value=""/>
+                                                        <input type="text" id="map_id" class="col-xs-10 col-sm-10 col-lg-8" value=""/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,7 +63,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-xs-5 col-lg-6">被拆除腾退人：</label>
                                                     <div class="col-xs-7 col-lg-6 no-padding-left">
-                                                        <input type="text" id="hostName" class="col-xs-12 col-sm-12 col-lg-12" value=""/>
+                                                        <input type="text" id="host_name" class="col-xs-12 col-sm-12 col-lg-8" value=""/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -75,31 +75,68 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-xs-4 col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-5">房屋状态：</label>
+                                                    <div class="col-xs-7 col-lg-7">
+                                                        <select class="col-xs-10 col-sm-10 col-lg-8" id="status" name="section">
+                                                            <option value="">--全部--</option>
+                                                            <option value="0">未入户</option>
+                                                            <option value="10">已入户</option>
+                                                            <option value="20">已签约</option>
+                                                            <option value="30">已审核</option>
+                                                            <option value="40">已交房</option>
+                                                            <option value="50">已拆除</option>
+                                                            <option value="60">已放款</option>
+                                                            <option value="70">已归档</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-4">标段：</label>
+                                                    <label class="control-label col-xs-5 col-lg-4">镇：</label>
                                                     <div class="col-xs-7 col-lg-8">
+                                                        <form:select path="town" cssClass="col-xs-10 col-sm-10 col-lg-8">
+                                                            <form:option value="">--全部--</form:option>
+                                                            <form:options items="${townList}" itemLabel="content" itemValue="value"></form:options>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-6">村：</label>
+                                                    <div class="col-xs-7 col-lg-6 no-padding-left">
+                                                        <form:select path="village" cssClass="col-xs-10 col-sm-10 col-lg-8">
+                                                            <form:option value="">--全部--</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-5">标段：</label>
+                                                    <div class="col-xs-7 col-lg-7">
                                                         <select class="col-xs-10 col-sm-10 col-lg-8" id="section"
                                                                 name="section">
-                                                            <option value="">--请选择--</option>
-                                                                <%--<c:forEach items="${sectionList}" var="section">--%>
-                                                                <%--<option value="${section.name}"--%>
-                                                                <%--<c:if test="${preallocation.section eq section.name}">selected</c:if>--%>
-                                                                <%--data-id="${section.id}">${section.name}</option>--%>
-                                                                <%--</c:forEach>--%>
+                                                            <option value="">--全部--</option>
+                                                            <c:forEach items="${sectionList}" var="section">
+                                                                <option value="${section.name}" <c:if test="${preallocationSearchVO.section eq section.name}">selected</c:if> data-id="${section.id}">${section.name}</option>
+                                                            </c:forEach>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-6">组别：</label>
-                                                    <div class="col-xs-7 col-lg-6 no-padding-left">
-                                                        <select class="col-xs-12 col-sm-12 col-lg-12" id="groups" name="groups">
-                                                            <option value="">--请选择--</option>
+                                                    <label class="control-label col-xs-5 col-lg-5">组别：</label>
+                                                    <div class="col-xs-7 col-lg-7">
+                                                        <select class="col-xs-12 col-sm-12 col-lg-8" id="groups" name="groups">
+                                                            <option value="">--全部--</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -111,12 +148,16 @@
                                                     <button type="button" class="btn btn-primary btn-sm" id="btn-search">
                                                         <i class="ace-icon fa fa-search"></i> 查询
                                                     </button>
-                                                    <a href="<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl=${backUrl}"/>" class="btn btn-success btn-sm">
-                                                        <i class="ace-icon fa fa-plus bigger-110"></i>新增
-                                                    </a>
-                                                    <a href="#import-modal" class="btn btn-success btn-sm" data-toggle="modal">
-                                                        <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入补偿情况
-                                                    </a>
+                                                    <c:if test="${bln:isP('PrjPreallocationAdd')}">
+                                                        <a href="<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl=${backUrl}"/>" class="btn btn-success btn-sm">
+                                                            <i class="ace-icon fa fa-plus bigger-110"></i>新增
+                                                        </a>
+                                                    </c:if>
+                                                    <c:if test="${bln:isP('PrjPreallocationImport')}">
+                                                        <a href="#import-modal" class="btn btn-success btn-sm" data-toggle="modal">
+                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
+                                                        </a>
+                                                    </c:if>
 
                                                 </div>
                                             </div>
@@ -251,25 +292,52 @@
             var $section = $("#section");
             var $group = $("#groups");
             $section.on('change', function () {
-                if ($(this).val() == '') {
+                if($(this).val() == ''){
                     $group.empty();
-                    $group.append('<option value="">--请选择--</option>');
+                    $group.append('<option value="">--请选择标段--</option>');
                     return;
                 }
-                var url = '<c:url value="/projects/getGroupsBySection?${_csrf.parameterName}=${_csrf.token}"/>';
+                var url = '<c:url value="/common/listGroupBySec.htm"/>';
                 $.ajax({
                     url: url,
                     data: {
-                        section_id: $section.find(":checked").attr("data-id"),
-                        is_search: 1
+                        section_id: $section.find(":checked").attr("data-id")
                     },
                     type: 'post',
                     success: function (result) {
+                        var json = eval('('+result + ')');
                         $group.empty();
-                        if (result && result.length) {
-                            $group.append('<option value="">--请选择--</option>');
-                            $.each(result, function (i, group) {
+                        if (json && json.length) {
+                            $group.append('<option value="">--全部--</option>');
+                            $.each(json, function (i, group) {
                                 $group.append('<option value="' + group.name + '">' + group.name + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+            var $town = $("#town");
+            var $village = $("#village");
+            $town.on('change', function () {
+                if($(this).val() == ''){
+                    $village.empty();
+                    $village.append('<option value="">--请选择镇--</option>');
+                    return;
+                }
+                var url = '<c:url value="/prj/preallocation/basic/getVillageByTown.htm"/>';
+                $.ajax({
+                    url: url,
+                    data: {
+                        town: $town.val()
+                    },
+                    type: 'post',
+                    success: function (result) {
+                        var json = eval('('+result + ')');
+                        $village.empty();
+                        if (json && json.length) {
+                            $village.append('<option value="">--全部--</option>');
+                            $.each(json, function (i, village) {
+                                $village.append('<option value="' + village.value + '">' + village.content + '</option>');
                             });
                         }
                     }

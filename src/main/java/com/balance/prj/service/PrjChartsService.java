@@ -49,6 +49,7 @@ public class PrjChartsService {
                 map.put(key_date, leftCount);
             }else{
                 leftCount = map.get(key_date);
+
             }
             start_date.setTime(start_date.getTime() + 24 * 3600 * 1000);
         }
@@ -78,7 +79,7 @@ public class PrjChartsService {
         return prjChartsDao.getGroupMoneyList(prjChartsSearchVO);
     }
 
-    public int getTotalHomes(int prj_project_id){
-        return prjChartsDao.getTotalHomes(prj_project_id);
+    public int getTotalHomes(PrjChartsSearchVO prjChartsSearchVO){
+        return prjChartsDao.getTotalHomes(prjChartsSearchVO);
     }
 }

@@ -16,8 +16,10 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     private  String location;//房屋坐落
 
     private String host_name;
-    private Integer status;  //查询  10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房 50-已选房 60-已归档
+    private Integer status;  //查询状态
     private List<Integer> statusList;  //用于查询多个状态
+    private String town;  //镇
+    private String village;  //村
     private String section;  //标段
     private String groups;  //组别
     private Integer export_status; // 导出状态  10-未签约  20-已签约
@@ -145,5 +147,21 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     public void setHouse_status(Integer house_status) {
         this.house_status = house_status;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getVillage() {
+        return village;
+    }
+
+    public void setVillage(String village) {
+        this.village = village;
     }
 }

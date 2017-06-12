@@ -6,7 +6,7 @@
 		</button>
 		<div class="navbar-header pull-left">
 			<!-- #section:basics/navbar.layout.brand -->
-			<a href="${dynamicServer }/index.htm" class="navbar-brand"> <small><img width="32px" src="<c:url value="/assets/images/new-icon.jpg"/>" /> ${webTitle} </small>
+			<a href="${dynamicServer }/index.htm" class="navbar-brand"> <small> ${webTitle} </small>
 			</a>
 		</div>
 

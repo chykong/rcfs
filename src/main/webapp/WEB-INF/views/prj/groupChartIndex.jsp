@@ -6,8 +6,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${site_name} 整体进度图</title>
+    <title>${site_name} 分组进度图</title>
     <link rel="stylesheet" href="<c:url value="/assets/highcharts/css/highcharts.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-datepicker/bootstrap-datepicker3.css"/>"/>
 
 
     <%@ include file="../common/header.jsp" %>
@@ -35,6 +36,63 @@
                 <%@ include file="../common/navigate.jsp" %>
             </div>
             <div class="page-content">
+                <div class="widget-box widget-color-blue" id="widget-box-search">
+                    <div class="widget-header">
+                        <h5 class="widget-title bigger lighter">
+                            <i class="ace-icon fa fa-table"></i> 操作面板
+                        </h5>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+                            <c:url value="/prj/charts/groupIndex.htm" var="index_url"/>
+                            <form:form action="${index_url}" method="post"
+                                       cssClass="form-horizontal" role="form" modelAttribute="prjChartsSearchVO"
+                                       cssStyle="padding-top: 10px;" data-ajax="true">
+                                <div class="row">
+                                    <div class="col-xs-4 col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-5 col-lg-4">镇：</label>
+                                            <div class="col-xs-7 col-lg-8">
+                                                <form:select path="town" cssClass="col-xs-10 col-sm-10 col-lg-10">
+                                                    <form:option value="">--全部--</form:option>
+                                                    <form:options items="${townList}" itemLabel="content" itemValue="value"></form:options>
+                                                </form:select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-5 col-lg-4">村：</label>
+                                            <div class="col-xs-7 col-lg-8 no-padding-left">
+                                                <form:select path="village" cssClass="col-xs-10 col-sm-10 col-lg-10">
+                                                    <form:option value="">--全部--</form:option>
+                                                </form:select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-4 col-lg-3">
+                                        <div class="form-group">
+                                            <label class="control-label col-xs-5 col-lg-4">日期：</label>
+                                            <div class="col-xs-7 col-lg-8">
+                                                <input type="text" id="date" name="date" class="col-xs-10 col-sm-10 col-lg-10" value="${prjChartsSearchVO.date}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-4  col-lg-4 col-lg-offset-8">
+                                            <button type="submit" class="btn btn-primary btn-sm" id="btn-search">
+                                                <i class="ace-icon fa fa-search"></i> 查询
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form:form>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="hr hr-18 dotted hr-double"></div>
@@ -90,9 +148,56 @@
     <%@ include file="../common/js.jsp" %>
     <script src="${pageContext.request.contextPath}/assets/echarts/echarts.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/echarts/shine.js"></script>
+    <script src="<c:url value="/assets/js/bootstrap-datepicker/bootstrap-datepicker.js"/>"></script>
+    <script src="<c:url value="/assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"/>"></script>
     <script>
         $(function () {
+            var $town = $("#town");
+            var $village = $("#village");
+            $town.on('change', function () {
+                if($(this).val() == ''){
+                    $village.empty();
+                    $village.append('<option value="">--请选择镇--</option>');
+                    return;
+                }
+                var url = '<c:url value="/prj/preallocation/basic/getVillageByTown.htm"/>';
+                $.ajax({
+                    url: url,
+                    data: {
+                        town: $town.val()
+                    },
+                    type: 'post',
+                    success: function (result) {
+                        var json = eval('('+result + ')');
+                        $village.empty();
+                        if (json && json.length) {
+                            $village.append('<option value="">--全部--</option>');
+                            $.each(json, function (i, village) {
+                                $village.append('<option value="' + village.value + '">' + village.content + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
 
+            $("#date").datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true,
+                language: "zh-CN",
+                orientation: "bottom auto"
+            });
+
+            var url = '${pageContext.request.contextPath}/prj/charts/getGroup.htm?__=_';
+            if($("#town").val() != ''){
+                url += "&town=" + $("#town").val();
+            }
+            if($("#village").val() != ''){
+                url += "&village=" + $("#village").val();
+            }
+            if($("#date").val() != ''){
+                url += "&date=" + $("#date").val();
+            }
             // 基于准备好的dom，初始化echarts实例
             //入户实例
             var inhost_Chart = echarts.init(document.getElementById('left_inhost'), 'shine');
@@ -155,6 +260,8 @@
             // 使用刚指定的配置项和数据显示图表。
             inhost_Chart.setOption(inhost_option);
 
+
+
             var inhost_option2 = {
                 title: {
                     text: '入户累计完成度'
@@ -169,7 +276,7 @@
             };
             inhost_Chart2.setOption(inhost_option2);
 
-            $.get('${pageContext.request.contextPath}/prj/charts/getGroup.htm?search_type=1').done(function (json) {
+            $.get(url + '&search_type=1').done(function (json) {
                 inhost_Chart.hideLoading();
                 var data = eval('(' + json + ')');
                 // 填入数据
@@ -260,7 +367,7 @@
             };
             sign_Chart2.setOption(sign_option2);
 
-            $.get('${pageContext.request.contextPath}/prj/charts/getGroup.htm?search_type=2').done(function (json) {
+            $.get(url + '&search_type=2').done(function (json) {
                 sign_Chart.hideLoading();
                 var data = eval('(' + json + ')');
                 // 填入数据
@@ -350,7 +457,7 @@
             };
             handover_Chart2.setOption(handover_option2);
 
-            $.get('${pageContext.request.contextPath}/prj/charts/getGroup.htm?search_type=3').done(function (json) {
+            $.get(url + '&search_type=3').done(function (json) {
                 handover_Chart.hideLoading();
                 var data = eval('(' + json + ')');
                 // 填入数据
@@ -440,7 +547,7 @@
             };
             money_Chart2.setOption(money_option2);
 
-            $.get('${pageContext.request.contextPath}/prj/charts/getGroup.htm?search_type=4').done(function (json) {
+            $.get(url + '&search_type=4').done(function (json) {
                 money_Chart.hideLoading();
                 var data = eval('(' + json + ')');
                 // 填入数据

@@ -2,6 +2,7 @@ package com.balance.prj.controller;
 
 import com.balance.base.model.BaseCompany;
 import com.balance.base.service.BaseCompanyService;
+import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.model.PrjSection;
 import com.balance.prj.service.PrjPreallocationService;
@@ -54,8 +55,20 @@ public class PrjPreallocationBasicController extends BaseController {
     private BaseCompanyService baseCompanyService;
 
     @RequestMapping(value = {"", "index"})
-    public ModelAndView index(HttpServletRequest request) {
+    public ModelAndView index(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
+        setBtnAutho(request, "PrjPreallocationBase");
         ModelAndView mv = new ModelAndView("prj/preallocationBasicIndex");
+
+        int land_status = SessionUtil.getUserSession(request).getCurrent_land_status();
+        mv.addObject("land_status", land_status);
+
+        List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("sectionList", sectionList);
+
+        List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("townList",townList);
+
+        mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
         BackUrlUtil.createBackUrl(mv, request, "/prj/preallocation/basic/index.htm");
         return mv;
@@ -91,7 +104,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setLand_property(land_status);
         mv.addObject("preallocation", preallocation);
 
-       List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("sectionList", sectionList);
 //
         List<BaseCompany> companyList = baseCompanyService.listAll();
@@ -113,7 +126,7 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "toUpdate", method = RequestMethod.GET)
-    public ModelAndView toUpdate(int id,int type, HttpServletRequest request) {
+    public ModelAndView toUpdate(int id, int type, HttpServletRequest request) {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/prj/preallocationUpdate");
@@ -479,6 +492,12 @@ public class PrjPreallocationBasicController extends BaseController {
             }
         }
         return errorVOList;
+    }
+
+    @RequestMapping("/getVillageByTown")
+    public void getVillageByTown(HttpServletRequest request, HttpServletResponse response, String town) {
+        String json = JsonUtil.toStr(preallocationService.getVillageByTown(SessionUtil.getUserSession(request).getCurrent_project_id(), town));
+        WebUtil.out(response, json);
     }
 
 }

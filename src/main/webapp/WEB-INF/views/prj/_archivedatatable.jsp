@@ -40,8 +40,8 @@
     function archive(id,map_id,host_name){
         var text = "编号:" + map_id + ", 被拆除腾退人：" + host_name + "";
         $("#title").html(text);
-        $("#map_id").val(map_id);
-        $("#host_name").val(host_name);
+        $("#archive_map_id").val(map_id);
+        $("#archive_host_name").val(host_name);
         $("#archive-modal").modal('show');
     }
     $(function () {
@@ -67,11 +67,14 @@
                     type: "GET",
                     url: '<c:url value="/prj/preallocation/basic/getPreallocation.htm"/>',
                     data: {
-                        mapId: $("#mapId").val(),
-                        hostName: $("#hostName").val(),
+                        map_id: $("#map_id").val(),
+                        host_name: $("#host_name").val(),
                         location: $("#location").val(),
                         section: $("#section").val(),
                         groups: $("#groups").val(),
+                        town: $("#town").val(),
+                        village: $("#village").val(),
+                        status: $("#status").val(),
                         page: parseInt(data.start/data.length) + 1,
                         size: data.length
                     },
@@ -161,8 +164,10 @@
                     width: "120px",
                     render: function (data) {
                         switch (data) {
+                            case 0:
+                                return '<span class="label label-default ">未入户</span>';
                             case 10:
-                                return '<span class="label label-default ">未签约</span>';
+                                return '<span class="label label-default ">已入户未签约</span>';
                             case 20:
                                 return '<span class="label label-warning ">已签约</span>';
                             case 30:
@@ -184,7 +189,7 @@
                     data: "id",
                     width: "80px",
                     render: function (data,type,row) {
-                        if (row.status != 70) {
+                        if (row.status != 70 && ${bln:isP('PrjPreallocationArchive')}) {
                             return '<a class="btn-sm btn-info" href="javascript:archive(\''+ data +'\',\'' + row.map_id +'\',\''+ row.host_name +'\')">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>归档</a>';
                         } else {

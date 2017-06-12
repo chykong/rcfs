@@ -54,11 +54,14 @@
                     type: "GET",
                     url: '<c:url value="/prj/preallocation/basic/getPreallocation.htm"/>',
                     data: {
-                        mapId: $("#mapId").val(),
-                        hostName: $("#hostName").val(),
+                        map_id: $("#map_id").val(),
+                        host_name: $("#host_name").val(),
                         location: $("#location").val(),
                         section: $("#section").val(),
                         groups: $("#groups").val(),
+                        town: $("#town").val(),
+                        village: $("#village").val(),
+                        status: $("#status").val(),
                         page: parseInt(data.start/data.length) + 1,
                         size: data.length
                     },
@@ -127,8 +130,10 @@
                     width: "120px",
                     render: function (data) {
                         switch (data) {
+                            case 0:
+                                return '<span class="label label-default ">未入户</span>';
                             case 10:
-                                return '<span class="label label-default ">未签约</span>';
+                                return '<span class="label label-default ">已入户未签约</span>';
                             case 20:
                                 return '<span class="label label-warning ">已签约</span>';
                             case 30:
@@ -150,7 +155,7 @@
                     data: "id",
                     width: "80px",
                     render: function (data,type,row) {
-                        if (row.status != 70) {
+                        if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
                             return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=2&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {

@@ -1,7 +1,9 @@
 package com.balance.prj.controller;
 
+import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjChart;
 import com.balance.prj.service.PrjChartsService;
+import com.balance.prj.service.PrjPreallocationService;
 import com.balance.prj.vo.ChartsDataVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.number.NumberUtil;
@@ -27,6 +29,8 @@ import java.util.List;
 public class PrjChartsController {
     @Autowired
     private PrjChartsService prjChartsService;
+    @Autowired
+    private PrjPreallocationService preallocationService;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response) {
@@ -56,7 +60,9 @@ public class PrjChartsController {
     public ModelAndView groupIndex(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         ModelAndView mv = new ModelAndView();
 
+        List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
 
+        mv.addObject("townList",townList);
         mv.setViewName("/prj/groupChartIndex");
         return mv;
     }
@@ -67,7 +73,7 @@ public class PrjChartsController {
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
         prjChartsSearchVO.setPrj_base_info_id(project_id);
         List<PrjChart> list = new ArrayList<>();
-        int total_homes = prjChartsService.getTotalHomes(project_id);
+        int total_homes = prjChartsService.getTotalHomes(prjChartsSearchVO);
         int over_homes = 0;
 
         ChartsDataVO vo = new ChartsDataVO();
@@ -115,7 +121,11 @@ public class PrjChartsController {
         vo.setBarCategories(groups);//整体分组
         vo.setGuageTitle(title1 + "累计完成度");//仪表盘标题
 
-        vo.setGuageData(NumberUtil.formatFloat((float) over_homes * 100 / total_homes));//仪表单数据
+        if(over_homes == 0){
+            vo.setGuageData(0);
+        }else{
+            vo.setGuageData(NumberUtil.formatFloat((float) over_homes * 100 / total_homes));//仪表单数据
+        }
         String json = ChartsUtil.createChartsJson(vo, total_homes);
         System.out.println(json);
         WebUtil.out(response, json);

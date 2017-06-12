@@ -1,6 +1,7 @@
 package com.balance.prj.dao;
 
 import com.balance.prj.model.PrjChart;
+import com.balance.prj.model.PrjChartDate;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.string.StringUtil;
@@ -20,7 +21,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(in_host_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where in_host_date<DATE_ADD(in_host_date,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where in_host_date<DATE_ADD(title,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and in_host_date is not null " +
                 createSql(prjChartsSearchVO) +
@@ -32,7 +33,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getContractList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(signed_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where signed_date<DATE_ADD(signed_date,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where signed_date<DATE_ADD(title,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and signed_date is not null " +
                 createSql(prjChartsSearchVO) +
@@ -44,7 +45,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "SELECT DATE_FORMAT(handover_house_date,'%Y-%m-%d') title," +
-                "(select count(*) from  t_prj_preallocation where handover_house_date<DATE_ADD(handover_house_date,INTERVAL 1 day)" +
+                "(select count(*) from  t_prj_preallocation where handover_house_date<DATE_ADD(title,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
                 ") countLeftDay FROM t_prj_preallocation where 1=1 and handover_house_date is not null " +
                 createSql(prjChartsSearchVO) +
@@ -54,13 +55,19 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
 
-    public String getMinDate(int prj_base_info_id) {
-        String sql = "SELECT ifnull(DATE_FORMAT(min(in_host_date), '%Y-%m-%d'),now()) FROM t_prj_preallocation WHERE prj_base_info_id = ?";
+    public String getMaxDate(int prj_base_info_id) {
+        String sql = "SELECT " +
+                "DATE_FORMAT(if(if(max(in_host_date) > max(signed_date),max(in_host_date),max(signed_date))  > max(handover_house_date)," +
+                "if(max(in_host_date) > max(signed_date),max(in_host_date),max(signed_date)),max(handover_house_date)),'%Y-%m-%d')  " +
+                "FROM t_prj_preallocation WHERE prj_base_info_id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id}, String.class);
     }
 
-    public String getMaxDate(int prj_base_info_id) {
-        String sql = "SELECT ifnull(DATE_FORMAT(max(handover_house_date), '%Y-%m-%d'),now()) FROM t_prj_preallocation WHERE prj_base_info_id = ?";
+    public String getMinDate(int prj_base_info_id) {
+        String sql = "SELECT " +
+                "DATE_FORMAT(if(if(min(in_host_date) < min(signed_date),min(in_host_date),min(signed_date))  < min(handover_house_date)," +
+                "if(min(in_host_date) < min(signed_date),min(in_host_date),min(signed_date)),min(handover_house_date)),'%Y-%m-%d')  " +
+                "FROM t_prj_preallocation WHERE prj_base_info_id = ?";
         return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id}, String.class);
     }
 
@@ -76,12 +83,30 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         if (StringUtil.isNotNullOrEmpty(prjChartsSearchVO.getVillage())) {
             sql += " and village=:village";
         }
+        if (StringUtil.isNotNullOrEmpty(prjChartsSearchVO.getDate()) && prjChartsSearchVO.getSearch_type() != null) {
+            switch (prjChartsSearchVO.getSearch_type()){
+                case 1:
+                    sql += " and in_host_date=:date";
+                    break;
+                case 2:
+                    sql += " and signed_date=:date";
+                    break;
+                case 3:
+                    sql += " and handover_house_date=:date";
+                    break;
+                case 4:
+                    sql += " and money_date=:date";
+                    break;
+            }
+        }
         return sql;
     }
 
-    public int getTotalHomes(int project_id) {
-        String sql = "SELECT count(*) FROM t_prj_preallocation WHERE prj_base_info_id=?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{project_id}, Integer.class);
+    public int getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT count(*) FROM t_prj_preallocation WHERE 1=1 ";
+        sql += createSql(prjChartsSearchVO);
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().queryForObject(sql, params, Integer.class);
     }
 
     public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {

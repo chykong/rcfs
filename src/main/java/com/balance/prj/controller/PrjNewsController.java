@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjNews;
 import com.balance.prj.service.PrjNewsService;
 import com.balance.prj.vo.PrjNewsSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -20,6 +21,7 @@ import java.util.List;
 
 /**
  * 新闻进度
+ *
  * @author 刘凯
  * @date 2017年6月4日
  */
@@ -28,12 +30,11 @@ import java.util.List;
 public class PrjNewsController extends BaseController {
     @Autowired
     private PrjNewsService prjNewsService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjNewsSearchVO prjNewsSearchVO) {
-        if (prjNewsSearchVO.getProgress() == null) {
-            prjNewsSearchVO.setProgress(1);
-        }
         prjNewsSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjNewsService.listCount(prjNewsSearchVO);// 获取查询总数
@@ -49,7 +50,7 @@ public class PrjNewsController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjNewsSearchVO prjNewsSearchVO) {
-        String url = "/prj/news/index.htm?progress=" + prjNewsSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/news/index.htm";
         return url;
     }
 
@@ -58,9 +59,7 @@ public class PrjNewsController extends BaseController {
      */
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
-        int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
-        mv.addObject("progress", progress);
         mv.setViewName("/prj/newsAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -89,51 +88,53 @@ public class PrjNewsController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjNews prjNews=prjNewsService.findById(id);
+        PrjNews prjNews = prjNewsService.findById(id);
         mv.addObject("prjNews", prjNews);
         mv.setViewName("/prj/newsUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改新闻进度
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjNews prjNews){
-    	prjNews.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjNewsService.update(prjNews);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改新闻进度失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改新闻进度成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjNews prjNews) {
+        prjNews.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        int flag = prjNewsService.update(prjNews);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改新闻进度失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改新闻进度成功");
+        }
+
     }
+
     /**
      * 删除新闻进度
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjNewsService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除新闻进度失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除新闻进度成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjNewsService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除新闻进度失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除新闻进度成功");
+        }
     }
+
     /**
      * 显示文本内容
      */
     @RequestMapping("/toDetail")
-    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
-    	int id=Integer.parseInt(request.getParameter("id"));
-    	PrjNews prjNews=prjNewsService.findById(id);
-    	ModelAndView mv=new ModelAndView();
-    	mv.addObject("prjNews", prjNews);
-    	mv.setViewName("/prj/newsDetail");
-    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-    	return mv;
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjNews prjNews = prjNewsService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("prjNews", prjNews);
+        mv.setViewName("/prj/newsDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
     }
 }
 

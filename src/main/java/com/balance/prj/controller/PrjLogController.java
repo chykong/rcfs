@@ -4,6 +4,7 @@ import com.balance.prj.model.PrjLog;
 import com.balance.prj.service.PrjLogService;
 import com.balance.prj.vo.PrjLogSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
@@ -27,12 +28,11 @@ import java.util.List;
 public class PrjLogController extends BaseController {
     @Autowired
     private PrjLogService prjLogService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjLogSearchVO prjLogSearchVO) {
-        if (prjLogSearchVO.getProgress() == null) {
-            prjLogSearchVO.setProgress(1);
-        }
         prjLogSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjLogService.listCount(prjLogSearchVO);// 获取查询总数
@@ -48,7 +48,7 @@ public class PrjLogController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjLogSearchVO prjLogSearchVO) {
-        String url = "/prj/log/index.htm?progress=" + prjLogSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/log/index.htm";
         return url;
     }
 
@@ -57,9 +57,7 @@ public class PrjLogController extends BaseController {
      */
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
-        int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
-        mv.addObject("progress", progress);
         mv.setViewName("/prj/logAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -88,51 +86,53 @@ public class PrjLogController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjLog prjLog=prjLogService.findById(id);
+        PrjLog prjLog = prjLogService.findById(id);
         mv.addObject("prjLog", prjLog);
         mv.setViewName("/prj/logUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改项目日志
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjLog prjLog){
-    	prjLog.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjLogService.update(prjLog);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改项目日志失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改项目日志成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjLog prjLog) {
+        prjLog.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        int flag = prjLogService.update(prjLog);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改项目日志失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改项目日志成功");
+        }
+
     }
+
     /**
      * 删除项目日志
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjLogService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除项目日志失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除项目日志成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjLogService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除项目日志失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除项目日志成功");
+        }
     }
+
     /**
      * 显示文本内容
      */
     @RequestMapping("/toDetail")
-    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
-    	int id=Integer.parseInt(request.getParameter("id"));
-    	PrjLog prjLog=prjLogService.findById(id);
-    	ModelAndView mv=new ModelAndView();
-    	mv.addObject("prjLog", prjLog);
-    	mv.setViewName("/prj/logDetail");
-    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-    	return mv;
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjLog prjLog = prjLogService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("prjLog", prjLog);
+        mv.setViewName("/prj/logDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
     }
 
 }

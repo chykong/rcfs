@@ -32,9 +32,9 @@ public class PrjReportDao extends BaseDao<PrjReport, PrjReportSearchVO> {
 
     private String createSearchSql(PrjReportSearchVO prjReportSearchVO) {
         String sql = "";
-        if (prjReportSearchVO.getProgress() != null) {//进度
+        /*if (prjReportSearchVO.getProgress() != null) {//进度
             sql += " and progress =:progress";
-        }
+        }*/
         if (prjReportSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";
         }

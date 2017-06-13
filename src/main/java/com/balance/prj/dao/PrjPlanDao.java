@@ -32,9 +32,6 @@ public class PrjPlanDao extends BaseDao<PrjPlan, PrjPlanSearchVO> {
 
     private String createSearchSql(PrjPlanSearchVO prjPlanSearchVO) {
         String sql = "";
-        if (prjPlanSearchVO.getProgress() != null) {//名称模糊查询
-            sql += " and progress =:progress";
-        }
         if (prjPlanSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";
         }
@@ -64,7 +61,7 @@ public class PrjPlanDao extends BaseDao<PrjPlan, PrjPlanSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjPlan prjPlan) {
-        String sql = "update t_prj_plan set progress=:progress.title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_plan set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjPlan);
     }
 

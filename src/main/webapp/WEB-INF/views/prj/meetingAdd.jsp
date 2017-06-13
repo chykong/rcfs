@@ -31,29 +31,29 @@
 							<form id="form" name="form" class="form-horizontal" action="add.htm" method="post">
 								<input type="hidden" name="backUrl" value="${backUrl }">
 								<div class="form-group">
-									<label class="col-sm-3 control-label">阶段：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">阶段：</label>
+									<div class="col-sm-10">
 										${bln:showProgressSelect(0)}
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">标题：</label>
-									<div class="col-sm-9"> 
+									<label class="col-sm-2 control-label">标题：</label>
+									<div class="col-sm-10">
 										<input id="title" name="title" type="text" class="col-xs-10 col-sm-5" placeholder="" value=""> <label
 											id="nameTip"></label>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">内容：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">内容：</label>
+									<div class="col-sm-10">
 										<script id="content" name="content" type="text/plain"></script>
 
 										</label>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">发布日期：</label>
-									<div class="col-sm-9">
+									<label class="col-sm-2 control-label">发布日期：</label>
+									<div class="col-sm-10">
 										<input type="text" id="release_date" name="release_date" class="col-xs-10 col-sm-5" placeholder="" value="${release_date }"> <label
 											id="release_dateTip"></label>
 									</div>

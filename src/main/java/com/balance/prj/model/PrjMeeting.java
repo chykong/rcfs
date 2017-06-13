@@ -12,10 +12,36 @@ public class PrjMeeting {
     private String content;//内容 
     private String title;//标题
     private Integer progress;//项目进度
+	private String release_date;//发布日期
     private Date last_modified_at;//最后修改时间
     private String last_modified_by;//最后修改人
     private String created_by;//创建人
     private Date created_at;//创建时间
+
+	@Override
+	public String toString() {
+		return "PrjMeeting{" +
+				"id=" + id +
+				", prj_base_info_id=" + prj_base_info_id +
+				", content='" + content + '\'' +
+				", title='" + title + '\'' +
+				", progress=" + progress +
+				", release_date='" + release_date + '\'' +
+				", last_modified_at=" + last_modified_at +
+				", last_modified_by='" + last_modified_by + '\'' +
+				", created_by='" + created_by + '\'' +
+				", created_at=" + created_at +
+				'}';
+	}
+
+	public String getRelease_date() {
+		return release_date;
+	}
+
+	public void setRelease_date(String release_date) {
+		this.release_date = release_date;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -69,11 +95,6 @@ public class PrjMeeting {
 	}
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
-	}
-	@Override
-	public String toString() {
-		return "PrjMeeting [id=" + id + ", prj_base_info_id=" + prj_base_info_id + ", content=" + content + ", title=" + title + ", progress=" + progress + ", last_modified_at=" + last_modified_at
-				+ ", last_modified_by=" + last_modified_by + ", created_by=" + created_by + ", created_at=" + created_at + "]";
 	}
 
 }

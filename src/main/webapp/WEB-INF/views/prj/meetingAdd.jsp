@@ -51,6 +51,13 @@
 										</label>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">发布日期：</label>
+									<div class="col-sm-9">
+										<input type="text" id="release_date" name="release_date" class="col-xs-10 col-sm-5" placeholder="" value="${release_date }"> <label
+											id="release_dateTip"></label>
+									</div>
+								</div>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
 										<button class="btn btn-primary" type="submit">
@@ -85,6 +92,11 @@
 									maxlength : 100
 								}
 							},
+                            release_date : {
+								title : {
+									required : true
+								}
+							},
 							messages : {
 							},
 							submitHandler : function(form) {
@@ -97,7 +109,15 @@
                 initialFrameHeight: 300,
                 imagePath: '${pageContext.request.contextPath}/'
             	});
+
+                        $('#release_date').datetimepicker({
+                            lang : 'ch',
+                            timepicker : false,
+                            format : 'Y-m-d'
+                        });
 					});
+
+
 
 				</script>
 </body>

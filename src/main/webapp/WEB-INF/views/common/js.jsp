@@ -25,6 +25,7 @@
 <script src="${staticServer }/assets/js/src/ace.widget-box.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.widget-on-reload.js?versionNo=${versionNo}"></script>
 <script src="${staticServer }/assets/js/src/ace.searchbox-autocomplete.js?versionNo=${versionNo}"></script>
-
+<link rel="stylesheet" type="text/css" href="${staticServer }/assets/datetimepicker/jquery.datetimepicker.css" />
+<script src="${staticServer }/assets/datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
 
 

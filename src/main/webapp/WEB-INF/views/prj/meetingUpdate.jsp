@@ -52,6 +52,13 @@
 										</label>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">发布日期：</label>
+									<div class="col-sm-9">
+										<input type="text" id="release_date" name="release_date" class="col-xs-10 col-sm-5" placeholder="" value="${prjMeeting.release_date }"> <label
+											id="release_dateTip"></label>
+									</div>
+								</div>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
 										<button class="btn btn-primary" type="submit">
@@ -98,6 +105,12 @@
                 initialFrameHeight: 300,
                 imagePath: '${pageContext.request.contextPath}/'
             	});
+
+                        $('#release_date').datetimepicker({
+                            lang : 'ch',
+                            timepicker : false,
+                            format : 'Y-m-d'
+                        });
 					});
 
 				</script>

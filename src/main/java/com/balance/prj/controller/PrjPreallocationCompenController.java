@@ -344,7 +344,7 @@ public class PrjPreallocationCompenController extends BaseController {
             PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
             int project_id = getProjectId(request);
             if (preallocationService.existByMapId(preallocation.getMap_id(), project_id)) {
-                preallocationsImportDTO.setReason("ID号重复!");
+                preallocationsImportDTO.setReason("编号重复!");
             }
             if (StringUtil.isNotNullOrEmpty(preallocationsImportDTO.getReason())) {
                 preallocationsImportDTO.setRowIndex(preallocation.getRowIndex());

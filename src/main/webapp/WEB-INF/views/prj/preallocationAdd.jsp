@@ -113,7 +113,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                         <span class="white">&times;</span>
                     </button>
-                    上传现场照片
+                    上传附件文件
                 </div>
             </div>
             <div class="modal-body no-padding">
@@ -126,7 +126,8 @@
                                 <input type="hidden" name="file_type" value="file">
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <input name="file" type="file" id="material-input"/>
+                                        <input name="file" type="file" id="material-input"
+                                        accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                     </div>
                                     <div class="col-xs-12" align="center">
                                         <button class="btn btn-white btn-primary" type="submit">
@@ -194,9 +195,9 @@
         });
         $('#material-input').ace_file_input({
             style: 'well',
-            btn_choose: '点击选择',
+            btn_choose: '点击选择word文件',
             btn_change: null,
-            no_icon: 'ace-icon fa fa-picture-o',
+            no_icon: 'ace-icon fa fa-folder-open-o',
             droppable: false,
             thumbnail: 'large',
             maxSize: 1024 * 1024 * 10,
@@ -225,13 +226,13 @@
                         var file_path = json.createFilepath + "/" + json.createFilename;
                         $("#closematerial-modal").click();
 
-                        $("#photo").attr('src', '${imageServer}' + file_path);
-
-                        $("#photoDiv").removeClass("hidden");
-                        $("#checkFile").addClass("hidden");
+                        <%--$("#photo").attr('src', '${imageServer}' + file_path);--%>
 
                         $("#other_file_name").val(json.original_name);
                         $("#other_file_path").val(file_path);
+                        $("#other_file_name").removeClass("hidden");
+                        $("#photoDiv").removeClass("hidden");
+                        $("#checkFile").addClass("hidden");
                         return;
                     }
                     $.notify((json && json.message) || '上传失败');
@@ -254,6 +255,7 @@
                             if (json.success) {
                                 $("#checkFile").removeClass("hidden");
                                 $("#photoDiv").addClass("hidden");
+                                $("#other_file_name").addClass("hidden");
                             } else {
                                 $.notify({message: "文件路径错误!", z_index: 15111});
                             }

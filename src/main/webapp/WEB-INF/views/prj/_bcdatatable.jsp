@@ -8,6 +8,7 @@
         <th>编号</th>
         <th>被拆迁腾退人</th>
         <th>房屋坐落</th>
+        <th>评估价格</th>
         <th>评估补偿款</th>
         <th>补助奖励费</th>
         <th>总补偿款</th>
@@ -17,10 +18,11 @@
     </thead>
     <tfoot id="table-foot">
     <tr>
-        <th>当前页合计：</th>
+        <th>合计：</th>
         <th class="isHu"></th>
         <th></th>
         <th></th>
+        <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
@@ -42,7 +44,7 @@
             autoWidth: true,//自动宽度
             scrollX: true,
             scrollY: true,
-            paginate: true, //翻页功能
+            paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
             lengthMenu: [15, 25, 50, 75, 100],
@@ -105,22 +107,29 @@
                     }
                 },
                 {
+                    data: "appraise_money",
+                    width: "90px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
                     data: "appraise_compensation",
-                    width: "150px",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "subsidy_relocate",
-                    width: "150px",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "total_compensation",
-                    width: "150px",
+                    width: "90px",
                     render: function (data) {
                         return data || "";
                     }
@@ -176,7 +185,7 @@
                     cell.innerHTML =  i + 1;
                 });
             },
-            footerCallback: function () {
+            footerCallback: function (tfoot, data) {
                 var api = this.api();
                 var intVal = function (i) {
                     return typeof i === 'string' ? i.replace(/[$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
@@ -190,7 +199,8 @@
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " 元");
                     }
                 });
-                $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
+                $(api.column(1).footer()).html(data.length + "户");
+                $(".DTFC_LeftFootWrapper").remove();
             }
 
         });

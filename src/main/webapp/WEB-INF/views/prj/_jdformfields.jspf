@@ -79,7 +79,7 @@
 </div>
 <div class="form-group">
     <form:label path="no_sign_reason" cssClass="col-sm-3 control-label no-padding-right no-padding-left">
-        未签约原因：
+        滞留原因：
     </form:label>
     <div class="col-sm-9">
         <form:textarea path="no_sign_reason" cssClass="col-xs-10 col-sm-10 col-lg-3"  maxlength="200"></form:textarea>

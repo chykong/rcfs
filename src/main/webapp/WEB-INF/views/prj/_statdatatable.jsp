@@ -8,9 +8,10 @@
         <th>编号</th>
         <th>被拆除腾退人</th>
         <th>坐落</th>
+        <th>入户面积</th>
         <th>入户日期</th>
         <th>签约日期</th>
-        <th>交房日期)</th>
+        <th>交房日期</th>
         <th>拆除日期</th>
         <th>审核日期</th>
         <th>放款日期</th>
@@ -24,6 +25,7 @@
         <th></th>
         <th></th>
         <th></th>
+        <th class="isSum"></th>
         <th></th>
         <th></th>
         <th></th>
@@ -111,6 +113,13 @@
                     }
                 },
                 {
+                    data: "cog_land_area",
+                    width: "90px",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+                {
                     data: "in_host_date",
                     width: "120px",
                     render: function (data) {
@@ -183,7 +192,7 @@
                     cell.innerHTML =  i + 1;
                 });
             },
-            footerCallback: function () {
+            footerCallback: function (footer,data) {
                 var api = this.api();
                 var intVal = function (i) {
                     return typeof i === 'string' ? i.replace(/[$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
@@ -197,7 +206,8 @@
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " m²");
                     }
                 });
-                $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
+                $(api.column(1).footer()).html(data.length + "户");
+                $(".DTFC_LeftFootWrapper").remove();
 
             }
 

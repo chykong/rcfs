@@ -4,7 +4,7 @@
 <table id="basic-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
-        <th>ID号</th>
+        <th>编号</th>
         <th>被搬迁人</th>
         <th>房屋坐落</th>
         <th>门牌号</th>

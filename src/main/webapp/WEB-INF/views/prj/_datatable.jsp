@@ -17,6 +17,9 @@
         <th>操作</th>
     </tr>
     </thead>
+    <tbody id="tbody">
+
+    </tbody>
     <tfoot id="table-foot">
     <tr>
         <th>合计：</th>
@@ -194,7 +197,7 @@
                     cell.innerHTML =  i + 1;
                 });
             },
-            footerCallback: function () {
+            footerCallback: function (tfoot, data) {
                 var api = this.api();
                 var intVal = function (i) {
                     return typeof i === 'string' ? i.replace(/[$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
@@ -208,7 +211,8 @@
                         $(api.column(i).footer()).html(pageTotal.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + " m²");
                     }
                 });
-                $(api.column(1).footer()).html($("tbody").find("tr").length + "户");
+                $(api.column(1).footer()).html(data.length + "户");
+                $(".DTFC_LeftFootWrapper").remove();
 
             }
 

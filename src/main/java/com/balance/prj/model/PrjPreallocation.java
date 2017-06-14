@@ -119,6 +119,7 @@ public class PrjPreallocation {
     private String groups;  //组别
     private Integer prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
+    private BigDecimal appraise_money;  //评估价格
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date demolished_date;  //拆除日期
@@ -1051,5 +1052,13 @@ public class PrjPreallocation {
 
     public void setTotal_yjf(BigDecimal total_yjf) {
         this.total_yjf = total_yjf;
+    }
+
+    public BigDecimal getAppraise_money() {
+        return appraise_money;
+    }
+
+    public void setAppraise_money(BigDecimal appraise_money) {
+        this.appraise_money = appraise_money;
     }
 }

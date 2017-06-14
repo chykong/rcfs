@@ -103,8 +103,14 @@
 <script>
     $(function () {
         $("input").attr('readonly','true');
+        $("input").attr('placehodler','0');
         $("select").attr('disabled','true');
         $("textarea").attr('readonly','true');
+
+        if($("#other_file_path").val() != '' && $("#other_file_name").val() != ''){
+            $("#other_file_name").hide();
+            $("#photoDiv").append('<a href="${imageServer}'+ $("#other_file_path").val() + '">' + $("#other_file_name").val()+ '</a>');
+        }
         $("#delFile").addClass('hidden');
         $("#checkFile").addClass('hidden');
 

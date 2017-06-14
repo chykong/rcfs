@@ -88,12 +88,13 @@
                                                 </button>
                                             </div>
                                             <div class="space-4"></div>
-                                            <br/> <label class=" clearfix"> <span
-                                                    class="block input-icon ">
-															<span class="inline input-icon input-icon-right" style="color: white"><a
-                                                                    href="http://www.balance-soft.com" target="_blank" style="color: #00AAEE">北京百乐思技术有限公司</a> © 2017 提供技术支持
-                                                            </span>
-														</span></label>
+                                            <br/>
+                                            <%--<label class=" clearfix"> <span--%>
+                                                    <%--class="block input-icon ">--%>
+															<%--<span class="inline input-icon input-icon-right" style="color: white"><a--%>
+                                                                    <%--href="http://www.balance-soft.com" target="_blank" style="color: #00AAEE">北京百乐思技术有限公司</a> © 2017 提供技术支持--%>
+                                                            <%--</span>--%>
+														<%--</span></label>--%>
                                         </fieldset>
                                     </form>
                                 </div>

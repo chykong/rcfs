@@ -55,7 +55,7 @@
                                         <div class="row">
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-4">ID号：</label>
+                                                    <label class="control-label col-xs-5 col-lg-4">编号：</label>
                                                     <div class="col-xs-7 col-lg-8">
                                                         <input type="text" id="map_id" class="col-xs-10 col-sm-10 col-lg-8" value=""/>
                                                     </div>

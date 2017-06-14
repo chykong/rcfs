@@ -49,3 +49,4 @@
 </script>
 
 <link rel="shortcut icon" href="${staticServer }/assets/images/fav.ico" mce_href="${staticServer }/assets/images/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="${staticServer }/assets/datetimepicker/jquery.datetimepicker.css" />

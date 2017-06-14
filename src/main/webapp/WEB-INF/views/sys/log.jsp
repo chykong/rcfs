@@ -105,8 +105,7 @@
 			</div>
 			<!-- /.main-container -->
 			<%@ include file="../common/js.jsp"%>
-			<link rel="stylesheet" type="text/css" href="${staticServer }/assets/datetimepicker/jquery.datetimepicker.css" />
-			<script src="${staticServer }/assets/datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
+
 			<script type="text/javascript">
 				$('#s_date').datetimepicker({
 					lang : 'ch',

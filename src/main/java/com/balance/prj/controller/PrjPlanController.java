@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 工作计划
+ *
  * @author 刘凯
  * @date 2017年6月4日
  */
@@ -31,9 +32,6 @@ public class PrjPlanController extends BaseController {
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjPlanSearchVO prjPlanSearchVO) {
-        if (prjPlanSearchVO.getProgress() == null) {
-            prjPlanSearchVO.setProgress(1);
-        }
         prjPlanSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjPlanService.listCount(prjPlanSearchVO);// 获取查询总数
@@ -49,7 +47,7 @@ public class PrjPlanController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjPlanSearchVO prjPlanSearchVO) {
-        String url = "/prj/plan/index.htm?progress=" + prjPlanSearchVO.getProgress();
+        String url = "/prj/plan/index.htm";
         return url;
     }
 
@@ -58,9 +56,7 @@ public class PrjPlanController extends BaseController {
      */
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
-        int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
-        mv.addObject("progress", progress);
         mv.setViewName("/prj/planAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;
@@ -74,6 +70,8 @@ public class PrjPlanController extends BaseController {
         UserSession session = SessionUtil.getUserSession(request);
         prjPlan.setCreated_by(session.getRealname());//创建人
         prjPlan.setPrj_base_info_id(session.getCurrent_project_id());//项目id
+        if (StringUtil.isNullOrEmpty(prjPlan.getContent()))
+            prjPlan.setContent("");
         int flag = prjPlanService.add(prjPlan);
         if (flag == 0) {
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("新增工作计划失败");
@@ -89,51 +87,55 @@ public class PrjPlanController extends BaseController {
     @RequestMapping("/toUpdate")
     public ModelAndView toUpdate(HttpServletRequest request, HttpServletResponse response, int id) {
         ModelAndView mv = new ModelAndView();
-        PrjPlan prjPlan=prjPlanService.findById(id);
+        PrjPlan prjPlan = prjPlanService.findById(id);
         mv.addObject("prjPlan", prjPlan);
         mv.setViewName("/prj/planUpdate");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-        return mv;  
+        return mv;
     }
-    
+
     /**
      * 修改工作计划
      */
     @RequestMapping("/update")
-    public String update(HttpServletRequest request, HttpServletResponse response,PrjPlan prjPlan){
-    	prjPlan.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
-    	int flag =prjPlanService.update(prjPlan);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("修改工作计划失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("修改工作计划成功");
-    	}
-    	
+    public String update(HttpServletRequest request, HttpServletResponse response, PrjPlan prjPlan) {
+        prjPlan.setLast_modified_by(SessionUtil.getUserSession(request).getRealname());
+        if (StringUtil.isNullOrEmpty(prjPlan.getContent()))
+            prjPlan.setContent("");
+        int flag = prjPlanService.update(prjPlan);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("修改工作计划失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("修改工作计划成功");
+        }
+
     }
+
     /**
      * 删除工作计划
      */
     @RequestMapping("/delete")
-    public String delete(HttpServletRequest request, HttpServletResponse response,int id){
-    	int flag=prjPlanService.delete(id);
-    	if(flag==0){
-    		return "forward:/error.htm?msg="+StringUtil.encodeUrl("删除工作计划失败");
-    	}else{
-    		return "forward:/success.htm?msg="+StringUtil.encodeUrl("删除工作计划成功");
-    	}
+    public String delete(HttpServletRequest request, HttpServletResponse response, int id) {
+        int flag = prjPlanService.delete(id);
+        if (flag == 0) {
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除工作计划失败");
+        } else {
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除工作计划成功");
+        }
     }
+
     /**
      * 显示文本内容
      */
     @RequestMapping("/toDetail")
-    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response){
-    	int id=Integer.parseInt(request.getParameter("id"));
-    	PrjPlan prjPlan=prjPlanService.findById(id);
-    	ModelAndView mv=new ModelAndView();
-    	mv.addObject("prjPlan", prjPlan);
-    	mv.setViewName("/prj/planDetail");
-    	BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-    	return mv;
+    public ModelAndView toDetail(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        PrjPlan prjPlan = prjPlanService.findById(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("prjPlan", prjPlan);
+        mv.setViewName("/prj/planDetail");
+        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+        return mv;
     }
 
 }

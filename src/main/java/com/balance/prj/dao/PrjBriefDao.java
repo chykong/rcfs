@@ -38,9 +38,9 @@ public class PrjBriefDao extends BaseDao<PrjBrief, PrjBriefSearchVO> {
 
     private String createSearchSql(PrjBriefSearchVO prjBriefSearchVO) {
         String sql = "";
-        if (prjBriefSearchVO.getProgress() != null) {//名称模糊查询
+       /* if (prjBriefSearchVO.getProgress() != null) {//名称模糊查询
             sql += " and progress =:progress";
-        }
+        }*/
         if (prjBriefSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";
         }

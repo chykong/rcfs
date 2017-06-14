@@ -3,13 +3,12 @@ package com.balance.prj.vo;
 import com.balance.util.page.PageSearchVO;
 
 public class PrjBriefSearchVO extends PageSearchVO {
-    private Integer progress;//进度
+    //    private Integer progress;//进度
     private Integer prj_base_info_id;//项目id
 
     @Override
     public String toString() {
         return "PrjBriefSearchVO{" +
-                "progress=" + progress +
                 ", prj_base_info_id=" + prj_base_info_id +
                 '}';
     }
@@ -22,11 +21,4 @@ public class PrjBriefSearchVO extends PageSearchVO {
         this.prj_base_info_id = prj_base_info_id;
     }
 
-    public Integer getProgress() {
-        return progress;
-    }
-
-    public void setProgress(Integer progress) {
-        this.progress = progress;
-    }
 }

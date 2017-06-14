@@ -31,9 +31,9 @@ public class PrjLogDao extends BaseDao<PrjLog, PrjLogSearchVO> {
 
     private String createSearchSql(PrjLogSearchVO prjLogSearchVO) {
         String sql = "";
-        if (prjLogSearchVO.getProgress() != null) {//名称模糊查询
+       /* if (prjLogSearchVO.getProgress() != null) {//名称模糊查询
             sql += " and progress =:progress";
-        }
+        }*/
         if (prjLogSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";
         }

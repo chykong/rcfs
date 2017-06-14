@@ -57,10 +57,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">${bln:getProcessTab('index.htm',prjMeetingSearchVO.progress)} 
-                    </div>
-                </div>
                 <!-- PAGE CONTENT BEGINS -->
                 <div class="row">
                     <div class="col-xs-12">
@@ -69,8 +65,9 @@
                             <tr>
                                 <th width=60>序号</th>
                                 <th>标题</th>
-                                <th width=150>发布人</th>
-                                <th width=140>发布时间</th>
+                                <th width=100>发布日期</th>
+                                <th width=150>上传人</th>
+                                <th width=140>上传时间</th>
                                 <th width="140">操作</th>
                             </tr>
                             </thead>
@@ -79,6 +76,7 @@
                                 <tr>
                                     <td>${st.index+1 }</td>
                                     <td><a href="toDetail.htm?id=${meeting.id }">${meeting.title }</a></td>
+                                    <td>${meeting.release_date }</td>
                                     <td>${meeting.created_by }</td>
                                     <th width=120><fmt:formatDate value="${meeting.created_at}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></th>
@@ -127,7 +125,7 @@
 				//新增
 				var addMeeting = function(id) {
 				 	var project_progress=$(".active").find("input").val()
-					window.location = 'toAdd.htm?progress=${prjMeetingSearchVO.progress}&backUrl=${backUrl }';
+					window.location = 'toAdd.htm?backUrl=${backUrl }';
 				}
         </script>
 </body>

@@ -37,9 +37,6 @@ public class PrjReportController extends BaseController {
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjReportSearchVO prjReportSearchVO) {
-        if (prjReportSearchVO.getProgress() == null) {
-            prjReportSearchVO.setProgress(1);
-        }
         prjReportSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjReportService.listCount(prjReportSearchVO);// 获取查询总数
@@ -55,7 +52,7 @@ public class PrjReportController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjReportSearchVO prjReportSearchVO) {
-        String url = pubConfig.getDynamicServer() + "/prj/report/index.htm?progress=" + prjReportSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/report/index.htm";
         return url;
     }
 
@@ -64,9 +61,7 @@ public class PrjReportController extends BaseController {
      */
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
-        int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
-        mv.addObject("progress", progress);
         mv.setViewName("/prj/reportAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;

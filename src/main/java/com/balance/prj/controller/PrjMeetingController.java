@@ -6,6 +6,7 @@ import com.balance.prj.vo.PrjMeetingSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
+import com.balance.util.date.DateUtil;
 import com.balance.util.page.PageNavigate;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.session.UserSession;
@@ -33,9 +34,6 @@ public class PrjMeetingController extends BaseController {
 
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, PrjMeetingSearchVO prjMeetingSearchVO) {
-        if (prjMeetingSearchVO.getProgress() == null) {
-            prjMeetingSearchVO.setProgress(1);
-        }
         prjMeetingSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         ModelAndView mv = new ModelAndView();
         int recordCount = prjMeetingService.listCount(prjMeetingSearchVO);// 获取查询总数
@@ -51,7 +49,7 @@ public class PrjMeetingController extends BaseController {
 
     // 设置分页url，一般有查询条件的才会用到
     public String createUrl(PrjMeetingSearchVO prjMeetingSearchVO) {
-        String url = pubConfig.getDynamicServer() + "/prj/meeting/index.htm?progress=" + prjMeetingSearchVO.getProgress();
+        String url = pubConfig.getDynamicServer() + "/prj/meeting/index.htm";
         return url;
     }
 
@@ -60,9 +58,8 @@ public class PrjMeetingController extends BaseController {
      */
     @RequestMapping("/toAdd")
     public ModelAndView toAdd(HttpServletRequest request, HttpServletResponse response) {
-        int progress = Integer.parseInt(request.getParameter("progress"));
         ModelAndView mv = new ModelAndView();
-        mv.addObject("progress", progress);
+        mv.addObject("release_date", DateUtil.getSystemDate());
         mv.setViewName("/prj/meetingAdd");
         BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
         return mv;

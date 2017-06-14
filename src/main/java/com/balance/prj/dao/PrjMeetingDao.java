@@ -24,16 +24,16 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
     public List<PrjMeeting> list(PrjMeetingSearchVO prjMeetingSearchVO) {
         String sql = "select * from t_prj_meeting t where 1=1";
         sql += createSearchSql(prjMeetingSearchVO);
-        sql += " order by id desc";
+        sql += " order by release_date desc";
         sql = PageUtil.createMysqlPageSql(sql, prjMeetingSearchVO.getPageIndex(), prjMeetingSearchVO.getPageSize());
         return list(sql, prjMeetingSearchVO);
     }
 
     private String createSearchSql(PrjMeetingSearchVO prjMeetingSearchVO) {
         String sql = "";
-        if (prjMeetingSearchVO.getProgress() != null) {//名称模糊查询
+        /*if (prjMeetingSearchVO.getProgress() != null) {//名称模糊查询
             sql += " and progress =:progress";
-        }
+        }*/
         if (prjMeetingSearchVO.getPrj_base_info_id() != null) {
             sql += " and prj_base_info_id=:prj_base_info_id";
         }
@@ -47,7 +47,7 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
      * @return
      */
     public int add(PrjMeeting prjMeeting) {
-        String sql = "insert into t_prj_meeting(prj_base_info_id,title,content,progress,created_by,created_at)values(:prj_base_info_id,:title,:content,:progress,:created_by,now())";
+        String sql = "insert into t_prj_meeting(prj_base_info_id,title,content,progress,release_date,created_by,created_at)values(:prj_base_info_id,:title,:content,:progress,:release_date,:created_by,now())";
         return update(sql, prjMeeting);
     }
 
@@ -63,7 +63,7 @@ public class PrjMeetingDao extends BaseDao<PrjMeeting, PrjMeetingSearchVO> {
      * 修改会议纪要
      */
     public int update(PrjMeeting prjMeeting) {
-        String sql = "update t_prj_meeting set progress=:progress,title=:title,content=:content,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_meeting set progress=:progress,title=:title,content=:content,progress=:progress,release_date=:release_date,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjMeeting);
     }
 

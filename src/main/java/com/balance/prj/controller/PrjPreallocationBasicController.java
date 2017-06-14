@@ -11,7 +11,6 @@ import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.controller.BaseController;
-import com.balance.util.date.DateUtil;
 import com.balance.util.excel.Excel2007Util;
 import com.balance.util.json.JsonUtil;
 import com.balance.util.session.SessionUtil;
@@ -66,7 +65,7 @@ public class PrjPreallocationBasicController extends BaseController {
         mv.addObject("sectionList", sectionList);
 
         List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
-        mv.addObject("townList",townList);
+        mv.addObject("townList", townList);
 
         mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
@@ -429,8 +428,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setPulledown_co(pulledown_co);
         preallocation.setDemolition_card_code(demolition_card_code);
         preallocation.setDemolition_year_code(demolition_year_code);
-        preallocation.setRelocate_date(DateUtil.stringToDate(relocate_date, "yyyy-MM-dd"));
-
+        preallocation.setRelocate_date(relocate_date);
 
         preallocation.setRemarks(remarks);
         preallocation.setCreated_by(create_person_name);

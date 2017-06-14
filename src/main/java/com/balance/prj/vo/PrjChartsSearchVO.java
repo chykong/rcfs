@@ -13,6 +13,28 @@ public class PrjChartsSearchVO {
     private Integer search_type; // 查询类型 1-入户 2-签约 3-交房  4-放款
 
     private String search_date_type;  //查询类型
+    private Integer type;//1按户数2按占地面积3按建筑面积
+
+    @Override
+    public String toString() {
+        return "PrjChartsSearchVO{" +
+                "prj_base_info_id=" + prj_base_info_id +
+                ", town='" + town + '\'' +
+                ", village='" + village + '\'' +
+                ", date='" + date + '\'' +
+                ", search_type=" + search_type +
+                ", search_date_type='" + search_date_type + '\'' +
+                ", type=" + type +
+                '}';
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Integer getPrj_base_info_id() {
         return prj_base_info_id;

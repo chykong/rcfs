@@ -1,7 +1,5 @@
 package com.balance.prj.controller;
 
-import com.balance.base.model.BaseCompany;
-import com.balance.base.service.BaseCompanyService;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.model.PrjSection;
@@ -11,7 +9,6 @@ import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.controller.BaseController;
-import com.balance.util.date.DateUtil;
 import com.balance.util.excel.Excel2007Util;
 import com.balance.util.json.JsonUtil;
 import com.balance.util.session.SessionUtil;
@@ -62,7 +59,7 @@ public class PrjPreallocationCompenController extends BaseController {
         mv.addObject("sectionList", sectionList);
 
         List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
-        mv.addObject("townList",townList);
+        mv.addObject("townList", townList);
 
         mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
@@ -187,9 +184,9 @@ public class PrjPreallocationCompenController extends BaseController {
             } else {
                 PrjPreallocation preallocation = getImport(map_id, host_name, location, money_homestead, money_adjunct,
                         money_machine, appraise_compensation, money_ssbcf, project_cooperate_award, money_relocate,
-                        money_dhyjf, money_ktyjf, money_kd, money_yxdsyjf,money_rsqyjf, total_yjf, money_qt,
+                        money_dhyjf, money_ktyjf, money_kd, money_yxdsyjf, money_rsqyjf, total_yjf, money_qt,
                         subsidy_relocate, total_compensation, signed_date, handover_house_date, demolished_date,
-                        audit_date, money_date, no_sign_reason,status,getUserName(request), rowIndex, getProjectId(request));
+                        audit_date, money_date, no_sign_reason, status, getUserName(request), rowIndex, getProjectId(request));
 
                 preallocations.add(preallocation);
             }
@@ -245,9 +242,9 @@ public class PrjPreallocationCompenController extends BaseController {
             } else {
                 PrjPreallocation preallocation = getImport(map_id, host_name, location, money_homestead, money_adjunct,
                         money_machine, appraise_compensation, money_ssbcf, project_cooperate_award, money_relocate,
-                        money_dhyjf, money_ktyjf, money_kd, money_yxdsyjf,money_rsqyjf, total_yjf, money_qt,
+                        money_dhyjf, money_ktyjf, money_kd, money_yxdsyjf, money_rsqyjf, total_yjf, money_qt,
                         subsidy_relocate, total_compensation, signed_date, handover_house_date, demolished_date,
-                        audit_date, money_date, no_sign_reason,status,getUserName(request), rowIndex, getProjectId(request));
+                        audit_date, money_date, no_sign_reason, status, getUserName(request), rowIndex, getProjectId(request));
                 preallocations.add(preallocation);
             }
         }
@@ -261,16 +258,16 @@ public class PrjPreallocationCompenController extends BaseController {
 
     private PrjPreallocation getImport(String map_id, String host_name, String location, String money_homestead, String money_adjunct,
                                        String money_machine, String appraise_compensation, String money_ssbcf, String project_cooperate_award, String money_relocate,
-                                       String money_dhyjf, String money_ktyjf, String money_kd, String money_yxdsyjf,String money_rsqyjf, String total_yjf, String money_qt,
+                                       String money_dhyjf, String money_ktyjf, String money_kd, String money_yxdsyjf, String money_rsqyjf, String total_yjf, String money_qt,
                                        String subsidy_relocate, String total_compensation, String signed_date, String handover_house_date, String demolished_date,
-                                       String audit_date, String money_date, String no_sign_reason,String status, String create_person_name,
+                                       String audit_date, String money_date, String no_sign_reason, String status, String create_person_name,
                                        int row_index, int projectId) {
 
         PrjPreallocation preallocation = new PrjPreallocation();
         preallocation.setPrj_base_info_id(projectId);
 
         int save_status = 0;
-        switch (status){
+        switch (status) {
             case "未签约":
                 save_status = 10;
                 break;
@@ -318,11 +315,11 @@ public class PrjPreallocationCompenController extends BaseController {
         preallocation.setSubsidy_relocate(StringUtil.isNullOrEmpty(subsidy_relocate) ? new BigDecimal(0) : new BigDecimal(subsidy_relocate));
         preallocation.setTotal_compensation(StringUtil.isNullOrEmpty(total_compensation) ? new BigDecimal(0) : new BigDecimal(total_compensation));
 
-        preallocation.setRelocate_date(DateUtil.stringToDate(signed_date, "yyyy-MM-dd"));
-        preallocation.setHandover_house_date(DateUtil.stringToDate(handover_house_date, "yyyy-MM-dd"));
-        preallocation.setDemolished_date(DateUtil.stringToDate(demolished_date, "yyyy-MM-dd"));
-        preallocation.setRelocate_date(DateUtil.stringToDate(audit_date, "yyyy-MM-dd"));
-        preallocation.setRelocate_date(DateUtil.stringToDate(money_date, "yyyy-MM-dd"));
+        preallocation.setRelocate_date(signed_date);
+        preallocation.setHandover_house_date(handover_house_date);
+        preallocation.setDemolished_date(demolished_date);
+        preallocation.setRelocate_date(audit_date);
+        preallocation.setRelocate_date(money_date);
 
 
         preallocation.setRemarks(no_sign_reason);

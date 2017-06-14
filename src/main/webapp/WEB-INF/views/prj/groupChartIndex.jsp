@@ -1,12 +1,10 @@
-<%--@elvariable id="site_name" type="java.lang.String"--%>
-<%--@elvariable id="_csrf" type="org.springframework.security.web.csrf.CsrfToken"--%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ include file="../common/taglib.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${site_name} 分组进度图</title>
+    <title>${webTitle}-分组进度图</title>
     <link rel="stylesheet" href="<c:url value="/assets/highcharts/css/highcharts.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-datepicker/bootstrap-datepicker3.css"/>"/>
 
@@ -44,7 +42,7 @@
                     </div>
                     <div class="widget-body">
                         <div class="widget-main no-padding">
-                            <c:url value="/prj/charts/groupIndex.htm" var="index_url"/>
+                            <c:url value="/prj/charts/groupIndex.htm?type=${type}" var="index_url"/>
                             <form:form action="${index_url}" method="post"
                                        cssClass="form-horizontal" role="form" modelAttribute="prjChartsSearchVO"
                                        cssStyle="padding-top: 10px;" data-ajax="true">
@@ -188,7 +186,7 @@
                 orientation: "bottom auto"
             });
 
-            var url = '${pageContext.request.contextPath}/prj/charts/getGroup.htm?__=_';
+            var url = '${pageContext.request.contextPath}/prj/charts/getGroup.htm?type=${type}';
             if($("#town").val() != ''){
                 url += "&town=" + $("#town").val();
             }
@@ -235,7 +233,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '户数',
+                        name: '${typeName}',
                         nameLocation: 'end'
                     }
                 ],
@@ -328,7 +326,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '户数',
+                        name: '${typeName}',
                         nameLocation: 'end'
                     }
                 ],
@@ -418,7 +416,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '户数',
+                        name: '${typeName}',
                         nameLocation: 'end'
                     }
                 ],
@@ -508,7 +506,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '户数',
+                        name: '${typeName}',
                         nameLocation: 'end'
                     }
                 ],

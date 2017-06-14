@@ -10,13 +10,13 @@ public class ChartsDataVO {
 
     private String barTitle1;//柱状图分类1
     private String barTitle2;//柱状图分类2
-    private int[] barData1;//柱状图数据1
-    private int[] barData2;//柱状图数据2
+    private float[] barData1;//柱状图数据1
+    private float[] barData2;//柱状图数据2
     private String[] barCategories;//柱状图分组
 
     private String guageTitle;//仪表盘标题
     private float guageData;//仪表盘百分比
-
+    private int type;//类型
     @Override
     public String toString() {
         return "ChartsDataVO{" +
@@ -28,6 +28,30 @@ public class ChartsDataVO {
                 ", guageTitle='" + guageTitle + '\'' +
                 ", guageData=" + guageData +
                 '}';
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public float[] getBarData1() {
+        return barData1;
+    }
+
+    public void setBarData1(float[] barData1) {
+        this.barData1 = barData1;
+    }
+
+    public float[] getBarData2() {
+        return barData2;
+    }
+
+    public void setBarData2(float[] barData2) {
+        this.barData2 = barData2;
     }
 
     public String getBarTitle1() {
@@ -46,21 +70,6 @@ public class ChartsDataVO {
         this.barTitle2 = barTitle2;
     }
 
-    public int[] getBarData1() {
-        return barData1;
-    }
-
-    public void setBarData1(int[] barData1) {
-        this.barData1 = barData1;
-    }
-
-    public int[] getBarData2() {
-        return barData2;
-    }
-
-    public void setBarData2(int[] barData2) {
-        this.barData2 = barData2;
-    }
 
     public String[] getBarCategories() {
         return barCategories;

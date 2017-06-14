@@ -1,6 +1,7 @@
 package com.balance.prj.dao;
 
 import com.balance.prj.model.PrjChart;
+import com.balance.prj.vo.EntireStatVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.string.StringUtil;
@@ -54,6 +55,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
 
+
     public String getMaxDate(int prj_base_info_id) {
         String sql = "SELECT " +
                 "DATE_FORMAT(if(if(max(in_host_date) > max(signed_date),max(in_host_date),max(signed_date))  > max(handover_house_date)," +
@@ -83,7 +85,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
             sql += " and village=:village";
         }
         if (StringUtil.isNotNullOrEmpty(prjChartsSearchVO.getDate()) && prjChartsSearchVO.getSearch_type() != null) {
-            switch (prjChartsSearchVO.getSearch_type()){
+            switch (prjChartsSearchVO.getSearch_type()) {
                 case 1:
                     sql += " and in_host_date=:date";
                     break;
@@ -101,18 +103,18 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         return sql;
     }
 
-    public int getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "SELECT count(*) FROM t_prj_preallocation WHERE 1=1 ";
+    public float getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT " + getSearchByType(prjChartsSearchVO.getType()) + " FROM t_prj_preallocation WHERE 1=1 ";
         sql += createSql(prjChartsSearchVO);
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
-        return getNamedParameterJdbcTemplate().queryForObject(sql, params, Integer.class);
+        return getNamedParameterJdbcTemplate().queryForObject(sql, params, Float.class);
     }
 
     public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
                 "from t_prj_preallocation  where  in_host_date is not null " +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups,count(*) today " +
+                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where in_host_date= CURDATE() " +
                 createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
 
@@ -121,10 +123,10 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
     }
 
     public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
                 "from t_prj_preallocation  where  signed_date is not null " +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups,count(*) today " +
+                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where signed_date= CURDATE() " +
                 createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
 
@@ -133,10 +135,10 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
     }
 
     public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
                 "from t_prj_preallocation  where  handover_house_date is not null " +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups,count(*) today " +
+                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where handover_house_date= CURDATE() " +
                 createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
 
@@ -145,14 +147,69 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
     }
 
     public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.*,ifnull(t2.today,0) today from (select groups,count(*) total " +
+        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
                 "from t_prj_preallocation  where  money_date is not null " +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups,count(*) today " +
+                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where money_date= CURDATE() " +
                 createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
 
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    /**
+     * 根据类型判断是查询哪一种，1查询户数2查询占地面积3建筑面积
+     *
+     * @param type
+     * @return
+     */
+    private String getSearchByType(int type) {
+        String content = "";
+        if (type == 1) return "count(*)";
+        else if (type == 2) return "sum(cog_land_area)";
+        else if (type == 3) return "sum(total_homestead_area)";
+        else return "count(*)";
+    }
+
+    /**
+     * 查询在一个月内的所有拆迁数
+     *
+     * @return
+     */
+    public List<EntireStatVO> listEntireByType(int prj_base_info_id, String s_date, String e_date, int type, int search_type) {
+        String field = getStatField(search_type);//获取查询字段
+        String sql = "select " + field + " date,ifnull(" + getSearchByType(type) + ",0) data from t_prj_preallocation where prj_base_info_id=? and " + field + ">=? and " + field + "<=? and " + field + " is not null" +
+                " group by " + field + " order by " + field + "";
+        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, s_date, e_date}, new BeanPropertyRowMapper<>(EntireStatVO.class));
+    }
+
+    /**
+     * 查询在一个月前已完成的拆迁数
+     *
+     * @return
+     */
+    public float getExist(int prj_base_info_id, String s_date, int type, int search_type) {
+        String field = getStatField(search_type);//获取查询字段
+        String sql = "select " + getSearchByType(type) + " cnt from t_prj_preallocation where prj_base_info_id=? and  " + field + "<?  and " + field + " is not null";
+        return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id, s_date}, Float.class);
+    }
+
+    /**
+     * 根据查询字段，实际用哪个字段进行查询1入户日期，2签约日期3交房日期
+     *
+     * @param search_type
+     * @return
+     */
+    private String getStatField(int search_type) {
+        String field = "";
+        if (search_type == 1) {
+            field = "in_host_date";
+        } else if (search_type == 2) {
+            field = "signed_date";
+        } else if (search_type == 3) {
+            field = "handover_house_date";
+        }
+        return field;
     }
 }

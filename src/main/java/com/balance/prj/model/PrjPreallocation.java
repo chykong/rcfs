@@ -49,9 +49,7 @@ public class PrjPreallocation {
     private BigDecimal money_qt;  //其他
     private BigDecimal subsidy_relocate;  //补助奖励费
     private BigDecimal total_compensation;  //总补偿款
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date in_host_date;  //入户时间
+    private String in_host_date;  //入户时间
     private Double az_area; //安置面积
     private Double float_az_area;  //浮动安置面积
     private Integer one_room_num;  //一居室 套数
@@ -65,18 +63,10 @@ public class PrjPreallocation {
     private BigDecimal budget_compensation;  //预算房款
     private BigDecimal budget_sub;  //预算差价
     private String signed_code; //签约序号
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date signed_date; //签约日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date money_date; //放款日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date handover_house_date; //交房日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date handover_end_date; //交房截止日期
+    private String signed_date; //签约日期
+    private String money_date; //放款日期
+    private String handover_house_date; //交房日期
+    private String handover_end_date; //交房截止日期
     private String select_house_code;  //选房序号
     private String choose_room_position;//选房位置
     private String az_house_host;  //安置房产权人
@@ -97,11 +87,7 @@ public class PrjPreallocation {
     private BigDecimal money_float_az_house;  //安置房浮动面积价款
     private BigDecimal total_az_pay_house;  //安置房购房款合计
     private BigDecimal first_calculate_sub;  //首次结算差价
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date choose_room_date; // 选房时间
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    private String choose_room_date; // 选房时间
     private int status;  //状态 10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房  50-已选房 60-已归档
     private String leader;  //包村干部
     private String management_co;  //管理公司
@@ -120,12 +106,8 @@ public class PrjPreallocation {
     private Integer prj_base_info_id;  //项目id
     private BigDecimal appraise_compensation;  //评估金额
     private BigDecimal appraise_money;  //评估价格
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date demolished_date;  //拆除日期
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date relocate_date;  //搬迁日期
+    private String demolished_date;  //拆除日期
+    private String relocate_date;  //搬迁日期
     private Double before_demolished_area;  //待拆除面积
     private Double after_demolished_area;  //已拆除面积
     private Double before_area;  //06年前面积
@@ -134,9 +116,7 @@ public class PrjPreallocation {
     private Double management_house_area;  //房屋营业面积
     private Double field_house_area;  //场地营业面积
     private String no_sign_reason;//未签约原因
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date audit_date;  //审核日期
+    private String audit_date;  //审核日期
     private String audit_user;  //审核人
     private String remarks;  //备注
     private String created_by;   //创建人
@@ -144,9 +124,7 @@ public class PrjPreallocation {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date created_at;   //创建时间
     private String archives_cabinet_number;//档案柜号
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date archive_date;//存档时间
+    private String archive_date;//存档时间
 
     private Integer rowIndex;  //导入时  行号
 
@@ -157,6 +135,124 @@ public class PrjPreallocation {
 
 //    private List<PreallocationRelation> relations;  //户籍关系
 
+    @Override
+    public String toString() {
+        return "PrjPreallocation{" +
+                "id=" + id +
+                ", map_id='" + map_id + '\'' +
+                ", host_name='" + host_name + '\'' +
+                ", lessee_name='" + lessee_name + '\'' +
+                ", location='" + location + '\'' +
+                ", legal_name='" + legal_name + '\'' +
+                ", id_card='" + id_card + '\'' +
+                ", house_property='" + house_property + '\'' +
+                ", land_property='" + land_property + '\'' +
+                ", total_land_area=" + total_land_area +
+                ", card_land_area=" + card_land_area +
+                ", cog_land_area=" + cog_land_area +
+                ", lessee_land_area=" + lessee_land_area +
+                ", total_homestead_area=" + total_homestead_area +
+                ", card_homestead_area=" + card_homestead_area +
+                ", no_card_homestead_area=" + no_card_homestead_area +
+                ", management_homestead_area=" + management_homestead_area +
+                ", house_register_num=" + house_register_num +
+                ", money_homestead=" + money_homestead +
+                ", money_machine=" + money_machine +
+                ", money_adjunct=" + money_adjunct +
+                ", project_cooperate_award=" + project_cooperate_award +
+                ", incentive_fees=" + incentive_fees +
+                ", allocation_housing_assess_price=" + allocation_housing_assess_price +
+                ", money_new_house=" + money_new_house +
+                ", money_new_adjunct=" + money_new_adjunct +
+                ", money_relocate=" + money_relocate +
+                ", money_kd=" + money_kd +
+                ", money_ssbcf=" + money_ssbcf +
+                ", money_dhyjf=" + money_dhyjf +
+                ", money_yxdsyjf=" + money_yxdsyjf +
+                ", money_ktyjf=" + money_ktyjf +
+                ", money_rsqyjf=" + money_rsqyjf +
+                ", total_yjf=" + total_yjf +
+                ", money_qt=" + money_qt +
+                ", subsidy_relocate=" + subsidy_relocate +
+                ", total_compensation=" + total_compensation +
+                ", in_host_date='" + in_host_date + '\'' +
+                ", az_area=" + az_area +
+                ", float_az_area=" + float_az_area +
+                ", one_room_num=" + one_room_num +
+                ", one_room_area=" + one_room_area +
+                ", two_room_num=" + two_room_num +
+                ", two_room_area=" + two_room_area +
+                ", three_room_num=" + three_room_num +
+                ", three_room_area=" + three_room_area +
+                ", az_room_budget_num=" + az_room_budget_num +
+                ", az_room_budget_area=" + az_room_budget_area +
+                ", budget_compensation=" + budget_compensation +
+                ", budget_sub=" + budget_sub +
+                ", signed_code='" + signed_code + '\'' +
+                ", signed_date='" + signed_date + '\'' +
+                ", money_date='" + money_date + '\'' +
+                ", handover_house_date='" + handover_house_date + '\'' +
+                ", handover_end_date='" + handover_end_date + '\'' +
+                ", select_house_code='" + select_house_code + '\'' +
+                ", choose_room_position='" + choose_room_position + '\'' +
+                ", az_house_host='" + az_house_host + '\'' +
+                ", az_house_room=" + az_house_room +
+                ", az_house_area=" + az_house_area +
+                ", az_house_host2='" + az_house_host2 + '\'' +
+                ", az_house_room2=" + az_house_room2 +
+                ", az_house_area2=" + az_house_area2 +
+                ", az_house_host3='" + az_house_host3 + '\'' +
+                ", az_house_room3=" + az_house_room3 +
+                ", az_house_area3=" + az_house_area3 +
+                ", az_house_host4='" + az_house_host4 + '\'' +
+                ", az_house_room4=" + az_house_room4 +
+                ", az_house_area4=" + az_house_area4 +
+                ", total_az_house_area=" + total_az_house_area +
+                ", float_az_house_area=" + float_az_house_area +
+                ", money_az_house=" + money_az_house +
+                ", money_float_az_house=" + money_float_az_house +
+                ", total_az_pay_house=" + total_az_pay_house +
+                ", first_calculate_sub=" + first_calculate_sub +
+                ", choose_room_date='" + choose_room_date + '\'' +
+                ", status=" + status +
+                ", leader='" + leader + '\'' +
+                ", management_co='" + management_co + '\'' +
+                ", geo_co='" + geo_co + '\'' +
+                ", appraise_co='" + appraise_co + '\'' +
+                ", demolish_co='" + demolish_co + '\'' +
+                ", pulledown_co='" + pulledown_co + '\'' +
+                ", audit_co='" + audit_co + '\'' +
+                ", demolition_card_code='" + demolition_card_code + '\'' +
+                ", demolition_year_code='" + demolition_year_code + '\'' +
+                ", village='" + village + '\'' +
+                ", town='" + town + '\'' +
+                ", section='" + section + '\'' +
+                ", groups='" + groups + '\'' +
+                ", prj_base_info_id=" + prj_base_info_id +
+                ", appraise_compensation=" + appraise_compensation +
+                ", appraise_money=" + appraise_money +
+                ", demolished_date='" + demolished_date + '\'' +
+                ", relocate_date='" + relocate_date + '\'' +
+                ", before_demolished_area=" + before_demolished_area +
+                ", after_demolished_area=" + after_demolished_area +
+                ", before_area=" + before_area +
+                ", between_area=" + between_area +
+                ", after_area=" + after_area +
+                ", management_house_area=" + management_house_area +
+                ", field_house_area=" + field_house_area +
+                ", no_sign_reason='" + no_sign_reason + '\'' +
+                ", audit_date='" + audit_date + '\'' +
+                ", audit_user='" + audit_user + '\'' +
+                ", remarks='" + remarks + '\'' +
+                ", created_by='" + created_by + '\'' +
+                ", created_at=" + created_at +
+                ", archives_cabinet_number='" + archives_cabinet_number + '\'' +
+                ", archive_date='" + archive_date + '\'' +
+                ", rowIndex=" + rowIndex +
+                ", other_file_name='" + other_file_name + '\'' +
+                ", other_file_path='" + other_file_path + '\'' +
+                '}';
+    }
 
     public int getId() {
         return id;
@@ -284,6 +380,14 @@ public class PrjPreallocation {
 
     public void setNo_card_homestead_area(Double no_card_homestead_area) {
         this.no_card_homestead_area = no_card_homestead_area;
+    }
+
+    public Double getManagement_homestead_area() {
+        return management_homestead_area;
+    }
+
+    public void setManagement_homestead_area(Double management_homestead_area) {
+        this.management_homestead_area = management_homestead_area;
     }
 
     public Integer getHouse_register_num() {
@@ -414,6 +518,22 @@ public class PrjPreallocation {
         this.money_rsqyjf = money_rsqyjf;
     }
 
+    public BigDecimal getTotal_yjf() {
+        return total_yjf;
+    }
+
+    public void setTotal_yjf(BigDecimal total_yjf) {
+        this.total_yjf = total_yjf;
+    }
+
+    public BigDecimal getMoney_qt() {
+        return money_qt;
+    }
+
+    public void setMoney_qt(BigDecimal money_qt) {
+        this.money_qt = money_qt;
+    }
+
     public BigDecimal getSubsidy_relocate() {
         return subsidy_relocate;
     }
@@ -430,11 +550,11 @@ public class PrjPreallocation {
         this.total_compensation = total_compensation;
     }
 
-    public Date getIn_host_date() {
+    public String getIn_host_date() {
         return in_host_date;
     }
 
-    public void setIn_host_date(Date in_host_date) {
+    public void setIn_host_date(String in_host_date) {
         this.in_host_date = in_host_date;
     }
 
@@ -542,27 +662,35 @@ public class PrjPreallocation {
         this.signed_code = signed_code;
     }
 
-    public Date getSigned_date() {
+    public String getSigned_date() {
         return signed_date;
     }
 
-    public void setSigned_date(Date signed_date) {
+    public void setSigned_date(String signed_date) {
         this.signed_date = signed_date;
     }
 
-    public Date getHandover_house_date() {
+    public String getMoney_date() {
+        return money_date;
+    }
+
+    public void setMoney_date(String money_date) {
+        this.money_date = money_date;
+    }
+
+    public String getHandover_house_date() {
         return handover_house_date;
     }
 
-    public void setHandover_house_date(Date handover_house_date) {
+    public void setHandover_house_date(String handover_house_date) {
         this.handover_house_date = handover_house_date;
     }
 
-    public Date getHandover_end_date() {
+    public String getHandover_end_date() {
         return handover_end_date;
     }
 
-    public void setHandover_end_date(Date handover_end_date) {
+    public void setHandover_end_date(String handover_end_date) {
         this.handover_end_date = handover_end_date;
     }
 
@@ -726,11 +854,11 @@ public class PrjPreallocation {
         this.first_calculate_sub = first_calculate_sub;
     }
 
-    public Date getChoose_room_date() {
+    public String getChoose_room_date() {
         return choose_room_date;
     }
 
-    public void setChoose_room_date(Date choose_room_date) {
+    public void setChoose_room_date(String choose_room_date) {
         this.choose_room_date = choose_room_date;
     }
 
@@ -862,12 +990,28 @@ public class PrjPreallocation {
         this.appraise_compensation = appraise_compensation;
     }
 
-    public Date getDemolished_date() {
+    public BigDecimal getAppraise_money() {
+        return appraise_money;
+    }
+
+    public void setAppraise_money(BigDecimal appraise_money) {
+        this.appraise_money = appraise_money;
+    }
+
+    public String getDemolished_date() {
         return demolished_date;
     }
 
-    public void setDemolished_date(Date demolished_date) {
+    public void setDemolished_date(String demolished_date) {
         this.demolished_date = demolished_date;
+    }
+
+    public String getRelocate_date() {
+        return relocate_date;
+    }
+
+    public void setRelocate_date(String relocate_date) {
+        this.relocate_date = relocate_date;
     }
 
     public Double getBefore_demolished_area() {
@@ -934,11 +1078,11 @@ public class PrjPreallocation {
         this.no_sign_reason = no_sign_reason;
     }
 
-    public Date getAudit_date() {
+    public String getAudit_date() {
         return audit_date;
     }
 
-    public void setAudit_date(Date audit_date) {
+    public void setAudit_date(String audit_date) {
         this.audit_date = audit_date;
     }
 
@@ -982,11 +1126,11 @@ public class PrjPreallocation {
         this.archives_cabinet_number = archives_cabinet_number;
     }
 
-    public Date getArchive_date() {
+    public String getArchive_date() {
         return archive_date;
     }
 
-    public void setArchive_date(Date archive_date) {
+    public void setArchive_date(String archive_date) {
         this.archive_date = archive_date;
     }
 
@@ -1012,53 +1156,5 @@ public class PrjPreallocation {
 
     public void setOther_file_path(String other_file_path) {
         this.other_file_path = other_file_path;
-    }
-
-    public Double getManagement_homestead_area() {
-        return management_homestead_area;
-    }
-
-    public void setManagement_homestead_area(Double management_homestead_area) {
-        this.management_homestead_area = management_homestead_area;
-    }
-
-    public BigDecimal getMoney_qt() {
-        return money_qt;
-    }
-
-    public void setMoney_qt(BigDecimal money_qt) {
-        this.money_qt = money_qt;
-    }
-
-    public Date getRelocate_date() {
-        return relocate_date;
-    }
-
-    public void setRelocate_date(Date relocate_date) {
-        this.relocate_date = relocate_date;
-    }
-
-    public Date getMoney_date() {
-        return money_date;
-    }
-
-    public void setMoney_date(Date money_date) {
-        this.money_date = money_date;
-    }
-
-    public BigDecimal getTotal_yjf() {
-        return total_yjf;
-    }
-
-    public void setTotal_yjf(BigDecimal total_yjf) {
-        this.total_yjf = total_yjf;
-    }
-
-    public BigDecimal getAppraise_money() {
-        return appraise_money;
-    }
-
-    public void setAppraise_money(BigDecimal appraise_money) {
-        this.appraise_money = appraise_money;
     }
 }

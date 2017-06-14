@@ -1,17 +1,12 @@
-<%--@elvariable id="site_name" type="java.lang.String"--%>
-<%--@elvariable id="_csrf" type="org.springframework.security.web.csrf.CsrfToken"--%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@ include file="../common/taglib.jsp" %>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>${site_name} 整体进度图</title>
+    <title>${webTitle}-整体进度图</title>
     <link rel="stylesheet" href="<c:url value="/assets/highcharts/css/highcharts.css"/>"/>
-
-
     <%@ include file="../common/header.jsp" %>
-
 </head>
 
 <body class="no-skin">

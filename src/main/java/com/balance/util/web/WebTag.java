@@ -218,4 +218,18 @@ public class WebTag {
         sb.append("</select>");
         return sb.toString();
     }
+
+    /**
+     * 根据类型查询图标标题
+     *
+     * @param type
+     * @return
+     */
+    public static String getChartTitleByType(int type) {
+        String content = "";
+        if (type == 1) return "户数";
+        else if (type == 2) return "占地面积";
+        else if (type == 3) return "建筑面积";
+        else return "户数";
+    }
 }

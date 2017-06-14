@@ -9,6 +9,7 @@ import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.number.NumberUtil;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.ChartsUtil;
+import com.balance.util.web.WebTag;
 import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,25 +57,61 @@ public class PrjChartsController {
         return mv;
     }
 
+    /**
+     * 整体进度图
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("/entireIndex")
+    public ModelAndView entireIndex(HttpServletRequest request, HttpServletResponse response, Integer type) {
+        ModelAndView mv = new ModelAndView();
+        if (type == null) type = 1;//默认按户数
+        mv.addObject("type", type);
+        mv.addObject("typeName", WebTag.getChartTitleByType(type));
+        mv.setViewName("/prj/entireCharts");
+        return mv;
+    }
+
+    /**
+     * 生成整体进度图的json
+     *
+     * @param request
+     * @param response
+     * @param type
+     */
+    @RequestMapping("/getEntire")
+    public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, Integer type) {
+        if (type == null) type = 1;//默认按户数
+        int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();//项目id
+        String json = prjChartsService.createEntireJson(project_id, type);
+        WebUtil.out(response, json);
+    }
+
+    /**
+     * 分组进度图
+     */
     @RequestMapping("/groupIndex")
     public ModelAndView groupIndex(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         ModelAndView mv = new ModelAndView();
-
+        if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);
         List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
-
-        mv.addObject("townList",townList);
+        mv.addObject("townList", townList);
+        mv.addObject("type", prjChartsSearchVO.getType());//类型
+        mv.addObject("typeName", WebTag.getChartTitleByType(prjChartsSearchVO.getType()));//类型名称
         mv.setViewName("/prj/groupChartIndex");
         return mv;
     }
 
     @RequestMapping("/getGroup")
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
-
+        if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
         prjChartsSearchVO.setPrj_base_info_id(project_id);
         List<PrjChart> list = new ArrayList<>();
-        int total_homes = prjChartsService.getTotalHomes(prjChartsSearchVO);
-        int over_homes = 0;
+        float total_homes = prjChartsService.getTotalHomes(prjChartsSearchVO);
+        float over_homes = 0;
 
         ChartsDataVO vo = new ChartsDataVO();
         String title1 = "";
@@ -103,10 +140,10 @@ public class PrjChartsController {
             }
         }
         vo.setBarTitle1("当日" + title1);//
-        vo.setBarTitle2("累计"  + title1);//
+        vo.setBarTitle2("累计" + title1);//
 
-        int[] today_int = new int[list.size()];
-        int[] total_int = new int[list.size()];
+        float[] today_int = new float[list.size()];
+        float[] total_int = new float[list.size()];
         String[] groups = new String[list.size()];
 
         for (int i = 0; i < list.size(); i++) {
@@ -121,13 +158,13 @@ public class PrjChartsController {
         vo.setBarCategories(groups);//整体分组
         vo.setGuageTitle(title1 + "累计完成度");//仪表盘标题
 
-        if(over_homes == 0){
+        if (over_homes == 0) {
             vo.setGuageData(0);
-        }else{
+        } else {
             vo.setGuageData(NumberUtil.formatFloat((float) over_homes * 100 / total_homes));//仪表单数据
         }
+        vo.setType(prjChartsSearchVO.getType());//类型
         String json = ChartsUtil.createChartsJson(vo, total_homes);
-        System.out.println(json);
         WebUtil.out(response, json);
     }
 

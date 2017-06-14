@@ -280,7 +280,7 @@
                     <archive>
                         <addMavenDescriptor>false</addMavenDescriptor>
                     </archive>
-                    <warName>ua</warName>
+                    <warName>rcfs</warName>
                     <webResources>
                         <resource>
                             <directory>profiles/${package.environment}</directory>

@@ -114,7 +114,7 @@
                 },
                 {
                     data: "cog_land_area",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }

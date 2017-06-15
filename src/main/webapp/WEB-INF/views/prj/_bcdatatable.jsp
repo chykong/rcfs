@@ -108,28 +108,28 @@
                 },
                 {
                     data: "appraise_money",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "appraise_compensation",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "subsidy_relocate",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "total_compensation",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }

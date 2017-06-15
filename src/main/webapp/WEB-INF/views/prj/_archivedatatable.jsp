@@ -119,35 +119,35 @@
                 },
                 {
                     data: "cog_land_area",
-                    width: "80px",
+                    width: "80px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "before_area",
-                    width: "80px",
+                    width: "80px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "between_area",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "after_area",
-                    width: "80px",
+                    width: "80px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "total_compensation",
-                    width: "90px",
+                    width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }

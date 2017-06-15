@@ -69,7 +69,7 @@
                         town: $("#town").val(),
                         village: $("#village").val(),
                         status: $("#status").val(),
-                        page: parseInt(data.start/data.length) + 1,
+                        page: parseInt(data.start / data.length) + 1,
                         size: data.length
                     },
                     cache: false,  //禁用缓存
@@ -89,7 +89,7 @@
                     render: function (data) {
                         return data || "";
                     }
-                },{
+                }, {
                     data: "map_id",
                     width: "80px",
                     render: function (data) {
@@ -101,7 +101,7 @@
                     width: "80px",
                     render: function (data, type, row) {
                         return '<a \
-                            href="<c:url value="/prj/preallocation/basic/view.htm"/>?id=' + row.id + '">'+ data+ '</a>';
+                            href="<c:url value="/prj/preallocation/basic/view.htm"/>?id=' + row.id + '">' + data + '</a>';
                     }
                 },
                 {
@@ -114,6 +114,7 @@
                 {
                     data: "cog_land_area",
                     width: "80px",
+                    sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
@@ -121,27 +122,28 @@
                 {
                     data: "total_homestead_area",
                     width: "80px",
+                    sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "before_area",
-                    width: "80px",
+                    width: "80px", sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "between_area",
-                    width: "90px",
+                    width: "90px", sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
                 {
                     data: "after_area",
-                    width: "80px",
+                    width: "80px", sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
@@ -175,9 +177,9 @@
                 {
                     data: "id",
                     width: "80px",
-                    render: function (data,type,row) {
+                    render: function (data, type, row) {
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
-                                return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
+                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         } else {
                             return '';
@@ -187,14 +189,14 @@
             ],
             fixedColumns: {
                 leftColumns: 2,
-                rightColumns:0
+                rightColumns: 0
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
             },
-            fnDrawCallback : function(){
-                this.api().column(0).nodes().each(function(cell, i) {
-                    cell.innerHTML =  i + 1;
+            fnDrawCallback: function () {
+                this.api().column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
                 });
             },
             footerCallback: function (tfoot, data) {
@@ -202,8 +204,8 @@
                 var intVal = function (i) {
                     return typeof i === 'string' ? i.replace(/[$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
                 };
-                $.each($("#table-foot").find("th"),function(i,item){
-                    if($(item).hasClass("isSum")){
+                $.each($("#table-foot").find("th"), function (i, item) {
+                    if ($(item).hasClass("isSum")) {
                         var pageTotal = api.column(i, {page: 'current'}).data().reduce(function (a, b) {
                             return intVal(a) + intVal(b);
                         }, 0);

@@ -202,7 +202,7 @@
             var inhost_Chart2 = echarts.init(document.getElementById('right_inhost'), 'shine');
             var inhost_option = {
                 title: {
-                    text: '入户各组进组统计'
+                    text: '入户进度'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -233,7 +233,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}',
+                        name: '${typeName}${typeUnit}',
                         nameLocation: 'end'
                     }
                 ],
@@ -262,7 +262,7 @@
 
             var inhost_option2 = {
                 title: {
-                    text: '入户累计完成度'
+                    text: '入户累计完成'
                 },
                 tooltip: {
                     formatter: "{a} <br/>{b} 完成率: {c}%"
@@ -295,7 +295,7 @@
             var sign_Chart2 = echarts.init(document.getElementById('right_sign'), 'shine');
             var sign_option = {
                 title: {
-                    text: '签约各组进组统计'
+                    text: '签约进度'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -326,7 +326,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}',
+                        name: '${typeName}${typeUnit}',
                         nameLocation: 'end'
                     }
                 ],
@@ -353,7 +353,7 @@
 
             var sign_option2 = {
                 title: {
-                    text: '签约累计完成度'
+                    text: '签约累计完成'
                 },
                 tooltip: {
                     formatter: "{a} <br/>{b} 完成率: {c}%"
@@ -385,7 +385,7 @@
             var handover_Chart2 = echarts.init(document.getElementById('right_handover'), 'shine');
             var handover_option = {
                 title: {
-                    text: '交房各组进组统计'
+                    text: '交房进度'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -416,7 +416,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}',
+                        name: '${typeName}${typeUnit}',
                         nameLocation: 'end'
                     }
                 ],
@@ -443,7 +443,7 @@
 
             var handover_option2 = {
                 title: {
-                    text: '交房累计完成度'
+                    text: '交房累计完成'
                 },
                 tooltip: {
                     formatter: "{a} <br/>{b} 完成率: {c}%"
@@ -475,7 +475,7 @@
             var money_Chart2 = echarts.init(document.getElementById('right_money'), 'shine');
             var money_option = {
                 title: {
-                    text: '放款各组进组统计'
+                    text: '放款进度'
                 },
                 tooltip: {
                     trigger: 'axis',
@@ -506,7 +506,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}',
+                        name: '${typeName}${typeUnit}',
                         nameLocation: 'end'
                     }
                 ],
@@ -533,7 +533,7 @@
 
             var money_option2 = {
                 title: {
-                    text: '放款累计完成度'
+                    text: '放款累计完成'
                 },
                 tooltip: {
                     formatter: "{a} <br/>{b} 完成率: {c}%"

@@ -100,6 +100,7 @@ public class PrjChartsController {
         mv.addObject("townList", townList);
         mv.addObject("type", prjChartsSearchVO.getType());//类型
         mv.addObject("typeName", WebTag.getChartTitleByType(prjChartsSearchVO.getType()));//类型名称
+        mv.addObject("typeUnit", prjChartsSearchVO.getType() == 1 ? "" : "（ m²）");
         mv.setViewName("/prj/groupChartIndex");
         return mv;
     }

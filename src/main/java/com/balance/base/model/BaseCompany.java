@@ -79,4 +79,11 @@ public class BaseCompany {
 		this.prj_base_info_id = prj_base_info_id;
 	}
 
+	@Override
+	public String toString() {
+		return "BaseCompany [id=" + id + ", name=" + name + ", type=" + type + ", last_modified_at=" + last_modified_at
+				+ ", last_modified_by=" + last_modified_by + ", created_at=" + created_at + ", created_by=" + created_by
+				+ ", prj_base_info_id=" + prj_base_info_id + "]";
+	}
+
 }

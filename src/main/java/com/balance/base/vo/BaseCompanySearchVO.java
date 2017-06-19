@@ -17,6 +17,11 @@ public class BaseCompanySearchVO extends PageSearchVO {
 	public void setPrj_base_info_id(Integer prj_base_info_id) {
 		this.prj_base_info_id = prj_base_info_id;
 	}
+
+	@Override
+	public String toString() {
+		return "BaseCompanySearchVO [prj_base_info_id=" + prj_base_info_id + "]";
+	}
 	
 
 }

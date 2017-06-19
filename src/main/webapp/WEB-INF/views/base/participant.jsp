@@ -95,12 +95,12 @@
 									<c:forEach items="${list }" var="participant" varStatus="st">
 										<tr>
 										    <td>${st.index+1 }</td>
-											<td>${participant.project_duty }</td>
+											<td>${participant.duty }</td>
 											<td>${participant.name }</td>
 											<td>${participant.mobile }</td>
 											<td>${participant.groups }</td>
 											<td>${participant.company }</td>
-											<td>${participant.duty }</td>
+											<td>${participant.project_duty}</td>
 											<td>${participant.created_by}</td>
 											<td>${participant.release_date }</td>
 											<td><c:if test="${bln:isP('BaseParticipantUpdate')}">

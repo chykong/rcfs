@@ -39,7 +39,7 @@ public class BaseCompanyController extends BaseController {
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, HttpServletResponse response, BaseCompanySearchVO baseCompanySearchVO) {
         ModelAndView mv = new ModelAndView();
-
+        baseCompanySearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id()); 
         int recordCount = baseCompanyService.listCount(baseCompanySearchVO);// 获取查询总数
         String url = createUrl(baseCompanySearchVO);
         PageNavigate pageNavigate = new PageNavigate(url, baseCompanySearchVO.getPageIndex(), baseCompanySearchVO.getPageSize(), recordCount);//定义分页对象
@@ -93,6 +93,7 @@ public class BaseCompanyController extends BaseController {
     @RequestMapping("/add")
     public String add(HttpServletRequest request, HttpServletResponse response, BaseCompany baseCompany) {
         baseCompany.setCreated_by(SessionUtil.getUserSession(request).getRealname());
+        baseCompany.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         int flag = baseCompanyService.add(baseCompany);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("公司新增失败");

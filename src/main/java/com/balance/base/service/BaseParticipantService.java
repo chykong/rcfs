@@ -112,12 +112,12 @@ public class BaseParticipantService {
         List<BaseParticipant> listTrans = new ArrayList<>();
         for (String[] str : list) {
             BaseParticipant baseParticipant = new BaseParticipant();
-            baseParticipant.setProject_duty(str[1]);// 工作职能
+            baseParticipant.setDuty(str[1]);// 工作职能
             baseParticipant.setName(str[2]);// 姓名
             baseParticipant.setMobile(str[3]);// 手机
             baseParticipant.setGroups(str[4]);// 组别
-            baseParticipant.setDuty(str[5]);// 职务
-            baseParticipant.setCompany(str[6]);// 公司名称
+            baseParticipant.setCompany(str[5]);// 公司名称
+            baseParticipant.setProject_duty(str[6]);// 工作职责
             listTrans.add(baseParticipant);
         }
         return listTrans;

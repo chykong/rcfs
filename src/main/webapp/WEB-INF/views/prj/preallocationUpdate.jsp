@@ -249,7 +249,7 @@
             return false;
         });
         $("#fileDiv").on("click", "#delFile", function () {
-            bootbox.confirm('你确定要删除该图片吗(<b style="color: red">删除以后将会彻底删除图片文件</b>)？', function (result) {
+            bootbox.confirm('你确定要删除该文件吗(<b style="color: red">删除以后将会彻底删除文件文件</b>)？', function (result) {
                 if (result) {
                     $.ajax({
                         url: '<c:url value="/common/delFile.htm"/>',

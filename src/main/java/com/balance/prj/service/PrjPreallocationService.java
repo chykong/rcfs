@@ -69,7 +69,6 @@ public class PrjPreallocationService {
             }
         } else {
             if (type == 1) {
-                preallocation.setStatus(20);
                 flag = prjPreallocationDao.add(preallocation);
             } else {
                 preallocationsImportDTO.setReason("编号不存在，请先完善基本情况");
@@ -129,8 +128,8 @@ public class PrjPreallocationService {
         return prjPreallocationDao.updateToUnaudited(id);
     }
 
-    public int updateArchive(String map_id, String host_name, String archives_code, int status) {
-        return prjPreallocationDao.updateArchive(map_id, host_name, archives_code, status);
+    public int updateArchive(String map_id, String host_name, String archives_code,int project_id, int status,String file_path,String file_name) {
+        return prjPreallocationDao.updateArchive(map_id, host_name, archives_code,project_id, status,file_path,file_name);
     }
 
     public List<ComboboxVO> getTown(int prj_base_info_id){

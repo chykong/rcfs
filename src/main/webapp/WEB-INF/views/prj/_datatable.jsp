@@ -156,7 +156,7 @@
                             case 0:
                                 return '<span class="label label-default ">未入户</span>';
                             case 10:
-                                return '<span class="label label-default ">未入户未签约</span>';
+                                return '<span class="label label-default ">已入户未签约</span>';
                             case 20:
                                 return '<span class="label label-warning ">已签约</span>';
                             case 30:

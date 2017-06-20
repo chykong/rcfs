@@ -155,7 +155,7 @@
                                                     </c:if>
                                                     <c:if test="${bln:isP('PrjPreallocationImport')}">
                                                         <a href="#import-modal" class="btn btn-success btn-sm" data-toggle="modal">
-                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
+                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入补偿信息
                                                         </a>
                                                     </c:if>
 
@@ -283,6 +283,7 @@
 
 <javascripts>
     <%@ include file="../common/js.jsp" %>
+    <script src="<c:url value="/assets/js/jquery.form.js"/>"></script>
     <script src="<c:url value="/assets/datatables/js/jquery.dataTables.js"/>"></script>
     <script src="<c:url value="/assets/datatables/js/dataTables.bootstrap.min.js"/>"></script>
     <script src="<c:url value="/assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.js"/>"></script>
@@ -389,18 +390,18 @@
                 $preallocations_upload_form.ajaxSubmit({
                     type: 'post', // 提交方式 get/post
                     url: $preallocations_upload_form.attr('action'),
-                    dataType: 'json',
                     success: function (result) {
+                        var json = eval('('+result + ')');
                         $preallocations_import_input.ace_file_input('loading', false);
                         var msg = '';
-                        if (result && result.success && result.data) {
+                        if (json.success) {
                             $("#import-modal").modal("hide");  //关闭上传窗口
                             $preallocations_import_input.ace_file_input('reset_input');
 
-                            if (!result.data.length) {
-                                msg = result.message;
+                            if (!json.data || !json.data.length) {
+                                msg = json.msgText;
                             } else {
-                                $.each(result.data, function (i, item) {
+                                $.each(json.data, function (i, item) {
                                     var index = parseInt(item.rowIndex);
                                     msg += '第' + index + '行,' + item.reason + '<br/>';
                                 });

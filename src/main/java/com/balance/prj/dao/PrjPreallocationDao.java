@@ -24,7 +24,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         String sql = "select plc.* from t_prj_preallocation plc";
         sql += createSearchSql(prjPreallocationSearchVO);
-        sql += " order by status,plc.id desc";
+        sql += " order by plc.id asc,status";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
@@ -263,9 +263,9 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return sql;
     }
 
-    public int updateArchive(String map_id, String host_name, String archives_code, int status) {
-        String sql = "UPDATE t_prj_preallocation SET archives_cabinet_number=?,status=?,archive_date=now() WHERE map_id=? AND host_name=?";
-        return jdbcTemplate.update(sql, archives_code, status, map_id, host_name);
+    public int updateArchive(String map_id, String host_name, String archives_code, int project_id, int status, String file_path, String file_name) {
+        String sql = "UPDATE t_prj_preallocation SET archives_cabinet_number=?,status=?,archive_date=now(),archive_file_path=?,archive_file_name=? WHERE map_id=? AND host_name=? AND prj_base_info_id=?";
+        return jdbcTemplate.update(sql, archives_code, status, file_path, file_name, map_id, host_name, project_id);
     }
 
     public List<ComboboxVO> getTown(int prj_base_info_id) {

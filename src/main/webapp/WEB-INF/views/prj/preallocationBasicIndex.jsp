@@ -394,7 +394,6 @@
                         var json = eval('('+result + ')');
                         $preallocations_import_input.ace_file_input('loading', false);
                         var msg = '';
-                        console.log(json.success)
                         if (json.success) {
                             $("#import-modal").modal("hide");  //关闭上传窗口
                             $preallocations_import_input.ace_file_input('reset_input');
@@ -422,6 +421,7 @@
             });
             $("#result-btn").on('click', function () {
                 $("#import-result-modal").modal("hide");
+                $("#btn-search").click();
 //                $("#preallocationsSearchDTO").submit();
             })
 

@@ -129,9 +129,12 @@ public class PrjPreallocation {
     private Integer rowIndex;  //导入时  行号
 
 
-    private String other_file_name;  //文件名
+    private String other_file_name;  //基本情况文件名
 
-    private String other_file_path;  //文件路径
+    private String other_file_path;  //基本情况文件路径
+
+    private String archive_file_name;  //归档文件名
+    private String archive_file_path;  //归档路径
 
 //    private List<PreallocationRelation> relations;  //户籍关系
 
@@ -252,6 +255,22 @@ public class PrjPreallocation {
                 ", other_file_name='" + other_file_name + '\'' +
                 ", other_file_path='" + other_file_path + '\'' +
                 '}';
+    }
+
+    public String getArchive_file_name() {
+        return archive_file_name;
+    }
+
+    public void setArchive_file_name(String archive_file_name) {
+        this.archive_file_name = archive_file_name;
+    }
+
+    public String getArchive_file_path() {
+        return archive_file_path;
+    }
+
+    public void setArchive_file_path(String archive_file_path) {
+        this.archive_file_path = archive_file_path;
     }
 
     public int getId() {

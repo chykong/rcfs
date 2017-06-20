@@ -21,6 +21,8 @@
                     <li class="active">系统管理</li>
                     <li class="active">公司管理</li>
                 </ul>
+                <%@ include file="../common/navigate.jsp"%>
+
                 <!-- /.breadcrumb -->
             </div>
 

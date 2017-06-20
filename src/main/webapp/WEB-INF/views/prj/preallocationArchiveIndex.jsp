@@ -181,10 +181,12 @@
                 <div class="widget-box" style="border: none">
                     <div class="widget-body">
                         <div class="widget-main">
-                            <form action="<c:url value="/prj/preallocation/archive/updateArchive.htm"/>"
+                            <form action="<c:url value="/prj/preallocation/archive/updateArchive.htm"/>" enctype="multipart/form-data"
                                   class="form-horizontal" method="post" id="archive-form">
                                 <input id="archive_map_id" name="map_id" type="hidden" value="" />
                                 <input id="archive_host_name" name="host_name" type="hidden" value="" />
+                                <input id="archive_file_path" name="file_path" type="hidden" value="" />
+                                <input id="archive_file_name" name="file_name" type="hidden" value="" />
                                 <input id="backUrl" name="backUrl" type="hidden" value="${backUrl}" />
                                 <div class="row">
                                     <div class="col-xs-12" id="result-text">
@@ -197,6 +199,13 @@
                                                        placeholder="请输入档案柜号..." maxlength="40"/>
                                                 <label id="archive_codeTip"></label>
                                             </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-xs-12">
+                                                <input name="file" type="file" id="material-input"
+                                                       accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-xs-12" align="center">
@@ -282,6 +291,27 @@
                     }
                 });
             });
+            $('#material-input').ace_file_input({
+                style: 'well',
+                btn_choose: '点击选择word文件',
+                btn_change: null,
+                no_icon: 'ace-icon fa fa-folder-open-o',
+                droppable: false,
+                thumbnail: 'large',
+                maxSize: 1024 * 1024 * 10,
+                before_remove: function () {
+                    return true;
+                }
+            }).on('change', function () {
+                var $material_input = $('#material-input');
+                if ($material_input.val() == '') {
+                    $material_input.ace_file_input('reset_input');
+                }
+            }).on('file.error.ace', function (ev, info) {
+                if (info.error_count['size'])
+                    $.notify({message: "文件大小不超过10M!!", z_index: 1051});
+            });
+
             $("#archive-form").validate({
 //            debug : true,
                 errorElement: "label",

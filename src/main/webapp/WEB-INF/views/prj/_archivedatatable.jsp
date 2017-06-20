@@ -14,6 +14,7 @@
         <th>09年后面积</th>
         <th>总补偿款</th>
         <th>档案柜号</th>
+        <th>档案文件</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -32,17 +33,31 @@
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     </tfoot>
 </table>
 
 <script>
-    function archive(id,map_id,host_name){
+    function archive(id,map_id,host_name,archive_code,archive_file_name,archive_file_path){
         var text = "编号:" + map_id + ", 被拆除腾退人：" + host_name + "";
         $("#title").html(text);
         $("#archive_map_id").val(map_id);
         $("#archive_host_name").val(host_name);
-        $("#archive-modal").modal('show');
+        if(archive_code != 'null'){
+            $("#archive_code").val(archive_code);
+        }
+
+        if(archive_file_name != 'null' && archive_file_path != '') {
+            $("#archive_file_name").val(archive_file_name);
+            $("#archive_file_path").val(archive_file_path);
+            $('#material-input').ace_file_input('show_file_list', [
+                //{type: 'image', name: 'name of image', path: 'http://path/to/image/for/preview'},
+                {type: 'file', name: archive_file_name}
+            ]);
+        }
+
+            $("#archive-modal").modal('show');
     }
     $(function () {
         var $table_id = $("#basic-table");
@@ -147,7 +162,7 @@
                 },
                 {
                     data: "total_compensation",
-                    width: "90px",sClass: "text-right",
+                    width: "120px",sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
@@ -157,6 +172,18 @@
                     width: "90px",
                     render: function (data) {
                         return data || "";
+                    }
+                },
+                {
+                    data: "archive_file_name",
+                    width: "150px",
+                    render: function (data,type,row) {
+                        console.log(typeof(data))
+                        if(typeof(data) =='object'){
+                            return "";
+                        }else{
+                            return '<a href="${pageContext.request.contextPath}/upload' + row.archive_file_path + '" target="blank">' + data +'</a>';
+                        }
                     }
                 },
                 {
@@ -189,8 +216,9 @@
                     data: "id",
                     width: "80px",
                     render: function (data,type,row) {
-                        if (row.status != 70 && ${bln:isP('PrjPreallocationArchive')}) {
-                            return '<a class="btn-sm btn-info" href="javascript:archive(\''+ data +'\',\'' + row.map_id +'\',\''+ row.host_name +'\')">\
+                        if (${bln:isP('PrjPreallocationArchive')}) {
+                            return '<a class="btn-sm btn-info" href="javascript:archive(\''+ data +'\',\'' + row.map_id +'\',\''+ row.host_name
+                                +'\',\''+ row.archives_cabinet_number +'\',\''+ row.archive_file_name +'\',\''+ row.archive_file_path +'\')">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>归档</a>';
                         } else {
                             return '';

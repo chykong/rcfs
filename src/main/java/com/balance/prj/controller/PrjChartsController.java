@@ -85,7 +85,7 @@ public class PrjChartsController {
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, Integer type) {
         if (type == null) type = 1;//默认按户数
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();//项目id
-        String json = prjChartsService.createEntireJson(project_id, type);
+        String json = prjChartsService.createEntireJson(project_id, SessionUtil.getUserSession(request).getCurrent_land_name(), type);
         WebUtil.out(response, json);
     }
 

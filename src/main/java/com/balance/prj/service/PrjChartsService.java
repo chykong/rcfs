@@ -93,9 +93,10 @@ public class PrjChartsService {
      * 生成的json包括两部分，一部分是日期数组，一部分是数据list
      *
      * @param type
+     * @param land_property 土地使用属性
      * @return
      */
-    public String createEntireJson(int prj_base_info_id, int type) {
+    public String createEntireJson(int prj_base_info_id, String land_property, int type) {
         String s_date = DateUtil.getOpeDate(DateUtil.getSystemDate(), -29);//定义开始时间
         String e_date = DateUtil.getSystemDate();//定义结束时间
         String[] dates = new String[30];//定义30天的时间段
@@ -103,16 +104,16 @@ public class PrjChartsService {
             dates[i] = DateUtil.getOpeDate(s_date, i);
         }
         //计算入户
-        List<EntireStatVO> listIn_host = prjChartsDao.listEntireByType(prj_base_info_id, s_date, e_date, type, 1);
-        float existIn_host = prjChartsDao.getExist(prj_base_info_id, s_date, type, 1);
+        List<EntireStatVO> listIn_host = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 1);
+        float existIn_host = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 1);
         float[] in_host = createDataArr(dates, listIn_host, existIn_host);//计算入户数
         //计算签约
-        List<EntireStatVO> listSigned = prjChartsDao.listEntireByType(prj_base_info_id, s_date, e_date, type, 2);
-        float existSigned = prjChartsDao.getExist(prj_base_info_id, s_date, type, 2);
+        List<EntireStatVO> listSigned = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 2);
+        float existSigned = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 2);
         float[] signed = createDataArr(dates, listSigned, existSigned);//计算签约数
         //计算交房
-        List<EntireStatVO> listHand = prjChartsDao.listEntireByType(prj_base_info_id, s_date, e_date, type, 3);
-        float existHand = prjChartsDao.getExist(prj_base_info_id, s_date, type, 3);
+        List<EntireStatVO> listHand = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 3);
+        float existHand = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 3);
         float[] hand = createDataArr(dates, listHand, existHand);//计算交房数
 
         StringBuilder sb = new StringBuilder();

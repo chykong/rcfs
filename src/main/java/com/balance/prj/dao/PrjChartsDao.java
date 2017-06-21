@@ -177,25 +177,26 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
      *
      * @return
      */
-    public List<EntireStatVO> listEntireByType(int prj_base_info_id, String s_date, String e_date, int type, int search_type) {
+    public List<EntireStatVO> listEntireByType(int prj_base_info_id, String land_property, String s_date, String e_date, int type, int search_type) {
         String field = getStatField(search_type);//获取查询字段
         String sql = "select " + field + " date,ifnull(" + getSearchByType(type) + ",0) data " +
-                "from t_prj_preallocation where prj_base_info_id=? and " + field + ">=? and " + field + "<=? and "
+                "from t_prj_preallocation where  prj_base_info_id=? and land_property=?  and " + field + ">=? and " + field + "<=? and "
                 + field + " is not null and " + field + " !=''" +
                 " group by " + field + " order by " + field + "";
-        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, s_date, e_date}, new BeanPropertyRowMapper<>(EntireStatVO.class));
+        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, land_property, s_date, e_date}, new BeanPropertyRowMapper<>(EntireStatVO.class));
     }
 
     /**
      * 查询在一个月前已完成的拆迁数
      *
+     * @param land_property 土地使用属性
      * @return
      */
-    public float getExist(int prj_base_info_id, String s_date, int type, int search_type) {
+    public float getExist(int prj_base_info_id, String land_property, String s_date, int type, int search_type) {
         String field = getStatField(search_type);//获取查询字段
-        String sql = "select ifnull(" + getSearchByType(type) + ",0) cnt from t_prj_preallocation where prj_base_info_id=? and  "
+        String sql = "select ifnull(" + getSearchByType(type) + ",0) cnt from t_prj_preallocation where prj_base_info_id=? and land_property=? and  "
                 + field + "<?  and " + field + " is not null and " + field + " !=''";
-        return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id, s_date}, Float.class);
+        return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id, land_property, s_date}, Float.class);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.balance.util.string;
 
 import com.balance.prj.vo.ChartsDataVO;
 import com.balance.util.json.JsonUtil;
+import com.balance.util.number.NumberUtil;
 import com.balance.util.web.WebTag;
 
 /**
@@ -43,6 +44,6 @@ public class ChartsUtil {
     private static String formatFloat(float total) {
         if (String.valueOf(total).endsWith(".0")) {
             return String.valueOf((int) total);
-        } else return String.valueOf(total);
+        } else return String.valueOf(NumberUtil.formatNumber(total));
     }
 }

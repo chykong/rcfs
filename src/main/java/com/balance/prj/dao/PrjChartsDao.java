@@ -104,7 +104,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
     }
 
     public float getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "SELECT ifnull(" + getSearchByType(prjChartsSearchVO.getType()) + ",0) FROM t_prj_preallocation WHERE 1=1 ";
+        String sql = "SELECT ifnull(" + getSearchByType(prjChartsSearchVO.getType()) + ",0) FROM t_prj_preallocation WHERE 1=1 and  land_property=:current_land_name ";
         sql += createSql(prjChartsSearchVO);
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().queryForObject(sql, params, Float.class);
@@ -112,7 +112,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  in_host_date is not null  and groups is not null and groups!=''" +
+                "from t_prj_preallocation  where  land_property=:current_land_name and in_host_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where in_host_date= CURDATE() " +
@@ -124,7 +124,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  signed_date is not null  and groups is not null and groups!=''" +
+                "from t_prj_preallocation  where land_property=:current_land_name and signed_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where signed_date= CURDATE() " +
@@ -136,7 +136,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  handover_house_date is not null  and groups is not null and groups!=''" +
+                "from t_prj_preallocation  where land_property=:current_land_name and handover_house_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where handover_house_date= CURDATE() " +
@@ -148,7 +148,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  money_date is not null  and groups is not null and groups!=''" +
+                "from t_prj_preallocation  where land_property=:current_land_name and money_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where money_date= CURDATE() " +

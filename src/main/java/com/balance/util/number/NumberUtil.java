@@ -80,6 +80,19 @@ public class NumberUtil {
         str = nf.format(val);
         return Float.parseFloat(str.replace(",", ""));
     }
+    /**
+     * 格式化两位小数
+     *
+     * @param val
+     * @return
+     */
+    public static float formatFloat(float val,int point) {
+        String str = "";
+        DecimalFormat nf = new DecimalFormat();
+        nf.setMaximumFractionDigits(point);
+        str = nf.format(val);
+        return Float.parseFloat(str.replace(",", ""));
+    }
 
     /**
      * 格式化两位小数
@@ -91,6 +104,19 @@ public class NumberUtil {
         String str = "";
         DecimalFormat nf = new DecimalFormat();
         nf.setMaximumFractionDigits(2);
+        str = nf.format(Float.parseFloat(val));
+        return Float.parseFloat(str.replace(",", ""));
+    }
+    /**
+     * 格式化两位小数
+     *
+     * @param val
+     * @return
+     */
+    public static float formatFloat(String val,int point) {
+        String str = "";
+        DecimalFormat nf = new DecimalFormat();
+        nf.setMaximumFractionDigits(point);
         str = nf.format(Float.parseFloat(val));
         return Float.parseFloat(str.replace(",", ""));
     }
@@ -117,6 +143,18 @@ public class NumberUtil {
      */
     public static String formatAmount(double val) {
         NumberFormat nf = new DecimalFormat("#,###.##");
+        String str = nf.format(val);
+        return str;
+    }
+
+    /**
+     * 格式化数字
+     *
+     * @param val
+     * @return
+     */
+    public static String formatNumber(double val) {
+        NumberFormat nf = new DecimalFormat("#,###.#");
         String str = nf.format(val);
         return str;
     }

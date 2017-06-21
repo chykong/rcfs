@@ -109,6 +109,7 @@ public class PrjChartsController {
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
+        prjChartsSearchVO.setCurrent_land_name(SessionUtil.getUserSession(request).getCurrent_land_name());
         prjChartsSearchVO.setPrj_base_info_id(project_id);
         List<PrjChart> list = new ArrayList<>();
         float total_homes = prjChartsService.getTotalHomes(prjChartsSearchVO);

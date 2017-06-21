@@ -14,6 +14,7 @@ public class PrjChartsSearchVO {
 
     private String search_date_type;  //查询类型
     private Integer type;//1按户数2按占地面积3按建筑面积
+    private String current_land_name;//当前土地性质
 
     @Override
     public String toString() {
@@ -25,7 +26,16 @@ public class PrjChartsSearchVO {
                 ", search_type=" + search_type +
                 ", search_date_type='" + search_date_type + '\'' +
                 ", type=" + type +
+                ", current_land_name='" + current_land_name + '\'' +
                 '}';
+    }
+
+    public String getCurrent_land_name() {
+        return current_land_name;
+    }
+
+    public void setCurrent_land_name(String current_land_name) {
+        this.current_land_name = current_land_name;
     }
 
     public Integer getType() {

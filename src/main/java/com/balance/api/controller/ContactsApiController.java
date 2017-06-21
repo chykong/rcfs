@@ -1,12 +1,15 @@
 package com.balance.api.controller;
 
+import com.balance.api.dto.ContactsDTO;
 import com.balance.api.dto.ContactsGroupsDTO;
+import com.balance.base.model.BaseParticipant;
 import com.balance.base.model.BasePolicy;
 import com.balance.base.service.BaseParticipantService;
 import com.balance.util.page.ListDTO;
 import com.balance.util.session.SessionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
@@ -48,4 +51,31 @@ public class ContactsApiController {
         return dto;
     }
 
+    /**
+     * 根据组名和项目id获取联系人列表
+     *
+     * @return
+     */
+    @RequestMapping("get-contacts")
+    public ListDTO<BasePolicy> getContacts(HttpServletRequest request, Integer projectId, String section) {
+        if (projectId == null) {
+            projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
+        }
+        if (projectId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "项目id是必须的");
+        }
+        List<ContactsDTO> listContacts = baseParticipantService.listBySection(projectId, section);
+        ListDTO dto = new ListDTO();
+        dto.setList(listContacts);
+        dto.setTotal(listContacts.size());
+        return dto;
+    }
+
+    /**
+     * 获取经典案例
+     */
+    @RequestMapping("get/{id}")
+    public BaseParticipant get(@PathVariable int id) {
+        return baseParticipantService.get(id);
+    }
 }

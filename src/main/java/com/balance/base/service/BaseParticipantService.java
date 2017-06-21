@@ -1,5 +1,6 @@
 package com.balance.base.service;
 
+import com.balance.api.dto.ContactsDTO;
 import com.balance.api.dto.ContactsGroupsDTO;
 import com.balance.base.dao.BaseParticipantDao;
 import com.balance.base.model.BaseParticipant;
@@ -130,5 +131,14 @@ public class BaseParticipantService {
      */
     public List<ContactsGroupsDTO> listByGroup(int prj_base_info_id) {
         return baseParticipantDao.listByGroup(prj_base_info_id);
+    }
+
+    /**
+     * 根据组名和项目id获取联系人列表
+     *
+     * @return 列表
+     */
+    public List<ContactsDTO> listBySection(int prj_base_info_id, String section) {
+        return baseParticipantDao.listBySection(prj_base_info_id, section);
     }
 }

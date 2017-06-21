@@ -1,5 +1,7 @@
 package com.balance.base.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -18,9 +20,13 @@ public class BaseParticipant {
 	private String project_duty;// 职责
 	private String release_date;// 发布时间
 	private String groups;// 组别
+	@JsonIgnore
 	private Date last_modified_at; // 最后更改时间
+	@JsonIgnore
 	private String last_modified_by; // 最后更改人
+	@JsonIgnore
 	private Date created_at; // 创建时间
+	@JsonIgnore
 	private String created_by; // 创建人
 	private String note;// 备注
 

@@ -1,5 +1,6 @@
 package com.balance.base.dao;
 
+import com.balance.api.dto.ContactsDTO;
 import com.balance.api.dto.ContactsGroupsDTO;
 import com.balance.base.model.BaseParticipant;
 import com.balance.base.vo.BaseParticipantSearchVO;
@@ -118,13 +119,24 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
 
 
     /**
-     * 全部公司列表
+     *  获取分组详情
      *
      * @return 列表
      */
     public List<ContactsGroupsDTO> listByGroup(int prj_base_info_id) {
         String sql = "select company name,count(*) total from t_base_participant t where prj_base_info_id=? group by company\n" +
-                " order by CONVERT(company USING gbk);  ";
+                " order by CONVERT(company USING gbk) ";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id}, new BeanPropertyRowMapper<>(ContactsGroupsDTO.class));
+    }
+
+    /**
+     * 根据组名和项目id获取联系人列表
+     *
+     * @return 列表
+     */
+    public List<ContactsDTO> listBySection(int prj_base_info_id, String section) {
+        String sql = "select id, name,mobile from t_base_participant t where prj_base_info_id=? and company=?" +
+                " order by CONVERT(name USING gbk)  ";
+        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, section}, new BeanPropertyRowMapper<>(ContactsDTO.class));
     }
 }

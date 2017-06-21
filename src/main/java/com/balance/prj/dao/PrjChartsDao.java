@@ -23,7 +23,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         String sql = "SELECT DATE_FORMAT(in_host_date,'%Y-%m-%d') title," +
                 "(select count(*) from  t_prj_preallocation where in_host_date<DATE_ADD(in_host_date,INTERVAL 1 day)" +
                 createSql(prjChartsSearchVO) +
-                ") countLeftDay FROM t_prj_preallocation where 1=1 and in_host_date is not null " +
+                ") countLeftDay FROM t_prj_preallocation where 1=1 and in_host_date is not null and in_host_date != '' " +
                 createSql(prjChartsSearchVO) +
                 " GROUP BY title";
 
@@ -104,7 +104,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
     }
 
     public float getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "SELECT " + getSearchByType(prjChartsSearchVO.getType()) + " FROM t_prj_preallocation WHERE 1=1 ";
+        String sql = "SELECT ifnull(" + getSearchByType(prjChartsSearchVO.getType()) + ",0) FROM t_prj_preallocation WHERE 1=1 ";
         sql += createSql(prjChartsSearchVO);
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().queryForObject(sql, params, Float.class);
@@ -112,7 +112,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  in_host_date is not null " +
+                "from t_prj_preallocation  where  in_host_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where in_host_date= CURDATE() " +
@@ -124,7 +124,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  signed_date is not null " +
+                "from t_prj_preallocation  where  signed_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where signed_date= CURDATE() " +
@@ -136,7 +136,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  handover_house_date is not null " +
+                "from t_prj_preallocation  where  handover_house_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where handover_house_date= CURDATE() " +
@@ -148,7 +148,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
         String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  money_date is not null " +
+                "from t_prj_preallocation  where  money_date is not null  and groups is not null and groups!=''" +
                 createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
                 "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
                 "from t_prj_preallocation  where money_date= CURDATE() " +
@@ -179,7 +179,9 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
      */
     public List<EntireStatVO> listEntireByType(int prj_base_info_id, String s_date, String e_date, int type, int search_type) {
         String field = getStatField(search_type);//获取查询字段
-        String sql = "select " + field + " date,ifnull(" + getSearchByType(type) + ",0) data from t_prj_preallocation where prj_base_info_id=? and " + field + ">=? and " + field + "<=? and " + field + " is not null" +
+        String sql = "select " + field + " date,ifnull(" + getSearchByType(type) + ",0) data " +
+                "from t_prj_preallocation where prj_base_info_id=? and " + field + ">=? and " + field + "<=? and "
+                + field + " is not null and " + field + " !=''" +
                 " group by " + field + " order by " + field + "";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, s_date, e_date}, new BeanPropertyRowMapper<>(EntireStatVO.class));
     }
@@ -191,7 +193,8 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
      */
     public float getExist(int prj_base_info_id, String s_date, int type, int search_type) {
         String field = getStatField(search_type);//获取查询字段
-        String sql = "select " + getSearchByType(type) + " cnt from t_prj_preallocation where prj_base_info_id=? and  " + field + "<?  and " + field + " is not null";
+        String sql = "select ifnull(" + getSearchByType(type) + ",0) cnt from t_prj_preallocation where prj_base_info_id=? and  "
+                + field + "<?  and " + field + " is not null and " + field + " !=''";
         return jdbcTemplate.queryForObject(sql, new Object[]{prj_base_info_id, s_date}, Float.class);
     }
 

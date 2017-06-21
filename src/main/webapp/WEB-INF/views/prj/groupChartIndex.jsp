@@ -149,8 +149,33 @@
     <script src="<c:url value="/assets/js/bootstrap-datepicker/bootstrap-datepicker.js"/>"></script>
     <script src="<c:url value="/assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"/>"></script>
     <script>
+        var $town = $("#town");
+        var $village = $("#village");
+        function getVillage(){
+            var url = '<c:url value="/prj/preallocation/basic/getVillageByTown.htm"/>';
+            $.ajax({
+                url: url,
+                data: {
+                    town: $town.val()
+                },
+                type: 'post',
+                success: function (result) {
+                    var json = eval('('+result + ')');
+                    $village.empty();
+                    if (json && json.length) {
+                        $village.append('<option value="">--全部--</option>');
+                        $.each(json, function (i, village) {
+                            $village.append('<option value="' + village.value + '">' + village.content + '</option>');
+                        });
+                    }
+                }
+            });
+        }
         $(function () {
             var $town = $("#town");
+            if($town.val() != ''){
+                getVillage();
+            }
             var $village = $("#village");
             $town.on('change', function () {
                 if($(this).val() == ''){
@@ -158,24 +183,8 @@
                     $village.append('<option value="">--请选择镇--</option>');
                     return;
                 }
-                var url = '<c:url value="/prj/preallocation/basic/getVillageByTown.htm"/>';
-                $.ajax({
-                    url: url,
-                    data: {
-                        town: $town.val()
-                    },
-                    type: 'post',
-                    success: function (result) {
-                        var json = eval('('+result + ')');
-                        $village.empty();
-                        if (json && json.length) {
-                            $village.append('<option value="">--全部--</option>');
-                            $.each(json, function (i, village) {
-                                $village.append('<option value="' + village.value + '">' + village.content + '</option>');
-                            });
-                        }
-                    }
-                });
+                getVillage();
+
             });
 
             $("#date").datepicker({

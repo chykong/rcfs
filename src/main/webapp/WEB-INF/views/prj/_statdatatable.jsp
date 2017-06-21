@@ -8,7 +8,7 @@
         <th>编号</th>
         <th>被拆除腾退人</th>
         <th>坐落</th>
-        <th>入户面积</th>
+        <th>总建筑面积</th>
         <th>入户日期</th>
         <th>签约日期</th>
         <th>交房日期</th>
@@ -113,7 +113,7 @@
                     }
                 },
                 {
-                    data: "cog_land_area",
+                    data: "total_homestead_area",
                     width: "90px",sClass: "text-right",
                     render: function (data) {
                         return data || "";

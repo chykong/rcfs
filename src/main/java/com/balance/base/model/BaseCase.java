@@ -1,5 +1,7 @@
 package com.balance.base.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 /**
@@ -10,9 +12,13 @@ public class BaseCase {
     private int id;
     private String title;  //项目名称
     private String content;  //项目介绍
+    @JsonIgnore
     private Date last_modified_at;  //最后更改时间
+    @JsonIgnore
     private String last_modified_by;  //最后更改人
+    @JsonIgnore
     private Date created_at;  //创建时间
+    @JsonIgnore
     private String created_by;  //创建人
 
     @Override

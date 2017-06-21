@@ -66,7 +66,7 @@ public class BaseCaseDao extends BaseDao<BaseCase, BaseCaseSearchVO> {
      * @return
      */
     public List<BaseCase> list(BaseCaseSearchVO baseCaseSearchVO) {
-        String sql = "select * from t_base_case t order by id desc";
+        String sql = "select id,title from t_base_case t order by id desc";
         sql = PageUtil.createMysqlPageSql(sql, baseCaseSearchVO.getPageIndex(), baseCaseSearchVO.getPageSize());
         return list(sql, baseCaseSearchVO);
     }
@@ -86,7 +86,7 @@ public class BaseCaseDao extends BaseDao<BaseCase, BaseCaseSearchVO> {
      * @return 列表
      */
     public List<BaseCase> listAll() {
-        String sql = "select * from t_base_case t ";
+        String sql = "select id,title from t_base_case t ";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(BaseCase.class));
     }
 }

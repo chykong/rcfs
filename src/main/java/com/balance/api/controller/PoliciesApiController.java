@@ -2,8 +2,10 @@ package com.balance.api.controller;
 
 import com.balance.base.model.BasePolicy;
 import com.balance.base.service.BasePolicyService;
+import com.balance.base.vo.BasePolicySearchVO;
 import com.balance.util.page.ListDTO;
 import com.balance.util.session.SessionUtil;
+import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,10 +40,14 @@ public class PoliciesApiController {
         if (projectId == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "项目id是必须的");
         }
-        List<BasePolicy> listPolicy = basePolicyService.listAll(projectId);
+        BasePolicySearchVO basePolicySearchVO = new BasePolicySearchVO();
+        basePolicySearchVO.setPrj_base_info_id(projectId);
+        basePolicySearchVO.setPageIndex(WebUtil.getSafeInt(request.getParameter("page")));
+        basePolicySearchVO.setPageSize(WebUtil.getSafeInt(request.getParameter("size")));
+        List<BasePolicy> listPolicy = basePolicyService.list(basePolicySearchVO);
         ListDTO dto = new ListDTO();
         dto.setList(listPolicy);
-        dto.setTotal(listPolicy.size());
+        dto.setTotal(basePolicyService.listCount(basePolicySearchVO));
         return dto;
     }
 

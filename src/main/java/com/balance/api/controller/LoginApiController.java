@@ -22,7 +22,7 @@ import java.util.UUID;
  * Date  2017/6/10.
  * Author  孔垂云
  */
-@RequestMapping("/api/login")
+@RequestMapping("/api")
 @RestController
 public class LoginApiController {
     @Autowired

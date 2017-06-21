@@ -1,7 +1,5 @@
 package com.balance.util.page;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import java.util.List;
  * Date  2017/6/10.
  */
 public class ListDTO<T> {
-    @JsonProperty("totalNumber")
     private int total;//总条目数
     private List<T> list;//结果列表
 

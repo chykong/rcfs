@@ -43,7 +43,7 @@
             info: true,//页脚信息
             autoWidth: true,//自动宽度
             scrollX: true,
-            scrollY: true,
+            scrollY: '300px',
             paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
@@ -80,7 +80,7 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "40px",
+                    width: "20px",
                     render: function (data) {
                         return data || "";
                     }

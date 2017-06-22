@@ -45,6 +45,12 @@
                                 <h5 class="widget-title bigger lighter">
                                     <i class="ace-icon fa fa-table"></i> 操作面板
                                 </h5>
+                                <div class="widget-toolbar">
+                                    <strong id="show-head">收起</strong>
+                                    <a href="#" id="coll-btn" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div class="widget-body widget-color-blue">
                                 <div class="widget-main no-padding">
@@ -235,7 +241,13 @@
     <script src="<c:url value="/assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.js"/>"></script>
     <script>
         $(function () {
-
+            $("#coll-btn").on('click',function(){
+                if($(this).find('i').hasClass('fa-chevron-up')){
+                    $('#show-head').html('展开');
+                }else{
+                    $('#show-head').html('收起');
+                }
+            })
             var $section = $("#section");
             var $group = $("#groups");
             $section.on('change', function () {

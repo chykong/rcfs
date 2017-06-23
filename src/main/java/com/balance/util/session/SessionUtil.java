@@ -42,9 +42,11 @@ public class SessionUtil {
      * @return
      */
     public static AppSession getAppSession(HttpServletRequest request) {
-        String authorization = WebUtil.getSafeStr(request.getHeader("Authorization"));//从header获取Authorization
-        if (StringUtil.isNotNullOrEmpty(authorization)) return
-                RedisUtil.get(RedisKeyUtil.APP_KEY + authorization, AppSession.class);
+        String authorization = WebUtil.getSafeStr(request.getHeader("Authorization"));//从header获取Authorization,如果没有，则从request中获取
+        if (StringUtil.isNullOrEmpty(authorization))
+            authorization = WebUtil.getSafeStr(request.getParameter("Authorization"));
+        if (StringUtil.isNotNullOrEmpty(authorization))
+            return RedisUtil.get(RedisKeyUtil.APP_KEY + authorization, AppSession.class);
         else return null;
     }
 }

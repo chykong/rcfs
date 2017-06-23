@@ -8,9 +8,7 @@ public class ContactsDTO {
     private String name;//组名
     private String mobile;//手机号
     private int id;//
-
-    public ContactsDTO() {
-    }
+    private String user_duty;//职位
 
     @Override
     public String toString() {
@@ -18,7 +16,19 @@ public class ContactsDTO {
                 "name='" + name + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", id=" + id +
+                ", user_duty='" + user_duty + '\'' +
                 '}';
+    }
+
+    public String getUser_duty() {
+        return user_duty;
+    }
+
+    public void setUser_duty(String user_duty) {
+        this.user_duty = user_duty;
+    }
+
+    public ContactsDTO() {
     }
 
     public int getId() {

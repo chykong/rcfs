@@ -25,7 +25,7 @@ public class CheckAppAuthorizationInterceptor implements HandlerInterceptor {
      * 操作前先判断是否登录，未登录跳转到登录界面
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (StringUtil.isNullOrEmpty(request.getHeader("Authorization")) || SessionUtil.getAppSession(request) == null) {
+        if (StringUtil.isNullOrEmpty(request.getHeader("Authorization")) || StringUtil.isNullOrEmpty(request.getParameter("Authorization")) || SessionUtil.getAppSession(request) == null) {
             JsonResult jsonResult = new JsonResult(false);
             jsonResult.setMessage("未授权");
             WebUtil.out(response, JsonUtil.toStr(jsonResult));

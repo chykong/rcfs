@@ -135,7 +135,7 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
      * @return 列表
      */
     public List<ContactsDTO> listBySection(int prj_base_info_id, String section) {
-        String sql = "select id, name,mobile from t_base_participant t where prj_base_info_id=? and company=?" +
+        String sql = "select id, name,mobile,duty user_duty from t_base_participant t where prj_base_info_id=? and company=?" +
                 " order by CONVERT(name USING gbk)  ";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, section}, new BeanPropertyRowMapper<>(ContactsDTO.class));
     }

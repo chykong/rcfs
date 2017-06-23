@@ -4,6 +4,9 @@ import com.balance.base.model.BaseMessage;
 import com.balance.base.vo.BaseMessageSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -55,7 +58,13 @@ public class BaseMessageDao extends BaseDao<BaseMessage, BaseMessageSearchVO> {
      */
     public int add(BaseMessage baseMessage) {
         String sql = "insert into t_base_message(title,content,send_at,send_by)" + " values(:title,:content,now(),:send_by)";
-        return update(sql, baseMessage);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int rc = getNamedParameterJdbcTemplate().update(sql, new BeanPropertySqlParameterSource(baseMessage), keyHolder);
+        if (rc > 0) {
+            return keyHolder.getKey().intValue();
+        } else {
+            return 0;
+        }
     }
 
     /**

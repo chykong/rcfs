@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
          pageEncoding="utf-8" %>
 <%@ include file="../common/taglib.jsp" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +41,7 @@
                                 <div class="widget-main">
                                     <table class="searchField" style="margin: 4px; padding: 4px;">
                                         <tr>
-                                            <td>消息内容：</td>
+                                            <td>消息标题：</td>
                                             <td><input type="text" id="txtTitle"
                                                        class="form-control input-large" placeholder=""
                                                        value="${baseMessageSearchVO.title }"></td>
@@ -86,7 +85,10 @@
                                     <td>${st.index+1 }</td>
                                     <td>${message.title}</td>
                                     <td>${message.user_realname }</td>
-                                    <td>${message.status }</td>
+                                    <td>
+                                        <c:if test="${message.status eq 0}">未读</c:if>
+                                        <c:if test="${message.status eq 1}">已读</c:if>
+                                    </td>
                                     <th width=120><fmt:formatDate value="${message.send_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
                                     <th width=120>${message.send_by }</th>

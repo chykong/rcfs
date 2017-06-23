@@ -53,7 +53,7 @@
                                 <label class="col-sm-3 control-label">消息接收人：</label>
                                 <div class="col-sm-9">
                                     <form:select path="baseMessage.user_id" name="user_id" class="col-xs-10 col-sm-5"
-                                                 id="role_id">
+                                                 id="user_id">
                                         <option value="">请选择消息接收人</option>
                                         <form:options items="${listUser }" itemValue="id" itemLabel="realname"/>
                                     </form:select>

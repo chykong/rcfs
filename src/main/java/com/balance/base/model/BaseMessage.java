@@ -1,5 +1,7 @@
 package com.balance.base.model;
 
+import java.util.Date;
+
 /**
  * Author 李晓明 Date 2017/6/11.
  */
@@ -7,7 +9,7 @@ public class BaseMessage {
     private int id;//id
     private String title;//标题
     private String content;//内容
-    private String send_at;
+    private Date send_at;
     private String send_by;
     private int user_id;//收信人id
     private String user_realname;//收信人姓名
@@ -72,11 +74,11 @@ public class BaseMessage {
         this.title = title;
     }
 
-    public String getSend_at() {
+    public Date getSend_at() {
         return send_at;
     }
 
-    public void setSend_at(String send_at) {
+    public void setSend_at(Date send_at) {
         this.send_at = send_at;
     }
 

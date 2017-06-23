@@ -30,8 +30,19 @@ public class BaseMessageService {
         return baseMessageDao.listCount(baseMessageSearchVO);
     }
 
+    /**
+     * 新增消息，同时新增消息接收人表
+     * @param baseMessage
+     * @return
+     */
     public int add(BaseMessage baseMessage) {
-        return baseMessageDao.add(baseMessage);
+        int message_id= baseMessageDao.add(baseMessage);
+        BaseMessageread baseMessageread=new BaseMessageread();
+        baseMessageread.setMessage_id(message_id);
+        baseMessageread.setStatus(0);
+        baseMessageread.setUser_id(baseMessage.getUser_id());
+        baseMessagereadDao.add(baseMessageread);
+        return 1;
     }
 
     public int update(BaseMessage baseMessage) {

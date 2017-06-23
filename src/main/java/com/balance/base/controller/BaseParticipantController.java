@@ -1,14 +1,18 @@
 package com.balance.base.controller;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.balance.base.model.BaseParticipant;
+import com.balance.base.service.BaseParticipantService;
+import com.balance.base.vo.BaseParticipantSearchVO;
+import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.code.SerialNumUtil;
+import com.balance.util.config.PubConfig;
+import com.balance.util.controller.BaseController;
+import com.balance.util.date.DateUtil;
+import com.balance.util.file.FileUtil;
+import com.balance.util.page.PageNavigate;
+import com.balance.util.session.SessionUtil;
+import com.balance.util.string.StringUtil;
+import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,18 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.balance.base.model.BaseParticipant;
-import com.balance.base.service.BaseParticipantService;
-import com.balance.base.vo.BaseParticipantSearchVO;
-import com.balance.util.backurl.BackUrlUtil;
-import com.balance.util.code.SerialNumUtil;
-import com.balance.util.config.PubConfig;
-import com.balance.util.date.DateUtil;
-import com.balance.util.file.FileUtil;
-import com.balance.util.page.PageNavigate;
-import com.balance.util.session.SessionUtil;
-import com.balance.util.string.StringUtil;
-import com.balance.util.web.WebUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Author  孔垂云
@@ -35,7 +34,7 @@ import com.balance.util.web.WebUtil;
  */
 @RequestMapping("/base/participant")
 @Controller
-public class BaseParticipantController {
+public class BaseParticipantController extends BaseController{
     @Autowired
     private BaseParticipantService baseParticipantService;
     @Autowired

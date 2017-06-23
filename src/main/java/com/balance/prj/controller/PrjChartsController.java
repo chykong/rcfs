@@ -6,6 +6,7 @@ import com.balance.prj.service.PrjChartsService;
 import com.balance.prj.service.PrjPreallocationService;
 import com.balance.prj.vo.ChartsDataVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
+import com.balance.util.controller.BaseController;
 import com.balance.util.number.NumberUtil;
 import com.balance.util.session.SessionUtil;
 import com.balance.util.string.ChartsUtil;
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @RequestMapping("/prj/charts")
 @Controller
-public class PrjChartsController {
+public class PrjChartsController extends BaseController{
     @Autowired
     private PrjChartsService prjChartsService;
     @Autowired

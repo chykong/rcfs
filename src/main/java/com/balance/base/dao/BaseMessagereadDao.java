@@ -22,7 +22,7 @@ public class BaseMessagereadDao extends BaseDao<BaseMessageread, BaseMessageread
      * @return
      */
     public int add(BaseMessageread baseMessageread) {
-        String sql = "insert into t_base_messageread(message_id,user_id,status,read_at) values(:message_id,:user_id,:status,now())";
+        String sql = "insert into t_base_messageread(message_id,user_id,status) values(:message_id,:user_id,:status)";
         return update(sql, baseMessageread);
     }
 
@@ -34,6 +34,17 @@ public class BaseMessagereadDao extends BaseDao<BaseMessageread, BaseMessageread
      */
     public int update(BaseMessageread baseMessageread) {
         String sql = "update t_base_messageread set message_id=:message_id,user_id=:user_id,status=:status,read_at=:read_at where id=:id";
+        return update(sql, baseMessageread);
+    }
+
+    /**
+     * 修改消息读取状态
+     *
+     * @param baseMessageread
+     * @return
+     */
+    public int updateStatus(BaseMessageread baseMessageread) {
+        String sql = "update t_base_messageread set status=:status,read_at=:read_at where message_id=:message_id and user_id=:user_id";
         return update(sql, baseMessageread);
     }
 
@@ -81,12 +92,14 @@ public class BaseMessagereadDao extends BaseDao<BaseMessageread, BaseMessageread
         String sql = "select count(*) from t_base_messageread t  ";
         return listCount(sql, baseMessagereadSearchVO);
     }
+
     /**
      * 全部接收消息列表
+     *
      * @return 列表
      */
     public List<BaseMessageread> listAll() {
         String sql = "select * from t_base_messageread t ";
-        return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(BaseMessageread.class));
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(BaseMessageread.class));
     }
 }

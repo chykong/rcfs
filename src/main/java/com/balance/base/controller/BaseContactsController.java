@@ -6,6 +6,7 @@ import com.balance.base.vo.BaseContactsSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
 import com.balance.util.code.SerialNumUtil;
 import com.balance.util.config.PubConfig;
+import com.balance.util.controller.BaseController;
 import com.balance.util.date.DateUtil;
 import com.balance.util.file.FileUtil;
 import com.balance.util.page.PageNavigate;
@@ -30,7 +31,7 @@ import java.util.List;
  */
 @RequestMapping("/base/contacts")
 @Controller
-public class BaseContactsController {
+public class BaseContactsController  extends BaseController{
     @Autowired
     private BaseContactsService baseContactsService;
     @Autowired

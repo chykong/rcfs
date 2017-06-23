@@ -1,9 +1,11 @@
 package com.balance.base.dao;
 
+import com.balance.api.dto.BaseMessageDTO;
 import com.balance.base.model.BaseMessage;
 import com.balance.base.vo.BaseMessageSearchVO;
 import com.balance.util.dao.BaseDao;
 import com.balance.util.page.PageUtil;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -99,4 +101,41 @@ public class BaseMessageDao extends BaseDao<BaseMessage, BaseMessageSearchVO> {
         return get(sql, new Object[]{id});
     }
 
+    /**
+     * 查询用户下的所有消息
+     *
+     * @param user_id
+     * @return
+     */
+    public List<BaseMessageDTO> listByUser_id(int user_id) {
+        String sql = "select t.id,t.title,r.status messageStatus  from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
+        sql += " and u.id=?";
+        return jdbcTemplate.query(sql, new Object[]{user_id}, BeanPropertyRowMapper.newInstance(BaseMessageDTO.class));
+    }
+
+    /**
+     * 查询未读消息数
+     *
+     * @param user_id
+     * @return
+     */
+    public int listUnReadCountByUser_id(int user_id) {
+        String sql = "select count(*) user_realname from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
+        sql += " and u.id=? and r.status=0";
+        return jdbcTemplate.queryForObject(sql, new Object[]{user_id}, Integer.class);
+    }
+
+
+    /**
+     * 根据消息id和用户id获取消息内容
+     *
+     * @param message_id
+     * @return
+     */
+    public BaseMessageDTO getByMessageAndUser_id(int message_id, int user_id) {
+        String sql = "select t.id,t.title,r.status messageStatus,t.content  from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
+        sql += " and t.id=? and u.id=? ";
+        List<BaseMessageDTO> list = jdbcTemplate.query(sql, new Object[]{message_id, user_id}, BeanPropertyRowMapper.newInstance(BaseMessageDTO.class));
+        return list.size() > 0 ? list.get(0) : null;
+    }
 }

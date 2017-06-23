@@ -3,7 +3,6 @@ package com.balance.api.controller;
 import com.balance.api.dto.ContactsDTO;
 import com.balance.api.dto.ContactsGroupsDTO;
 import com.balance.base.model.BaseParticipant;
-import com.balance.base.model.BasePolicy;
 import com.balance.base.service.BaseParticipantService;
 import com.balance.util.page.ListDTO;
 import com.balance.util.session.SessionUtil;
@@ -37,7 +36,7 @@ public class ContactsApiController {
      * @return
      */
     @RequestMapping("get-groups")
-    public ListDTO<BasePolicy> getPolicies(HttpServletRequest request, Integer projectId) {
+    public ListDTO<ContactsGroupsDTO> getPolicies(HttpServletRequest request, Integer projectId) {
         if (projectId == null) {
             projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
         }
@@ -57,7 +56,7 @@ public class ContactsApiController {
      * @return
      */
     @RequestMapping("get-contacts")
-    public ListDTO<BasePolicy> getContacts(HttpServletRequest request, Integer projectId, String section) {
+    public ListDTO<ContactsDTO> getContacts(HttpServletRequest request, Integer projectId, String section) {
         if (projectId == null) {
             projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
         }
@@ -72,7 +71,7 @@ public class ContactsApiController {
     }
 
     /**
-     * 获取经典案例
+     * 获取联系人
      */
     @RequestMapping("get/{id}")
     public BaseParticipant get(@PathVariable int id) {

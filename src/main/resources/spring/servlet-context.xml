@@ -104,6 +104,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/api/checkLogin"/>
             <mvc:mapping path="/api/*/*"/>
+            <mvc:mapping path="/api/*/*/*"/>
             <bean class="com.balance.config.interceptor.AjaxAccessInterceptor"></bean>
         </mvc:interceptor>
         <mvc:interceptor>

@@ -52,7 +52,8 @@
                                             <div class="col-xs-7 col-lg-8">
                                                 <form:select path="town" cssClass="col-xs-10 col-sm-10 col-lg-10">
                                                     <form:option value="">--全部--</form:option>
-                                                    <form:options items="${townList}" itemLabel="content" itemValue="value"></form:options>
+                                                    <form:options items="${townList}" itemLabel="content"
+                                                                  itemValue="value"></form:options>
                                                 </form:select>
                                             </div>
                                         </div>
@@ -71,7 +72,9 @@
                                         <div class="form-group">
                                             <label class="control-label col-xs-5 col-lg-4">日期：</label>
                                             <div class="col-xs-7 col-lg-8">
-                                                <input type="text" id="date" name="date" class="col-xs-10 col-sm-10 col-lg-10" value="${prjChartsSearchVO.date}"/>
+                                                <input type="text" id="date" name="date"
+                                                       class="col-xs-10 col-sm-10 col-lg-10"
+                                                       value="${prjChartsSearchVO.date}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +153,7 @@
     <script>
         var $town = $("#town");
         var $village = $("#village");
-        function getVillage(){
+        function getVillage() {
             var url = '<c:url value="/prj/preallocation/basic/getVillageByTown.htm"/>';
             $.ajax({
                 url: url,
@@ -159,7 +162,7 @@
                 },
                 type: 'post',
                 success: function (result) {
-                    var json = eval('('+result + ')');
+                    var json = eval('(' + result + ')');
                     $village.empty();
                     if (json && json.length) {
                         $village.append('<option value="">--全部--</option>');
@@ -172,12 +175,12 @@
         }
         $(function () {
             var $town = $("#town");
-            if($town.val() != ''){
+            if ($town.val() != '') {
                 getVillage();
             }
             var $village = $("#village");
             $town.on('change', function () {
-                if($(this).val() == ''){
+                if ($(this).val() == '') {
                     $village.empty();
                     $village.append('<option value="">--请选择镇--</option>');
                     return;
@@ -195,13 +198,13 @@
             });
 
             var url = '${pageContext.request.contextPath}/prj/charts/getGroup.htm?type=${type}';
-            if($("#town").val() != ''){
+            if ($("#town").val() != '') {
                 url += "&town=" + $("#town").val();
             }
-            if($("#village").val() != ''){
+            if ($("#village").val() != '') {
                 url += "&village=" + $("#village").val();
             }
-            if($("#date").val() != ''){
+            if ($("#date").val() != '') {
                 url += "&date=" + $("#date").val();
             }
             // 基于准备好的dom，初始化echarts实例
@@ -248,14 +251,14 @@
                 series: [
                     {
                         type: 'bar',
-                        barMinHeight:'1',
+                        barMinHeight: '1',
                         label: {
                             normal: {
-                                show:true,
-                                position:'bottom',
-                                offset:[0,-25],
+                                show: true,
+                                position: 'bottom',
+                                offset: [0, -25],
                                 textStyle: {
-                                    color:'#000'
+                                    color: '#000'
                                 }
                             }
                         }
@@ -267,10 +270,12 @@
             inhost_Chart.setOption(inhost_option);
 
 
-
             var inhost_option2 = {
                 title: {
-                    text: '入户累计完成'
+                    text: '入户累计完成',
+                    textStyle: {
+                       // fontSize: 14
+                    }
                 },
                 tooltip: {
                     formatter: "{a} <br/>{b} 完成率: {c}%"
@@ -341,14 +346,14 @@
                 series: [
                     {
                         type: 'bar',
-                        barMinHeight:'1',
+                        barMinHeight: '1',
                         label: {
                             normal: {
-                                show:true,
-                                position:'bottom',
-                                offset:[0,-25],
+                                show: true,
+                                position: 'bottom',
+                                offset: [0, -25],
                                 textStyle: {
-                                    color:'#000'
+                                    color: '#000'
                                 }
                             }
                         }
@@ -431,14 +436,14 @@
                 series: [
                     {
                         type: 'bar',
-                        barMinHeight:'1',
+                        barMinHeight: '1',
                         label: {
                             normal: {
-                                show:true,
-                                position:'bottom',
-                                offset:[0,-25],
+                                show: true,
+                                position: 'bottom',
+                                offset: [0, -25],
                                 textStyle: {
-                                    color:'#000'
+                                    color: '#000'
                                 }
                             }
                         }
@@ -521,14 +526,14 @@
                 series: [
                     {
                         type: 'bar',
-                        barMinHeight:'1',
+                        barMinHeight: '1',
                         label: {
                             normal: {
-                                show:true,
-                                position:'bottom',
-                                offset:[0,-25],
+                                show: true,
+                                position: 'bottom',
+                                offset: [0, -25],
                                 textStyle: {
-                                    color:'#000'
+                                    color: '#000'
                                 }
                             }
                         }

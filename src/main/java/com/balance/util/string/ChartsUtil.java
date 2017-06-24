@@ -30,9 +30,15 @@ public class ChartsUtil {
                 "\"name\": \"" + vo.getGuageTitle() + "\"," +
                 "\"type\": \"gauge\"," +
                 "\"detail\": {formatter:'{value}%'}," +
-                "\"data\": [{\"value\": " + vo.getGuageData() + ", \"name\": \"总" + WebTag.getChartTitleByType(vo.getType()) + ":" + formatFloat(total) + "\"}]" +
+                "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), total) + "\"}]" +
                 " }]}";
         return json;
+    }
+
+    private static String createTotal(int type, float value) {
+        if (type == 1)
+            return String.valueOf(value) + "户";
+        else return formatFloat(value / 10000) + "万m²";
     }
 
     /**

@@ -228,8 +228,8 @@ public class WebTag {
     public static String getChartTitleByType(int type) {
         String content = "";
         if (type == 1) return "户数";
-        else if (type == 2) return "占地面积";
-        else if (type == 3) return "建筑面积";
+        else if (type == 2) return "占地";
+        else if (type == 3) return "建面";
         else return "户数";
     }
 }

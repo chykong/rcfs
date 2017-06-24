@@ -5,7 +5,6 @@
 <html lang="en">
 <head>
     <title>${webTitle}-分组进度图</title>
-    <link rel="stylesheet" href="<c:url value="/assets/highcharts/css/highcharts.css"/>"/>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-datepicker/bootstrap-datepicker3.css"/>"/>
 
 

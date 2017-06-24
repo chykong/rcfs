@@ -10,6 +10,15 @@ public class BaseMessageDTO {
     private String title;//标题
     private String content;//内容
     private int messageStatus;//状态
+    private int user_id;//用户id
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     @Override
     public String toString() {

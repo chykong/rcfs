@@ -206,4 +206,16 @@ public class NumberUtil {
         boolean b = m.matches();
         return b;
     }
+
+    /**
+     * 计算百分比
+     *
+     * @param a1
+     * @param b1
+     * @return
+     */
+    public static float calPercent(float a1, float b1) {
+        if (b1 == 0) return 0;
+        else return NumberUtil.formatFloat((float) (a1 / b1 * 100));
+    }
 }

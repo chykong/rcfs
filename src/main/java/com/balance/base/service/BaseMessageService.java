@@ -63,11 +63,11 @@ public class BaseMessageService {
     /**
      * 修改消息读取状态
      *
-     * @param baseMessageread
+     * @param id
      * @return
      */
-    public int updateStatus(BaseMessageread baseMessageread) {
-        return baseMessagereadDao.updateStatus(baseMessageread);
+    public int updateStatus(int id,int user_id) {
+        return baseMessagereadDao.updateStatus(id,user_id);
     }
 
     /**

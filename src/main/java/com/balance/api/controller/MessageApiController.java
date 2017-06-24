@@ -54,6 +54,9 @@ public class MessageApiController {
     @RequestMapping("get/{id}")
     public BaseMessageDTO get(HttpServletRequest request, @PathVariable int id) {
         int user_id = SessionUtil.getAppSession(request).getUser_id();
-        return baseMessageService.getByMessageAndUser_id(id, user_id);
+        BaseMessageDTO baseMessageDTO=baseMessageService.getByMessageAndUser_id(id, user_id);
+        baseMessageService.updateStatus(id,baseMessageDTO.getUser_id());
+
+        return baseMessageDTO;
     }
 }

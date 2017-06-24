@@ -28,7 +28,7 @@ import java.util.List;
  */
 @RequestMapping("/prj/charts")
 @Controller
-public class PrjChartsController extends BaseController{
+public class PrjChartsController extends BaseController {
     @Autowired
     private PrjChartsService prjChartsService;
     @Autowired
@@ -164,7 +164,7 @@ public class PrjChartsController extends BaseController{
         if (over_homes == 0) {
             vo.setGuageData(0);
         } else {
-            vo.setGuageData(NumberUtil.formatFloat((float) over_homes * 100 / total_homes));//仪表单数据
+            vo.setGuageData(NumberUtil.calPercent(over_homes, total_homes));//仪表单数据
         }
         vo.setType(prjChartsSearchVO.getType());//类型
         String json = ChartsUtil.createChartsJson(vo, total_homes);

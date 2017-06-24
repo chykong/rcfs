@@ -40,12 +40,12 @@ public class BaseMessagereadDao extends BaseDao<BaseMessageread, BaseMessageread
     /**
      * 修改消息读取状态
      *
-     * @param baseMessageread
+     * @param id
      * @return
      */
-    public int updateStatus(BaseMessageread baseMessageread) {
-        String sql = "update t_base_messageread set status=:status,read_at=:read_at where message_id=:message_id and user_id=:user_id";
-        return update(sql, baseMessageread);
+    public int updateStatus(int id, int user_id) {
+        String sql = "update t_base_messageread set status=1,read_at=now() where message_id=? and user_id=?";
+        return update(sql, id, user_id);
     }
 
     /**

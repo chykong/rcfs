@@ -13,7 +13,7 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     private String map_id; //编号
     private Integer land_status; //土地性质
     private Integer house_status; //房屋性质
-    private  String location;//房屋坐落
+    private String location;//房屋坐落
 
     private String host_name;
     private Integer status;  //查询状态
@@ -28,6 +28,39 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     private Integer is_section;  //是否标段过滤
     private Integer is_group;  //是否组别过滤
 
+    private String term;//API接口里面按照户名或编号查询
+
+    @Override
+    public String toString() {
+        return "PrjPreallocationSearchVO{" +
+                "base_info_id=" + base_info_id +
+                ", map_id='" + map_id + '\'' +
+                ", land_status=" + land_status +
+                ", house_status=" + house_status +
+                ", location='" + location + '\'' +
+                ", host_name='" + host_name + '\'' +
+                ", status=" + status +
+                ", statusList=" + statusList +
+                ", town='" + town + '\'' +
+                ", village='" + village + '\'' +
+                ", section='" + section + '\'' +
+                ", groups='" + groups + '\'' +
+                ", export_status=" + export_status +
+                ", user_id=" + user_id +
+                ", is_section=" + is_section +
+                ", is_group=" + is_group +
+                ", term='" + term + '\'' +
+                '}';
+    }
+
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
+
     public Integer getBase_info_id() {
         return base_info_id;
     }
@@ -39,13 +72,15 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     public String getMap_id_param() {
         return "%" + map_id + "%";
     }
+
     public String getMap_id() {
         return map_id;
     }
 
     public String getLocation_param() {
-        return "%" + location+ "%";
+        return "%" + location + "%";
     }
+
     public String getLocation() {
         return location;
     }
@@ -69,8 +104,9 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     public String getHost_name() {
         return host_name;
     }
+
     public String getHost_name_param() {
-        return  "%" +host_name+ "%";
+        return "%" + host_name + "%";
     }
 
     public void setHost_name(String host_name) {

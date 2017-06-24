@@ -1,5 +1,7 @@
 package com.balance.prj.service;
 
+import com.balance.api.dto.HouseholdersDTO;
+import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.dao.PrjPreallocationDao;
 import com.balance.prj.model.PrjPreallocation;
@@ -22,6 +24,15 @@ public class PrjPreallocationService {
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.findAll(prjPreallocationSearchVO);
+    }
+
+    /**
+     * api接口里面需要分页查询
+     * @param prjPreallocationSearchVO
+     * @return
+     */
+    public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
+        return prjPreallocationDao.list(prjPreallocationSearchVO);
     }
 
     public int count(PrjPreallocationSearchVO prjPreallocationSearchVO){
@@ -140,5 +151,15 @@ public class PrjPreallocationService {
     }
     public List<ComboboxVO> getVillageByTown(int prj_base_info_id, String town) {
         return prjPreallocationDao.getVillageByTown(prj_base_info_id, town);
+    }
+
+    /**
+     * 接口里面调用，获取拆迁详细
+     *
+     * @param id
+     * @return
+     */
+    public HouseholdersDetailDTO getByidInApi(int id){
+        return prjPreallocationDao.getByIdInApi(id);
     }
 }

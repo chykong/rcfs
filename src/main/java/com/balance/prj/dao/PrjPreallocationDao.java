@@ -1,6 +1,8 @@
 package com.balance.prj.dao;
 
 
+import com.balance.api.dto.HouseholdersDTO;
+import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
@@ -27,6 +29,21 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         sql += " order by plc.id asc,status";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
+    }
+
+    /**
+     * 分页列表
+     *
+     * @param prjPreallocationSearchVO
+     * @return
+     */
+    public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
+        String sql = "select plc.id,plc.map_id,plc.cog_land_area ,plc.host_name from t_prj_preallocation plc";
+        sql += createSearchSql(prjPreallocationSearchVO);
+        sql += " order by  CONVERT(host_name USING gbk)";
+        sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(HouseholdersDTO.class));
     }
 
     public int count(PrjPreallocationSearchVO prjPreallocationSearchVO) {
@@ -260,6 +277,11 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                     break;
             }
         }
+
+        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getTerm())) {
+            prjPreallocationSearchVO.setTerm("%" + prjPreallocationSearchVO.getTerm() + "%");
+            sql += " and (plc.host_name like :term or map_id like :term)";
+        }
         return sql;
     }
 
@@ -281,5 +303,17 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     public List<ComboboxVO> getVillageByTown(int prj_base_info_id, String town) {
         String sql = "SELECT village value,village content FROM t_prj_preallocation WHERE prj_base_info_id = ? AND town=? GROUP BY village ";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id, town}, new BeanPropertyRowMapper<>(ComboboxVO.class));
+    }
+
+    /**
+     * 接口里面调用，获取拆迁详细
+     *
+     * @param id
+     * @return
+     */
+    public HouseholdersDetailDTO getByIdInApi(int id) {
+        String sql = "select id,host_name,cog_land_area,map_id,location,status,total_homestead_area,remarks,before_area,between_area,after_area,no_sign_reason FROM t_prj_preallocation WHERE id=?";
+        List<HouseholdersDetailDTO> prjPreallocations = jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(HouseholdersDetailDTO.class));
+        return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }
 }

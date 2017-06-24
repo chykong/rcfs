@@ -1,5 +1,7 @@
 package com.balance.api.controller;
 
+import com.balance.api.dto.HouseholdersDTO;
+import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.service.PrjPreallocationService;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
@@ -31,7 +33,7 @@ public class PreallocationApiController {
      * @return 拆迁户 基本情况列表
      */
     @RequestMapping("get-householders")
-    public ListDTO<PrjPreallocation> getHouseholders(HttpServletRequest request, Integer projectId) {
+    public ListDTO<PrjPreallocation> getHouseholders(HttpServletRequest request, Integer projectId,String term) {
         if (projectId == null) {
             projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
         }
@@ -40,9 +42,10 @@ public class PreallocationApiController {
         }
         PrjPreallocationSearchVO prjPreallocationSearchVO = new PrjPreallocationSearchVO();
         prjPreallocationSearchVO.setBase_info_id(projectId);
+        prjPreallocationSearchVO.setTerm(term);
         prjPreallocationSearchVO.setPageIndex(WebUtil.getSafeInt(request.getParameter("page")));
         prjPreallocationSearchVO.setPageSize(WebUtil.getSafeInt(request.getParameter("size")));
-        List<PrjPreallocation> preallocationList = prjPreallocationService.findAll(prjPreallocationSearchVO);
+        List<HouseholdersDTO> preallocationList = prjPreallocationService.list(prjPreallocationSearchVO);
         ListDTO dto = new ListDTO();
         dto.setList(preallocationList);
         dto.setTotal(prjPreallocationService.count(prjPreallocationSearchVO));
@@ -55,8 +58,8 @@ public class PreallocationApiController {
      * @param id 拆迁户 基本情况id
      * @return 拆迁户 基本情况明细
      */
-    @RequestMapping("{id}")
-    public PrjPreallocation get(@PathVariable int id) {
-        return prjPreallocationService.getById(id);
+    @RequestMapping("/get/{id}")
+    public HouseholdersDetailDTO get(@PathVariable int id) {
+        return prjPreallocationService.getByidInApi(id);
     }
 }

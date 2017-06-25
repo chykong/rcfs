@@ -120,7 +120,7 @@ public class BaseMessageDao extends BaseDao<BaseMessage, BaseMessageSearchVO> {
      * @return
      */
     public int listUnReadCountByUser_id(int user_id) {
-        String sql = "select count(*) user_realname from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
+        String sql = "select count(*) from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
         sql += " and u.id=? and r.status=0";
         return jdbcTemplate.queryForObject(sql, new Object[]{user_id}, Integer.class);
     }

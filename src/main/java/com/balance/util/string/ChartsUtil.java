@@ -36,9 +36,9 @@ public class ChartsUtil {
     }
 
     private static String createTotal(int type, float value) {
-        if (type == 1)
-            return String.valueOf(value) + "户";
-        else return formatFloat(value / 10000) + "万m²";
+        if (type == 1) {
+            return String.valueOf((int) value) + "户";
+        } else return formatFloat(value / 10000) + "万m²";
     }
 
     /**

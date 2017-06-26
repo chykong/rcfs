@@ -1,11 +1,11 @@
 package com.balance.api.controller;
 
+import com.balance.api.dto.GisDTO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.service.PrjPreallocationService;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.page.ListDTO;
 import com.balance.util.session.SessionUtil;
-import com.balance.util.web.WebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,16 +33,16 @@ public class GISApiController {
     public ListDTO<PrjPreallocation> getHouseholders(HttpServletRequest request,Integer projectId ) {
 
         if (projectId == null) {
-            projectId =  SessionUtil.getUserSession(request).getCurrent_project_id();
+            projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
         }
         if (projectId == null) {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "项目id是必须的");
         }
         PrjPreallocationSearchVO prjPreallocationSearchVO = new PrjPreallocationSearchVO();
         prjPreallocationSearchVO.setBase_info_id(projectId);
-        prjPreallocationSearchVO.setPageIndex(WebUtil.getSafeInt(request.getParameter("page")));
+        prjPreallocationSearchVO.setPageIndex(1);
         prjPreallocationSearchVO.setPageSize(9999);
-        List<PrjPreallocation> preallocationList = prjPreallocationService.findAll(prjPreallocationSearchVO);
+        List<GisDTO> preallocationList = prjPreallocationService.listForGis(prjPreallocationSearchVO);
         ListDTO dto = new ListDTO();
         dto.setList(preallocationList);
         dto.setTotal(prjPreallocationService.count(prjPreallocationSearchVO));

@@ -1,5 +1,6 @@
 package com.balance.prj.service;
 
+import com.balance.api.dto.GisDTO;
 import com.balance.api.dto.HouseholdersDTO;
 import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
@@ -33,6 +34,9 @@ public class PrjPreallocationService {
      */
     public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.list(prjPreallocationSearchVO);
+    }
+    public List<GisDTO> listForGis(PrjPreallocationSearchVO prjPreallocationSearchVO) {
+        return prjPreallocationDao.listForGis(prjPreallocationSearchVO);
     }
 
     public int count(PrjPreallocationSearchVO prjPreallocationSearchVO){

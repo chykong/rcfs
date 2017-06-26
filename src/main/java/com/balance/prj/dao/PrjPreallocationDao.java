@@ -1,6 +1,7 @@
 package com.balance.prj.dao;
 
 
+import com.balance.api.dto.GisDTO;
 import com.balance.api.dto.HouseholdersDTO;
 import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
@@ -44,6 +45,15 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(HouseholdersDTO.class));
+    }
+
+    public List<GisDTO> listForGis(PrjPreallocationSearchVO prjPreallocationSearchVO) {
+        String sql = "select plc.* from t_prj_preallocation plc";
+        sql += createSearchSql(prjPreallocationSearchVO);
+        sql += " order by  CONVERT(host_name USING gbk)";
+        sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(GisDTO.class));
     }
 
     public int count(PrjPreallocationSearchVO prjPreallocationSearchVO) {

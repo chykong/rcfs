@@ -88,7 +88,7 @@ public class PrjPreallocation {
     private BigDecimal total_az_pay_house;  //安置房购房款合计
     private BigDecimal first_calculate_sub;  //首次结算差价
     private String choose_room_date; // 选房时间
-    private int status;  //状态 10-未入户  20-已入户未签约 21-已审核  30-已签约未交房 40-已签约已交房  50-已选房 60-已归档
+    private int status;  //状态 0-未入户  10-已入户未签约  20-已签约   30-已审核 40-已交房  50-已拆除 60-已放款  70-已归档
     private String leader;  //包村干部
     private String management_co;  //管理公司
     private String geo_co;  //测绘公司
@@ -136,6 +136,7 @@ public class PrjPreallocation {
     private String archive_file_name;  //归档文件名
     private String archive_file_path;  //归档路径
 
+    private int d_id;  //返回地图对应的id
 //    private List<PreallocationRelation> relations;  //户籍关系
 
     @Override
@@ -1175,5 +1176,13 @@ public class PrjPreallocation {
 
     public void setOther_file_path(String other_file_path) {
         this.other_file_path = other_file_path;
+    }
+
+    public int getD_id() {
+        return d_id;
+    }
+
+    public void setD_id(int d_id) {
+        this.d_id = d_id;
     }
 }

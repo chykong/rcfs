@@ -32,7 +32,7 @@ public class GISApiController extends BaseController {
      * @return 拆迁户 基本情况列表
      */
     @RequestMapping("get-householders")
-    public ListDTO<PrjPreallocation> getHouseholders(HttpServletRequest request,Integer projectId ) {
+    public ListDTO<PrjPreallocation> getHouseholders(HttpServletRequest request, Integer projectId) {
 
         if (projectId == null) {
             projectId = SessionUtil.getAppSession(request).getCurrent_project_id();
@@ -52,9 +52,16 @@ public class GISApiController extends BaseController {
     }
 
     @RequestMapping("/index")
-    public ModelAndView index() {
+    public ModelAndView index(HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/gis/index");// 跳转至指定页面
+        Integer projectId = SessionUtil.getUserSession(request).getCurrent_project_id();
+        mv.addObject("projectId",projectId);
+
+        if(projectId == 1){  //只有北臧村的地图
+            mv.setViewName("/gis/index");// 跳转至指定页面
+        }else{
+            mv.setViewName("/gis/no-map");
+        }
         return mv;
     }
 

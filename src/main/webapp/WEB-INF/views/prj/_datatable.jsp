@@ -52,7 +52,7 @@
             paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
-            lengthMenu: [15, 25, 50, 75, 100],
+            lengthMenu: [15],
             processing: true,
             serverSide: true,
             ajax: function (data, callback, settings) {

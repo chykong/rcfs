@@ -7,6 +7,7 @@
 <head>
 <title>${webTitle }-地图</title>
 <%@ include file="../common/header.jsp"%>
+<%@ include file="../common/js.jsp"%>
 	<link href="<c:url value="/assets/components/GIS/gapi/esri/css/esri.css"/>" rel="stylesheet">
 	<link href="<c:url value="/assets/components/GIS/gapi/map.css"/>" rel="stylesheet">
 
@@ -42,6 +43,7 @@
 									<div style="left: 10px;top:15px; width:300px; position: absolute; z-index: 9999; ">
 										<div class="input-group">
 											<div class="input-icon">
+												<input type="hidden" id="project_id" value="${projectId}">
 												<input type="text" id="searchipt" style="height:34px !important" placeholder="请输入查询关键字" class="form-control">
 											</div>
 											<span class="input-group-btn">
@@ -63,7 +65,7 @@
 										</div>
 									</div>
 									<!--图例-->
-									<div style="width:100%;bottom: 10px; position: absolute; z-index: 9999;text-align:center">
+									<div style="width:100%;bottom: 120px; position: absolute; z-index: 9999;text-align:center">
 										<table style="line-height:24px; margin-top:5px;">
 											<tr>
 												<td><div style="width: 30px; height: 15px; background-color: #0099FF; margin-left: 10px;border-radius:4px; "></div> <!--未入户  -10  --> </td>

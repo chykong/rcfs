@@ -171,7 +171,7 @@
 										</div>
 										<div class="col-md-12">
 											<span style="color:#7E7C7C;">拆除公司：&nbsp;</span>
-											<label id="demolish_co"></label>
+											<label id="pulledown_co"></label>
 										</div>
 									</div>
 								</div>

@@ -16,7 +16,8 @@ public class HouseholdersDetailDTO {
     private float before_area;//06年前面积
     private float between_area;//06-09年间面积
     private float after_area;//09年后面积
-    private String no_sign_reson;//滞留原因
+    private String appraise_co;//评估公司
+    private String demolish_co;//拆迁公司
 
     @Override
     public String toString() {
@@ -32,9 +33,29 @@ public class HouseholdersDetailDTO {
                 ", before_area=" + before_area +
                 ", between_area=" + between_area +
                 ", after_area=" + after_area +
+                ", appraise_co='" + appraise_co + '\'' +
+                ", demolish_co='" + demolish_co + '\'' +
                 ", no_sign_reson='" + no_sign_reson + '\'' +
                 '}';
     }
+
+    public String getAppraise_co() {
+        return appraise_co;
+    }
+
+    public void setAppraise_co(String appraise_co) {
+        this.appraise_co = appraise_co;
+    }
+
+    public String getDemolish_co() {
+        return demolish_co;
+    }
+
+    public void setDemolish_co(String demolish_co) {
+        this.demolish_co = demolish_co;
+    }
+
+    private String no_sign_reson;//滞留原因
 
     public float getBefore_area() {
         return before_area;

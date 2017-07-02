@@ -18,6 +18,7 @@ public class HouseholdersDetailDTO {
     private float after_area;//09年后面积
     private String appraise_co;//评估公司
     private String demolish_co;//拆迁公司
+    private String groups;//组别
 
     @Override
     public String toString() {
@@ -35,8 +36,17 @@ public class HouseholdersDetailDTO {
                 ", after_area=" + after_area +
                 ", appraise_co='" + appraise_co + '\'' +
                 ", demolish_co='" + demolish_co + '\'' +
+                ", groups='" + groups + '\'' +
                 ", no_sign_reson='" + no_sign_reson + '\'' +
                 '}';
+    }
+
+    public String getGroups() {
+        return groups;
+    }
+
+    public void setGroups(String groups) {
+        this.groups = groups;
     }
 
     public String getAppraise_co() {

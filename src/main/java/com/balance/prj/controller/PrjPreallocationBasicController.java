@@ -287,7 +287,7 @@ public class PrjPreallocationBasicController extends BaseController {
             String demolition_card_code = Excel2007Util.getHssfCellStringValue(hssfRow, 32);
             String relocate_date = Excel2007Util.getHssfCellStringValue(hssfRow, 33);
             String remarks = Excel2007Util.getHssfCellStringValue(hssfRow, 34);
-
+            String in_host_date = Excel2007Util.getHssfCellStringValue(hssfRow, 35);
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
@@ -300,7 +300,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
-                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,
+                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
                         getUserName(request), rowIndex, getProjectId(request));
 
                 preallocations.add(preallocation);
@@ -356,6 +356,7 @@ public class PrjPreallocationBasicController extends BaseController {
             String demolition_card_code = Excel2007Util.getXssfCellStringValue(xssfRow, 32);
             String relocate_date = Excel2007Util.getXssfCellStringValue(xssfRow, 33);
             String remarks = Excel2007Util.getXssfCellStringValue(xssfRow, 34);
+            String in_host_date = Excel2007Util.getXssfCellStringValue(xssfRow, 35);
 
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name)) {
@@ -369,7 +370,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
-                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,
+                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
                         getUserName(request), rowIndex, getProjectId(request));
                 preallocations.add(preallocation);
             }
@@ -390,7 +391,7 @@ public class PrjPreallocationBasicController extends BaseController {
                                        String after_area, String management_house_area, String field_house_area, String leader,
                                        String management_co, String geo_co, String appraise_co, String demolish_co, String audit_co,
                                        String pulledown_co, String demolition_year_code, String demolition_card_code,
-                                       String relocate_date, String remarks, String create_person_name,
+                                       String relocate_date, String remarks, String in_host_date, String create_person_name,
                                        int row_index, int projectId) {
 
         PrjPreallocation preallocation = new PrjPreallocation();
@@ -403,7 +404,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setLand_property(land_status);
         preallocation.setLessee_name(lessee_name);
         preallocation.setLegal_name(legal_name);
-        preallocation.setTotal_land_area(StringUtil.isNullOrEmpty(total_land_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(total_land_area),2));
+        preallocation.setTotal_land_area(StringUtil.isNullOrEmpty(total_land_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(total_land_area), 2));
         preallocation.setCard_land_area(StringUtil.isNullOrEmpty(card_land_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(card_land_area)));
         preallocation.setCog_land_area(StringUtil.isNullOrEmpty(cog_land_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(cog_land_area)));
         preallocation.setLessee_land_area(StringUtil.isNullOrEmpty(lessee_land_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(lessee_land_area)));
@@ -432,6 +433,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setRelocate_date(relocate_date);
 
         preallocation.setRemarks(remarks);
+        preallocation.setIn_host_date(in_host_date);
         preallocation.setCreated_by(create_person_name);
         preallocation.setRowIndex(row_index);
         return preallocation;

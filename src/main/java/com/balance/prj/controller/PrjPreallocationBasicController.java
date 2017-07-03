@@ -220,9 +220,9 @@ public class PrjPreallocationBasicController extends BaseController {
                 }
             }
 //            if (preallocations != null && preallocations.size() > 0 && noPassPreallocations.size()) {
-                noPassPreallocations.addAll(saveForImport(preallocations));
-                WebUtil.out(response, JsonUtil.createJQueryStr(true, JsonUtil.toStr(noPassPreallocations)));
-                return;
+            noPassPreallocations.addAll(saveForImport(preallocations));
+            WebUtil.out(response, JsonUtil.createJQueryStr(true, JsonUtil.toStr(noPassPreallocations)));
+            return;
 //            }
 //            WebUtil.out(response, JsonUtil.createOperaStr(false, "文件上传失败"));
 //            return;
@@ -291,10 +291,8 @@ public class PrjPreallocationBasicController extends BaseController {
             String relocate_date = Excel2007Util.getHssfCellStringValue(hssfRow, 33);
             String remarks = Excel2007Util.getHssfCellStringValue(hssfRow, 34);
             String in_host_date = Excel2007Util.getHssfCellStringValue(hssfRow, 35);
-            String demoli_person = Excel2007Util.getHssfCellStringValue(hssfRow, 36);
-            String appr_person = Excel2007Util.getHssfCellStringValue(hssfRow, 37);
             //noinspection Duplicates
-            if (!checkImportParamsNull(map_id, host_name,section,groups)) {
+            if (!checkImportParamsNull(map_id, host_name, section, groups)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
                 preallocationsImportDTO.setRowIndex(rowIndex);
                 preallocationsImportDTO.setReason("导入失败，编号与姓名有空单元格");
@@ -305,7 +303,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
-                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,demoli_person,appr_person, in_host_date,
+                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
                         getUserName(request), rowIndex, getProjectId(request));
 
                 preallocations.add(preallocation);
@@ -362,11 +360,9 @@ public class PrjPreallocationBasicController extends BaseController {
             String relocate_date = Excel2007Util.getXssfCellStringValue(xssfRow, 33);
             String remarks = Excel2007Util.getXssfCellStringValue(xssfRow, 34);
             String in_host_date = Excel2007Util.getXssfCellStringValue(xssfRow, 35);
-            String demoli_person = Excel2007Util.getXssfCellStringValue(xssfRow, 36);
-            String appr_person = Excel2007Util.getXssfCellStringValue(xssfRow, 37);
 
             //noinspection Duplicates
-            if (!checkImportParamsNull(map_id, host_name,section,groups)) {
+            if (!checkImportParamsNull(map_id, host_name, section, groups)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
                 preallocationsImportDTO.setRowIndex(rowIndex);
                 preallocationsImportDTO.setReason("导入失败，编号与姓名或者标段与组别有空单元格");
@@ -377,7 +373,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
-                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,demoli_person,appr_person, in_host_date,
+                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,  in_host_date,
                         getUserName(request), rowIndex, getProjectId(request));
                 preallocations.add(preallocation);
             }
@@ -386,9 +382,9 @@ public class PrjPreallocationBasicController extends BaseController {
         return preallocations;
     }
 
-    private boolean checkImportParamsNull(String mapId, String hostName,String section ,String groups) {
+    private boolean checkImportParamsNull(String mapId, String hostName, String section, String groups) {
         return StringUtil.isNotNullOrEmpty(mapId) && StringUtil.isNotNullOrEmpty(hostName)
-                && StringUtil.isNotNullOrEmpty(section)&& StringUtil.isNotNullOrEmpty(groups);
+                && StringUtil.isNotNullOrEmpty(section) && StringUtil.isNotNullOrEmpty(groups);
     }
 
     private PrjPreallocation getImport(String map_id, String host_name, String location, String id_card, String land_status,
@@ -399,7 +395,7 @@ public class PrjPreallocationBasicController extends BaseController {
                                        String after_area, String management_house_area, String field_house_area, String leader,
                                        String management_co, String geo_co, String appraise_co, String demolish_co, String audit_co,
                                        String pulledown_co, String demolition_year_code, String demolition_card_code,
-                                       String relocate_date, String remarks,String demoli_person,String appr_person, String in_host_date, String create_person_name,
+                                       String relocate_date, String remarks, String in_host_date, String create_person_name,
                                        int row_index, int projectId) {
 
         PrjPreallocation preallocation = new PrjPreallocation();
@@ -441,8 +437,6 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setRelocate_date(relocate_date);
 
         preallocation.setRemarks(remarks);
-        preallocation.setDemolish_person(demoli_person);
-        preallocation.setAppraise_person(appr_person);
         preallocation.setIn_host_date(in_host_date);
         preallocation.setCreated_by(create_person_name);
         preallocation.setRowIndex(row_index);

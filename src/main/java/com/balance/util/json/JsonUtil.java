@@ -90,6 +90,10 @@ public class JsonUtil {
         return "{\"success\":" + b + ",\"msgText\":\"" + msg + "\"}";
     }
 
+    public static String createJQueryStr(boolean b, String msg) {
+        return "{\"success\":" + b + ",\"msgText\":" + msg + "}";
+    }
+
 
     /**
      * 创建Extjs分页json

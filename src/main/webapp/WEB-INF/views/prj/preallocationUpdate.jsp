@@ -280,6 +280,7 @@
             errorPlacement: function (error, element) {
                 var $valid_pane = element.closest(".tab-pane");
                 var $valid_tab = $("#myTab").find("[data-type=" + $valid_pane.attr("data-type") + "]");
+                console.log($valid_pane.attr("data-type"));
                 if (!$valid_pane.hasClass("active")) {
                     $valid_pane.addClass("active").addClass("in");
                     $valid_tab.addClass("active").addClass("in");

@@ -316,11 +316,10 @@
                     maxlength: 18
                 },
                 section: {
-                    required: false,
-                    maxlength: 200
+                    required: true
                 },
                 groups: {
-                    required: false
+                    required: true
                 },
                 demolish_co: {
                     required: false

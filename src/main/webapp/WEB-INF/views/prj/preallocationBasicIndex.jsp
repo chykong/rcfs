@@ -404,17 +404,18 @@
                     type: 'post', // 提交方式 get/post
                     url: $preallocations_upload_form.attr('action'),
                     success: function (result) {
-                        var json = eval('('+result + ')');
+//                        var json = eval('('+result + ')');
+                        var json = $.parseJSON(result);
                         $preallocations_import_input.ace_file_input('loading', false);
                         var msg = '';
                         if (json.success) {
                             $("#import-modal").modal("hide");  //关闭上传窗口
                             $preallocations_import_input.ace_file_input('reset_input');
 
-                            if (!json.data || !json.data.length) {
-                                msg = json.msgText;
+                            if (json.msgText.length == 0 ) {
+                                msg = "导入成功";
                             } else {
-                                $.each(json.data, function (i, item) {
+                                $.each(json.msgText, function (i, item) {
                                     var index = parseInt(item.rowIndex);
                                     msg += '第' + index + '行,' + item.reason + '<br/>';
                                 });

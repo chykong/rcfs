@@ -74,7 +74,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
-                " management_house_area, field_house_area, no_sign_reason,in_host_date,status,total_yjf,appraise_money) " +
+                " management_house_area, field_house_area, no_sign_reason,in_host_date,status,total_yjf,appraise_money,demolish_person,appraise_person) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
@@ -84,7 +84,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
-                " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status,:total_yjf,:appraise_money)";
+                " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status,:total_yjf,:appraise_money,:demolish_person,:appraise_person)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -108,7 +108,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code, money_date=:money_date," +
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area," +
                 " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reason=:no_sign_reason,status=:status" +
-                " WHERE id=:id AND map_id=:map_id";
+                " ,demolish_person=:demolish_person,appraise_person=:appraise_person WHERE id=:id AND map_id=:map_id";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -126,7 +126,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " audit_co=:audit_co, demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code," +
                 " relocate_date=:relocate_date," +
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area" +
-                " WHERE map_id=:map_id";
+                " ,demolish_person=:demolish_person,appraise_person=:appraise_person WHERE map_id=:map_id";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);

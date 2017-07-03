@@ -4,8 +4,11 @@ import com.balance.api.dto.GisDTO;
 import com.balance.api.dto.HouseholdersDTO;
 import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
+import com.balance.prj.dao.PrjGroupDao;
 import com.balance.prj.dao.PrjPreallocationDao;
+import com.balance.prj.dao.PrjSectionDao;
 import com.balance.prj.model.PrjPreallocation;
+import com.balance.prj.model.PrjSection;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,10 @@ import java.util.List;
 public class PrjPreallocationService {
     @Autowired
     private PrjPreallocationDao prjPreallocationDao;
+    @Autowired
+    private PrjSectionDao prjSectionDao;
+    @Autowired
+    private PrjGroupDao prjGroupDao;
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.findAll(prjPreallocationSearchVO);
@@ -70,6 +77,16 @@ public class PrjPreallocationService {
         PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
         if (type != 1 && type != 2) {
             preallocationsImportDTO.setReason("传入类型错误");
+            return preallocationsImportDTO;
+        }
+        int project_id = preallocation.getPrj_base_info_id();
+        PrjSection prjSection = prjSectionDao.existByPrjIdAndName(project_id,preallocation.getSection());
+        if(prjSection == null){
+            preallocationsImportDTO.setReason("该项目下不存在此标段");
+            return preallocationsImportDTO;
+        }
+        if(!prjGroupDao.existByPrjIdAndName(project_id,prjSection.getId(),preallocation.getGroups())){
+            preallocationsImportDTO.setReason("该项目该标段下不存在此组别");
             return preallocationsImportDTO;
         }
         int flag;

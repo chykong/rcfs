@@ -126,6 +126,9 @@ public class PrjPreallocation {
     private String archives_cabinet_number;//档案柜号
     private String archive_date;//存档时间
 
+    private String appraise_person;  //评估人员
+    private String  demolish_person;  //服务人员
+
     private Integer rowIndex;  //导入时  行号
 
 
@@ -1184,5 +1187,21 @@ public class PrjPreallocation {
 
     public void setD_id(int d_id) {
         this.d_id = d_id;
+    }
+
+    public String getAppraise_person() {
+        return appraise_person;
+    }
+
+    public void setAppraise_person(String appraise_person) {
+        this.appraise_person = appraise_person;
+    }
+
+    public String getDemolish_person() {
+        return demolish_person;
+    }
+
+    public void setDemolish_person(String demolish_person) {
+        this.demolish_person = demolish_person;
     }
 }

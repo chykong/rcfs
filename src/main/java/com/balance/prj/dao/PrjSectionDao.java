@@ -104,4 +104,10 @@ public class PrjSectionDao extends BaseDao<PrjSection, PrjSectionSearchVO> {
         return list(sql, new Object[]{prj_base_info_id});
     }
 
+    public PrjSection existByPrjIdAndName(int prj_base_info_id, String name) {
+        String sql = "select * from t_prj_section t where prj_base_info_id=? and name=?";
+        List<PrjSection> prjSectionList = list(sql, new Object[]{prj_base_info_id, name});
+        return prjSectionList.size() > 0 ? prjSectionList.get(0) : null;
+    }
+
 }

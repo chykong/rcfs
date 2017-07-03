@@ -110,4 +110,8 @@ public class PrjGroupDao extends BaseDao<PrjGroup, PrjGroupSearchVO> {
         return list(sql, new Object[]{section_id});
     }
 
+    public boolean existByPrjIdAndName(int prj_base_info_id,int section_id,String name) {
+        String sql = "select * from t_prj_group t where prj_base_info_id=? and section_id=? and name=?";
+        return list(sql, new Object[]{prj_base_info_id,section_id,name}).size() > 0;
+    }
 }

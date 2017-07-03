@@ -115,6 +115,41 @@
         $("#checkFile").addClass('hidden');
 
         countYjf();
+
+        var $section = $("#section");
+        var $group = $("#groups");
+        var old_group = '${preallocation.groups}';
+        $section.on('change', function () {
+            if($(this).val() == ''){
+                $group.empty();
+                $group.append('<option value="">--请选择标段--</option>');
+                return;
+            }
+            var url = '<c:url value="/common/listGroupBySec.htm"/>';
+            $.ajax({
+                url: url,
+                data: {
+                    section_id: $section.find(":checked").attr("data-id"),
+                    is_search : 0
+                },
+                type: 'post',
+                success: function (result) {
+                    var json = eval('('+result + ')');
+                    $group.empty();
+                    if (json && json.length) {
+                        $group.append('<option value="">--请选择--</option>');
+                        $.each(json, function (i, group) {
+                            if(old_group == group.name){
+                                $group.append('<option value="' + group.name + '" selected>' + group.name + '</option>');
+                            }else{
+                                $group.append('<option value="' + group.name + '">' + group.name + '</option>');
+                            }
+                        });
+                    }
+                }
+            });
+        });
+        $section.change();
     })
 </script>
 </body>

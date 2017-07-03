@@ -324,11 +324,10 @@
                     maxlength: 18
                 },
                 section: {
-                    required: false,
-                    maxlength: 200
+                    required: true
                 },
                 groups: {
-                    required: false
+                    required: true
                 },
                 demolish_co: {
                     required: false
@@ -348,8 +347,9 @@
                     remote: "<span class=\"red\">编号已存在</span>"
                 }
             },
-            submitHandler:function(){
-                return true;
+            submitHandler:function(form){
+               // return true;
+                form.submit();
             }
         });
     })

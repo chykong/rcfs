@@ -16,14 +16,16 @@
         管理公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="management_co" name="management_co">
+        <form:input path="management_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入管理公司..."
+        maxlength="200"/>
+        <%--<select class="col-sm-3 control-label no-padding-right" id="management_co" name="management_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
                 <c:if test="${company.type eq '管理公司'}">
                     <option value="${company.name}" <c:if test="${preallocation.management_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="management_coTip"></label>
     </div>
 </div>
@@ -32,14 +34,16 @@
         测绘公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="geo_co" name="geo_co">
+        <form:input path="geo_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入测绘公司..."
+                    maxlength="200"/>
+       <%-- <select class="col-sm-3 control-label no-padding-right" id="geo_co" name="geo_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
                 <c:if test="${company.type eq '测绘公司'}">
                     <option value="${company.name}" <c:if test="${preallocation.geo_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="geo_coTip"></label>
     </div>
 </div>
@@ -48,7 +52,9 @@
         评估公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="appraise_co"
+        <form:input path="appraise_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入评估公司..."
+                    maxlength="200"/>
+        <%--<select class="col-sm-3 control-label no-padding-right" id="appraise_co"
                 name="appraise_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
@@ -56,7 +62,7 @@
                     <option value="${company.name}" <c:if test="${preallocation.appraise_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="appraise_coTip"></label>
     </div>
 </div>
@@ -65,7 +71,9 @@
         拆迁公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="demolish_co"
+        <form:input path="demolish_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入拆迁公司..."
+                    maxlength="200"/>
+        <%--<select class="col-sm-3 control-label no-padding-right" id="demolish_co"
                 name="demolish_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
@@ -73,7 +81,7 @@
                     <option value="${company.name}" <c:if test="${preallocation.demolish_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="demolish_coTip"></label>
     </div>
 </div>
@@ -82,7 +90,9 @@
         审计公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="audit_co"
+        <form:input path="audit_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入审计公司..."
+                    maxlength="200"/>
+        <%--<select class="col-sm-3 control-label no-padding-right" id="audit_co"
                 name="audit_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
@@ -90,7 +100,7 @@
                     <option value="${company.name}" <c:if test="${preallocation.audit_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="audit_coTip"></label>
     </div>
 </div>
@@ -99,7 +109,9 @@
         拆除公司：
     </form:label>
     <div class="col-sm-9">
-        <select class="col-sm-3 control-label no-padding-right" id="pulledown_co"
+        <form:input path="pulledown_co" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入拆除公司..."
+                    maxlength="200"/>
+       <%-- <select class="col-sm-3 control-label no-padding-right" id="pulledown_co"
                 name="pulledown_co">
             <option value="">--请选择--</option>
             <c:forEach items="${companyList}" var="company">
@@ -107,7 +119,7 @@
                     <option value="${company.name}" <c:if test="${preallocation.pulledown_co eq company.name}">selected</c:if>>${company.name}</option>
                 </c:if>
             </c:forEach>
-        </select>
+        </select>--%>
         <label id="pulledown_coTip"></label>
     </div>
 </div>

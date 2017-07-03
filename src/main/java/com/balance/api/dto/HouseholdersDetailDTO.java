@@ -16,8 +16,8 @@ public class HouseholdersDetailDTO {
     private float before_area;//06年前面积
     private float between_area;//06-09年间面积
     private float after_area;//09年后面积
-    private String appraise_co;//评估公司
-    private String demolish_co;//拆迁公司
+    private String appraise_person;//评估人员
+    private String demolish_person;//服务人员
     private String groups;//组别
 
     @Override
@@ -34,11 +34,27 @@ public class HouseholdersDetailDTO {
                 ", before_area=" + before_area +
                 ", between_area=" + between_area +
                 ", after_area=" + after_area +
-                ", appraise_co='" + appraise_co + '\'' +
-                ", demolish_co='" + demolish_co + '\'' +
+                ", appraise_person='" + appraise_person + '\'' +
+                ", demolish_person='" + demolish_person + '\'' +
                 ", groups='" + groups + '\'' +
                 ", no_sign_reson='" + no_sign_reson + '\'' +
                 '}';
+    }
+
+    public String getAppraise_person() {
+        return appraise_person;
+    }
+
+    public void setAppraise_person(String appraise_person) {
+        this.appraise_person = appraise_person;
+    }
+
+    public String getDemolish_person() {
+        return demolish_person;
+    }
+
+    public void setDemolish_person(String demolish_person) {
+        this.demolish_person = demolish_person;
     }
 
     public String getGroups() {
@@ -47,22 +63,6 @@ public class HouseholdersDetailDTO {
 
     public void setGroups(String groups) {
         this.groups = groups;
-    }
-
-    public String getAppraise_co() {
-        return appraise_co;
-    }
-
-    public void setAppraise_co(String appraise_co) {
-        this.appraise_co = appraise_co;
-    }
-
-    public String getDemolish_co() {
-        return demolish_co;
-    }
-
-    public void setDemolish_co(String demolish_co) {
-        this.demolish_co = demolish_co;
     }
 
     private String no_sign_reson;//滞留原因

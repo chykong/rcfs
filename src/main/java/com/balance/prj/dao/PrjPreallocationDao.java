@@ -322,7 +322,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
      * @return
      */
     public HouseholdersDetailDTO getByIdInApi(int id) {
-        String sql = "select id,host_name,cog_land_area,map_id,location,status,total_homestead_area,remarks,before_area,between_area,after_area,no_sign_reason,appraise_co,demolish_co,groups  FROM t_prj_preallocation WHERE id=?";
+        String sql = "select id,host_name,cog_land_area,map_id,location,status,total_homestead_area,remarks,before_area,between_area,after_area,no_sign_reason,appraise_person,demolish_person,groups  FROM t_prj_preallocation WHERE id=?";
         List<HouseholdersDetailDTO> prjPreallocations = jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(HouseholdersDetailDTO.class));
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }

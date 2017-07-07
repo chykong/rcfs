@@ -8,6 +8,7 @@ package com.balance.api.dto;
 public class ChartDTO {
 
     private float in_host_count;//入户按户数总数
+    private float in_host_over;//入户按户数已完成
     private float in_host_percent;//入户按户数百分比
     private float in_landarea_count;//入户占地面积总数
     private float in_landarea_percent;//入户占地面积百分比

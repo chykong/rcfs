@@ -115,16 +115,16 @@ public class StatisticsApiService {
         if (prjChartsSearchVO.getSearch_type() != null) {
             switch (prjChartsSearchVO.getSearch_type()) {
                 case 1:
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
                     break;
                 case 2:
-                    list = prjChartsService.getGroupSignList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,2);
                     break;
                 case 3:
-                    list = prjChartsService.getGroupHandoverList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,3);
                     break;
                 default:
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,4);
                     break;
             }
         }

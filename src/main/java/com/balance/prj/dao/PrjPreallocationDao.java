@@ -39,11 +39,8 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
      * @return
      */
     public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = "select plc.id,plc.map_id,plc.cog_land_area ,plc.host_name from t_prj_preallocation plc where 1=1 and status=10";
-        if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getTerm())) {
-            prjPreallocationSearchVO.setTerm("%" + prjPreallocationSearchVO.getTerm() + "%");
-            sql += " and (plc.host_name like :term or map_id like :term)";
-        }
+        String sql = "select plc.id,plc.map_id,plc.cog_land_area ,plc.host_name from t_prj_preallocation plc ";
+        sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by  CONVERT(host_name USING gbk)";
         sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);

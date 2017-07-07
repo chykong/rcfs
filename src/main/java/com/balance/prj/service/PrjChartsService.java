@@ -184,7 +184,7 @@ public class PrjChartsService {
             }
             for (PrjChart today : listToday) {
                 if (today.getGroups().equals(prjGroup.getName())) {
-                    prjChart.setTotal(today.getTotal());
+                    prjChart.setToday(today.getToday());
                 }
             }
             list.add(prjChart);

@@ -251,7 +251,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
      * @return
      */
     public List<PrjChart> getGroupTotalList(PrjChartsSearchVO prjChartsSearchVO, int type) {
-        String sql = "SELECT groups,count(*)total FROM t_prj_preallocation " +
+        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" total FROM t_prj_preallocation " +
                 " WHERE " + getStatField(type) + " IS NOT NULL AND " + getStatField(type) + " != '' " +
                 " AND groups IS NOT NULL AND groups != '' AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name  GROUP BY groups";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
@@ -265,7 +265,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
      * @return
      */
     public List<PrjChart> getGroupTodayList(PrjChartsSearchVO prjChartsSearchVO, int type) {
-        String sql = "SELECT groups, count(*)today FROM t_prj_preallocation" +
+        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" today FROM t_prj_preallocation" +
                 " WHERE " + getStatField(type) + " = CURDATE() AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name " +
                 " GROUP BY groups ";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);

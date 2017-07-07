@@ -43,19 +43,22 @@ public class StatisticsApiService {
         chartDTO.setIn_host_count(total);//入户按户数总数
         float over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setIn_host_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setIn_host_over(over);//已完成
+
 
         prjChartsSearchVO.setSearch_type(2);//签约累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setSign_host_count(total);//签约按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setSign_host_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setSign_host_over(over);//已完成
 
         prjChartsSearchVO.setSearch_type(3);//交房累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setHandover_host_count(total);//交房按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setHandover_host_percent(NumberUtil.calPercent(over, total));
-
+        chartDTO.setHandover_host_over(over);//已完成
         /////
         prjChartsSearchVO.setType(2);//按占地面积
         prjChartsSearchVO.setSearch_type(1);//入户累计
@@ -63,19 +66,23 @@ public class StatisticsApiService {
         chartDTO.setIn_landarea_count(total);//入户按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setIn_landarea_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setIn_landarea_over(over);//已完成
+
 
         prjChartsSearchVO.setSearch_type(2);//签约累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setSign_landarea_count(total);//签约按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setSign_landarea_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setSign_landarea_over(over);//已完成
+
 
         prjChartsSearchVO.setSearch_type(3);//交房累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setHandover_landarea_count(total);//交房按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setHandover_landarea_percent(NumberUtil.calPercent(over, total));
-
+        chartDTO.setHandover_landarea_over(over);//已完成
         /////
         prjChartsSearchVO.setType(3);//按建筑面积
         prjChartsSearchVO.setSearch_type(1);//入户累计
@@ -83,18 +90,22 @@ public class StatisticsApiService {
         chartDTO.setIn_homestead_count(total);//入户按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setIn_homestead_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setIn_homestead_over(over);//已完成
 
         prjChartsSearchVO.setSearch_type(2);//签约累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setSign_homestead_count(total);//签约按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setSign_homestead_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setSign_homestead_over(over);////已完成
 
         prjChartsSearchVO.setSearch_type(3);//交房累计
         total = prjChartsDao.getTotalHomes(prjChartsSearchVO);
         chartDTO.setHandover_homestead_count(total);//交房按户数总数
         over = createOver(prjChartsSearchVO);//已完成
         chartDTO.setHandover_homestead_percent(NumberUtil.calPercent(over, total));
+        chartDTO.setHandover_homestead_over(over);////已完成
+
         return chartDTO;
     }
 

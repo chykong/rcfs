@@ -109,6 +109,7 @@ public class PrjChartsController extends BaseController {
     @RequestMapping("/getGroup")
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
+        System.out.println(prjChartsSearchVO.toString());
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
         prjChartsSearchVO.setCurrent_land_name(SessionUtil.getUserSession(request).getCurrent_land_name());
         prjChartsSearchVO.setPrj_base_info_id(project_id);
@@ -169,7 +170,7 @@ public class PrjChartsController extends BaseController {
             vo.setGuageData2(over_homes);//已完成数
         }
         vo.setType(prjChartsSearchVO.getType());//类型
-        vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型
+        vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型,1按户数，2按占地面积，3按建筑面积
         String json = ChartsUtil.createChartsJson(vo, total_homes);
         WebUtil.out(response, json);
     }

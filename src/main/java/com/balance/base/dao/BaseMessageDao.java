@@ -133,7 +133,7 @@ public class BaseMessageDao extends BaseDao<BaseMessage, BaseMessageSearchVO> {
      * @return
      */
     public BaseMessageDTO getByMessageAndUser_id(int message_id, int user_id) {
-        String sql = "select t.id,t.title,r.status messageStatus,t.content  from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
+        String sql = "select t.id,t.title,r.status messageStatus,t.content ,r.user_id user_id from t_base_message t ,t_base_messageread r,t_sys_user u where t.id=r.message_id and r.user_id=u.id ";
         sql += " and t.id=? and u.id=? ";
         List<BaseMessageDTO> list = jdbcTemplate.query(sql, new Object[]{message_id, user_id}, BeanPropertyRowMapper.newInstance(BaseMessageDTO.class));
         return list.size() > 0 ? list.get(0) : null;

@@ -122,23 +122,23 @@ public class PrjChartsController extends BaseController {
             switch (prjChartsSearchVO.getSearch_type()) {
                 case 1:
                     title1 = "入户";
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
                     break;
                 case 2:
                     title1 = "签约";
-                    list = prjChartsService.getGroupSignList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,2);
                     break;
                 case 3:
                     title1 = "交房";
-                    list = prjChartsService.getGroupHandoverList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,3);
                     break;
                 case 4:
                     title1 = "放款";
-                    list = prjChartsService.getGroupMoneyList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,4);
                     break;
                 default:
                     title1 = "入户";
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
                     break;
             }
         }
@@ -163,10 +163,13 @@ public class PrjChartsController extends BaseController {
 
         if (over_homes == 0) {
             vo.setGuageData(0);
+            vo.setGuageData2(0);
         } else {
             vo.setGuageData(NumberUtil.calPercent(over_homes, total_homes));//仪表单数据
+            vo.setGuageData2(over_homes);//已完成数
         }
         vo.setType(prjChartsSearchVO.getType());//类型
+        vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型
         String json = ChartsUtil.createChartsJson(vo, total_homes);
         WebUtil.out(response, json);
     }

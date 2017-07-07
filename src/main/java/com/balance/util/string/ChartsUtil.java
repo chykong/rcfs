@@ -30,9 +30,19 @@ public class ChartsUtil {
                 "\"name\": \"" + vo.getGuageTitle() + "\"," +
                 "\"type\": \"gauge\"," +
                 "\"detail\": {formatter:'{value}%'}," +
-                "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), total) + "\"}]" +
+                "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"总" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), total) + "\\r\\n" + overStr(vo) + "\"}]" +
                 " }]}";
         return json;
+    }
+
+    /**
+     * 处理已完成数字符串
+     *
+     * @return
+     */
+    private static String overStr(ChartsDataVO vo) {
+        String str = "已" + getGuageName(vo.getSearch_type()) + ":" + createTotal(vo.getType(), vo.getGuageData2());
+        return str;
     }
 
     private static String createTotal(int type, float value) {
@@ -51,5 +61,19 @@ public class ChartsUtil {
         if (String.valueOf(total).endsWith(".0")) {
             return String.valueOf((int) total);
         } else return String.valueOf(NumberUtil.formatNumber(total));
+    }
+
+    /**
+     * 根据类型返回类型
+     *
+     * @param search_type
+     * @return
+     */
+    private static String getGuageName(int search_type) {
+        if (search_type == 1) return "入户";
+        else if (search_type == 2) return "签约";
+        else if (search_type == 3) return "交房";
+        else if (search_type == 4) return "放款";
+        else return "";
     }
 }

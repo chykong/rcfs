@@ -16,6 +16,12 @@ public class PrjChart {
 
     }
 
+    public PrjChart(String groups, float total, float today) {
+        this.groups = groups;
+        this.total = total;
+        this.today = today;
+    }
+
     public PrjChart(String title, int countLeftDay) {
         this.title = title;
         this.countLeftDay = countLeftDay;

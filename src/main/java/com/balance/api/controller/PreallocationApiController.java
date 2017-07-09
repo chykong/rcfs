@@ -28,7 +28,7 @@ public class PreallocationApiController {
     private PrjPreallocationService prjPreallocationService;
 
     /**
-     * 获取拆迁户 基本情况列表
+     * 获取拆迁户 基本情况列表（滞留户）
      *
      * @return 拆迁户 基本情况列表
      */
@@ -45,6 +45,7 @@ public class PreallocationApiController {
         prjPreallocationSearchVO.setTerm(term);
         prjPreallocationSearchVO.setPageIndex(WebUtil.getSafeInt(request.getParameter("page")));
         prjPreallocationSearchVO.setPageSize(WebUtil.getSafeInt(request.getParameter("size")));
+        prjPreallocationSearchVO.setStatus(10);//只查询滞留
         List<HouseholdersDTO> preallocationList = prjPreallocationService.list(prjPreallocationSearchVO);
         ListDTO dto = new ListDTO();
         dto.setList(preallocationList);

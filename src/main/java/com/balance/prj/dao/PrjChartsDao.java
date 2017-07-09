@@ -112,6 +112,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     /**
      * 入户
+     *
      * @param prjChartsSearchVO
      * @return
      */
@@ -129,6 +130,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     /**
      * 签约
+     *
      * @param prjChartsSearchVO
      * @return
      */
@@ -146,6 +148,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     /**
      * 交房
+     *
      * @param prjChartsSearchVO
      * @return
      */
@@ -163,6 +166,7 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
     /**
      * 放款
+     *
      * @param prjChartsSearchVO
      * @return
      */
@@ -233,7 +237,38 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
             field = "signed_date";
         } else if (search_type == 3) {
             field = "handover_house_date";
+        } else if (search_type == 4) {
+            field = "money_date";
         }
         return field;
+    }
+
+
+    /**
+     * 总计数据
+     *
+     * @param prjChartsSearchVO
+     * @return
+     */
+    public List<PrjChart> getGroupTotalList(PrjChartsSearchVO prjChartsSearchVO, int type) {
+        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" total FROM t_prj_preallocation " +
+                " WHERE " + getStatField(type) + " IS NOT NULL AND " + getStatField(type) + " != '' " +
+                " AND groups IS NOT NULL AND groups != '' AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name  GROUP BY groups";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    /**
+     * 当日数量
+     *
+     * @param prjChartsSearchVO
+     * @return
+     */
+    public List<PrjChart> getGroupTodayList(PrjChartsSearchVO prjChartsSearchVO, int type) {
+        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" today FROM t_prj_preallocation" +
+                " WHERE " + getStatField(type) + " = CURDATE() AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name " +
+                " GROUP BY groups ";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
 }

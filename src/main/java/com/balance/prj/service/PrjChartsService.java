@@ -1,7 +1,9 @@
 package com.balance.prj.service;
 
 import com.balance.prj.dao.PrjChartsDao;
+import com.balance.prj.dao.PrjGroupDao;
 import com.balance.prj.model.PrjChart;
+import com.balance.prj.model.PrjGroup;
 import com.balance.prj.vo.EntireStatVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.date.DateUtil;
@@ -19,6 +21,8 @@ import java.util.*;
 public class PrjChartsService {
     @Autowired
     private PrjChartsDao prjChartsDao;
+    @Autowired
+    private PrjGroupDao prjGroupDao;
 
     public List<PrjChart> getInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         return getOverList(prjChartsDao.getInHostList(prjChartsSearchVO), prjChartsSearchVO.getPrj_base_info_id());
@@ -88,6 +92,10 @@ public class PrjChartsService {
         return prjChartsDao.getTotalHomes(prjChartsSearchVO);
     }
 
+    public List<PrjChart> getGroupInList(PrjChartsSearchVO prjChartsSearchVO, int type) {
+        return prjChartsDao.getGroupInHostList(prjChartsSearchVO);
+    }
+
     /**
      * 生成整体进度图的json
      * 生成的json包括两部分，一部分是日期数组，一部分是数据list
@@ -154,5 +162,33 @@ public class PrjChartsService {
             exist += today;
         }
         return dataArr;
+    }
+
+
+    /**
+     * 分组进度图
+     *
+     * @return
+     */
+    public List<PrjChart> listGroup(PrjChartsSearchVO prjChartsSearchVO, int type) {
+        List<PrjChart> list = new ArrayList<>();
+        List<PrjGroup> listGroup = prjGroupDao.listByPrj_base_info_id(prjChartsSearchVO.getPrj_base_info_id());//所有组
+        List<PrjChart> listTotal = prjChartsDao.getGroupTotalList(prjChartsSearchVO, type);//全部
+        List<PrjChart> listToday = prjChartsDao.getGroupTodayList(prjChartsSearchVO, type);//当日
+        for (PrjGroup prjGroup : listGroup) {
+            PrjChart prjChart = new PrjChart(prjGroup.getName(), 0, 0);
+            for (PrjChart total : listTotal) {
+                if (total.getGroups().equals(prjGroup.getName())) {
+                    prjChart.setTotal(total.getTotal());
+                }
+            }
+            for (PrjChart today : listToday) {
+                if (today.getGroups().equals(prjGroup.getName())) {
+                    prjChart.setToday(today.getToday());
+                }
+            }
+            list.add(prjChart);
+        }
+        return list;
     }
 }

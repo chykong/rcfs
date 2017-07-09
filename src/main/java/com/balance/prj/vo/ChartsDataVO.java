@@ -16,7 +16,10 @@ public class ChartsDataVO {
 
     private String guageTitle;//仪表盘标题
     private float guageData;//仪表盘百分比
+    private float guageData2;//仪表盘已完成数
     private int type;//类型
+    private int search_type;  //查询类型
+
     @Override
     public String toString() {
         return "ChartsDataVO{" +
@@ -27,7 +30,25 @@ public class ChartsDataVO {
                 ", barCategories=" + Arrays.toString(barCategories) +
                 ", guageTitle='" + guageTitle + '\'' +
                 ", guageData=" + guageData +
+                ", guageData2=" + guageData2 +
+                ", type=" + type +
                 '}';
+    }
+
+    public int getSearch_type() {
+        return search_type;
+    }
+
+    public void setSearch_type(int search_type) {
+        this.search_type = search_type;
+    }
+
+    public float getGuageData2() {
+        return guageData2;
+    }
+
+    public void setGuageData2(float guageData2) {
+        this.guageData2 = guageData2;
     }
 
     public int getType() {

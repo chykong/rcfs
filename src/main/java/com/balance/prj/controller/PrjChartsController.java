@@ -109,6 +109,7 @@ public class PrjChartsController extends BaseController {
     @RequestMapping("/getGroup")
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
+        System.out.println(prjChartsSearchVO.toString());
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
         prjChartsSearchVO.setCurrent_land_name(SessionUtil.getUserSession(request).getCurrent_land_name());
         prjChartsSearchVO.setPrj_base_info_id(project_id);
@@ -122,23 +123,23 @@ public class PrjChartsController extends BaseController {
             switch (prjChartsSearchVO.getSearch_type()) {
                 case 1:
                     title1 = "入户";
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
                     break;
                 case 2:
                     title1 = "签约";
-                    list = prjChartsService.getGroupSignList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,2);
                     break;
                 case 3:
                     title1 = "交房";
-                    list = prjChartsService.getGroupHandoverList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,3);
                     break;
                 case 4:
                     title1 = "放款";
-                    list = prjChartsService.getGroupMoneyList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,4);
                     break;
                 default:
                     title1 = "入户";
-                    list = prjChartsService.getGroupInHostList(prjChartsSearchVO);
+                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
                     break;
             }
         }
@@ -163,10 +164,13 @@ public class PrjChartsController extends BaseController {
 
         if (over_homes == 0) {
             vo.setGuageData(0);
+            vo.setGuageData2(0);
         } else {
             vo.setGuageData(NumberUtil.calPercent(over_homes, total_homes));//仪表单数据
+            vo.setGuageData2(over_homes);//已完成数
         }
         vo.setType(prjChartsSearchVO.getType());//类型
+        vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型,1按户数，2按占地面积，3按建筑面积
         String json = ChartsUtil.createChartsJson(vo, total_homes);
         WebUtil.out(response, json);
     }

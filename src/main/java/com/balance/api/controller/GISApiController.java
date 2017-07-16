@@ -57,7 +57,7 @@ public class GISApiController extends BaseController {
         Integer projectId = SessionUtil.getUserSession(request).getCurrent_project_id();
         mv.addObject("projectId",projectId);
 
-        if(projectId == 1){  //只有北臧村的地图
+        if(projectId == 1 || projectId == 26){  //只有北臧村的地图
             mv.setViewName("/gis/index");// 跳转至指定页面
         }else{
             mv.setViewName("/gis/no-map");

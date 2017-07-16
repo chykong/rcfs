@@ -183,6 +183,14 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return getNamedParameterJdbcTemplate().update(sql, params) > 0 ? prjPreallocation : null;
     }
 
+    /**
+     * 删除
+     * @param id
+     */
+    public int delete(int id) {
+        String sql = "delete from t_prj_preallocation   WHERE id=?";
+        return jdbcTemplate.update(sql, new Object[]{id});
+    }
 
     public PrjPreallocation updateChooseRoom(PrjPreallocation prjPreallocation) {
         String sql = "UPDATE t_prj_preallocation SET choose_room_position =:chooseRoomPosition," +

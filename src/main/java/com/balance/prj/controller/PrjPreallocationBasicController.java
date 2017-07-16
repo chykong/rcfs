@@ -505,4 +505,17 @@ public class PrjPreallocationBasicController extends BaseController {
         WebUtil.out(response, json);
     }
 
+    /**
+     * 删除信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "delete")
+    public String delete(int id, HttpServletRequest request) {
+        int flag = preallocationService.delete(id);
+        if (flag == 0)
+            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除失败");
+        else
+            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除成功");
+    }
 }

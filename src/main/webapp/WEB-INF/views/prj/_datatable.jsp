@@ -38,6 +38,14 @@
 </table>
 
 <script>
+    // 删除
+    var delBasic = function (id) {
+        bootbox.confirm("你确定要删除该记录吗？", function (result) {
+            if (result) {
+                window.location = "delete.htm?backUrl=${backUrl}&&id=" + id;
+            }
+        })
+    }
     $(function () {
         var $table_id = $("#basic-table");
         var table = $table_id.DataTable({
@@ -176,14 +184,18 @@
                 },
                 {
                     data: "id",
-                    width: "80px",
+                    width: "160px",
                     render: function (data, type, row) {
+                        var retHtml = '';
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
-                            return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
+                            retHtml += '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
                                     <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
-                        } else {
-                            return '';
                         }
+                        retHtml+=" ";
+                        if (${bln:isP('PrjPreallocationDelete')}) {
+                            retHtml +=  '<a class="btn-sm btn-warning" href="javascript:delBasic(' + data + ')"><i class="ace-icon fa fa-trash-o "></i>删除</a>';
+                        }
+                        return retHtml;
                     }
                 }
             ],
@@ -217,8 +229,8 @@
                 $(".DTFC_LeftFootWrapper").remove();
 
             }
-
         });
+
         $("#btn-search").on("click", table.draw);
     });
 </script>

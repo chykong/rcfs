@@ -36,31 +36,43 @@ public class PrjPreallocationService {
 
     /**
      * api接口里面需要分页查询
+     *
      * @param prjPreallocationSearchVO
      * @return
      */
     public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.list(prjPreallocationSearchVO);
     }
+
     public List<GisDTO> listForGis(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.listForGis(prjPreallocationSearchVO);
     }
 
-    public int count(PrjPreallocationSearchVO prjPreallocationSearchVO){
+    public int count(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.count(prjPreallocationSearchVO);
     }
 
-    public int add(PrjPreallocation prjPreallocation){
+    public int add(PrjPreallocation prjPreallocation) {
         return prjPreallocationDao.add(prjPreallocation);
     }
 
-    public int update(PrjPreallocation prjPreallocation){
+    public int update(PrjPreallocation prjPreallocation) {
         return prjPreallocationDao.update(prjPreallocation);
     }
 
-    public PrjPreallocation getById(int id){
+    public PrjPreallocation getById(int id) {
         return prjPreallocationDao.getById(id);
     }
+
+    /**
+     * 按照id删除
+     *
+     * @param id
+     */
+    public int delete(int id) {
+        return prjPreallocationDao.delete(id);
+    }
+
     public boolean existByMapId(String map_Id, int project_id) {
         return prjPreallocationDao.existByMapId(map_Id, project_id);
     }
@@ -80,12 +92,12 @@ public class PrjPreallocationService {
             return preallocationsImportDTO;
         }
         int project_id = preallocation.getPrj_base_info_id();
-        PrjSection prjSection = prjSectionDao.existByPrjIdAndName(project_id,preallocation.getSection());
-        if(prjSection == null){
+        PrjSection prjSection = prjSectionDao.existByPrjIdAndName(project_id, preallocation.getSection());
+        if (prjSection == null) {
             preallocationsImportDTO.setReason("该项目下不存在此标段");
             return preallocationsImportDTO;
         }
-        if(!prjGroupDao.existByPrjIdAndName(project_id,prjSection.getId(),preallocation.getGroups())){
+        if (!prjGroupDao.existByPrjIdAndName(project_id, prjSection.getId(), preallocation.getGroups())) {
             preallocationsImportDTO.setReason("该项目该标段下不存在此组别");
             return preallocationsImportDTO;
         }
@@ -119,7 +131,7 @@ public class PrjPreallocationService {
         BigDecimal money_machine = preallocation.getMoney_machine();
 
         BigDecimal sum_appraise = money_homestead.add(money_adjunct).add(money_machine);
-        if(preallocation.getAppraise_compensation().compareTo(sum_appraise) != 0){
+        if (preallocation.getAppraise_compensation().compareTo(sum_appraise) != 0) {
             preallocation.setAppraise_compensation(sum_appraise);
         }
 
@@ -143,6 +155,7 @@ public class PrjPreallocationService {
 
         return preallocation;
     }
+
     public PrjPreallocation updateInHost(PrjPreallocation prjPreallocation) {
         return prjPreallocationDao.updateInHost(prjPreallocation);
     }
@@ -160,16 +173,18 @@ public class PrjPreallocationService {
         return prjPreallocationDao.updateToUnaudited(id);
     }
 
-    public int updateArchive(String map_id, String host_name, String archives_code,int project_id, int status,String file_path,String file_name) {
-        return prjPreallocationDao.updateArchive(map_id, host_name, archives_code,project_id, status,file_path,file_name);
+    public int updateArchive(String map_id, String host_name, String archives_code, int project_id, int status, String file_path, String file_name) {
+        return prjPreallocationDao.updateArchive(map_id, host_name, archives_code, project_id, status, file_path, file_name);
     }
 
-    public List<ComboboxVO> getTown(int prj_base_info_id){
+    public List<ComboboxVO> getTown(int prj_base_info_id) {
         return prjPreallocationDao.getTown(prj_base_info_id);
     }
-    public List<ComboboxVO> getVillage(int prj_base_info_id){
+
+    public List<ComboboxVO> getVillage(int prj_base_info_id) {
         return prjPreallocationDao.getVillage(prj_base_info_id);
     }
+
     public List<ComboboxVO> getVillageByTown(int prj_base_info_id, String town) {
         return prjPreallocationDao.getVillageByTown(prj_base_info_id, town);
     }
@@ -180,7 +195,7 @@ public class PrjPreallocationService {
      * @param id
      * @return
      */
-    public HouseholdersDetailDTO getByidInApi(int id){
+    public HouseholdersDetailDTO getByidInApi(int id) {
         return prjPreallocationDao.getByIdInApi(id);
     }
 }

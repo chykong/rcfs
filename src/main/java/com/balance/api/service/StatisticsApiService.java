@@ -121,24 +121,10 @@ public class StatisticsApiService {
         List<PrjChart> list = new ArrayList<>();
         float total_homes = prjChartsService.getTotalHomes(prjChartsSearchVO);
         float over_homes = 0;
-
+        if (prjChartsSearchVO.getSearch_type() == null)
+            prjChartsSearchVO.setSearch_type(1);
         ChartsDataVO vo = new ChartsDataVO();
-        if (prjChartsSearchVO.getSearch_type() != null) {
-            switch (prjChartsSearchVO.getSearch_type()) {
-                case 1:
-                    list = prjChartsService.listGroup(prjChartsSearchVO,1);
-                    break;
-                case 2:
-                    list = prjChartsService.listGroup(prjChartsSearchVO,2);
-                    break;
-                case 3:
-                    list = prjChartsService.listGroup(prjChartsSearchVO,3);
-                    break;
-                default:
-                    list = prjChartsService.listGroup(prjChartsSearchVO,4);
-                    break;
-            }
-        }
+        list = prjChartsService.listGroup(prjChartsSearchVO);
         for (int i = 0; i < list.size(); i++) {
             PrjChart prjChart = list.get(i);
             over_homes += prjChart.getTotal();

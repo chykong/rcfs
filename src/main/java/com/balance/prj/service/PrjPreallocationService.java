@@ -177,6 +177,11 @@ public class PrjPreallocationService {
         return prjPreallocationDao.updateArchive(map_id, host_name, archives_code, project_id, status, file_path, file_name);
     }
 
+    /**
+     * 城镇列表
+     * @param prj_base_info_id
+     * @return
+     */
     public List<ComboboxVO> getTown(int prj_base_info_id) {
         return prjPreallocationDao.getTown(prj_base_info_id);
     }

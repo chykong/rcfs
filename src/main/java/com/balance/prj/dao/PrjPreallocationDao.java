@@ -309,7 +309,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     }
 
     public List<ComboboxVO> getTown(int prj_base_info_id) {
-        String sql = "SELECT town value,town content FROM t_prj_preallocation WHERE prj_base_info_id = ? GROUP BY town ";
+        String sql = "SELECT  distinct town value,town content FROM t_prj_preallocation WHERE prj_base_info_id = ? ";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id}, new BeanPropertyRowMapper<>(ComboboxVO.class));
     }
 

@@ -12,8 +12,9 @@ public class PrjChartsSearchVO {
 
     private Integer search_type; // 查询类型 1-入户 2-签约 3-交房  4-放款
 
-    private String search_date_type;  //查询类型
     private Integer type;//1按户数2按占地面积3按建筑面积
+    private Integer group_type;//分组类型，1按组别，2按区段
+
     private String current_land_name;//当前土地性质
 
     @Override
@@ -24,10 +25,17 @@ public class PrjChartsSearchVO {
                 ", village='" + village + '\'' +
                 ", date='" + date + '\'' +
                 ", search_type=" + search_type +
-                ", search_date_type='" + search_date_type + '\'' +
                 ", type=" + type +
                 ", current_land_name='" + current_land_name + '\'' +
                 '}';
+    }
+
+    public Integer getGroup_type() {
+        return group_type;
+    }
+
+    public void setGroup_type(Integer group_type) {
+        this.group_type = group_type;
     }
 
     public String getCurrent_land_name() {
@@ -78,13 +86,6 @@ public class PrjChartsSearchVO {
         this.date = date;
     }
 
-    public String getSearch_date_type() {
-        return search_date_type;
-    }
-
-    public void setSearch_date_type(String search_date_type) {
-        this.search_date_type = search_date_type;
-    }
 
     public Integer getSearch_type() {
         return search_type;

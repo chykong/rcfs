@@ -17,7 +17,18 @@ public class ChartsUtil {
      * @return
      */
     public static String createChartsJson(ChartsDataVO vo, float total) {
-        String json = "{\"categories\": " + JsonUtil.toStr(vo.getBarCategories()) + ", \"barData\": [{" +
+        String json2 = "{" + createBarStr(vo) + "," + createBarSectionStr(vo) + "," + createGuageStr(vo, total) + "}";
+        return json2;
+    }
+
+    /**
+     * 生成分组柱状图字符串
+     *
+     * @param vo
+     * @return
+     */
+    private static String createBarStr(ChartsDataVO vo) {
+        String str = "\"categories\": " + JsonUtil.toStr(vo.getBarCategories()) + ", \"barData\": [{" +
                 "\"name\":\"" + vo.getBarTitle1() + "\"," +
                 "\"type\":\"bar\"," +
                 "\"data\":" + JsonUtil.toStr(vo.getBarData1()) + "" +
@@ -26,13 +37,30 @@ public class ChartsUtil {
                 "\"name\":\"" + vo.getBarTitle2() + "\"," +
                 "\"type\":\"bar\"," +
                 "\"data\":" + JsonUtil.toStr(vo.getBarData2()) + "" +
-                "}],\"guageData\":[{" +
+                "}]";
+        return str;
+    }
+
+    /**
+     * 生成按标段字符串
+     *
+     * @return
+     */
+    private static String createBarSectionStr(ChartsDataVO vo) {
+        String str = "\"sectionCategories\": " + JsonUtil.toStr(vo.getBarSectionCategories()) + ",\"barSetionData\":" +
+                "[{\"name\": \"已入户\",\"type\": \"bar\",\"stack\": \"总量\",\"label\": {\"normal\": {\"show\": true,\"position\": \"insideRight\"}},\"data\": " + JsonUtil.toStr(vo.getBarSectionData1()) + "}," +
+                "{\"name\": \"未入户\",\"type\": \"bar\",\"stack\": \"总量\",\"normal\": {\"show\": true,\"position\": \"insideRight\"},\"data\": " + JsonUtil.toStr(vo.getBarSectionData2()) + "}]";
+        return str;
+    }
+
+    private static String createGuageStr(ChartsDataVO vo, float total) {
+        String str = "\"guageData\":[{" +
                 "\"name\": \"" + vo.getGuageTitle() + "\"," +
                 "\"type\": \"gauge\"," +
                 "\"detail\": {formatter:'{value}%'}," +
                 "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"总" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), total) + "\\r\\n" + overStr(vo) + "\"}]" +
-                " }]}";
-        return json;
+                " }]";
+        return str;
     }
 
     /**
@@ -40,12 +68,12 @@ public class ChartsUtil {
      *
      * @return
      */
-    private static String overStr(ChartsDataVO vo) {
+    public static String overStr(ChartsDataVO vo) {
         String str = "已" + getGuageName(vo.getSearch_type()) + ":" + createTotal(vo.getType(), vo.getGuageData2());
         return str;
     }
 
-    private static String createTotal(int type, float value) {
+    public static String createTotal(int type, float value) {
         if (type == 1) {
             return String.valueOf((int) value) + "户";
         } else return formatFloat(value / 10000) + "万m²";
@@ -69,7 +97,7 @@ public class ChartsUtil {
      * @param search_type
      * @return
      */
-    private static String getGuageName(int search_type) {
+    public static String getGuageName(int search_type) {
         if (search_type == 1) return "入户";
         else if (search_type == 2) return "签约";
         else if (search_type == 3) return "交房";

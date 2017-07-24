@@ -2,8 +2,10 @@ package com.balance.prj.service;
 
 import com.balance.prj.dao.PrjChartsDao;
 import com.balance.prj.dao.PrjGroupDao;
+import com.balance.prj.dao.PrjSectionDao;
 import com.balance.prj.model.PrjChart;
 import com.balance.prj.model.PrjGroup;
+import com.balance.prj.model.PrjSection;
 import com.balance.prj.vo.EntireStatVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.date.DateUtil;
@@ -23,6 +25,8 @@ public class PrjChartsService {
     private PrjChartsDao prjChartsDao;
     @Autowired
     private PrjGroupDao prjGroupDao;
+    @Autowired
+    private PrjSectionDao prjSectionDao;
 
     public List<PrjChart> getInHostList(PrjChartsSearchVO prjChartsSearchVO) {
         return getOverList(prjChartsDao.getInHostList(prjChartsSearchVO), prjChartsSearchVO.getPrj_base_info_id());
@@ -72,29 +76,16 @@ public class PrjChartsService {
         return overList;
     }
 
-    public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
-        return prjChartsDao.getGroupInHostList(prjChartsSearchVO);
-    }
-
-    public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
-        return prjChartsDao.getGroupSignList(prjChartsSearchVO);
-    }
-
-    public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
-        return prjChartsDao.getGroupHandoverList(prjChartsSearchVO);
-    }
-
-    public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
-        return prjChartsDao.getGroupMoneyList(prjChartsSearchVO);
-    }
-
+    /**
+     * 获取总的户数
+     *
+     * @param prjChartsSearchVO
+     * @return
+     */
     public float getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
         return prjChartsDao.getTotalHomes(prjChartsSearchVO);
     }
 
-    public List<PrjChart> getGroupInList(PrjChartsSearchVO prjChartsSearchVO, int type) {
-        return prjChartsDao.getGroupInHostList(prjChartsSearchVO);
-    }
 
     /**
      * 生成整体进度图的json
@@ -170,13 +161,16 @@ public class PrjChartsService {
      *
      * @return
      */
-    public List<PrjChart> listGroup(PrjChartsSearchVO prjChartsSearchVO, int type) {
+    public List<PrjChart> listGroup(PrjChartsSearchVO prjChartsSearchVO) {
         List<PrjChart> list = new ArrayList<>();
         List<PrjGroup> listGroup = prjGroupDao.listByPrj_base_info_id(prjChartsSearchVO.getPrj_base_info_id());//所有组
-        List<PrjChart> listTotal = prjChartsDao.getGroupTotalList(prjChartsSearchVO, type);//全部
-        List<PrjChart> listToday = prjChartsDao.getGroupTodayList(prjChartsSearchVO, type);//当日
+        List<PrjChart> listTotal = prjChartsDao.getGroupTotalList(prjChartsSearchVO);//全部
+        List<PrjChart> listToday = prjChartsDao.getGroupTodayList(prjChartsSearchVO);//昨日
         for (PrjGroup prjGroup : listGroup) {
-            PrjChart prjChart = new PrjChart(prjGroup.getName(), 0, 0);
+            PrjChart prjChart = new PrjChart();
+            prjChart.setGroups(prjGroup.getName());
+            prjChart.setTotal(0);
+            prjChart.setToday(0);
             for (PrjChart total : listTotal) {
                 if (total.getGroups().equals(prjGroup.getName())) {
                     prjChart.setTotal(total.getTotal());
@@ -185,6 +179,36 @@ public class PrjChartsService {
             for (PrjChart today : listToday) {
                 if (today.getGroups().equals(prjGroup.getName())) {
                     prjChart.setToday(today.getToday());
+                }
+            }
+            list.add(prjChart);
+        }
+        return list;
+    }
+
+    /**
+     * 标段进度图
+     *
+     * @return
+     */
+    public List<PrjChart> listSection(PrjChartsSearchVO prjChartsSearchVO) {
+        List<PrjChart> list = new ArrayList<>();
+        List<PrjSection> listSection = prjSectionDao.listByprj_base_info_id(prjChartsSearchVO.getPrj_base_info_id());//所有标段
+        List<PrjChart> listIs = prjChartsDao.getSectionIsList(prjChartsSearchVO);//分标段已完成
+        List<PrjChart> listNo = prjChartsDao.getSectionNoList(prjChartsSearchVO);//分标段未完成
+        for (PrjSection prjSection : listSection) {
+            PrjChart prjChart = new PrjChart();
+            prjChart.setSection(prjSection.getName());
+            prjChart.setIs(0);
+            prjChart.setNo(0);
+            for (PrjChart is : listIs) {
+                if (is.getSection().equals(prjSection.getName())) {
+                    prjChart.setIs(is.getIs());
+                }
+            }
+            for (PrjChart no : listNo) {
+                if (no.getSection().equals(prjSection.getName())) {
+                    prjChart.setNo(no.getNo());
                 }
             }
             list.add(prjChart);

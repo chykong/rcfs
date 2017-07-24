@@ -10,7 +10,35 @@ public class PrjChart {
 
     private String groups; //分组
     private float total;  //累积
-    private float today;  //今日
+    private float today;  //今日改为昨日
+
+    private String section;//标段
+    private float is;//分标段已完成
+    private float no;//分标段未完成
+
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public float getIs() {
+        return is;
+    }
+
+    public void setIs(float is) {
+        this.is = is;
+    }
+
+    public float getNo() {
+        return no;
+    }
+
+    public void setNo(float no) {
+        this.no = no;
+    }
 
     public PrjChart() {
 
@@ -20,6 +48,10 @@ public class PrjChart {
         this.groups = groups;
         this.total = total;
         this.today = today;
+    }
+
+    public PrjChart(String title) {
+        this.title = title;
     }
 
     public PrjChart(String title, int countLeftDay) {

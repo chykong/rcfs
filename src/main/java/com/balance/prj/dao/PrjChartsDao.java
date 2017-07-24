@@ -103,83 +103,16 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
         return sql;
     }
 
+    /**
+     * 全部数据
+     *
+     * @param prjChartsSearchVO
+     * @return
+     */
     public float getTotalHomes(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "SELECT ifnull(" + getSearchByType(prjChartsSearchVO.getType()) + ",0) FROM t_prj_preallocation WHERE 1=1 and  land_property=:current_land_name ";
-        sql += createSql(prjChartsSearchVO);
+        String sql = "SELECT ifnull(" + getSearchByType(prjChartsSearchVO.getType()) + ",0) FROM t_prj_preallocation WHERE 1=1 and prj_base_info_id=:prj_base_info_id and  land_property=:current_land_name ";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().queryForObject(sql, params, Float.class);
-    }
-
-    /**
-     * 入户
-     *
-     * @param prjChartsSearchVO
-     * @return
-     */
-    public List<PrjChart> getGroupInHostList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where  land_property=:current_land_name and in_host_date is not null and in_host_date!=''  and groups is not null and groups!=''" +
-                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
-                "from t_prj_preallocation  where in_host_date= CURDATE() " +
-                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
-
-        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
-        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
-    }
-
-    /**
-     * 签约
-     *
-     * @param prjChartsSearchVO
-     * @return
-     */
-    public List<PrjChart> getGroupSignList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where land_property=:current_land_name and signed_date is not null and signed_date!=''  and groups is not null and groups!=''" +
-                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
-                "from t_prj_preallocation  where signed_date= CURDATE() " +
-                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
-
-        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
-        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
-    }
-
-    /**
-     * 交房
-     *
-     * @param prjChartsSearchVO
-     * @return
-     */
-    public List<PrjChart> getGroupHandoverList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where land_property=:current_land_name and handover_house_date is not null and handover_house_date !=''  and groups is not null and groups!=''" +
-                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
-                "from t_prj_preallocation  where handover_house_date= CURDATE() " +
-                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
-
-        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
-        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
-    }
-
-    /**
-     * 放款
-     *
-     * @param prjChartsSearchVO
-     * @return
-     */
-    public List<PrjChart> getGroupMoneyList(PrjChartsSearchVO prjChartsSearchVO) {
-        String sql = "select t1.groups,ifnull(t1.total,0) total,ifnull(t2.today,0) today from (select groups," + getSearchByType(prjChartsSearchVO.getType()) + " total " +
-                "from t_prj_preallocation  where land_property=:current_land_name and money_date is not null and money_date !='' and groups is not null and groups!=''" +
-                createSql(prjChartsSearchVO) + " group by groups) t1 left join " +
-                "(select groups," + getSearchByType(prjChartsSearchVO.getType()) + " today " +
-                "from t_prj_preallocation  where money_date= CURDATE() " +
-                createSql(prjChartsSearchVO) + " group by groups) t2 on t1.groups=t2.groups ";
-
-        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
-        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
 
     /**
@@ -245,30 +178,58 @@ public class PrjChartsDao extends BaseDao<PrjChart, PrjChartsSearchVO> {
 
 
     /**
-     * 总计数据
+     * 分组总计数据
      *
      * @param prjChartsSearchVO
      * @return
      */
-    public List<PrjChart> getGroupTotalList(PrjChartsSearchVO prjChartsSearchVO, int type) {
-        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" total FROM t_prj_preallocation " +
-                " WHERE " + getStatField(type) + " IS NOT NULL AND " + getStatField(type) + " != '' " +
+    public List<PrjChart> getGroupTotalList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT groups," + getSearchByType(prjChartsSearchVO.getType()) + " total FROM t_prj_preallocation " +
+                " WHERE " + getStatField(prjChartsSearchVO.getSearch_type()) + " IS NOT NULL AND " + getStatField(prjChartsSearchVO.getSearch_type()) + " != '' " +
                 " AND groups IS NOT NULL AND groups != '' AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name  GROUP BY groups";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
 
     /**
-     * 当日数量
+     * 分组当日数量
      *
      * @param prjChartsSearchVO
      * @return
      */
-    public List<PrjChart> getGroupTodayList(PrjChartsSearchVO prjChartsSearchVO, int type) {
-        String sql = "SELECT groups,"+getSearchByType(prjChartsSearchVO.getType())+" today FROM t_prj_preallocation" +
-                " WHERE " + getStatField(type) + " = CURDATE() AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name " +
+    public List<PrjChart> getGroupTodayList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT groups," + getSearchByType(prjChartsSearchVO.getType()) + " today FROM t_prj_preallocation" +
+                " WHERE " + getStatField(prjChartsSearchVO.getSearch_type()) + " = :date AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name " +
                 " GROUP BY groups ";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
     }
+
+    /**
+     * 分标段已完成
+     *
+     * @param prjChartsSearchVO
+     * @return
+     */
+    public List<PrjChart> getSectionIsList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT section," + getSearchByType(prjChartsSearchVO.getType()) + " 'is' FROM t_prj_preallocation " +
+                " WHERE " + getStatField(prjChartsSearchVO.getSearch_type()) + " IS NOT NULL AND " + getStatField(prjChartsSearchVO.getSearch_type()) + " != '' " +
+                " AND section IS NOT NULL AND section != '' AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name  GROUP BY section";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
+    /**
+     * 分标段未完成
+     * @param prjChartsSearchVO
+     * @return
+     */
+    public List<PrjChart> getSectionNoList(PrjChartsSearchVO prjChartsSearchVO) {
+        String sql = "SELECT section," + getSearchByType(prjChartsSearchVO.getType()) + " 'no' FROM t_prj_preallocation " +
+                " WHERE (" + getStatField(prjChartsSearchVO.getSearch_type()) + " IS  NULL or " + getStatField(prjChartsSearchVO.getSearch_type()) + " = '') " +
+                " AND section IS NOT NULL AND section != '' AND prj_base_info_id =:prj_base_info_id and land_property=:current_land_name  GROUP BY section";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjChartsSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjChart.class));
+    }
+
 }

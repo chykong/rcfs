@@ -14,11 +14,68 @@ public class ChartsDataVO {
     private float[] barData2;//柱状图数据2
     private String[] barCategories;//柱状图分组
 
+    private String barSectionTitle1;//标段柱状图分类1
+    private String barSectionTitle2;//标段柱状图分类2
+    private float[] barSectionData1;//标段柱状图数据1
+    private float[] barSectionData2;//标段柱状图数据2
+    private String[] barSectionCategories;//标段柱状图分组
+
     private String guageTitle;//仪表盘标题
     private float guageData;//仪表盘百分比
     private float guageData2;//仪表盘已完成数
+    private String guageDataTitle;//仪表盘标题
+
+
     private int type;//类型
     private int search_type;  //查询类型
+
+    public String getBarSectionTitle1() {
+        return barSectionTitle1;
+    }
+
+    public void setBarSectionTitle1(String barSectionTitle1) {
+        this.barSectionTitle1 = barSectionTitle1;
+    }
+
+    public String getBarSectionTitle2() {
+        return barSectionTitle2;
+    }
+
+    public void setBarSectionTitle2(String barSectionTitle2) {
+        this.barSectionTitle2 = barSectionTitle2;
+    }
+
+    public float[] getBarSectionData1() {
+        return barSectionData1;
+    }
+
+    public void setBarSectionData1(float[] barSectionData1) {
+        this.barSectionData1 = barSectionData1;
+    }
+
+    public float[] getBarSectionData2() {
+        return barSectionData2;
+    }
+
+    public void setBarSectionData2(float[] barSectionData2) {
+        this.barSectionData2 = barSectionData2;
+    }
+
+    public String[] getBarSectionCategories() {
+        return barSectionCategories;
+    }
+
+    public void setBarSectionCategories(String[] barSectionCategories) {
+        this.barSectionCategories = barSectionCategories;
+    }
+
+    public String getGuageDataTitle() {
+        return guageDataTitle;
+    }
+
+    public void setGuageDataTitle(String guageDataTitle) {
+        this.guageDataTitle = guageDataTitle;
+    }
 
     @Override
     public String toString() {

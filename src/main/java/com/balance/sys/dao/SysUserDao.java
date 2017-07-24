@@ -166,6 +166,9 @@ public class SysUserDao extends BaseDao {
         if (sysUserSearchVO.getStatus() != null) {
             sql += " and status=:status";
         }
+        if (sysUserSearchVO.getPrj_base_info_id() != null) {
+            sql += " and id in (select user_id from t_sys_userprojects where prj_base_info_id=:prj_base_info_id)";
+        }
         return sql;
     }
 

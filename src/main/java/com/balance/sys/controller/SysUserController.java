@@ -68,6 +68,7 @@ public class SysUserController extends BaseController {
         mv.addObject("pageNavigate", pageNavigate);// 设置分页的变量
         mv.addObject("list", list);// 把获取的记录放到mv里面
         mv.addObject("listRole", sysRoleService.list());// 角色列表
+        mv.addObject("listProject",prjBaseinfoService.list() );//项目列表
         mv.setViewName("/sys/user");// 跳转至指定页面
         BackUrlUtil.createBackUrl(mv, request, url);// 设置返回url
         return mv;
@@ -84,6 +85,8 @@ public class SysUserController extends BaseController {
             url += "&status=" + sysUserSearchVO.getStatus();
         if (sysUserSearchVO.getRole_id() != null)
             url += "&role_id=" + sysUserSearchVO.getRole_id();
+        if (sysUserSearchVO.getPrj_base_info_id() != null)
+            url += "&prj_base_info_id=" + sysUserSearchVO.getPrj_base_info_id();
         return url;
     }
 

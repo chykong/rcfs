@@ -13,10 +13,31 @@ public class SysUserSearchVO extends PageSearchVO {
     private Integer status;//状态
     private Integer role_id;//角色
     private String realname;//姓名
+    private Integer prj_base_info_id;//项目id
 
     //姓名模糊查询
     public String getRealnameStr() {
         return "%" + realname + "%";
+    }
+
+    @Override
+    public String toString() {
+        return "SysUserSearchVO{" +
+                "username='" + username + '\'' +
+                ", department_id=" + department_id +
+                ", status=" + status +
+                ", role_id=" + role_id +
+                ", realname='" + realname + '\'' +
+                ", prj_base_info_id=" + prj_base_info_id +
+                '}';
+    }
+
+    public Integer getPrj_base_info_id() {
+        return prj_base_info_id;
+    }
+
+    public void setPrj_base_info_id(Integer prj_base_info_id) {
+        this.prj_base_info_id = prj_base_info_id;
     }
 
     public String getUsername() {
@@ -59,14 +80,4 @@ public class SysUserSearchVO extends PageSearchVO {
         this.realname = realname;
     }
 
-    @Override
-    public String toString() {
-        return "SysUserSearchVO{" +
-                "username='" + username + '\'' +
-                ", department_id=" + department_id +
-                ", status=" + status +
-                ", role_id=" + role_id +
-                ", realname='" + realname + '\'' +
-                '}';
-    }
 }

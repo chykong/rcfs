@@ -64,6 +64,12 @@
                                                 <form:option value="" label="--全部--"/>
                                                 <form:options items="${listRole}" itemValue="id" itemLabel="name"/>
                                             </form:select></td>
+                                            <td>项目：</td>
+                                            <td><form:select path="sysUserSearchVO.prj_base_info_id" class="form-control"
+                                                             id="cmbPrj_base_info_id">
+                                                <form:option value="" label="--全部--"/>
+                                                <form:options items="${listProject}" itemValue="id" itemLabel="prj_name"/>
+                                            </form:select></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" id="btnSearch">
                                                     <i class="ace-icon fa fa-search"></i> 查询
@@ -171,6 +177,8 @@
 						url += "&status=" + $("#cmbStatus").val();
 					if ($("#cmbRole_id").val() != '')
 						url += "&role_id=" + $("#cmbRole_id").val();
+					if ($("#cmbPrj_base_info_id").val() != '')
+						url += "&prj_base_info_id=" + $("#cmbPrj_base_info_id").val();
 					window.location = encodeURI(url);
 				}
 				// 删除

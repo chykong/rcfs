@@ -62,7 +62,7 @@ public class SysLogDao extends BaseDao {
      * @return
      */
     public int listCount(SysLogSearchVO sysLogSearchVO) {
-        String sql = "select count(*) from t_sys_log where 1=1 ";
+        String sql = "select count(*) from t_sys_log l ,t_sys_user u where l.user_id=u.id ";
         sql += createSearchSql(sysLogSearchVO);
         return getNamedParameterJdbcTemplate().queryForObject(sql, new BeanPropertySqlParameterSource(sysLogSearchVO), Integer.class);
     }
@@ -72,7 +72,7 @@ public class SysLogDao extends BaseDao {
         if (sysLogSearchVO.getUser_id() != null) {
             sql += " and user_id=:user_id";
         } else {
-            sql += " and user_id=0";
+           // sql += " and user_id=0";
         }
         if (StringUtil.isNotNullOrEmpty(sysLogSearchVO.getS_date())) {
             sql += " and date(opera_date)>=:s_date";

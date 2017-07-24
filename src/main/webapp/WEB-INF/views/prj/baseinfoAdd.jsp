@@ -44,7 +44,16 @@
 											id="prj_nameTip"></label>
 									</div>
 								</div>
-
+								<div class="form-group">
+									<label class="col-sm-3 control-label">阶段：</label>
+									<div class="col-sm-9 ">
+										<select name="progress" class="col-xs-10 col-sm-5">
+											<option value="1">入户</option>
+											<option value="2">签约</option>
+											<option value="3">交房</option>
+										</select> <label id="targetTip"></label>
+									</div>
+								</div>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
 										<button class="btn btn-primary" type="submit">

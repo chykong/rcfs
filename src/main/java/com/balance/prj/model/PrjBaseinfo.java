@@ -9,6 +9,7 @@ import java.util.Date;
 public class PrjBaseinfo {
     private int id;//id
     private String prj_name;// 项目名称
+    private Integer progress;//当前阶段1、入户2、签约3、交房
     private String introduction;//项目描述
     private String flow;//工作流程
     private String architecture;// 组织架构
@@ -19,12 +20,29 @@ public class PrjBaseinfo {
     private String type;//类型 1 项目简介   2 工作流程 3 组织架构
 
     @Override
-	public String toString() {
-		return "PrjBaseinfo [id=" + id + ", prj_name=" + prj_name + ", introduction=" + introduction + ", flow=" + flow
-				+ ", architecture=" + architecture + ", last_modified_at=" + last_modified_at + ", last_modified_by="
-				+ last_modified_by + ", created_at=" + created_at + ", created_by=" + created_by + ", type=" + type
-				+ "]";
-	}
+    public String toString() {
+        return "PrjBaseinfo{" +
+                "id=" + id +
+                ", prj_name='" + prj_name + '\'' +
+                ", progress=" + progress +
+                ", introduction='" + introduction + '\'' +
+                ", flow='" + flow + '\'' +
+                ", architecture='" + architecture + '\'' +
+                ", last_modified_at=" + last_modified_at +
+                ", last_modified_by='" + last_modified_by + '\'' +
+                ", created_at=" + created_at +
+                ", created_by='" + created_by + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
+    public Integer getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Integer progress) {
+        this.progress = progress;
+    }
 
     public int getId() {
         return id;

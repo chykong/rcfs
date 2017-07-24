@@ -22,7 +22,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int add(PrjBaseinfo prjBaseinfo) {
-        String sql = "insert into t_prj_baseinfo(prj_name,introduction,created_at,created_by) values(:prj_name,:introduction,now(),:created_by)";
+        String sql = "insert into t_prj_baseinfo(prj_name,introduction,progress,created_at,created_by) values(:prj_name,:introduction,:progress,now(),:created_by)";
         return update(sql, prjBaseinfo);
     }
 
@@ -33,7 +33,7 @@ public class PrjBaseinfoDao extends BaseDao<PrjBaseinfo, PrjBaseinfoSearchVO> {
      * @return
      */
     public int update(PrjBaseinfo prjBaseinfo) {
-        String sql = "update t_prj_baseinfo set prj_name=:prj_name,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
+        String sql = "update t_prj_baseinfo set prj_name=:prj_name,progress=:progress,last_modified_at=now(),last_modified_by=:last_modified_by where id=:id";
         return update(sql, prjBaseinfo);
     }
 

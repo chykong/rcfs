@@ -40,7 +40,8 @@
                             <div class="widget-body">
                                 <div class="widget-main">
                                     <table class="searchField" style="margin: 4px; padding: 4px;">
-                                        <tr><td>项目名称：</td>
+                                        <tr>
+                                            <td>项目名称：</td>
                                             <td><input type="text" id="txtPrj_name" class="form-control input-middle"
                                                        placeholder=""
                                                        value="${prjBaseinfoSearchVO.prj_name }"></td>
@@ -70,6 +71,7 @@
                             <tr>
                                 <th width=60>序号</th>
                                 <th width=150>项目名称</th>
+                                <th width=150>当前阶段</th>
                                 <th width=100>创建人</th>
                                 <th width=140>创建时间</th>
                                 <th width="140">操作</th>
@@ -80,6 +82,11 @@
                                 <tr>
                                     <td>${st.index+1 }</td>
                                     <td>${baseinfo.prj_name }</td>
+                                    <td>
+                                        <c:if test="${baseinfo.progress eq 1}">入户</c:if>
+                                        <c:if test="${baseinfo.progress eq 2}">签约</c:if>
+                                        <c:if test="${baseinfo.progress eq 3}">交房</c:if>
+                                    </td>
                                     <td>${baseinfo.created_by }</td>
                                     <th width=120><fmt:formatDate value="${baseinfo.created_at}"
                                                                   pattern="yyyy-MM-dd HH:mm"/></th>
@@ -107,30 +114,30 @@
         <%@ include file="../common/js.jsp" %>
 
         <script type="text/javascript">
-				$(function() {
-					$("#btnSearch").bind('click', searchBaseinfo);
-					$("#btnAdd").bind('click', addBaseinfo);
-				})
+            $(function () {
+                $("#btnSearch").bind('click', searchBaseinfo);
+                $("#btnAdd").bind('click', addBaseinfo);
+            })
 
-				// 查询方法
-				var searchBaseinfo = function() {
-					var url = "index.htm?";
-					if ($("#txtPrj_name").val() != '')
-						url += "prj_name=" + $("#txtPrj_name").val();
-					window.location = encodeURI(url);
-				}
-				// 删除
-				var delBaseinfo = function(id) {
-					bootbox.confirm("你确定要删除该项目吗？", function(result) {
-						if (result) {
-							window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";
-						}
-					})
-				}
-				//新增
-				var addBaseinfo = function(id) {
-					window.location = 'toAdd.htm?backUrl=${backUrl }';
-				}
+            // 查询方法
+            var searchBaseinfo = function () {
+                var url = "index.htm?";
+                if ($("#txtPrj_name").val() != '')
+                    url += "prj_name=" + $("#txtPrj_name").val();
+                window.location = encodeURI(url);
+            }
+            // 删除
+            var delBaseinfo = function (id) {
+                bootbox.confirm("你确定要删除该项目吗？", function (result) {
+                    if (result) {
+                        window.location = "delete.htm?id=" + id + "&backUrl=${backUrl}";
+                    }
+                })
+            }
+            //新增
+            var addBaseinfo = function (id) {
+                window.location = 'toAdd.htm?backUrl=${backUrl }';
+            }
         </script>
 </body>
 </html>

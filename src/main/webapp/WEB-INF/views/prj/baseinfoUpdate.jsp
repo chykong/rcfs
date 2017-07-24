@@ -44,6 +44,16 @@
                                            value="${prjBaseinfo.prj_name }"  ><label id="prj_nameTip"></label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">阶段：</label>
+                                <div class="col-sm-9 ">
+                                    <select name="progress" class="col-xs-10 col-sm-5">
+                                        <option value="1" <c:if test="${prjBaseinfo.progress eq 1}"> selected</c:if>>入户</option>
+                                        <option value="2" <c:if test="${prjBaseinfo.progress eq 2}"> selected</c:if>>签约</option>
+                                        <option value="3" <c:if test="${prjBaseinfo.progress eq 3}"> selected</c:if>>交房</option>
+                                    </select> <label id="targetTip"></label>
+                                </div>
+                            </div>
 
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">

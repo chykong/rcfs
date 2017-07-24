@@ -7,6 +7,7 @@ package com.balance.api.dto;
  */
 public class ChartDTO {
 
+    private int progress;//进度，当前进度1入户2签约3交房
     private float in_host_count;//入户按户数总数
     private float in_host_over;//入户按户数已完成
     private float in_host_percent;//入户按户数百分比
@@ -41,7 +42,8 @@ public class ChartDTO {
     @Override
     public String toString() {
         return "ChartDTO{" +
-                "in_host_count=" + in_host_count +
+                "progress=" + progress +
+                ", in_host_count=" + in_host_count +
                 ", in_host_over=" + in_host_over +
                 ", in_host_percent=" + in_host_percent +
                 ", in_landarea_count=" + in_landarea_count +
@@ -69,6 +71,14 @@ public class ChartDTO {
                 ", handover_homestead_over=" + handover_homestead_over +
                 ", handover_homestead_percent=" + handover_homestead_percent +
                 '}';
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 
     public float getIn_host_count() {

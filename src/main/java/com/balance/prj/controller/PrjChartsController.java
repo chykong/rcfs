@@ -101,6 +101,7 @@ public class PrjChartsController extends BaseController {
     public ModelAndView groupIndex(HttpServletRequest request, HttpServletResponse response, PrjChartsSearchVO prjChartsSearchVO) {
         ModelAndView mv = new ModelAndView();
         if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);
+        if (prjChartsSearchVO.getGroup_type() == null) prjChartsSearchVO.setGroup_type(1);//默认按组别
         //List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
         //mv.addObject("townList", townList);
         mv.addObject("type", prjChartsSearchVO.getType());//类型

@@ -1,7 +1,9 @@
 package com.balance.api.service;
 
 import com.balance.api.dto.ChartDTO;
+import com.balance.prj.dao.PrjBaseinfoDao;
 import com.balance.prj.dao.PrjChartsDao;
+import com.balance.prj.model.PrjBaseinfo;
 import com.balance.prj.model.PrjChart;
 import com.balance.prj.service.PrjChartsService;
 import com.balance.prj.vo.ChartsDataVO;
@@ -23,6 +25,8 @@ public class StatisticsApiService {
     PrjChartsDao prjChartsDao;
     @Autowired
     PrjChartsService prjChartsService;
+    @Autowired
+    PrjBaseinfoDao prjBaseinfoDao;
 
     /**
      * 根据项目id获取图表数据
@@ -33,6 +37,8 @@ public class StatisticsApiService {
      */
     public ChartDTO create(int projectId, String current_land_name) {
         ChartDTO chartDTO = new ChartDTO();
+        PrjBaseinfo prjBaseinfo = prjBaseinfoDao.get(projectId);
+        chartDTO.setProgress(prjBaseinfo.getProgress());//当前进度
         PrjChartsSearchVO prjChartsSearchVO = new PrjChartsSearchVO();
         prjChartsSearchVO.setPrj_base_info_id(projectId);
         prjChartsSearchVO.setCurrent_land_name(current_land_name);

@@ -6,10 +6,14 @@ import com.balance.prj.dao.PrjSectionDao;
 import com.balance.prj.model.PrjChart;
 import com.balance.prj.model.PrjGroup;
 import com.balance.prj.model.PrjSection;
+import com.balance.prj.vo.ChartsDataVO;
 import com.balance.prj.vo.EntireStatVO;
 import com.balance.prj.vo.PrjChartsSearchVO;
 import com.balance.util.date.DateUtil;
 import com.balance.util.json.JsonUtil;
+import com.balance.util.number.NumberUtil;
+import com.balance.util.string.ChartsUtil;
+import com.balance.util.web.WebTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -214,5 +218,80 @@ public class PrjChartsService {
             list.add(prjChart);
         }
         return list;
+    }
+
+
+    /**
+     * s生成返回charts的json
+     * @param prjChartsSearchVO
+     * @return
+     */
+    public String createChartsData(PrjChartsSearchVO prjChartsSearchVO) {
+        if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
+        if (prjChartsSearchVO.getGroup_type() == null) prjChartsSearchVO.setGroup_type(1);//默认按组别
+
+        prjChartsSearchVO.setDate(DateUtil.getOpeDate(DateUtil.getSystemDate(), -1));//默认为昨日
+        List<PrjChart> list = new ArrayList<>();
+        float total_homes = getTotalHomes(prjChartsSearchVO);
+        float over_homes = 0;
+
+        ChartsDataVO vo = new ChartsDataVO();
+        String title1 = "";
+        list = listGroup(prjChartsSearchVO);//分组数据
+
+
+        vo.setBarTitle1("昨日" + ChartsUtil.getGuageName(prjChartsSearchVO.getSearch_type()));//分组标题1
+        vo.setBarTitle2("累计" + ChartsUtil.getGuageName(prjChartsSearchVO.getSearch_type()));//分组标题2
+        vo.setBarSectionTitle1("已" + ChartsUtil.getGuageName(prjChartsSearchVO.getSearch_type()));//分标段标题1
+        vo.setBarSectionTitle2("未" + ChartsUtil.getGuageName(prjChartsSearchVO.getSearch_type()));//分标段标题2
+
+        //计算分组的所有数据
+        float[] today_int = new float[list.size()];//分组柱状图昨日
+        float[] total_int = new float[list.size()];//分组柱状图合计
+        String[] groups = new String[list.size()];//分组数
+
+        for (int i = 0; i < list.size(); i++) {
+            PrjChart prjChart = list.get(i);
+            today_int[i] = prjChart.getToday();
+            total_int[i] = prjChart.getTotal();
+            over_homes += prjChart.getTotal();
+            groups[i] = prjChart.getGroups();
+        }
+        vo.setBarData1(today_int);//分组今日
+        vo.setBarData2(total_int);//分组累计
+        vo.setBarCategories(groups);//整体分组
+
+        //计算分标段的所有数据
+        List<PrjChart> listSection = listSection(prjChartsSearchVO);//分标段数据
+
+        float[] is_section = new float[listSection.size()];//分标段已完成
+        float[] no_section = new float[listSection.size()];//分标段未完成
+        String[] section = new String[listSection.size()];//标段标题
+
+        for (int i = 0; i < listSection.size(); i++) {
+            PrjChart prjChart = listSection.get(i);
+            is_section[i] = prjChart.getIs();
+            no_section[i] = prjChart.getNo();
+            section[i] = prjChart.getSection();
+        }
+        vo.setBarSectionData1(is_section);//分标段已完成
+        vo.setBarSectionData2(no_section);//分标段未完成
+        vo.setBarSectionCategories(section);//标段
+
+        //计算仪表盘的数据
+        vo.setGuageTitle(title1 + "累计完成度");//仪表盘标题
+
+        if (over_homes == 0) {
+            vo.setGuageData(0);
+            vo.setGuageData2(0);
+        } else {
+            vo.setGuageData(NumberUtil.calPercent(over_homes, total_homes));//仪表单数据
+            vo.setGuageData2(over_homes);//已完成数
+        }
+        vo.setGuageDataTitle("总" + WebTag.getChartTitleByType(vo.getType()) + ":" + ChartsUtil.createTotal(vo.getType(), total_homes) + "\r\n" + ChartsUtil.overStr(vo));
+        vo.setType(prjChartsSearchVO.getType());//类型
+        vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型,1按户数，2按占地面积，3按建筑面积
+        String json = ChartsUtil.createChartsJson(vo, total_homes);
+        return json;
     }
 }

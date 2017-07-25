@@ -75,27 +75,38 @@
                                     <table style="line-height:24px; margin-top:5px;">
                                         <tr>
                                             <td>
-                                                <div style="width: 30px; height: 15px; background-color: #0099FF; margin-left: 10px;border-radius:4px; "></div>
+                                                <div style="width: 30px; height: 15px; background-color: rgb(51, 172, 255); margin-left: 10px;border-radius:4px; "></div>
                                                 <!--未入户  -10  --> </td>
                                             <td><span style="margin-left: 10px;"><strong>未入户</strong> </span></td>
+                                        </tr>
+                                            <tr>
                                             <td>
-                                                <div style="width:30px; height: 15px; background-color: #FFFF33; margin-left: 10px;border-radius:4px; "></div>
+                                                <div style="width:30px; height: 15px; background-color: rgb(253, 253, 88); margin-left: 10px;border-radius:4px; "></div>
                                                 <!--已入户未签约--></td>
                                             <td><span style="margin-left: 10px;"><strong>已入户未签约</strong> </span></td>
+                                            </tr>
+
+                                        <tr>
                                             <td>
-                                                <div style="width: 30px; height: 15px; background-color: #FF0000; margin-left:10px;border-radius:4px; "></div>
+                                                <div style="width: 30px; height: 15px; background-color: rgb(251, 47, 47); margin-left:10px;border-radius:4px; "></div>
                                                 <!--已签约未交房--></td>
                                             <td><span style="margin-left: 10px;"><strong>已签约</strong> </span></td>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <div style="width: 30px; height: 15px; background-color: #33FF00; margin-left: 10px;border-radius:4px; "></div>
+                                                <div style="width: 30px; height: 15px; background-color: rgb(89, 253, 48); margin-left: 10px;border-radius:4px; "></div>
                                                 <!--已交房--></td>
                                             <td><span style="margin-left: 10px;"><strong>已审核</strong> </span></td>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <div style="width: 30px; height: 15px; background-color: #999999; margin-left:10px;border-radius:4px; "></div>
+                                                <div style="width: 30px; height: 15px; background-color: rgb(153, 50, 204); margin-left:10px;border-radius:4px; "></div>
                                                 <!--已拆除--></td>
                                             <td><span style="margin-left: 10px;"><strong>已交房</strong> </span></td>
+                                        </tr>
+                                        <tr>
                                             <td>
-                                                <div style="width: 30px; height: 15px; background-color: #999999; margin-left:10px;border-radius:4px; "></div>
+                                                <div style="width: 30px; height: 15px; background-color: rgb(171, 171, 171); margin-left:10px;border-radius:4px; "></div>
                                                 <!--已拆除--></td>
                                             <td><span style="margin-left: 10px;"><strong>已拆除</strong> </span></td>
                                         </tr>

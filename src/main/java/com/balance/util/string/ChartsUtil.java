@@ -48,8 +48,8 @@ public class ChartsUtil {
      */
     private static String createBarSectionStr(ChartsDataVO vo) {
         String str = "\"sectionCategories\": " + JsonUtil.toStr(vo.getBarSectionCategories()) + ",\"barSetionData\":" +
-                "[{\"name\": \"已入户\",\"type\": \"bar\",\"stack\": \"总量\",\"label\": {\"normal\": {\"show\": true,\"position\": \"insideRight\"}},\"data\": " + JsonUtil.toStr(vo.getBarSectionData1()) + "}," +
-                "{\"name\": \"未入户\",\"type\": \"bar\",\"stack\": \"总量\",\"normal\": {\"show\": true,\"position\": \"insideRight\"},\"data\": " + JsonUtil.toStr(vo.getBarSectionData2()) + "}]";
+                "[{\"name\": \"已"+ ChartsUtil.getGuageName(vo.getSearch_type())+"\",\"type\": \"bar\",\"stack\": \"总量\",\"label\": {\"normal\": {\"show\": true,\"position\": \"insideRight\"}},\"data\": " + JsonUtil.toStr(vo.getBarSectionData1()) + "}," +
+                "{\"name\": \"未"+ChartsUtil.getGuageName(vo.getSearch_type())+"\",\"type\": \"bar\",\"stack\": \"总量\",\"normal\": {\"show\": true,\"position\": \"insideRight\"},\"data\": " + JsonUtil.toStr(vo.getBarSectionData2()) + "}]";
         return str;
     }
 

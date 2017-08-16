@@ -400,7 +400,11 @@ public class PrjPreallocationBasicController extends BaseController {
 
         PrjPreallocation preallocation = new PrjPreallocation();
         preallocation.setPrj_base_info_id(projectId);
-        preallocation.setStatus(10);
+        if(StringUtil.isNotNullOrEmpty(in_host_date)){
+            preallocation.setStatus(10);
+        }else{
+            preallocation.setStatus(0);
+        }
         preallocation.setMap_id(map_id);
         preallocation.setHost_name(host_name);
         preallocation.setLocation(location);

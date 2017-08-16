@@ -124,9 +124,9 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " lessee_land_area=:lessee_land_area, total_homestead_area=:total_homestead_area, card_homestead_area=:card_homestead_area," +
                 " no_card_homestead_area=:no_card_homestead_area, management_homestead_area=:management_homestead_area," +
                 " audit_co=:audit_co, demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code," +
-                " relocate_date=:relocate_date," +
+                " relocate_date=:relocate_date,status=:status," +
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area" +
-                " ,demolish_person=:demolish_person,appraise_person=:appraise_person WHERE map_id=:map_id";
+                " ,demolish_person=:demolish_person,appraise_person=:appraise_person,in_host_date=:in_host_date WHERE map_id=:map_id";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);

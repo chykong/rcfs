@@ -93,7 +93,7 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "20px",
+                    width: "60px",
                     render: function (data) {
                         return data || "";
                     }
@@ -207,8 +207,14 @@
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
             },
             fnDrawCallback: function () {
+//                console.log(this.api().column(1).data())
+//                var data = this.api().column(1).data();
                 this.api().column(0).nodes().each(function (cell, i) {
-                    cell.innerHTML = i + 1;
+                    var index = parseInt(i)+1;
+
+//                    cell.innerHTML = '<label><input name="deletes" type="checkbox" value="' + data[i] +'"class="ace">' +
+//                    '<span class="lbl"></span></label>' + index;
+                    cell.innerHTML =  index;
                 });
             },
             footerCallback: function (tfoot, data) {
@@ -230,6 +236,14 @@
 
             }
         });
+        var times = 0;
+        table.on('draw.dt', function (e) {
+            times++;
+            console.log(times);
+            if(times == 2){
+                $("#foo").addClass('hidden');
+            }
+        } );
 
         $("#btn-search").on("click", table.draw);
     });

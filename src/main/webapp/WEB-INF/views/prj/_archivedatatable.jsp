@@ -263,6 +263,14 @@
             }
 
         });
+        var times = 0;
+        table.on('draw.dt', function (e) {
+            times++;
+            console.log(times);
+            if(times == 2){
+                $("#foo").addClass('hidden');
+            }
+        } );
         $("#btn-search").on("click", table.draw);
     });
 </script>

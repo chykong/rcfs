@@ -180,7 +180,7 @@
                                 <%@ include file="_datatable.jsp" %>
                             </c:when>
                             <c:otherwise>
-                                <%@ include file="_datatable.jsp" %>
+                                 <%@ include file="_datatable.jsp" %>
                                 <%--<%@ include file="_datatable_state.jsp" %>--%>
                             </c:otherwise>
                             <%--<c:otherwise>--%>

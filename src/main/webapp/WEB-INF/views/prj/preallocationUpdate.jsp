@@ -12,6 +12,8 @@
     </style>
     <%@ include file="../common/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-datepicker/bootstrap-datepicker3.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/assets/webuploader-0.1.5/webuploader.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/assets/webuploader-0.1.5/style.css"/>"/>
 
 </head>
 <body class="no-skin">
@@ -62,6 +64,12 @@
                                         其他信息
                                     </a>
                                 </li>
+                                <li class="" data-type="4">
+                                    <a id="toXc" data-toggle="tab" href="#faq-tab-xc" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-image bigger-120"></i>
+                                        现场照片
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
@@ -79,6 +87,9 @@
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
                                         <%@ include file="_inhost_formfields.jspf" %>
+                                    </div>
+                                    <div id="faq-tab-xc" class="tab-pane fade" data-type="5">
+                                        <%@ include file="xc_photo.jspf" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
@@ -151,12 +162,230 @@
     <!-- /.modal-dialog -->
 </div>
 <%@ include file="../common/js.jsp" %>
+<script src="<c:url value="/assets/webuploader-0.1.5/webuploader.js"/>"></script>
+
 <script src="<c:url value="/assets/js/jquery.form.js"/>"></script>
 <script src="<c:url value="/assets/js/bootstrap-datepicker/bootstrap-datepicker.js"/>"></script>
 <script src="<c:url value="/assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"/>"></script>
 
 <script>
+    function initWebUploader(pick,fileUpload,fileList,loading){
+        var uploader = WebUploader.create({
+            // 选完文件后，是否自动上传。
+            auto: false,
+            dnd:document.body,
+            disableGlobalDnd: true,
+            paste: document.body,
+
+            // swf文件路径
+            swf: '<c:url value="/assets/webuploader-0.1.5/Uploader.swf"/>',
+
+            // 文件接收服务端。
+            server: '<c:url value="/common/upload.htm"/>',
+
+            // 选择文件的按钮。可选。
+            // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+            pick: '#' + pick,
+
+            // 只允许选择图片文件。
+            accept: {
+                title: 'Images',
+                extensions: 'gif,jpg,jpeg,bmp,png',
+                mimeTypes: 'image/jpg,image/jpeg,image/png'
+            }
+        });
+
+        $("#"+fileUpload).on('click', function () {
+            uploader.upload();
+        });
+        var $list = $('#'+fileList);
+
+        $list.on('click', '.del', function () {
+            var $that = $(this);
+            if ($that.hasClass('uploaded')) {
+                bootbox.confirm('<b style="color: red">该图片删除后无法恢复</b>，确定要删除该图片吗？', function (result) {
+                    if (result) {
+                        var $file_item = $that.closest('.file-item');
+                        delete_img($file_item);
+                    }
+                });
+            } else {
+                var $file_item = $that.closest('.file-item');
+                delete_img($file_item);
+                var id = $that.attr('data-id');
+                uploader.removeFile(id, true);
+
+            }
+            var $file_items = $('.file-item');
+            var flag =0;
+            $file_items.each(function(i,item){
+                if(!$(item).hasClass('upload-state-done')){
+                    flag++;
+                }
+            })
+            if(flag == 0){
+                $('#'+fileUpload).addClass('hidden');
+                $('#'+loading).addClass('hidden');
+            }
+        });
+
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function (file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress span');
+
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<p class="progress"><span></span></p>')
+                    .appendTo($li)
+                    .find('span');
+            }
+
+            $percent.css('width', percentage * 100 + '%');
+        });
+
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function (file, response) {
+            var result = response._raw;
+            var reg = /'/g;
+            result = result.replace(reg,'"');
+            var json = $.parseJSON(result);
+            var $file_item = $('#' + file.id);
+            $file_item.find('[name*=file_name]').val(json.original_name);
+            $file_item.find('[name*=file_path]').val(json.createFilepath + json.createFilename);
+            $file_item.addClass('upload-state-done');
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function (file) {
+            var $li = $('#' + file.id),
+                $error = $li.find('div.error');
+
+            // 避免重复创建
+            if (!$error.length) {
+                $error = $('<div class="error"></div>').appendTo($li);
+            }
+
+            $error.text('上传失败');
+        });
+
+// 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function (file) {
+            $('#' + file.id).find('.progress').remove();
+            $('#'+loading).addClass('hidden');
+            $('#'+fileUpload).addClass('hidden');
+        });
+
+        return uploader;
+    }
+    function delete_img($file_item){
+        if ($file_item.hasClass('upload-state-done')) {
+            var file_path = $file_item.find('[name*=file_path]');
+            $.ajax({
+                url: '<c:url value="/common/delFile.htm"/>',
+                data: {
+                    path: file_path.val()
+                },
+                type: 'post',
+                success: function () {
+                }
+            })
+        }
+        $file_item.remove();
+    }
+    function image(uploader,$img,file){
+        uploader.makeThumb(file, function (error, src) {
+            if (error) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr('src', src);
+        }, 100, 100);
+    }
     $(function () {
+        $('#toXc').on('shown.bs.tab',function(e){
+            var uploader = initWebUploader('filePicker','fileUpload','fileList','loading');
+            var $list = $('#fileList');
+            var $file_items = $('.file-item');
+            var index = $file_items.length;
+            uploader.on('fileQueued', function (file) {
+                var $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="1">'+
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                        '</div>'
+                    ),
+                    $img = $li.find('img');
+                // $list为容器jQuery实例
+                $list.append($li);
+                // 创建缩略图
+                // 如果为非图片文件，可以不用调用此方法。
+                // thumbnailWidth x thumbnailHeight 为 100 x 100
+                image(uploader,$img,file)
+
+                $('#fileUpload').removeClass('hidden');
+                $('#loading').removeClass('hidden');
+                index++;
+            });
+
+            var uploader2 = initWebUploader('filePicker2','fileUpload2','fileList2','loading2');
+            var $list2 = $('#fileList2');
+            uploader2.on('fileQueued', function (file) {
+                var $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="2">'+
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                        '</div>'
+                    ),
+                    $img = $li.find('img');
+                // $list为容器jQuery实例
+                $list2.append($li);
+                // 创建缩略图
+                // 如果为非图片文件，可以不用调用此方法。
+                // thumbnailWidth x thumbnailHeight 为 100 x 100
+                image(uploader2,$img,file)
+
+                $('#fileUpload2').removeClass('hidden');
+                $('#loading2').removeClass('hidden');
+                index++;
+            });
+
+            var uploader3 = initWebUploader('filePicker3','fileUpload3','fileList3','loading3');
+            var $list3 = $('#fileList3');
+            uploader3.on('fileQueued', function (file) {
+                var $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="3">'+
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                        '<img>' +
+                        '<div class="info">' + file.name + '</div>' +
+                        '</div>'
+                    ),
+                    $img = $li.find('img');
+                // $list为容器jQuery实例
+                $list3.append($li);
+                // 创建缩略图
+                // 如果为非图片文件，可以不用调用此方法。
+                // thumbnailWidth x thumbnailHeight 为 100 x 100
+                image(uploader3,$img,file)
+
+                $('#fileUpload3').removeClass('hidden');
+                $('#loading3').removeClass('hidden');
+                index++;
+            });
+        })
+
         countYjf();
         $(".date").datepicker({
             format: "yyyy-mm-dd",

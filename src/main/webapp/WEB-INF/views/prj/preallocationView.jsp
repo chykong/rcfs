@@ -12,7 +12,8 @@
     </style>
     <%@ include file="../common/header.jsp" %>
     <link rel="stylesheet" href="<c:url value="/assets/css/bootstrap-datepicker/bootstrap-datepicker3.css"/>"/>
-
+    <link rel="stylesheet" href="<c:url value="/assets/webuploader-0.1.5/webuploader.css"/>"/>
+    <link rel="stylesheet" href="<c:url value="/assets/webuploader-0.1.5/style.css"/>"/>
 </head>
 <body class="no-skin">
 <%@ include file="../common/top.jsp" %>
@@ -62,6 +63,12 @@
                                         其他信息
                                     </a>
                                 </li>
+                                <li class="" data-type="4">
+                                    <a id="toXc" data-toggle="tab" href="#faq-tab-xc" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-image bigger-120"></i>
+                                        现场照片
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
@@ -78,6 +85,10 @@
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
                                         <%@ include file="_inhost_formfields.jspf" %>
+                                    </div>
+
+                                    <div id="faq-tab-xc" class="tab-pane fade" data-type="5">
+                                        <%@ include file="xc_photo.jspf" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
@@ -99,6 +110,7 @@
 </div>
 
 <%@ include file="../common/js.jsp" %>
+<script src="<c:url value="/assets/webuploader-0.1.5/webuploader.js"/>"></script>
 
 <script>
     $(function () {
@@ -107,6 +119,8 @@
         $("select").attr('disabled','true');
         $("textarea").attr('readonly','true');
 
+        $('[id*=filePicker]').addClass('hidden');
+        $('.del').addClass('hidden');
         if($("#other_file_path").val() != '' && $("#other_file_name").val() != ''){
             $("#other_file_name").hide();
             $("#photoDiv").append('<a href="${imageServer}'+ $("#other_file_path").val() + '">' + $("#other_file_name").val()+ '</a>');

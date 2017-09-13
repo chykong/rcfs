@@ -5,16 +5,20 @@ import com.balance.api.dto.HouseholdersDTO;
 import com.balance.api.dto.HouseholdersDetailDTO;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.dao.PrjGroupDao;
+import com.balance.prj.dao.PrjPreallAttachDao;
 import com.balance.prj.dao.PrjPreallocationDao;
 import com.balance.prj.dao.PrjSectionDao;
+import com.balance.prj.model.PrjPreallAttach;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.model.PrjSection;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
+import com.balance.util.string.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +33,8 @@ public class PrjPreallocationService {
     private PrjSectionDao prjSectionDao;
     @Autowired
     private PrjGroupDao prjGroupDao;
+    @Autowired
+    private PrjPreallAttachDao prjPreallAttachDao;
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.findAll(prjPreallocationSearchVO);
@@ -52,16 +58,44 @@ public class PrjPreallocationService {
         return prjPreallocationDao.count(prjPreallocationSearchVO);
     }
 
+    private List<PrjPreallAttach> getAttachList(List<PrjPreallAttach> prjAttachments, String user_name, String map_id) {
+        List<PrjPreallAttach> attachments = new ArrayList<>();
+        for (PrjPreallAttach prjAttachment : prjAttachments) {
+            if (StringUtil.isNotNullOrEmpty(prjAttachment.getFile_name()) && StringUtil.isNotNullOrEmpty(prjAttachment.getFile_path())) {
+                prjAttachment.setMap_id(map_id);
+                prjAttachment.setCreated_by(user_name);
+                attachments.add(prjAttachment);
+            }
+        }
+        return attachments;
+    }
     public int add(PrjPreallocation prjPreallocation) {
+        List<PrjPreallAttach> attachments;
+        if (prjPreallocation != null && prjPreallocation.getPreallAttaches() != null && prjPreallocation.getPreallAttaches().size() > 0) {
+            attachments = getAttachList(prjPreallocation.getPreallAttaches(), prjPreallocation.getCreated_by(), prjPreallocation.getMap_id());
+            prjPreallAttachDao.batchAdd(attachments);
+        }
         return prjPreallocationDao.add(prjPreallocation);
     }
 
     public int update(PrjPreallocation prjPreallocation) {
+        List<PrjPreallAttach> attachments;
+        prjPreallAttachDao.delete(prjPreallocation.getMap_id());
+
+        if (prjPreallocation.getPreallAttaches() != null && prjPreallocation.getPreallAttaches().size() > 0) {
+            attachments = getAttachList(prjPreallocation.getPreallAttaches(), prjPreallocation.getCreated_by(), prjPreallocation.getMap_id());
+            prjPreallAttachDao.batchAdd(attachments);
+        }
         return prjPreallocationDao.update(prjPreallocation);
     }
 
     public PrjPreallocation getById(int id) {
-        return prjPreallocationDao.getById(id);
+        PrjPreallocation prjPreallocation = prjPreallocationDao.getById(id);
+        if (prjPreallocation != null) {
+            List<PrjPreallAttach> prjAttachments = prjPreallAttachDao.list(prjPreallocation.getMap_id());
+            prjPreallocation.setPreallAttaches(prjAttachments);
+        }
+        return prjPreallocation;
     }
 
     /**

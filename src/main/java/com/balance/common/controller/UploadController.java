@@ -53,10 +53,10 @@ public class UploadController {
             //保存
             try {
                 file.transferTo(targetFile);
-                json = "{success:" + true + ",msgText:'" + "成功" + "',createFilename:'" + createFilename + "',createFilepath:'" + storePath
-                        + "',original_name:'" + fileName + "'}";
+                json = "{\"success\":" + true + ",\"msgText\":'" + "成功" + "',\"createFilename\":'" + createFilename + "',\"createFilepath\":'" + storePath
+                        + "',\"original_name\":'" + fileName + "'}";
             } catch (Exception e) {
-                json = "{success:" + false + ",msgText:'" + "上传失败" + e.getMessage() + "'}";
+                json = "{\"success\":" + false + ",\"msgText\":'" + "上传失败" + e.getMessage() + "'}";
                 e.printStackTrace();
             }
         }

@@ -3639,6 +3639,7 @@
              * })
              */
             cancelFile: function( file ) {
+                console.log(file)
                 file = file.id ? file : this.request( 'get-file', file );
     
                 // 如果正在上传。

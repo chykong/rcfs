@@ -3,6 +3,7 @@
 <form:hidden path="id"/>
 <input type="hidden" id="update_mapId" name="update_mapId" value="${preallocation.map_id}"/>
 <input type="hidden" id="update_hostName" name="update_hostName" value="${preallocation.host_name}"/>
+<input type="hidden" id="created_by" name="created_by" value="${preallocation.created_by}"/>
 <div class="row">
     <div class="col-lg-4">
         <div class="form-group">

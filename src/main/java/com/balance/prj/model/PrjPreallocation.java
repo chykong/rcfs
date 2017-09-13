@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dsy on 2017/6/4.
@@ -138,6 +139,8 @@ public class PrjPreallocation {
 
     private String archive_file_name;  //归档文件名
     private String archive_file_path;  //归档路径
+
+    private List<PrjPreallAttach> preallAttaches;  //附件图片List
 
     private int d_id;  //返回地图对应的id
 //    private List<PreallocationRelation> relations;  //户籍关系
@@ -1203,5 +1206,13 @@ public class PrjPreallocation {
 
     public void setDemolish_person(String demolish_person) {
         this.demolish_person = demolish_person;
+    }
+
+    public List<PrjPreallAttach> getPreallAttaches() {
+        return preallAttaches;
+    }
+
+    public void setPreallAttaches(List<PrjPreallAttach> preallAttaches) {
+        this.preallAttaches = preallAttaches;
     }
 }

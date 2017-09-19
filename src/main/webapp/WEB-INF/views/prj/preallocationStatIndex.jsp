@@ -102,7 +102,7 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-xs-4 col-lg-3">
+                                            <div class="col-xs- col-lg-3">
                                                 <div class="form-group">
                                                     <label class="control-label col-xs-5 col-lg-4">镇：</label>
                                                     <div class="col-xs-7 col-lg-8">
@@ -143,6 +143,36 @@
                                                     <div class="col-xs-7 col-lg-7">
                                                         <select class="col-xs-12 col-sm-12 col-lg-8" id="groups" name="groups">
                                                             <option value="">--全部--</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs- col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-4">查询日期：</label>
+                                                    <div class="col-xs-7 col-lg-8">
+                                                        <select id="search_date" class="col-xs-10 col-sm-10 col-lg-8">
+                                                            <option value="">--全部--</option>
+                                                            <option value="1">入户日期</option>
+                                                            <option value="2">签约日期</option>
+                                                            <option value="3">交房日期</option>
+                                                            <option value="4">拆除日期</option>
+                                                            <option value="5">审核日期</option>
+                                                            <option value="6">放款日期</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-6">是否为空：</label>
+                                                    <div class="col-xs-7 col-lg-6 no-padding-left">
+                                                        <select id="search_blank" class="col-xs-10 col-sm-10 col-lg-8">
+                                                            <option value="">--全部--</option>
+                                                            <option value="0">为空</option>
+                                                            <option value="1">不为空</option>
                                                         </select>
                                                     </div>
                                                 </div>

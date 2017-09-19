@@ -70,6 +70,8 @@
                         town: $("#town").val(),
                         village: $("#village").val(),
                         status: $("#status").val(),
+                        search_date: $("#search_date").val(),
+                        search_blank: $("#search_blank").val(),
                         page: parseInt(data.start/data.length) + 1,
                         size: data.length
                     },

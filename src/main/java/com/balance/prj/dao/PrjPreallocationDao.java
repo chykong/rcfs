@@ -264,6 +264,14 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                     break;
             }
         }
+        if (prjPreallocationSearchVO.getSearch_date() != null && prjPreallocationSearchVO.getSearch_blank() != null) {
+            sql += " and plc." + getSearchField(prjPreallocationSearchVO.getSearch_date());
+            if (prjPreallocationSearchVO.getSearch_blank() == 0) {
+                sql += " is null or plc." + getSearchField(prjPreallocationSearchVO.getSearch_date()) + "=''";
+            } else {
+                sql += " is not null and plc." + getSearchField(prjPreallocationSearchVO.getSearch_date()) + "!=''";
+            }
+        }
         if (StringUtil.isNotNullOrEmpty(prjPreallocationSearchVO.getMap_id())) {
             sql += " and plc.map_id like :map_id_param ";
         }
@@ -318,6 +326,24 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
             sql += " and (plc.host_name like :term or map_id like :term)";
         }
         return sql;
+    }
+
+    private String getSearchField(int search_type) {
+        String field = "";
+        if (search_type == 1) {
+            field = "in_host_date";
+        } else if (search_type == 2) {
+            field = "signed_date";
+        } else if (search_type == 3) {
+            field = "handover_house_date";
+        } else if (search_type == 4) {
+            field = "demolished_date";
+        } else if (search_type == 5) {
+            field = "audit_date";
+        } else if (search_type == 6) {
+            field = "money_date";
+        }
+        return field;
     }
 
     public int updateArchive(String map_id, String host_name, String archives_code, int project_id, int status, String file_path, String file_name) {

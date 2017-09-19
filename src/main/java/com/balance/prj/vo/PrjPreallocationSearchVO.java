@@ -30,6 +30,9 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     private String term;//API接口里面按照户名或编号查询
 
+    private Integer search_date;//查询日期类型  1-入户  2-签约 3-交房  4-拆除  5-审核  6-放款
+    private Integer search_blank;//是否为空   0-为空  1-不为空
+
     @Override
     public String toString() {
         return "PrjPreallocationSearchVO{" +
@@ -199,5 +202,21 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     public void setVillage(String village) {
         this.village = village;
+    }
+
+    public Integer getSearch_date() {
+        return search_date;
+    }
+
+    public void setSearch_date(Integer search_date) {
+        this.search_date = search_date;
+    }
+
+    public Integer getSearch_blank() {
+        return search_blank;
+    }
+
+    public void setSearch_blank(Integer search_blank) {
+        this.search_blank = search_blank;
     }
 }

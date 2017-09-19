@@ -2,11 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
 <c:if test="${bln:isP('PrjPreallocationDeleteBatch')}">
-<label title="全选">
+<label class="my-tooltip-link tooltip-error" title="全选数据过多时，可能有少许卡顿" style="margin-left: 14px">
     <input id="all_check" type="checkbox" class="ace">
     <span class="lbl">全选</span>
 </label>
-<button class="btn btn-danger btn-sm" id="btnBatch">
+<button class="btn btn-danger btn-sm" id="btnBatch" style="margin-left: 10px">
     <i class="ace-icon fa fa-trash-o"></i> 批量删除
 </button>
 </c:if>
@@ -182,7 +182,7 @@
             </c:if>
                 {
                     data: "status",
-                    width: "120px",
+                    width: "80px",
                     render: function (data) {
                         switch (data) {
                             case 0:
@@ -208,7 +208,7 @@
                 },
                 {
                     data: "id",
-                    width: "160px",
+                    width: "140px",
                     render: function (data, type, row) {
                         var retHtml = '';
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {

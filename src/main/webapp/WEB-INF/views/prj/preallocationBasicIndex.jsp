@@ -363,7 +363,7 @@
                                     </div>
                                     <div class="col-xs-12" align="center">
                                         <button class="btn btn-white btn-primary" id="batch-submit" type="button">
-                                            <i class="ace-icon fa fa-cloud-upload bigger-110"></i> 确定
+                                            <i class="ace-icon fa fa-cloud-upload bigger-110"></i> 确认删除
                                         </button>
                                         <button class="btn btn-white btn-primary" type="button"
                                                 id="batch_close-modal" data-dismiss="modal">
@@ -666,7 +666,7 @@
                     ids = ids.substring(0, ids.length - 1);
                 }
 
-                var msg = '共选择' + $check_box.length + '户：';
+                var msg = '共选择<span class="label label-success">' + $check_box.length + '</span>户：';
                 $('#batch_record').html(msg);
 
                 $batch_items.append(_html);
@@ -694,6 +694,8 @@
                 })
 
             });
+
+            $('.my-tooltip-link ').tooltip();
         });
     </script>
 </javascripts>

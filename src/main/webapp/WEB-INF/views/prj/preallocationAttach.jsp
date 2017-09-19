@@ -7,7 +7,7 @@
 <ol class="carousel-indicators">
     <c:if test="${attachList.size() == 0}">
         <div class="small-item">
-            <img style="width: 72px;height: auto;" data-target="#myCarousel" data-slide-to="0" class="active" src="<c:url value="/assets/images/default-attach.png"/>"/>
+            <img style="width: 72px;height: auto;" data-target="#myCarousel" data-slide-to="0" class="active" src="<c:url value="/assets/images/default-attach.jpg"/>"/>
         </div>
     </c:if>
 <c:forEach items="${attachList}" var="attach" varStatus="st">
@@ -20,7 +20,7 @@
 <div class="carousel-inner">
     <c:if test="${attachList.size() == 0}">
         <div class="item active">
-            <img src="<c:url value="/assets/images/default-attach.png"/>" alt="暂无照片">
+            <img src="<c:url value="/assets/images/default-attach.jpg"/>" alt="暂无照片">
         </div>
     </c:if>
     <c:forEach items="${attachList}" var="attach" varStatus="st">

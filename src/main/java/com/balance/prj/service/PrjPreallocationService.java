@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -69,6 +70,7 @@ public class PrjPreallocationService {
         }
         return attachments;
     }
+
     public int add(PrjPreallocation prjPreallocation) {
         List<PrjPreallAttach> attachments;
         if (prjPreallocation != null && prjPreallocation.getPreallAttaches() != null && prjPreallocation.getPreallAttaches().size() > 0) {
@@ -105,6 +107,12 @@ public class PrjPreallocationService {
      */
     public int delete(int id) {
         return prjPreallocationDao.delete(id);
+    }
+
+    public int deleteBatch(String map_idString, int prj_base_info_id) {
+        List<String> map_ids = new ArrayList<>();
+        Collections.addAll(map_ids, map_idString.split(","));
+        return prjPreallocationDao.deleteBatch(map_ids, prj_base_info_id);
     }
 
     public boolean existByMapId(String map_Id, int project_id) {
@@ -213,6 +221,7 @@ public class PrjPreallocationService {
 
     /**
      * 城镇列表
+     *
      * @param prj_base_info_id
      * @return
      */
@@ -236,5 +245,22 @@ public class PrjPreallocationService {
      */
     public HouseholdersDetailDTO getByidInApi(int id) {
         return prjPreallocationDao.getByIdInApi(id);
+    }
+
+    public List<PrjPreallAttach> listAttach(String map_id) {
+        return prjPreallAttachDao.list(map_id);
+    }
+
+    public List<PrjPreallAttach> listAttach(String map_id, int type) {
+        List<PrjPreallAttach> allAttachList = new ArrayList<>();
+
+        List<PrjPreallAttach> beforeAttachList = prjPreallAttachDao.listForType(map_id, 1);
+        List<PrjPreallAttach> betweenAttachList = prjPreallAttachDao.listForType(map_id, 2);
+        List<PrjPreallAttach> afterAttachList = prjPreallAttachDao.listForType(map_id, 3);
+
+        allAttachList.addAll(beforeAttachList);
+        allAttachList.addAll(betweenAttachList);
+        allAttachList.addAll(afterAttachList);
+        return allAttachList;
     }
 }

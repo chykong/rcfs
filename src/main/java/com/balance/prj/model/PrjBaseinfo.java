@@ -10,6 +10,7 @@ public class PrjBaseinfo {
     private int id;//id
     private String prj_name;// 项目名称
     private Integer progress;//当前阶段1、入户2、签约3、交房
+    private Integer area_type;//面积方式  0-平方米  1-亩
     private String introduction;//项目描述
     private String flow;//工作流程
     private String architecture;// 组织架构
@@ -34,6 +35,14 @@ public class PrjBaseinfo {
                 ", created_by='" + created_by + '\'' +
                 ", type='" + type + '\'' +
                 '}';
+    }
+
+    public Integer getArea_type() {
+        return area_type;
+    }
+
+    public void setArea_type(Integer area_type) {
+        this.area_type = area_type;
     }
 
     public Integer getProgress() {

@@ -99,7 +99,7 @@ public class PrjChartsService {
      * @param land_property 土地使用属性
      * @return
      */
-    public String createEntireJson(int prj_base_info_id, String land_property, int type) {
+    public String createEntireJson(int prj_base_info_id, String land_property, int type, int area_type) {
         String s_date = DateUtil.getOpeDate(DateUtil.getSystemDate(), -29);//定义开始时间
         String e_date = DateUtil.getSystemDate();//定义结束时间
         String[] dates = new String[30];//定义30天的时间段
@@ -109,15 +109,26 @@ public class PrjChartsService {
         //计算入户
         List<EntireStatVO> listIn_host = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 1);
         float existIn_host = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 1);
-        float[] in_host = createDataArr(dates, listIn_host, existIn_host);//计算入户数
+
+        if (type != 1 && area_type == 1) {
+            existIn_host = existIn_host * 3 / 2000;
+        }
+
+        float[] in_host = createDataArr(dates, listIn_host, existIn_host, type, area_type);//计算入户数
         //计算签约
         List<EntireStatVO> listSigned = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 2);
         float existSigned = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 2);
-        float[] signed = createDataArr(dates, listSigned, existSigned);//计算签约数
+        if (type != 1 && area_type == 1) {
+            existSigned = existSigned * 3 / 2000;
+        }
+        float[] signed = createDataArr(dates, listSigned, existSigned, type, area_type);//计算签约数
         //计算交房
         List<EntireStatVO> listHand = prjChartsDao.listEntireByType(prj_base_info_id, land_property, s_date, e_date, type, 3);
         float existHand = prjChartsDao.getExist(prj_base_info_id, land_property, s_date, type, 3);
-        float[] hand = createDataArr(dates, listHand, existHand);//计算交房数
+        if (type != 1 && area_type == 1) {
+            existHand = existHand * 3 / 2000;
+        }
+        float[] hand = createDataArr(dates, listHand, existHand, type, area_type);//计算交房数
 
         StringBuilder sb = new StringBuilder();
         sb.append("{\"categories\":" + JsonUtil.toStr(dates) + ",");
@@ -142,14 +153,18 @@ public class PrjChartsService {
      * @param exist
      * @return
      */
-    private float[] createDataArr(String[] dates, List<EntireStatVO> list, float exist) {
+    private float[] createDataArr(String[] dates, List<EntireStatVO> list, float exist, int type, int area_type) {
         float[] dataArr = new float[dates.length];
         for (int i = 0; i < dates.length; i++) {
             //计算方法是从exist开始，加上当天的数据为当天的合计数据
             float today = 0;//先计算当前有没有数据
             for (EntireStatVO vo : list) {
                 if (vo.getDate().equals(dates[i])) {
-                    today = vo.getData();
+                    if (type != 1 && area_type == 1) {
+                        today = vo.getData() * 3 / 2000;
+                    } else {
+                        today = vo.getData();
+                    }
                     break;
                 }
             }
@@ -223,10 +238,11 @@ public class PrjChartsService {
 
     /**
      * s生成返回charts的json
+     *
      * @param prjChartsSearchVO
      * @return
      */
-    public String createChartsData(PrjChartsSearchVO prjChartsSearchVO) {
+    public String createChartsData(PrjChartsSearchVO prjChartsSearchVO, int area_type) {
         if (prjChartsSearchVO.getType() == null) prjChartsSearchVO.setType(1);//默认按户数
         if (prjChartsSearchVO.getGroup_type() == null) prjChartsSearchVO.setGroup_type(1);//默认按组别
 
@@ -252,8 +268,13 @@ public class PrjChartsService {
 
         for (int i = 0; i < list.size(); i++) {
             PrjChart prjChart = list.get(i);
-            today_int[i] = prjChart.getToday();
-            total_int[i] = prjChart.getTotal();
+            if(prjChartsSearchVO.getType() != 1 && area_type == 1){
+                today_int[i] = prjChart.getToday() * 3 / 2000;
+                total_int[i] = prjChart.getTotal() * 3 / 2000;
+            }else{
+                today_int[i] = prjChart.getToday();
+                total_int[i] = prjChart.getTotal();
+            }
             over_homes += prjChart.getTotal();
             groups[i] = prjChart.getGroups();
         }
@@ -270,8 +291,13 @@ public class PrjChartsService {
 
         for (int i = 0; i < listSection.size(); i++) {
             PrjChart prjChart = listSection.get(i);
-            is_section[i] = prjChart.getIs();
-            no_section[i] = prjChart.getNo();
+            if(prjChartsSearchVO.getType() != 1 && area_type == 1){
+                is_section[i] = prjChart.getIs() * 3 / 2000;
+                no_section[i] = prjChart.getNo() * 3 / 2000;
+            }else{
+                is_section[i] = prjChart.getIs();
+                no_section[i] = prjChart.getNo();
+            }
             section[i] = prjChart.getSection();
         }
         vo.setBarSectionData1(is_section);//分标段已完成
@@ -288,10 +314,10 @@ public class PrjChartsService {
             vo.setGuageData(NumberUtil.calPercent(over_homes, total_homes));//仪表单数据
             vo.setGuageData2(over_homes);//已完成数
         }
-        vo.setGuageDataTitle("总" + WebTag.getChartTitleByType(vo.getType()) + ":" + ChartsUtil.createTotal(vo.getType(), total_homes) + "\r\n" + ChartsUtil.overStr(vo));
+        vo.setGuageDataTitle("总" + WebTag.getChartTitleByType(vo.getType()) + ":" + ChartsUtil.createTotal(vo.getType(), area_type, total_homes) + "\r\n" + ChartsUtil.overStr(vo, area_type));
         vo.setType(prjChartsSearchVO.getType());//类型
         vo.setSearch_type(prjChartsSearchVO.getSearch_type());//查询类型,1按户数，2按占地面积，3按建筑面积
-        String json = ChartsUtil.createChartsJson(vo, total_homes);
+        String json = ChartsUtil.createChartsJson(vo, total_homes,area_type);
         return json;
     }
 }

@@ -106,7 +106,7 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "20px",
+                    width: "30px",
                     render: function (data) {
                         return data || "";
                     }
@@ -127,7 +127,7 @@
                 },
                 {
                     data: "location",
-                    width: "200px",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }
@@ -178,7 +178,6 @@
                     data: "archive_file_name",
                     width: "150px",
                     render: function (data,type,row) {
-                        console.log(typeof(data))
                         if(typeof(data) =='object'){
                             return "";
                         }else{
@@ -228,7 +227,7 @@
             ],
             fixedColumns: {
                 leftColumns: 2,
-                rightColumns:0
+                rightColumns:1
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
@@ -263,11 +262,16 @@
             }
 
         });
+
+
         var times = 0;
         table.on('draw.dt', function (e) {
             times++;
-            console.log(times);
             if(times == 2){
+                if($table_id.width() < $('#basic-table_wrapper').width()){
+                    $('.DTFC_RightWrapper').remove();
+                }
+                $('#table-foot').remove();
                 $("#foo").addClass('hidden');
             }
         } );

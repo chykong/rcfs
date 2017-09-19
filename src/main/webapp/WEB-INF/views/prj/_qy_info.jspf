@@ -1,0 +1,127 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<div class="form-group">
+    <form:label path="float_people" cssClass="col-sm-3 control-label no-padding-right">
+        流动人口：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="float_people" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入流动人口..."
+                    maxlength="5"/>
+        <label id="float_peopleTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="car_num" cssClass="col-sm-3 control-label no-padding-right">
+        车辆数量（辆）：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="car_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入车辆数量..."
+                    maxlength="5"/>
+        <label id="car_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="rmgl_num" cssClass="col-sm-3 control-label no-padding-right">
+        燃煤锅炉（个）：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="rmgl_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入燃煤锅炉个数..."
+                    maxlength="5"/>
+        <label id="rmgl_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="rqgl_num" cssClass="col-sm-3 control-label no-padding-right">
+        燃气锅炉（个）：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="rqgl_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入燃气锅炉个数..."
+                    maxlength="5"/>
+        <label id="rqgl_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="zqgl_num" cssClass="col-sm-3 control-label no-padding-right">
+        蒸汽锅炉（个）：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="zqgl_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入蒸汽锅炉个数..."
+                    maxlength="5"/>
+        <label id="zqgl_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="scattered_coal" cssClass="col-sm-3 control-label no-padding-right">
+        散煤（吨）：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="scattered_coal" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入散煤吨..."
+                    maxlength="5"/>
+        <label id="scattered_coalTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="jzzz_num" cssClass="col-sm-3 control-label no-padding-right">
+        家具制造：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="jzzz_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入家具制造..."
+                    maxlength="5"/>
+        <label id="jzzz_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="scqg_num" cssClass="col-sm-3 control-label no-padding-right">
+        石材切割：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="scqg_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入石材切割..."
+                    maxlength="5"/>
+        <label id="scqg_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="qx_num" cssClass="col-sm-3 control-label no-padding-right">
+        汽修：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="qx_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入汽修..."
+                    maxlength="5"/>
+        <label id="qx_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="wl_num" cssClass="col-sm-3 control-label no-padding-right">
+        物流：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="wl_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入物流..."
+                    maxlength="5"/>
+        <label id="wl_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="fz_num" cssClass="col-sm-3 control-label no-padding-right">
+        服装：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="fz_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入服装..."
+                    maxlength="5"/>
+        <label id="fz_numTip"></label>
+    </div>
+</div>
+<div class="form-group">
+    <form:label path="qt_num" cssClass="col-sm-3 control-label no-padding-right">
+        其他：
+    </form:label>
+    <div class="col-sm-9">
+        <form:input path="qt_num" cssClass="col-xs-10 col-sm-10 col-lg-3" placeholder="请输入其他..."
+                    maxlength="5"/>
+        <label id="qt_numTip"></label>
+    </div>
+</div>
+
+
+

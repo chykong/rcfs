@@ -79,7 +79,8 @@ public class StatisticsApiController {
             prjChartsSearchVO.setSearch_type(1);
         else
             prjChartsSearchVO.setSearch_type(search_type);
-        String json = prjChartsService.createChartsData(prjChartsSearchVO);
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(projectId);
+        String json = prjChartsService.createChartsData(prjChartsSearchVO,prjBaseinfo.getArea_type());
         WebUtil.out(response, json);
     }
 

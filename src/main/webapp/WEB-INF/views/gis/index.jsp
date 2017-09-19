@@ -15,10 +15,47 @@
     <link href="<c:url value="/assets/components/GIS/gapi/map.css"/>" rel="stylesheet">
 
 
-    <script src="<c:url value="/assets/components/GIS/bootstrap.min.js"/>"></script>
     <script src="<c:url value="/assets/components/GIS/jquery-1.10.2.min.js"/>"></script>
     <script src="<c:url value="/assets/components/GIS/gapi/map.js"/>"></script>
     <script src="<c:url value="/assets/components/GIS/gapi/init.js"/>"></script>
+
+    <style>
+        .fade.in {
+            opacity: 1;
+            display: block;
+        }
+        .carousel-control{
+            height: 350px;
+            line-height: 350px;
+        }
+        .img-responsive, .thumbnail > img, .thumbnail a > img, .carousel-inner > .item > img, .carousel-inner > .item > a > img {
+            display: inline-block;
+        }
+        .carousel-inner > .item {
+           text-align: center;
+        }
+
+        .carousel-indicators {
+            top:275px;
+            bottom: inherit;
+            width: 90%;
+            left:36%;
+        }
+        .carousel-indicators li{
+            border:1px solid #307ecc;
+        }
+        .carousel-indicators .active{
+            background: #307ecc;
+            width: 75px;
+            height: 55px;
+        }
+        .small-item{
+            width: 75px;
+            height:55px;
+            overflow: hidden;
+            display: inline-block;
+        }
+    </style>
 </head>
 
 <body class="no-skin">
@@ -79,12 +116,12 @@
                                                 <!--未入户  -10  --> </td>
                                             <td><span style="margin-left: 10px;"><strong>未入户</strong> </span></td>
                                         </tr>
-                                            <tr>
+                                        <tr>
                                             <td>
                                                 <div style="width:30px; height: 15px; background-color: rgb(253, 253, 88); margin-left: 10px;border-radius:4px; "></div>
                                                 <!--已入户未签约--></td>
                                             <td><span style="margin-left: 10px;"><strong>已入户未签约</strong> </span></td>
-                                            </tr>
+                                        </tr>
 
                                         <tr>
                                             <td>
@@ -132,6 +169,10 @@
                                                                       style=" text-decoration: none; font-family: 微软雅黑; padding: 2px 8px;">基本信息</a>
                             </li>
                             <li role="presentation"><a href="#case_2" aria-controls="case_2" role="tab"
+                                                       data-toggle="tab"
+                                                       style=" text-decoration: none; font-family: 微软雅黑; padding: 2px 8px;">企业信息</a>
+                            </li>
+                            <li role="presentation"><a href="#case_3" aria-controls="case_3" role="tab"
                                                        data-toggle="tab"
                                                        style=" text-decoration: none; font-family: 微软雅黑; padding: 2px 8px;">工作人员</a>
                             </li>
@@ -189,6 +230,62 @@
                             </div>
                             <div role="tabpanel" class="tab-pane" id="case_2">
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">流动人口：&nbsp;</span>
+                                            <label id="float_people"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">车辆数量（辆）：&nbsp;</span>
+                                            <label id="car_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">燃煤锅炉：&nbsp;</span>
+                                            <label id="rmgl_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">燃气锅炉：&nbsp;</span>
+                                            <label id="rqgl_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">蒸汽锅炉：&nbsp;</span>
+                                            <label id="zqgl_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">散煤（吨）：&nbsp;</span>
+                                            <label id="scattered_coal"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">家具制造：&nbsp;</span>
+                                            <label id="jzzz_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">石材切割：&nbsp;</span>
+                                            <label id="scqg_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">汽修：&nbsp;</span>
+                                            <label id="qx_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">物流：&nbsp;</span>
+                                            <label id="wl_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">服装：&nbsp;</span>
+                                            <label id="fz_num"></label>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <span style="color:#7E7C7C;">其他：&nbsp;</span>
+                                            <label id="qt_num"></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="case_3">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <span style="color:#7E7C7C;">包村干部：&nbsp;</span>
                                         <label id="leader"></label>
@@ -212,17 +309,54 @@
                                 </div>
                             </div>
                         </div>
+                        <div style="text-align: right"><a  href="javascript:show();" style="cursor: pointer">现场图片</a></div>
                     </div>
                 </div>
 
             </div>
             <!-- /.main-content -->
         </div>
+        <div id="image-modal" class="modal fade tab-pane" tabindex="-21">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header no-padding">
+                        <div class="table-header">
+                            <button type="button" class="close" id="close_show" data-dismiss="modal" aria-hidden="true">
+                                <span class="white">&times;</span>
+                            </button>
+                            现场照片
+                        </div>
+                    </div>
+                    <div class="modal-body no-padding">
+                        <div class="widget-box" style="border: none">
+                            <div class="widget-body">
+                                <div class="widget-main" style="height: 350px;overflow: hidden">
+                                    <div id="myCarousel" class="carousel slide">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer no-margin-top"></div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
         <!-- /.main-container -->
         <%@ include file="../common/js.jsp" %>
+        <script src="${staticServer }/assets/components/jquery-ui/jquery-ui.js"></script>
 
         <script type="text/javascript">
+            function show(){
+                $('#myCarousel').load('<c:url value="/prj/preallocation/attach/getAttachList"/>', {map_id: $('#map_id').html()});
+                $('#image-modal').addClass("in");
+            }
             $(function () {
+                $('#close_show').on('click', function () {
+                    $('#image-modal').removeClass("in")
+                })
             })
         </script>
 </body>

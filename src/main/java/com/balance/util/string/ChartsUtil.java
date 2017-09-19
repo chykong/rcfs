@@ -16,8 +16,8 @@ public class ChartsUtil {
      * @param vo
      * @return
      */
-    public static String createChartsJson(ChartsDataVO vo, float total) {
-        String json2 = "{" + createBarStr(vo) + "," + createBarSectionStr(vo) + "," + createGuageStr(vo, total) + "}";
+    public static String createChartsJson(ChartsDataVO vo, float total,int area_type) {
+        String json2 = "{" + createBarStr(vo) + "," + createBarSectionStr(vo) + "," + createGuageStr(vo, total,area_type) + "}";
         return json2;
     }
 
@@ -48,17 +48,17 @@ public class ChartsUtil {
      */
     private static String createBarSectionStr(ChartsDataVO vo) {
         String str = "\"sectionCategories\": " + JsonUtil.toStr(vo.getBarSectionCategories()) + ",\"barSetionData\":" +
-                "[{\"name\": \"已"+ ChartsUtil.getGuageName(vo.getSearch_type())+"\",\"type\": \"bar\",\"stack\": \"总量\",\"label\": {\"normal\": {\"show\": true,\"position\": \"insideRight\"}},\"data\": " + JsonUtil.toStr(vo.getBarSectionData1()) + "}," +
-                "{\"name\": \"未"+ChartsUtil.getGuageName(vo.getSearch_type())+"\",\"type\": \"bar\",\"stack\": \"总量\",\"normal\": {\"show\": true,\"position\": \"insideRight\"},\"data\": " + JsonUtil.toStr(vo.getBarSectionData2()) + "}]";
+                "[{\"name\": \"已" + ChartsUtil.getGuageName(vo.getSearch_type()) + "\",\"type\": \"bar\",\"stack\": \"总量\",\"label\": {\"normal\": {\"show\": true,\"position\": \"insideRight\"}},\"data\": " + JsonUtil.toStr(vo.getBarSectionData1()) + "}," +
+                "{\"name\": \"未" + ChartsUtil.getGuageName(vo.getSearch_type()) + "\",\"type\": \"bar\",\"stack\": \"总量\",\"normal\": {\"show\": true,\"position\": \"insideRight\"},\"data\": " + JsonUtil.toStr(vo.getBarSectionData2()) + "}]";
         return str;
     }
 
-    private static String createGuageStr(ChartsDataVO vo, float total) {
+    private static String createGuageStr(ChartsDataVO vo, float total, int area_type) {
         String str = "\"guageData\":[{" +
                 "\"name\": \"" + vo.getGuageTitle() + "\"," +
                 "\"type\": \"gauge\"," +
                 "\"detail\": {formatter:'{value}%'}," +
-                "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"总" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), total) + "\\r\\n" + overStr(vo) + "\"}]" +
+                "\"data\": [{\"value\":\" " + vo.getGuageData() + "\", \"name\": \"总" + WebTag.getChartTitleByType(vo.getType()) + ":" + createTotal(vo.getType(), area_type, total) + "\\r\\n" + overStr(vo, area_type) + "\"}]" +
                 " }]";
         return str;
     }
@@ -68,15 +68,21 @@ public class ChartsUtil {
      *
      * @return
      */
-    public static String overStr(ChartsDataVO vo) {
-        String str = "已" + getGuageName(vo.getSearch_type()) + ":" + createTotal(vo.getType(), vo.getGuageData2());
+    public static String overStr(ChartsDataVO vo, int area_type) {
+        String str = "已" + getGuageName(vo.getSearch_type()) + ":" + createTotal(vo.getType(), area_type, vo.getGuageData2());
         return str;
     }
 
-    public static String createTotal(int type, float value) {
+    public static String createTotal(int type, int area_type, float value) {
         if (type == 1) {
             return String.valueOf((int) value) + "户";
-        } else return formatFloat(value / 10000) + "万m²";
+        } else {
+            if (area_type == 0) {
+                return formatFloat(value / 10000) + "万m²";
+            } else {
+                return formatFloat(value * 3 / 2000) + "亩";
+            }
+        }
     }
 
     /**

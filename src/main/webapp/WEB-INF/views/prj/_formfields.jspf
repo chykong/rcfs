@@ -83,14 +83,15 @@
                 <div id="photoDiv"
                      class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if>">
                     <%--<img id="photo" class="col-lg-10" src="--%>
-<%--<c:if test="${!empty preallocation.other_file_path && !empty preallocation.other_file_name}">${imageServer}/${preallocation.other_file_path}</c:if>"/>--%>
-                         <a><input type="text" id="other_file_name"
-                                   class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if> col-xs-10 col-sm-10 col-lg-9" name="other_file_name"
-                                   value="${preallocation.other_file_name}" readonly/></a>
-                            <button id='delFile' type="button" class="btn btn-danger btn-sm">
-                                <span class="ace-icon fa fa-trash-o icon-on-right bigger-110"></span>
-                                删除
-                            </button>
+                    <%--<c:if test="${!empty preallocation.other_file_path && !empty preallocation.other_file_name}">${imageServer}/${preallocation.other_file_path}</c:if>"/>--%>
+                    <a><input type="text" id="other_file_name"
+                              class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if> col-xs-10 col-sm-10 col-lg-9"
+                              name="other_file_name"
+                              value="${preallocation.other_file_name}" readonly/></a>
+                    <button id='delFile' type="button" class="btn btn-danger btn-sm">
+                        <span class="ace-icon fa fa-trash-o icon-on-right bigger-110"></span>
+                        删除
+                    </button>
                 </div>
                 <button id="checkFile" href="#material-modal" type="button"
                         class="btn btn-info btn-sm <c:if test="${!empty preallocation.other_file_path}">hidden</c:if>"
@@ -264,14 +265,32 @@
         </div>
         <div class="form-group">
             <form:label path="after_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
-                09年后面积：
+                <c:if test="${prj_base_info_id != 28}">09年后面积：</c:if>
+                <c:if test="${prj_base_info_id == 28}">09-13年面积：</c:if>
             </form:label>
             <div class="col-sm-9 col-lg-8">
-                <form:input path="after_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入09年后面积..."
-                            maxlength="10"/>
+                <c:if test="${prj_base_info_id != 28}">
+                    <form:input path="after_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入09年后面积..."
+                                maxlength="10"/>
+                </c:if>
+                <c:if test="${prj_base_info_id == 28}">
+                    <form:input path="after_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入09-13年间面积..."
+                                maxlength="10"/>
+                </c:if>
                 <label id="after_areaTip"></label>
             </div>
         </div>
+        <c:if test="${prj_base_info_id == 28}">
+        <div class="form-group">
+            <form:label path="last_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                13年后面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="last_area" cssClass="col-xs-10 col-sm-10 col-lg-9"  placeholder="请输入13年后面积..." maxlength="10"/>
+                <label id="last_areaTip"></label>
+            </div>
+        </div>
+        </c:if>
         <div class="form-group">
             <form:label path="management_house_area"
                         cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">

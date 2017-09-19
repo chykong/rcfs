@@ -70,6 +70,9 @@ public class PrjChartsController extends BaseController {
         if (type == null) type = 1;//默认按户数
         mv.addObject("type", type);
         mv.addObject("typeName", WebTag.getChartTitleByType(type));
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("yName", WebTag.getChartYByType(type, prjBaseinfo.getArea_type()));
+        mv.addObject("unit", WebTag.getChartUnitByType(type, prjBaseinfo.getArea_type()));
         mv.setViewName("/prj/entireCharts");
         return mv;
     }
@@ -85,7 +88,8 @@ public class PrjChartsController extends BaseController {
     public void getGroupInHost(HttpServletRequest request, HttpServletResponse response, Integer type) {
         if (type == null) type = 1;//默认按户数
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();//项目id
-        String json = prjChartsService.createEntireJson(project_id, SessionUtil.getUserSession(request).getCurrent_land_name(), type);
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(project_id);
+        String json = prjChartsService.createEntireJson(project_id, SessionUtil.getUserSession(request).getCurrent_land_name(), type, prjBaseinfo.getArea_type());
         WebUtil.out(response, json);
     }
 
@@ -101,8 +105,9 @@ public class PrjChartsController extends BaseController {
         //mv.addObject("townList", townList);
         mv.addObject("type", prjChartsSearchVO.getType());//类型
         mv.addObject("typeName", WebTag.getChartTitleByType(prjChartsSearchVO.getType()));//类型名称
-        mv.addObject("typeUnit", prjChartsSearchVO.getType() == 1 ? "" : "(m²)");
         PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("typeUnit",WebTag.getChartUnitByType(prjChartsSearchVO.getType(), prjBaseinfo.getArea_type()));
+
         if (prjBaseinfo != null)
             mv.addObject("progress", prjBaseinfo.getProgress());//当前进度
         else
@@ -120,7 +125,8 @@ public class PrjChartsController extends BaseController {
         int project_id = SessionUtil.getUserSession(request).getCurrent_project_id();
         prjChartsSearchVO.setCurrent_land_name(SessionUtil.getUserSession(request).getCurrent_land_name());
         prjChartsSearchVO.setPrj_base_info_id(project_id);
-        String json=prjChartsService.createChartsData(prjChartsSearchVO);
+        PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(project_id);
+        String json = prjChartsService.createChartsData(prjChartsSearchVO,prjBaseinfo.getArea_type());
         WebUtil.out(response, json);
     }
 

@@ -80,7 +80,7 @@
             columns: [
                 {
                     data: "map_id",
-                    width: "20px",
+                    width: "30px",
                     render: function (data) {
                         return data || "";
                     }
@@ -101,7 +101,7 @@
                 },
                 {
                     data: "location",
-                    width: "200px",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }

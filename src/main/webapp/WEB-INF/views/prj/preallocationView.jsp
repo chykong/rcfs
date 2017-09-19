@@ -69,6 +69,12 @@
                                         现场照片
                                     </a>
                                 </li>
+                                <li class="" data-type="6">
+                                    <a data-toggle="tab" href="#faq-tab-qy" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-building bigger-120"></i>
+                                        企业情况
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
@@ -88,11 +94,15 @@
                                     </div>
 
                                     <div id="faq-tab-xc" class="tab-pane fade" data-type="5">
-                                        <%@ include file="xc_photo.jspf" %>
+                                        <%@ include file="_xc_photo.jspf" %>
+                                    </div>
+
+                                    <div id="faq-tab-qy" class="tab-pane fade" data-type="6">
+                                        <%@ include file="_qy_info.jspf" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
-                                            <a id="btn-reset" class="btn" href="<c:url value="/prj/preallocation/basic/index.htm"/>">
+                                            <a id="btn-reset" class="btn" href="javascript:history.go(-1)">
                                                 <i class="ace-icon fa fa-undo bigger-110"></i>
                                                 返回
                                             </a>

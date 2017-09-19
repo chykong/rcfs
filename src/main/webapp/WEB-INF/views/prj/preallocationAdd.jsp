@@ -45,7 +45,7 @@
                                         基本信息
                                     </a>
                                 </li>
-                                <li class="" data-type="3">
+                                <li class="" data-type="2">
                                     <a data-toggle="tab" href="#faq-tab-jd" aria-expanded="true">
                                         <i class="blue ace-icon fa fa-bar-chart-o bigger-120"></i>
                                         进度信息
@@ -57,16 +57,22 @@
                                         补偿信息
                                     </a>
                                 </li>
-                                <li class="" data-type="3">
+                                <li class="" data-type="4">
                                     <a data-toggle="tab" href="#faq-tab-qt" aria-expanded="true">
                                         <i class="blue ace-icon fa fa-inbox bigger-120"></i>
                                         其他信息
                                     </a>
                                 </li>
-                                <li class="" data-type="4">
+                                <li class="" data-type="5">
                                     <a id="toXc" data-toggle="tab" href="#faq-tab-xc" aria-expanded="true">
                                         <i class="blue ace-icon fa fa-image bigger-120"></i>
                                         现场照片
+                                    </a>
+                                </li>
+                                <li class="" data-type="6">
+                                    <a data-toggle="tab" href="#faq-tab-qy" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-building bigger-120"></i>
+                                        企业情况
                                     </a>
                                 </li>
                             </ul>
@@ -88,7 +94,10 @@
                                         <%@ include file="_inhost_formfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-xc" class="tab-pane fade" data-type="5">
-                                        <%@ include file="xc_photo.jspf" %>
+                                        <%@ include file="_xc_photo.jspf" %>
+                                    </div>
+                                    <div id="faq-tab-qy" class="tab-pane fade" data-type="6">
+                                        <%@ include file="_qy_info.jspf" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">

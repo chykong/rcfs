@@ -10,6 +10,7 @@ import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.backurl.BackUrlUtil;
+import com.balance.util.config.PubConfig;
 import com.balance.util.controller.BaseController;
 import com.balance.util.excel.Excel2007Util;
 import com.balance.util.json.JsonUtil;
@@ -53,6 +54,8 @@ public class PrjPreallocationBasicController extends BaseController {
     private PrjSectionService prjSectionService;
     @Autowired
     private BaseCompanyService baseCompanyService;
+    @Autowired
+    private PubConfig pubConfig;
 
     @RequestMapping(value = {"", "index"})
     public ModelAndView index(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
@@ -67,11 +70,42 @@ public class PrjPreallocationBasicController extends BaseController {
 
         List<ComboboxVO> townList = preallocationService.getTown(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("townList", townList);
-
+        mv.addObject("prj_base_info_id", SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("preallocationSearchVO", preallocationSearchVO);
 
-        BackUrlUtil.createBackUrl(mv, request, "/prj/preallocation/basic/index.htm");
+        BackUrlUtil.createBackUrl(mv, request, createBackUrl(preallocationSearchVO));
         return mv;
+    }
+
+    private String createBackUrl(PrjPreallocationSearchVO preallocationSearchVO) {
+        String url = "/prj/preallocation/basic/index.htm?___=_";
+
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getMap_id())) {
+            url += "&map_id=" + preallocationSearchVO.getMap_id();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getHost_name())) {
+            url += "&host_name=" + preallocationSearchVO.getHost_name();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getLocation())) {
+            url += "&location=" + preallocationSearchVO.getLocation();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getSection())) {
+            url += "&section=" + preallocationSearchVO.getSection();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getGroups())) {
+            url += "&groups=" + preallocationSearchVO.getGroups();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getTown())) {
+            url += "&town=" + preallocationSearchVO.getTown();
+        }
+        if (StringUtil.isNotNullOrEmpty(preallocationSearchVO.getVillage())) {
+            url += "&village=" + preallocationSearchVO.getVillage();
+        }
+        if (preallocationSearchVO.getStatus() != null) {
+            url += "&status=" + preallocationSearchVO.getStatus();
+        }
+
+        return url;
     }
 
     @RequestMapping(value = "getPreallocation", method = RequestMethod.GET)
@@ -94,15 +128,17 @@ public class PrjPreallocationBasicController extends BaseController {
 
 
     @RequestMapping(value = "toAdd", method = RequestMethod.GET)
-    public ModelAndView toAdd(HttpServletRequest request) {
+    public ModelAndView toAdd(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/prj/preallocationAdd");
-        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
+
+        BackUrlUtil.createBackUrl(mv, request, createBackUrl(preallocationSearchVO));
         PrjPreallocation preallocation = new PrjPreallocation();
 
         String land_status = SessionUtil.getUserSession(request).getCurrent_land_status() == 1 ? "国有" : "集体";
         preallocation.setLand_property(land_status);
         mv.addObject("preallocation", preallocation);
+        mv.addObject("prj_base_info_id", SessionUtil.getUserSession(request).getCurrent_project_id());
 
         List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("sectionList", sectionList);
@@ -126,12 +162,11 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "toUpdate", method = RequestMethod.GET)
-    public ModelAndView toUpdate(int id, int type, HttpServletRequest request) {
+    public ModelAndView toUpdate(int id, int type, HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
 
         ModelAndView mv = new ModelAndView();
         mv.setViewName("/prj/preallocationUpdate");
-        BackUrlUtil.setBackUrl(mv, request);// 设置返回的url
-
+        BackUrlUtil.createBackUrl(mv, request, createBackUrl(preallocationSearchVO));
         PrjPreallocation preallocation = preallocationService.getById(id);
         if (preallocation == null) {
             mv.setViewName("/error.htm");
@@ -140,6 +175,7 @@ public class PrjPreallocationBasicController extends BaseController {
         }
         List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("sectionList", sectionList);
+        mv.addObject("prj_base_info_id", SessionUtil.getUserSession(request).getCurrent_project_id());
 //
         List<BaseCompany> companyList = baseCompanyService.listAll();
         mv.addObject("companyList", companyList);
@@ -291,6 +327,18 @@ public class PrjPreallocationBasicController extends BaseController {
             String relocate_date = Excel2007Util.getHssfCellStringValue(hssfRow, 33);
             String remarks = Excel2007Util.getHssfCellStringValue(hssfRow, 34);
             String in_host_date = Excel2007Util.getHssfCellStringValue(hssfRow, 35);
+            String ldrk_num = Excel2007Util.getHssfCellStringValue(hssfRow, 36);
+            String car_num = Excel2007Util.getHssfCellStringValue(hssfRow, 37);
+            String rmgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 38);
+            String rqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 39);
+            String zqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 40);
+            String sm_num = Excel2007Util.getHssfCellStringValue(hssfRow, 41);
+            String jjzz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 42);
+            String scqg_num = Excel2007Util.getHssfCellStringValue(hssfRow, 43);
+            String qx_num = Excel2007Util.getHssfCellStringValue(hssfRow, 44);
+            String wl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 45);
+            String fz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 46);
+            String qt_num = Excel2007Util.getHssfCellStringValue(hssfRow, 47);
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name, section, groups)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
@@ -304,7 +352,8 @@ public class PrjPreallocationBasicController extends BaseController {
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
                         pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
-                        getUserName(request), rowIndex, getProjectId(request));
+                        ldrk_num, car_num,  rmgl_num,  rqgl_num,  zqgl_num,sm_num,  jjzz_num,  scqg_num,  qx_num,
+                         wl_num,  fz_num,  qt_num,getUserName(request), rowIndex, getProjectId(request));
 
                 preallocations.add(preallocation);
             }
@@ -360,6 +409,18 @@ public class PrjPreallocationBasicController extends BaseController {
             String relocate_date = Excel2007Util.getXssfCellStringValue(xssfRow, 33);
             String remarks = Excel2007Util.getXssfCellStringValue(xssfRow, 34);
             String in_host_date = Excel2007Util.getXssfCellStringValue(xssfRow, 35);
+            String ldrk_num = Excel2007Util.getXssfCellStringValue(xssfRow, 36);
+            String car_num = Excel2007Util.getXssfCellStringValue(xssfRow, 37);
+            String rmgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 38);
+            String rqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 39);
+            String zqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 40);
+            String sm_num = Excel2007Util.getXssfCellStringValue(xssfRow, 41);
+            String jjzz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 42);
+            String scqg_num = Excel2007Util.getXssfCellStringValue(xssfRow, 43);
+            String qx_num = Excel2007Util.getXssfCellStringValue(xssfRow, 44);
+            String wl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 45);
+            String fz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 46);
+            String qt_num = Excel2007Util.getXssfCellStringValue(xssfRow, 47);
 
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name, section, groups)) {
@@ -373,7 +434,9 @@ public class PrjPreallocationBasicController extends BaseController {
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
                         management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
-                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks,  in_host_date,
+                        pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
+                        ldrk_num, car_num,  rmgl_num,  rqgl_num,  zqgl_num,sm_num,  jjzz_num,  scqg_num,  qx_num,
+                        wl_num,  fz_num,  qt_num,
                         getUserName(request), rowIndex, getProjectId(request));
                 preallocations.add(preallocation);
             }
@@ -395,14 +458,17 @@ public class PrjPreallocationBasicController extends BaseController {
                                        String after_area, String management_house_area, String field_house_area, String leader,
                                        String management_co, String geo_co, String appraise_co, String demolish_co, String audit_co,
                                        String pulledown_co, String demolition_year_code, String demolition_card_code,
-                                       String relocate_date, String remarks, String in_host_date, String create_person_name,
+                                       String relocate_date, String remarks, String in_host_date, String ldrk_num,
+                                       String car_num, String rmgl_num, String rqgl_num, String zqgl_num,
+                                       String sm_num, String jjzz_num, String scqg_num, String qx_num,
+                                       String wl_num, String fz_num, String qt_num, String create_person_name,
                                        int row_index, int projectId) {
 
         PrjPreallocation preallocation = new PrjPreallocation();
         preallocation.setPrj_base_info_id(projectId);
-        if(StringUtil.isNotNullOrEmpty(in_host_date)){
+        if (StringUtil.isNotNullOrEmpty(in_host_date)) {
             preallocation.setStatus(10);
-        }else{
+        } else {
             preallocation.setStatus(0);
         }
         preallocation.setMap_id(map_id);
@@ -442,6 +508,22 @@ public class PrjPreallocationBasicController extends BaseController {
 
         preallocation.setRemarks(remarks);
         preallocation.setIn_host_date(in_host_date);
+
+        preallocation.setFloat_people(StringUtil.isNullOrEmpty(ldrk_num) ? 0 : Integer.valueOf(ldrk_num));
+        preallocation.setRmgl_num(StringUtil.isNullOrEmpty(rmgl_num) ? 0 : Integer.valueOf(rmgl_num));
+        preallocation.setRqgl_num(StringUtil.isNullOrEmpty(rqgl_num) ? 0 : Integer.valueOf(rqgl_num));
+        preallocation.setZqgl_num(StringUtil.isNullOrEmpty(zqgl_num) ? 0 : Integer.valueOf(zqgl_num));
+        preallocation.setCar_num(StringUtil.isNullOrEmpty(car_num) ? 0 : Integer.valueOf(car_num));
+        preallocation.setJzzz_num(StringUtil.isNullOrEmpty(jjzz_num) ? 0 : Integer.valueOf(jjzz_num));
+        preallocation.setScqg_num(StringUtil.isNullOrEmpty(scqg_num) ? 0 : Integer.valueOf(scqg_num));
+        preallocation.setQx_num(StringUtil.isNullOrEmpty(qx_num) ? 0 : Integer.valueOf(qx_num));
+        preallocation.setWl_num(StringUtil.isNullOrEmpty(wl_num) ? 0 : Integer.valueOf(wl_num));
+        preallocation.setQt_num(StringUtil.isNullOrEmpty(qt_num) ? 0 : Integer.valueOf(qt_num));
+        preallocation.setFz_num(StringUtil.isNullOrEmpty(fz_num) ? 0 : Integer.valueOf(fz_num));
+
+        preallocation.setScattered_coal(StringUtil.isNullOrEmpty(ldrk_num) ? 0 : Float.valueOf(sm_num));
+
+
         preallocation.setCreated_by(create_person_name);
         preallocation.setRowIndex(row_index);
         return preallocation;
@@ -511,15 +593,43 @@ public class PrjPreallocationBasicController extends BaseController {
 
     /**
      * 删除信息
-     * @param request
+     *
      * @return
      */
     @RequestMapping(value = "delete")
-    public String delete(int id, HttpServletRequest request) {
+    public ModelAndView delete(int id, PrjPreallocationSearchVO preallocationSearchVO) {
         int flag = preallocationService.delete(id);
-        if (flag == 0)
-            return "forward:/error.htm?msg=" + StringUtil.encodeUrl("删除失败");
-        else
-            return "forward:/success.htm?msg=" + StringUtil.encodeUrl("删除成功");
+        ModelAndView mv = new ModelAndView();
+        if (flag == 1) {
+            mv.setViewName("success");
+            mv.addObject("msg", "删除成功");
+        } else {
+            mv.setViewName("error");
+            mv.addObject("msg", "删除失败");
+        }
+        String backUrl = createBackUrl(preallocationSearchVO);
+        if (StringUtil.isNotNullOrEmpty(backUrl) && backUrl.indexOf("http") == -1)
+            backUrl = pubConfig.getDynamicServer() + backUrl;
+
+        mv.addObject("backUrl", StringUtil.decodeUrl(backUrl));
+        return mv;
+    }
+
+    @RequestMapping(value = "deleteBatch")
+    public ModelAndView deleteBatch(String map_ids, HttpServletRequest request, String backUrl) {
+        int flag = preallocationService.deleteBatch(map_ids, SessionUtil.getUserSession(request).getCurrent_project_id());
+        ModelAndView mv = new ModelAndView();
+        if (flag >= 1) {
+            mv.setViewName("success");
+            mv.addObject("msg", "批量删除成功");
+        } else {
+            mv.setViewName("error");
+            mv.addObject("msg", "批量删除失败");
+        }
+        if (StringUtil.isNotNullOrEmpty(backUrl) && backUrl.indexOf("http") == -1)
+            backUrl = pubConfig.getDynamicServer() + backUrl;
+
+        mv.addObject("backUrl", StringUtil.decodeUrl(backUrl));
+        return mv;
     }
 }

@@ -28,7 +28,7 @@ public class PrjPreallAttachDao {
     }
 
     public List<PrjPreallAttach> listForType(String map_id, int type) {
-        String sql = "SELECT * FROM t_prj_preall_attach WHERE map_id = ? AND type=?";
+        String sql = "SELECT * FROM t_prj_preall_attach WHERE map_id = ? AND type=? limit 2";
         return jdbcTemplate.query(sql, new Object[]{map_id, type}, new BeanPropertyRowMapper<>(PrjPreallAttach.class));
     }
 

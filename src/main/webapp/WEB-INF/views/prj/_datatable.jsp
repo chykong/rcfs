@@ -1,6 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 
+<c:if test="${bln:isP('PrjPreallocationDeleteBatch')}">
+<label title="全选">
+    <input id="all_check" type="checkbox" class="ace">
+    <span class="lbl">全选</span>
+</label>
+<button class="btn btn-danger btn-sm" id="btnBatch">
+    <i class="ace-icon fa fa-trash-o"></i> 批量删除
+</button>
+</c:if>
 <table id="basic-table" class="table table-striped table-bordered table-hover">
     <thead>
     <tr>
@@ -12,7 +21,17 @@
         <th>总建筑面积</th>
         <th>06年前面积</th>
         <th>06-09年间面积</th>
-        <th>09年后面积</th>
+        <th>
+            <c:if test="${prj_base_info_id != 28}">
+                09年后面积
+            </c:if>
+            <c:if test="${prj_base_info_id == 28}">
+                09-13年间面积
+            </c:if>
+        </th>
+        <c:if test="${prj_base_info_id == 28}">
+            <th>13年后面积</th>
+        </c:if>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -31,6 +50,9 @@
         <th class="isSum"></th>
         <th class="isSum"></th>
         <th class="isSum"></th>
+        <c:if test="${prj_base_info_id == 28}">
+            <th></th>
+        </c:if>
         <th></th>
         <th></th>
     </tr>
@@ -38,14 +60,7 @@
 </table>
 
 <script>
-    // 删除
-    var delBasic = function (id) {
-        bootbox.confirm("你确定要删除该记录吗？", function (result) {
-            if (result) {
-                window.location = "delete.htm?backUrl=${backUrl}&&id=" + id;
-            }
-        })
-    }
+
     $(function () {
         var $table_id = $("#basic-table");
         var table = $table_id.DataTable({
@@ -101,7 +116,7 @@
                     data: "map_id",
                     width: "80px",
                     render: function (data) {
-                        return data || "";
+                        return "<span data-id='" + data + "'>" + data + "</span>" || "";
                     }
                 },
                 {
@@ -114,7 +129,7 @@
                 },
                 {
                     data: "location",
-                    width: "200px",
+                    width: "120px",
                     render: function (data) {
                         return data || "";
                     }
@@ -151,11 +166,20 @@
                 },
                 {
                     data: "after_area",
-                    width: "80px", sClass: "text-right",
+                    width: "100px", sClass: "text-right",
                     render: function (data) {
                         return data || "";
                     }
                 },
+            <c:if test="${prj_base_info_id == 28}">
+                {
+                    data: "last_area",
+                    width: "100px", sClass: "text-right",
+                    render: function (data) {
+                        return data || "";
+                    }
+                },
+            </c:if>
                 {
                     data: "status",
                     width: "120px",
@@ -188,12 +212,11 @@
                     render: function (data, type, row) {
                         var retHtml = '';
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
-                            retHtml += '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\
-                                    <i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
+                            retHtml += '<a class="btn-sm btn-info" href="javascript:updateBasic(' + data + ')"><i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         }
-                        retHtml+=" ";
+                        retHtml += " ";
                         if (${bln:isP('PrjPreallocationDelete')}) {
-                            retHtml +=  '<a class="btn-sm btn-warning" href="javascript:delBasic(' + data + ')"><i class="ace-icon fa fa-trash-o "></i>删除</a>';
+                            retHtml += '<a class="btn-sm btn-danger" href="javascript:delBasic(' + data + ')"><i class="ace-icon fa fa-trash-o "></i>删除</a>';
                         }
                         return retHtml;
                     }
@@ -201,20 +224,20 @@
             ],
             fixedColumns: {
                 leftColumns: 2,
-                rightColumns: 0
+                rightColumns: 1
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
             },
             fnDrawCallback: function () {
-//                console.log(this.api().column(1).data())
-//                var data = this.api().column(1).data();
+                var data = this.api().column(1).data();
+                var name = this.api().column(2).data();
                 this.api().column(0).nodes().each(function (cell, i) {
-                    var index = parseInt(i)+1;
+                    var index = parseInt(i) + 1;
 
-//                    cell.innerHTML = '<label><input name="deletes" type="checkbox" value="' + data[i] +'"class="ace">' +
-//                    '<span class="lbl"></span></label>' + index;
-                    cell.innerHTML =  index;
+                    cell.innerHTML = '<label><input name="deletes" data-name="' + name[i] + '" type="checkbox" value="' + data[i] + '" class="ace">' +
+                        '<span class="lbl"></span></label><span class="number">' + index + '</span>';
+//                    cell.innerHTML =  "<input type='checkbox' value='' />" +index ;
                 });
             },
             footerCallback: function (tfoot, data) {
@@ -239,11 +262,14 @@
         var times = 0;
         table.on('draw.dt', function (e) {
             times++;
-            console.log(times);
-            if(times == 2){
+            if (times == 2) {
+                if ($table_id.width() < $('#basic-table_wrapper').width()) {
+                    $('.DTFC_RightWrapper').remove();
+                }
+                $('#table-foot').remove();
                 $("#foo").addClass('hidden');
             }
-        } );
+        });
 
         $("#btn-search").on("click", table.draw);
     });

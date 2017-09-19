@@ -113,7 +113,8 @@ public class PrjPreallocation {
     private Double after_demolished_area;  //已拆除面积
     private Double before_area;  //06年前面积
     private Double between_area;  //06-09年间面积
-    private Double after_area;  //09年后面积
+    private Double after_area;  //09年后面积  或 09-13年面积
+    private Double last_area;  //13 年后面积
     private Double management_house_area;  //房屋营业面积
     private Double field_house_area;  //场地营业面积
     private String no_sign_reason;//未签约原因
@@ -143,126 +144,21 @@ public class PrjPreallocation {
     private List<PrjPreallAttach> preallAttaches;  //附件图片List
 
     private int d_id;  //返回地图对应的id
+
+    private Integer float_people;  //流动人口
+    private Integer car_num;  //车辆
+    private Integer rmgl_num;   //燃煤锅炉
+    private Integer rqgl_num;   //燃气锅炉
+    private Integer zqgl_num;   //蒸汽锅炉
+    private Integer jzzz_num;  //家具制造
+    private Integer scqg_num;  //
+    private Integer qx_num;  //汽修
+    private Integer wl_num;  //物流
+    private Integer fz_num;  //服装
+    private Integer qt_num;   //其他
+    private Float scattered_coal;  //散煤
 //    private List<PreallocationRelation> relations;  //户籍关系
 
-    @Override
-    public String toString() {
-        return "PrjPreallocation{" +
-                "id=" + id +
-                ", map_id='" + map_id + '\'' +
-                ", host_name='" + host_name + '\'' +
-                ", lessee_name='" + lessee_name + '\'' +
-                ", location='" + location + '\'' +
-                ", legal_name='" + legal_name + '\'' +
-                ", id_card='" + id_card + '\'' +
-                ", house_property='" + house_property + '\'' +
-                ", land_property='" + land_property + '\'' +
-                ", total_land_area=" + total_land_area +
-                ", card_land_area=" + card_land_area +
-                ", cog_land_area=" + cog_land_area +
-                ", lessee_land_area=" + lessee_land_area +
-                ", total_homestead_area=" + total_homestead_area +
-                ", card_homestead_area=" + card_homestead_area +
-                ", no_card_homestead_area=" + no_card_homestead_area +
-                ", management_homestead_area=" + management_homestead_area +
-                ", house_register_num=" + house_register_num +
-                ", money_homestead=" + money_homestead +
-                ", money_machine=" + money_machine +
-                ", money_adjunct=" + money_adjunct +
-                ", project_cooperate_award=" + project_cooperate_award +
-                ", incentive_fees=" + incentive_fees +
-                ", allocation_housing_assess_price=" + allocation_housing_assess_price +
-                ", money_new_house=" + money_new_house +
-                ", money_new_adjunct=" + money_new_adjunct +
-                ", money_relocate=" + money_relocate +
-                ", money_kd=" + money_kd +
-                ", money_ssbcf=" + money_ssbcf +
-                ", money_dhyjf=" + money_dhyjf +
-                ", money_yxdsyjf=" + money_yxdsyjf +
-                ", money_ktyjf=" + money_ktyjf +
-                ", money_rsqyjf=" + money_rsqyjf +
-                ", total_yjf=" + total_yjf +
-                ", money_qt=" + money_qt +
-                ", subsidy_relocate=" + subsidy_relocate +
-                ", total_compensation=" + total_compensation +
-                ", in_host_date='" + in_host_date + '\'' +
-                ", az_area=" + az_area +
-                ", float_az_area=" + float_az_area +
-                ", one_room_num=" + one_room_num +
-                ", one_room_area=" + one_room_area +
-                ", two_room_num=" + two_room_num +
-                ", two_room_area=" + two_room_area +
-                ", three_room_num=" + three_room_num +
-                ", three_room_area=" + three_room_area +
-                ", az_room_budget_num=" + az_room_budget_num +
-                ", az_room_budget_area=" + az_room_budget_area +
-                ", budget_compensation=" + budget_compensation +
-                ", budget_sub=" + budget_sub +
-                ", signed_code='" + signed_code + '\'' +
-                ", signed_date='" + signed_date + '\'' +
-                ", money_date='" + money_date + '\'' +
-                ", handover_house_date='" + handover_house_date + '\'' +
-                ", handover_end_date='" + handover_end_date + '\'' +
-                ", select_house_code='" + select_house_code + '\'' +
-                ", choose_room_position='" + choose_room_position + '\'' +
-                ", az_house_host='" + az_house_host + '\'' +
-                ", az_house_room=" + az_house_room +
-                ", az_house_area=" + az_house_area +
-                ", az_house_host2='" + az_house_host2 + '\'' +
-                ", az_house_room2=" + az_house_room2 +
-                ", az_house_area2=" + az_house_area2 +
-                ", az_house_host3='" + az_house_host3 + '\'' +
-                ", az_house_room3=" + az_house_room3 +
-                ", az_house_area3=" + az_house_area3 +
-                ", az_house_host4='" + az_house_host4 + '\'' +
-                ", az_house_room4=" + az_house_room4 +
-                ", az_house_area4=" + az_house_area4 +
-                ", total_az_house_area=" + total_az_house_area +
-                ", float_az_house_area=" + float_az_house_area +
-                ", money_az_house=" + money_az_house +
-                ", money_float_az_house=" + money_float_az_house +
-                ", total_az_pay_house=" + total_az_pay_house +
-                ", first_calculate_sub=" + first_calculate_sub +
-                ", choose_room_date='" + choose_room_date + '\'' +
-                ", status=" + status +
-                ", leader='" + leader + '\'' +
-                ", management_co='" + management_co + '\'' +
-                ", geo_co='" + geo_co + '\'' +
-                ", appraise_co='" + appraise_co + '\'' +
-                ", demolish_co='" + demolish_co + '\'' +
-                ", pulledown_co='" + pulledown_co + '\'' +
-                ", audit_co='" + audit_co + '\'' +
-                ", demolition_card_code='" + demolition_card_code + '\'' +
-                ", demolition_year_code='" + demolition_year_code + '\'' +
-                ", village='" + village + '\'' +
-                ", town='" + town + '\'' +
-                ", section='" + section + '\'' +
-                ", groups='" + groups + '\'' +
-                ", prj_base_info_id=" + prj_base_info_id +
-                ", appraise_compensation=" + appraise_compensation +
-                ", appraise_money=" + appraise_money +
-                ", demolished_date='" + demolished_date + '\'' +
-                ", relocate_date='" + relocate_date + '\'' +
-                ", before_demolished_area=" + before_demolished_area +
-                ", after_demolished_area=" + after_demolished_area +
-                ", before_area=" + before_area +
-                ", between_area=" + between_area +
-                ", after_area=" + after_area +
-                ", management_house_area=" + management_house_area +
-                ", field_house_area=" + field_house_area +
-                ", no_sign_reason='" + no_sign_reason + '\'' +
-                ", audit_date='" + audit_date + '\'' +
-                ", audit_user='" + audit_user + '\'' +
-                ", remarks='" + remarks + '\'' +
-                ", created_by='" + created_by + '\'' +
-                ", created_at=" + created_at +
-                ", archives_cabinet_number='" + archives_cabinet_number + '\'' +
-                ", archive_date='" + archive_date + '\'' +
-                ", rowIndex=" + rowIndex +
-                ", other_file_name='" + other_file_name + '\'' +
-                ", other_file_path='" + other_file_path + '\'' +
-                '}';
-    }
 
     public String getArchive_file_name() {
         return archive_file_name;
@@ -1214,5 +1110,109 @@ public class PrjPreallocation {
 
     public void setPreallAttaches(List<PrjPreallAttach> preallAttaches) {
         this.preallAttaches = preallAttaches;
+    }
+
+    public Integer getFloat_people() {
+        return float_people;
+    }
+
+    public void setFloat_people(Integer float_people) {
+        this.float_people = float_people;
+    }
+
+    public Integer getCar_num() {
+        return car_num;
+    }
+
+    public void setCar_num(Integer car_num) {
+        this.car_num = car_num;
+    }
+
+    public Integer getRmgl_num() {
+        return rmgl_num;
+    }
+
+    public void setRmgl_num(Integer rmgl_num) {
+        this.rmgl_num = rmgl_num;
+    }
+
+    public Integer getRqgl_num() {
+        return rqgl_num;
+    }
+
+    public void setRqgl_num(Integer rqgl_num) {
+        this.rqgl_num = rqgl_num;
+    }
+
+    public Integer getZqgl_num() {
+        return zqgl_num;
+    }
+
+    public void setZqgl_num(Integer zqgl_num) {
+        this.zqgl_num = zqgl_num;
+    }
+
+    public Integer getJzzz_num() {
+        return jzzz_num;
+    }
+
+    public void setJzzz_num(Integer jzzz_num) {
+        this.jzzz_num = jzzz_num;
+    }
+
+    public Integer getScqg_num() {
+        return scqg_num;
+    }
+
+    public void setScqg_num(Integer scqg_num) {
+        this.scqg_num = scqg_num;
+    }
+
+    public Integer getQx_num() {
+        return qx_num;
+    }
+
+    public void setQx_num(Integer qx_num) {
+        this.qx_num = qx_num;
+    }
+
+    public Integer getWl_num() {
+        return wl_num;
+    }
+
+    public void setWl_num(Integer wl_num) {
+        this.wl_num = wl_num;
+    }
+
+    public Integer getFz_num() {
+        return fz_num;
+    }
+
+    public void setFz_num(Integer fz_num) {
+        this.fz_num = fz_num;
+    }
+
+    public Integer getQt_num() {
+        return qt_num;
+    }
+
+    public void setQt_num(Integer qt_num) {
+        this.qt_num = qt_num;
+    }
+
+    public Float getScattered_coal() {
+        return scattered_coal;
+    }
+
+    public void setScattered_coal(Float scattered_coal) {
+        this.scattered_coal = scattered_coal;
+    }
+
+    public Double getLast_area() {
+        return last_area;
+    }
+
+    public void setLast_area(Double last_area) {
+        this.last_area = last_area;
     }
 }

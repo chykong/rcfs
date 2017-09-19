@@ -54,7 +54,8 @@
             text: '整体进度图-按${typeName}'
         },
         tooltip: {
-            trigger: 'axis'
+            trigger: 'axis',
+            formatter: '入户:{c0} ${unit}<br />签约:{c1} ${unit}<br />交房:{c2} ${unit}'
         },
         legend: {
             data: ['入户', '签约', '交房']
@@ -71,7 +72,8 @@
             data: []
         },
         yAxis: {
-            type: 'value'
+            type: 'value',
+            name:'${yName}'
         },
         series: []
     };

@@ -43,6 +43,12 @@
                                 <h5 class="widget-title bigger lighter">
                                     <i class="ace-icon fa fa-table"></i> 操作面板
                                 </h5>
+                                <div class="widget-toolbar">
+                                    <strong id="show-head">收起</strong>
+                                    <a href="#" id="coll-btn" data-action="collapse">
+                                        <i class="ace-icon fa fa-chevron-up"></i>
+                                    </a>
+                                </div>
                             </div>
                             <div class="widget-body">
                                 <div class="widget-main no-padding">
@@ -156,6 +162,8 @@
                             </div>
                         </div>
                         <div class="hr hr-18 dotted hr-double"></div>
+                        <div style="position: relative">
+                        <div id="foo" style="position:absolute;width: 100%;z-index: 9999;left: 34%;top:125px;"><h4 style="padding-left: 10%">加载中...</h4></div>
                         <c:choose>
                             <c:when test="${land_status == 1}">
                                 <%@ include file="_statdatatable.jsp" %>
@@ -170,6 +178,7 @@
                                 <%--<c:import url="${datatableName}" charEncoding="utf-8"/>--%>
                             <%--</c:otherwise>--%>
                         </c:choose>
+                        </div>
                     </div>
                     <!-- /.span -->
                 </div>
@@ -272,12 +281,47 @@
 <javascripts>
     <%@ include file="../common/js.jsp" %>
     <script src="<c:url value="/assets/js/jquery.form.js"/>"></script>
+    <script src="<c:url value="/assets/js/jquery-ui-spin.js"/>"></script>
+
 
     <script src="<c:url value="/assets/datatables/js/jquery.dataTables.js"/>"></script>
     <script src="<c:url value="/assets/datatables/js/dataTables.bootstrap.min.js"/>"></script>
     <script src="<c:url value="/assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.js"/>"></script>
     <script>
         $(function () {
+
+            var opts = {
+                lines: 11 // The number of lines to draw
+                , length: 18 // The length of each line
+                , width: 14 // The line thickness
+                , radius: 32 // The radius of the inner circle
+                , scale: 0.5 // Scales overall size of the spinner
+                , corners: 1 // Corner roundness (0..1)
+                , color: '#000' // #rgb or #rrggbb or array of colors
+                , opacity: 0.25 // Opacity of the lines
+                , rotate: 0 // The rotation offset
+                , direction: 1 // 1: clockwise, -1: counterclockwise
+                , speed: 1 // Rounds per second
+                , trail: 60 // Afterglow percentage
+                , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+                , zIndex: 2e9 // The z-index (defaults to 2000000000)
+                , className: 'spinner' // The CSS class to assign to the spinner
+                , top: '0%' // Top position relative to parent
+                , left: '5%' // Left position relative to parent
+                , shadow: false // Whether to render a shadow
+                , hwaccel: false // Whether to use hardware acceleration
+                , position: 'absolute' // Element positioning
+            }
+            var target = document.getElementById('foo')
+            var spinner = new Spinner(opts).spin(target);
+
+            $("#coll-btn").on('click',function(){
+                if($(this).find('i').hasClass('fa-chevron-up')){
+                    $('#show-head').html('展开');
+                }else{
+                    $('#show-head').html('收起');
+                }
+            })
 
             var $section = $("#section");
             var $group = $("#groups");

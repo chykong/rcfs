@@ -212,7 +212,7 @@
                                         <div class="form-group">
                                             <div class="col-xs-12">
                                                 <input name="file" type="file" id="material-input"
-                                                       accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
+                                                       accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"/>
                                             </div>
 
                                         </div>
@@ -334,7 +334,7 @@
             });
             $('#material-input').ace_file_input({
                 style: 'well',
-                btn_choose: '点击选择word文件',
+                btn_choose: '点击选择word或pdf文件',
                 btn_change: null,
                 no_icon: 'ace-icon fa fa-folder-open-o',
                 droppable: false,

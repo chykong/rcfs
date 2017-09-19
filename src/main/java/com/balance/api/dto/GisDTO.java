@@ -29,6 +29,115 @@ public class GisDTO {
     private String no_sign_reason;//未签约原因
     private String remarks;  //备注
 
+    private Integer float_people;  //流动人口
+    private Integer car_num;  //车辆
+    private Integer rmgl_num;   //燃煤锅炉
+    private Integer rqgl_num;   //燃气锅炉
+    private Integer zqgl_num;   //蒸汽锅炉
+    private Integer jzzz_num;  //家具制造
+    private Integer scqg_num;  //
+    private Integer qx_num;  //汽修
+    private Integer wl_num;  //物流
+    private Integer fz_num;  //服装
+    private Integer qt_num;   //其他
+    private Float scattered_coal;  //散煤
+
+    public Integer getFloat_people() {
+        return float_people;
+    }
+
+    public void setFloat_people(Integer float_people) {
+        this.float_people = float_people;
+    }
+
+    public Integer getCar_num() {
+        return car_num;
+    }
+
+    public void setCar_num(Integer car_num) {
+        this.car_num = car_num;
+    }
+
+    public Integer getRmgl_num() {
+        return rmgl_num;
+    }
+
+    public void setRmgl_num(Integer rmgl_num) {
+        this.rmgl_num = rmgl_num;
+    }
+
+    public Integer getRqgl_num() {
+        return rqgl_num;
+    }
+
+    public void setRqgl_num(Integer rqgl_num) {
+        this.rqgl_num = rqgl_num;
+    }
+
+    public Integer getZqgl_num() {
+        return zqgl_num;
+    }
+
+    public void setZqgl_num(Integer zqgl_num) {
+        this.zqgl_num = zqgl_num;
+    }
+
+    public Integer getJzzz_num() {
+        return jzzz_num;
+    }
+
+    public void setJzzz_num(Integer jzzz_num) {
+        this.jzzz_num = jzzz_num;
+    }
+
+    public Integer getScqg_num() {
+        return scqg_num;
+    }
+
+    public void setScqg_num(Integer scqg_num) {
+        this.scqg_num = scqg_num;
+    }
+
+    public Integer getQx_num() {
+        return qx_num;
+    }
+
+    public void setQx_num(Integer qx_num) {
+        this.qx_num = qx_num;
+    }
+
+    public Integer getWl_num() {
+        return wl_num;
+    }
+
+    public void setWl_num(Integer wl_num) {
+        this.wl_num = wl_num;
+    }
+
+    public Integer getFz_num() {
+        return fz_num;
+    }
+
+    public void setFz_num(Integer fz_num) {
+        this.fz_num = fz_num;
+    }
+
+    public Integer getQt_num() {
+        return qt_num;
+    }
+
+    public void setQt_num(Integer qt_num) {
+        this.qt_num = qt_num;
+    }
+
+    public Float getScattered_coal() {
+        return scattered_coal;
+    }
+
+    public void setScattered_coal(Float scattered_coal) {
+        this.scattered_coal = scattered_coal;
+    }
+
     private int d_id;  //返回地图对应的id
 
     public int getId() {

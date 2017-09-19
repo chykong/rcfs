@@ -54,6 +54,15 @@
                                     </select> <label id="targetTip"></label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">占地面积单位：</label>
+                                <div class="col-sm-9 ">
+                                    <select name="area_type" class="col-xs-10 col-sm-5">
+                                        <option value="0" <c:if test="${prjBaseinfo.area_type eq 0}"> selected</c:if>>平方米</option>
+                                        <option value="1" <c:if test="${prjBaseinfo.area_type eq 1}"> selected</c:if>>亩</option>
+                                    </select> <label id="area_typeTip"></label>
+                                </div>
+                            </div>
 
                             <div class="clearfix form-actions">
                                 <div class="col-md-offset-3 col-md-9">

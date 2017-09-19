@@ -49,11 +49,11 @@
             info: true,//页脚信息
             autoWidth: true,//自动宽度
             scrollX: true,
-            scrollY: true,
+            scrollY: '300px',
             paginate: false, //翻页功能
             sortable: false,
             lengthChange: true,
-            lengthMenu: [15, 25, 50, 75, 100],
+            lengthMenu: [15],
             processing: true,
             serverSide: true,
             ajax: function (data, callback, settings) {
@@ -182,7 +182,7 @@
             ],
             fixedColumns: {
                 leftColumns: 2,
-                rightColumns:0
+                rightColumns:1
             },
             language: {
                 url: '<c:url value="/assets/datatables/i18n/Chinese.json"/>'
@@ -212,6 +212,17 @@
             }
 
         });
+        var times = 0;
+        table.on('draw.dt', function (e) {
+            times++;
+            console.log(times);
+            if(times == 2){
+                if($table_id.width() < $('#basic-table_wrapper').width()){
+                    $('.DTFC_RightWrapper').remove();
+                }
+                $("#foo").addClass('hidden');
+            }
+        } );
         $("#btn-search").on("click", table.draw);
     });
 </script>

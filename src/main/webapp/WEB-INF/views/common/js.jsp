@@ -27,5 +27,6 @@
 <script src="${staticServer }/assets/js/src/ace.searchbox-autocomplete.js?versionNo=${versionNo}"></script>
 <link rel="stylesheet" type="text/css" href="${staticServer }/assets/datetimepicker/jquery.datetimepicker.css" />
 <script src="${staticServer }/assets/datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
+<script src="${staticServer }/assets/components/bootstrap/js/modal.js" type="text/javascript"></script>
 
 

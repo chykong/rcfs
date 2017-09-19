@@ -310,7 +310,8 @@
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                    },
+                    formatter: '入户:{c0} ${typeUnit}<br />签约:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['昨日入户', '累计入户'],
@@ -335,7 +336,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}${typeUnit}',
+                        name: '${typeName}(${typeUnit})',
                         nameLocation: 'end'
                     }
                 ],
@@ -370,7 +371,8 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
+                    },
+                    formatter: '入户:{c0} ${typeUnit}<br />签约:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['已入户', '未入户']
@@ -382,7 +384,8 @@
                     containLabel: true
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: '${typeName}(${typeUnit})'
                 },
                 xAxis: {
                     type: 'category',
@@ -457,10 +460,11 @@
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                    },
+                    formatter: '昨日签约:{c0} ${typeUnit}<br />累计签约:{c1} ${typeUnit}<br />'
                 },
                 legend: {
-                    data: ['昨日签约', '累计签约'],
+                    data: ['昨日签约', '累计签约']
                 },
                 grid: {
                     left: '3%',
@@ -482,7 +486,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}${typeUnit}',
+                        name: '${typeName}(${typeUnit})',
                         nameLocation: 'end'
                     }
                 ],
@@ -508,7 +512,8 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
+                    },
+                    formatter: '昨日签约:{c0} ${typeUnit}<br />累计签约:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['已签约', '未签约']
@@ -520,7 +525,8 @@
                     containLabel: true
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: '${typeName}(${typeUnit})'
                 },
                 xAxis: {
                     type: 'category',
@@ -586,7 +592,8 @@
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                    },
+                    formatter: '昨日交房:{c0} ${typeUnit}<br />累计交房:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['昨日交房', '累计交房'],
@@ -611,7 +618,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}${typeUnit}',
+                        name: '${typeName}(${typeUnit})',
                         nameLocation: 'end'
                     }
                 ],
@@ -638,7 +645,8 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
+                    },
+                    formatter: '昨日交房:{c0} ${typeUnit}<br />累计交房:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['已交房', '未交房']
@@ -650,7 +658,8 @@
                     containLabel: true
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: '${typeName}(${typeUnit})'
                 },
                 xAxis: {
                     type: 'category',
@@ -715,7 +724,8 @@
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                    },
+                    formatter: '昨日放款:{c0} ${typeUnit}<br />累计放款:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['昨日放款', '累计放款'],
@@ -740,7 +750,7 @@
                 yAxis: [
                     {
                         type: 'value',
-                        name: '${typeName}${typeUnit}',
+                        name: '${typeName}(${typeUnit})',
                         nameLocation: 'end'
                     }
                 ],
@@ -768,7 +778,8 @@
                     trigger: 'axis',
                     axisPointer: {
                         type: 'shadow'
-                    }
+                    },
+                    formatter: '昨日放款:{c0} ${typeUnit}<br />累计放款:{c1} ${typeUnit}<br />'
                 },
                 legend: {
                     data: ['已放款', '未放款']
@@ -780,7 +791,8 @@
                     containLabel: true
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    name: '${typeName}(${typeUnit})'
                 },
                 xAxis: {
                     type: 'category',

@@ -226,10 +226,28 @@ public class WebTag {
      * @return
      */
     public static String getChartTitleByType(int type) {
-        String content = "";
         if (type == 1) return "户数";
         else if (type == 2) return "占地";
         else if (type == 3) return "建面";
         else return "户数";
+    }
+
+    public static String getChartYByType(int type, int area_type) {
+        if (type == 1) return "户数(户)";
+        else {
+            if (area_type == 0) return "面积(㎡)";
+            else {
+                return "面积(亩)";
+            }
+        }
+    }
+    public static String getChartUnitByType(int type, int area_type) {
+        if (type == 1) return "户";
+        else {
+            if (area_type == 0) return "㎡";
+            else {
+                return "亩";
+            }
+        }
     }
 }

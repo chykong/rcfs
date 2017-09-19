@@ -71,7 +71,8 @@
                             <tr>
                                 <th width=60>序号</th>
                                 <th width=150>项目名称</th>
-                                <th width=150>当前阶段</th>
+                                <th width=80>当前阶段</th>
+                                <th width=80>占地面积单位</th>
                                 <th width=100>创建人</th>
                                 <th width=140>创建时间</th>
                                 <th width="140">操作</th>
@@ -86,6 +87,10 @@
                                         <c:if test="${baseinfo.progress eq 1}">入户</c:if>
                                         <c:if test="${baseinfo.progress eq 2}">签约</c:if>
                                         <c:if test="${baseinfo.progress eq 3}">交房</c:if>
+                                    </td>
+                                    <td>
+                                        <c:if test="${baseinfo.area_type eq 0}">平方米</c:if>
+                                        <c:if test="${baseinfo.area_type eq 1}">亩</c:if>
                                     </td>
                                     <td>${baseinfo.created_by }</td>
                                     <th width=120><fmt:formatDate value="${baseinfo.created_at}"

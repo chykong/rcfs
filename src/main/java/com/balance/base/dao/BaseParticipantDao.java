@@ -124,7 +124,7 @@ public class BaseParticipantDao extends BaseDao<BaseParticipant, BaseParticipant
      * @return 列表
      */
     public List<ContactsGroupsDTO> listByGroup(int prj_base_info_id) {
-        String sql = "select company name,count(*) total from t_base_participant t where prj_base_info_id=? group by company\n" +
+        String sql = "select company name,count(*) total from t_base_participant t where prj_base_info_id=? group by company " +
                 " order by CONVERT(company USING gbk) ";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id}, new BeanPropertyRowMapper<>(ContactsGroupsDTO.class));
     }

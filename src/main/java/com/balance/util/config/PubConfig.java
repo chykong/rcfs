@@ -8,6 +8,7 @@ public class PubConfig {
     private String imageUploadPath;//图片路径
     private String staticServer;//
     private String dynamicServer;//
+    private String filePath;//
 
     private String appDomain;//webapp域名
 
@@ -49,6 +50,14 @@ public class PubConfig {
 
     public void setAppDomain(String appDomain) {
         this.appDomain = appDomain;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

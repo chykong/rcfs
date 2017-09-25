@@ -82,10 +82,22 @@ public class SysLoginController {
                 userSession.setCurrent_project_id(sysUser.getCurrent_project_id());
                 PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(sysUser.getCurrent_project_id());
                 if (prjBaseinfo != null) userSession.setCurrent_project_name(prjBaseinfo.getPrj_name());//项目名称
-                userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
-                userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
-                userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
-                userSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type()));
+
+                if (sysUser.getCurrent_land_status() == 0) {
+                    userSession.setCurrent_land_status(2);
+                    userSession.setCurrent_land_name(WebTag.getCurrentLandName(2));
+                } else {
+                    userSession.setCurrent_land_status(sysUser.getCurrent_land_status());
+                    userSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
+                }
+
+                if (sysUser.getCurrent_building_type() == 0) {
+                    userSession.setCurrent_building_type(2);
+                    userSession.setCurrent_building_name(WebTag.getCurrentBuildingName(2));
+                } else {
+                    userSession.setCurrent_building_type(sysUser.getCurrent_building_type());
+                    userSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type()));
+                }
                 request.getSession().setAttribute("userSession", userSession);
 
                 request.getSession().setMaxInactiveInterval(1000 * 60 * 30);// 设置过期时间30分钟
@@ -119,7 +131,9 @@ public class SysLoginController {
             if (userSession.getCurrent_project_id() == 0) {
                 mv.setViewName("redirect:/sys/user/changeProject.htm");
             } else {
-                mv.setViewName("redirect:/prj/charts/groupIndex.htm");
+                PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(userSession.getCurrent_project_id());
+                int prjbaseinfoid = prjBaseinfo.getStat_type() == null ? 1 : prjBaseinfo.getStat_type();
+                mv.setViewName("redirect:/prj/charts/groupIndex.htm?type=" + prjbaseinfoid);
             }
         } else {
             mv.setViewName("redirect:/login.htm");

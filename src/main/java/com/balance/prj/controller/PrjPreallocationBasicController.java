@@ -5,6 +5,7 @@ import com.balance.base.service.BaseCompanyService;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.model.PrjSection;
+import com.balance.prj.service.PrjBaseinfoService;
 import com.balance.prj.service.PrjPreallocationService;
 import com.balance.prj.service.PrjSectionService;
 import com.balance.prj.vo.PreallocationImportVO;
@@ -22,6 +23,8 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -35,7 +38,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +57,8 @@ public class PrjPreallocationBasicController extends BaseController {
     private PrjSectionService prjSectionService;
     @Autowired
     private BaseCompanyService baseCompanyService;
+    @Autowired
+    private PrjBaseinfoService prjBaseinfoService;
     @Autowired
     private PubConfig pubConfig;
 
@@ -215,6 +220,7 @@ public class PrjPreallocationBasicController extends BaseController {
 
         List<BaseCompany> companyList = baseCompanyService.listAll();
         mv.addObject("companyList", companyList);
+        mv.addObject("prj_base_info_id", SessionUtil.getUserSession(request).getCurrent_project_id());
 
         mv.addObject("preallocation", preallocation);
         mv.addObject("view_type", 1);
@@ -313,32 +319,38 @@ public class PrjPreallocationBasicController extends BaseController {
             String before_area = Excel2007Util.getHssfCellStringValue(hssfRow, 19);
             String between_area = Excel2007Util.getHssfCellStringValue(hssfRow, 20);
             String after_area = Excel2007Util.getHssfCellStringValue(hssfRow, 21);
-            String management_house_area = Excel2007Util.getHssfCellStringValue(hssfRow, 22);
-            String field_house_area = Excel2007Util.getHssfCellStringValue(hssfRow, 23);
-            String leader = Excel2007Util.getHssfCellStringValue(hssfRow, 24);
-            String management_co = Excel2007Util.getHssfCellStringValue(hssfRow, 25);
-            String geo_co = Excel2007Util.getHssfCellStringValue(hssfRow, 26);
-            String appraise_co = Excel2007Util.getHssfCellStringValue(hssfRow, 27);
-            String demolish_co = Excel2007Util.getHssfCellStringValue(hssfRow, 28);
-            String audit_co = Excel2007Util.getHssfCellStringValue(hssfRow, 29);
-            String pulledown_co = Excel2007Util.getHssfCellStringValue(hssfRow, 30);
-            String demolition_year_code = Excel2007Util.getHssfCellStringValue(hssfRow, 31);
-            String demolition_card_code = Excel2007Util.getHssfCellStringValue(hssfRow, 32);
-            String relocate_date = Excel2007Util.getHssfCellStringValue(hssfRow, 33);
-            String remarks = Excel2007Util.getHssfCellStringValue(hssfRow, 34);
-            String in_host_date = Excel2007Util.getHssfCellStringValue(hssfRow, 35);
-            String ldrk_num = Excel2007Util.getHssfCellStringValue(hssfRow, 36);
-            String car_num = Excel2007Util.getHssfCellStringValue(hssfRow, 37);
-            String rmgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 38);
-            String rqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 39);
-            String zqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 40);
-            String sm_num = Excel2007Util.getHssfCellStringValue(hssfRow, 41);
-            String jjzz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 42);
-            String scqg_num = Excel2007Util.getHssfCellStringValue(hssfRow, 43);
-            String qx_num = Excel2007Util.getHssfCellStringValue(hssfRow, 44);
-            String wl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 45);
-            String fz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 46);
-            String qt_num = Excel2007Util.getHssfCellStringValue(hssfRow, 47);
+            int i = 0;
+            String last_area = "";
+            if (getProjectId(request) == 28) {
+                i = 1;
+                last_area = Excel2007Util.getHssfCellStringValue(hssfRow, 22);
+            }
+            String management_house_area = Excel2007Util.getHssfCellStringValue(hssfRow, 22 + i);
+            String field_house_area = Excel2007Util.getHssfCellStringValue(hssfRow, 23 + i);
+            String leader = Excel2007Util.getHssfCellStringValue(hssfRow, 24 + i);
+            String management_co = Excel2007Util.getHssfCellStringValue(hssfRow, 25 + i);
+            String geo_co = Excel2007Util.getHssfCellStringValue(hssfRow, 26 + i);
+            String appraise_co = Excel2007Util.getHssfCellStringValue(hssfRow, 27 + i);
+            String demolish_co = Excel2007Util.getHssfCellStringValue(hssfRow, 28 + i);
+            String audit_co = Excel2007Util.getHssfCellStringValue(hssfRow, 29 + i);
+            String pulledown_co = Excel2007Util.getHssfCellStringValue(hssfRow, 30 + i);
+            String demolition_year_code = Excel2007Util.getHssfCellStringValue(hssfRow, 31 + i);
+            String demolition_card_code = Excel2007Util.getHssfCellStringValue(hssfRow, 32 + i);
+            String relocate_date = Excel2007Util.getHssfCellStringValue(hssfRow, 33 + i);
+            String remarks = Excel2007Util.getHssfCellStringValue(hssfRow, 34 + i);
+            String in_host_date = Excel2007Util.getHssfCellStringValue(hssfRow, 35 + i);
+            String ldrk_num = Excel2007Util.getHssfCellStringValue(hssfRow, 36 + i);
+            String car_num = Excel2007Util.getHssfCellStringValue(hssfRow, 37 + i);
+            String rmgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 38 + i);
+            String rqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 39 + i);
+            String zqgl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 40 + i);
+            String sm_num = Excel2007Util.getHssfCellStringValue(hssfRow, 41 + i);
+            String jjzz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 42 + i);
+            String scqg_num = Excel2007Util.getHssfCellStringValue(hssfRow, 43 + i);
+            String qx_num = Excel2007Util.getHssfCellStringValue(hssfRow, 44 + i);
+            String wl_num = Excel2007Util.getHssfCellStringValue(hssfRow, 45 + i);
+            String fz_num = Excel2007Util.getHssfCellStringValue(hssfRow, 46 + i);
+            String qt_num = Excel2007Util.getHssfCellStringValue(hssfRow, 47 + i);
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name, section, groups)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
@@ -349,11 +361,11 @@ public class PrjPreallocationBasicController extends BaseController {
                 PrjPreallocation preallocation = getImport(map_id, host_name, location, id_card, land_status,
                         lessee_name, legal_name, total_land_area, card_land_area, cog_land_area,
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
-                        management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
+                        management_homestead_area, town, village, section, groups, before_area, between_area, after_area, last_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
                         pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
-                        ldrk_num, car_num,  rmgl_num,  rqgl_num,  zqgl_num,sm_num,  jjzz_num,  scqg_num,  qx_num,
-                         wl_num,  fz_num,  qt_num,getUserName(request), rowIndex, getProjectId(request));
+                        ldrk_num, car_num, rmgl_num, rqgl_num, zqgl_num, sm_num, jjzz_num, scqg_num, qx_num,
+                        wl_num, fz_num, qt_num, getUserName(request), rowIndex, getProjectId(request));
 
                 preallocations.add(preallocation);
             }
@@ -395,32 +407,38 @@ public class PrjPreallocationBasicController extends BaseController {
             String before_area = Excel2007Util.getXssfCellStringValue(xssfRow, 19);
             String between_area = Excel2007Util.getXssfCellStringValue(xssfRow, 20);
             String after_area = Excel2007Util.getXssfCellStringValue(xssfRow, 21);
-            String management_house_area = Excel2007Util.getXssfCellStringValue(xssfRow, 22);
-            String field_house_area = Excel2007Util.getXssfCellStringValue(xssfRow, 23);
-            String leader = Excel2007Util.getXssfCellStringValue(xssfRow, 24);
-            String management_co = Excel2007Util.getXssfCellStringValue(xssfRow, 25);
-            String geo_co = Excel2007Util.getXssfCellStringValue(xssfRow, 26);
-            String appraise_co = Excel2007Util.getXssfCellStringValue(xssfRow, 27);
-            String demolish_co = Excel2007Util.getXssfCellStringValue(xssfRow, 28);
-            String audit_co = Excel2007Util.getXssfCellStringValue(xssfRow, 29);
-            String pulledown_co = Excel2007Util.getXssfCellStringValue(xssfRow, 30);
-            String demolition_year_code = Excel2007Util.getXssfCellStringValue(xssfRow, 31);
-            String demolition_card_code = Excel2007Util.getXssfCellStringValue(xssfRow, 32);
-            String relocate_date = Excel2007Util.getXssfCellStringValue(xssfRow, 33);
-            String remarks = Excel2007Util.getXssfCellStringValue(xssfRow, 34);
-            String in_host_date = Excel2007Util.getXssfCellStringValue(xssfRow, 35);
-            String ldrk_num = Excel2007Util.getXssfCellStringValue(xssfRow, 36);
-            String car_num = Excel2007Util.getXssfCellStringValue(xssfRow, 37);
-            String rmgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 38);
-            String rqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 39);
-            String zqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 40);
-            String sm_num = Excel2007Util.getXssfCellStringValue(xssfRow, 41);
-            String jjzz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 42);
-            String scqg_num = Excel2007Util.getXssfCellStringValue(xssfRow, 43);
-            String qx_num = Excel2007Util.getXssfCellStringValue(xssfRow, 44);
-            String wl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 45);
-            String fz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 46);
-            String qt_num = Excel2007Util.getXssfCellStringValue(xssfRow, 47);
+            int i = 0;
+            String last_area = "";
+            if (getProjectId(request) == 28) {
+                i = 1;
+                last_area = Excel2007Util.getXssfCellStringValue(xssfRow, 22);
+            }
+            String management_house_area = Excel2007Util.getXssfCellStringValue(xssfRow, 22 + i);
+            String field_house_area = Excel2007Util.getXssfCellStringValue(xssfRow, 23 + i);
+            String leader = Excel2007Util.getXssfCellStringValue(xssfRow, 24 + i);
+            String management_co = Excel2007Util.getXssfCellStringValue(xssfRow, 25 + i);
+            String geo_co = Excel2007Util.getXssfCellStringValue(xssfRow, 26 + i);
+            String appraise_co = Excel2007Util.getXssfCellStringValue(xssfRow, 27 + i);
+            String demolish_co = Excel2007Util.getXssfCellStringValue(xssfRow, 28 + i);
+            String audit_co = Excel2007Util.getXssfCellStringValue(xssfRow, 29 + i);
+            String pulledown_co = Excel2007Util.getXssfCellStringValue(xssfRow, 30 + i);
+            String demolition_year_code = Excel2007Util.getXssfCellStringValue(xssfRow, 31 + i);
+            String demolition_card_code = Excel2007Util.getXssfCellStringValue(xssfRow, 32 + i);
+            String relocate_date = Excel2007Util.getXssfCellStringValue(xssfRow, 33 + i);
+            String remarks = Excel2007Util.getXssfCellStringValue(xssfRow, 34 + i);
+            String in_host_date = Excel2007Util.getXssfCellStringValue(xssfRow, 35 + i);
+            String ldrk_num = Excel2007Util.getXssfCellStringValue(xssfRow, 36 + i);
+            String car_num = Excel2007Util.getXssfCellStringValue(xssfRow, 37 + i);
+            String rmgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 38 + i);
+            String rqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 39 + i);
+            String zqgl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 40 + i);
+            String sm_num = Excel2007Util.getXssfCellStringValue(xssfRow, 41 + i);
+            String jjzz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 42 + i);
+            String scqg_num = Excel2007Util.getXssfCellStringValue(xssfRow, 43 + i);
+            String qx_num = Excel2007Util.getXssfCellStringValue(xssfRow, 44 + i);
+            String wl_num = Excel2007Util.getXssfCellStringValue(xssfRow, 45 + i);
+            String fz_num = Excel2007Util.getXssfCellStringValue(xssfRow, 46 + i);
+            String qt_num = Excel2007Util.getXssfCellStringValue(xssfRow, 47 + i);
 
             //noinspection Duplicates
             if (!checkImportParamsNull(map_id, host_name, section, groups)) {
@@ -432,11 +450,11 @@ public class PrjPreallocationBasicController extends BaseController {
                 PrjPreallocation preallocation = getImport(map_id, host_name, location, id_card, land_status,
                         lessee_name, legal_name, total_land_area, card_land_area, cog_land_area,
                         lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area,
-                        management_homestead_area, town, village, section, groups, before_area, between_area, after_area,
+                        management_homestead_area, town, village, section, groups, before_area, between_area, after_area, last_area,
                         management_house_area, field_house_area, leader, management_co, geo_co, appraise_co, demolish_co, audit_co,
                         pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
-                        ldrk_num, car_num,  rmgl_num,  rqgl_num,  zqgl_num,sm_num,  jjzz_num,  scqg_num,  qx_num,
-                        wl_num,  fz_num,  qt_num,
+                        ldrk_num, car_num, rmgl_num, rqgl_num, zqgl_num, sm_num, jjzz_num, scqg_num, qx_num,
+                        wl_num, fz_num, qt_num,
                         getUserName(request), rowIndex, getProjectId(request));
                 preallocations.add(preallocation);
             }
@@ -455,7 +473,7 @@ public class PrjPreallocationBasicController extends BaseController {
                                        String cog_land_area, String lessee_land_area, String total_homestead_area,
                                        String card_homestead_area, String no_card_homestead_area, String management_homestead_area,
                                        String town, String village, String section, String groups, String before_area, String between_area,
-                                       String after_area, String management_house_area, String field_house_area, String leader,
+                                       String after_area, String last_area, String management_house_area, String field_house_area, String leader,
                                        String management_co, String geo_co, String appraise_co, String demolish_co, String audit_co,
                                        String pulledown_co, String demolition_year_code, String demolition_card_code,
                                        String relocate_date, String remarks, String in_host_date, String ldrk_num,
@@ -493,6 +511,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setBefore_area(StringUtil.isNullOrEmpty(before_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(before_area)));
         preallocation.setBetween_area(StringUtil.isNullOrEmpty(between_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(between_area)));
         preallocation.setAfter_area(StringUtil.isNullOrEmpty(after_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(after_area)));
+        preallocation.setLast_area(StringUtil.isNullOrEmpty(last_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(last_area)));
         preallocation.setManagement_house_area(StringUtil.isNullOrEmpty(management_house_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(management_house_area)));
         preallocation.setField_house_area(StringUtil.isNullOrEmpty(field_house_area) ? 0 : NumberUtil.formatDouble(Double.valueOf(field_house_area)));
         preallocation.setLeader(leader);
@@ -631,5 +650,90 @@ public class PrjPreallocationBasicController extends BaseController {
 
         mv.addObject("backUrl", StringUtil.decodeUrl(backUrl));
         return mv;
+    }
+
+    @RequestMapping(value = "export", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean export(HttpServletRequest request, HttpServletResponse response,
+                          PrjPreallocationSearchVO preallocationSearchVO) {
+
+        preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
+
+        String srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export.xls";
+        String[][] data = preallocationService.export(preallocationSearchVO);
+        writeExcel(data, srcFile, "被拆除腾退人信息导出" + com.balance.util.date.DateUtil.getSystemDate(),
+                response, 300);
+        return true;
+    }
+
+    private void writeExcel(String[][] data, String srcFile, String file_name, HttpServletResponse response, int rowHeight) {
+        OutputStream os = null;
+        try {
+            // Workbook wb = new SXSSFWorkbook(500);
+            InputStream in = new FileInputStream(srcFile);
+            Workbook work = new HSSFWorkbook(in);
+            Sheet sheet = work.getSheetAt(0);
+
+            // 数据样式
+            Font fontData = work.createFont();
+            fontData.setFontHeightInPoints((short) 10);
+            fontData.setFontName("宋体");
+            fontData.setBoldweight((short) 1);
+
+            CellStyle cellDataStyle = work.createCellStyle();
+            cellDataStyle.setFont(fontData);
+            cellDataStyle.setBorderBottom((short) 1);
+            cellDataStyle.setBorderLeft((short) 1);
+            cellDataStyle.setBorderRight((short) 1);
+            cellDataStyle.setBorderTop((short) 1);
+            cellDataStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            cellDataStyle.setFillForegroundColor(HSSFColor.WHITE.index);
+            cellDataStyle.setAlignment(CellStyle.ALIGN_CENTER);
+            cellDataStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            cellDataStyle.setWrapText(true);
+
+            Font fontDataBold = work.createFont();
+            fontDataBold.setFontHeightInPoints((short) 10);
+            fontDataBold.setFontName("宋体");
+            fontDataBold.setBoldweight(Font.BOLDWEIGHT_BOLD);
+            CellStyle cellDataStyleBold = work.createCellStyle();
+            cellDataStyleBold.setFont(fontDataBold);
+            cellDataStyleBold.setBorderBottom((short) 1);
+            cellDataStyleBold.setBorderLeft((short) 1);
+            cellDataStyleBold.setBorderRight((short) 1);
+            cellDataStyleBold.setBorderTop((short) 1);
+            cellDataStyleBold.setFillPattern(CellStyle.SOLID_FOREGROUND);
+            cellDataStyleBold.setFillForegroundColor(HSSFColor.WHITE.index);
+            cellDataStyleBold.setAlignment(CellStyle.ALIGN_CENTER);
+            cellDataStyleBold.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+            cellDataStyleBold.setWrapText(true);
+
+            // 得到行，并填充数据和表格样式
+            for (int i = 0; i < data.length; i++) {
+                // Row row = sheet.createRow(i + 1);// 得到行
+                Row row = sheet.createRow(i + 1);// 得到行
+                // row.setHeight((short) 1000);
+                row.setHeight((short) rowHeight);
+                for (int j = 0; j < data[i].length; j++) {
+                    Cell cell = row.createCell(j);// 得到第0个单元格
+                    cell.setCellValue(data[i][j]);// 填充值
+                    cell.setCellStyle(cellDataStyle);// 填充样式
+                }
+            }
+            response.setContentType("application/msexcel");
+            response.reset();
+            response.setHeader("content-disposition", "attachment; filename=" + new String(file_name.getBytes("GBK"), "ISO-8859-1") + ".xls");
+            System.setProperty("org.apache.poi.util.POILogger", "org.apache.poi.util.POILogger");
+            os = response.getOutputStream();
+            work.write(os);
+            os.flush();
+        } catch (FileNotFoundException e) {
+            System.out.println("文件路径错误");
+            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("文件输入流错误");
+            e.printStackTrace();
+        }
     }
 }

@@ -302,7 +302,12 @@
     }
     $(function () {
 
+        var click = 0;
         $('#toXc').on('shown.bs.tab',function(e){
+            console.log(click)
+            if(click > 0){
+                return;
+            }
             var uploader = initWebUploader('filePicker','fileUpload','fileList','loading');
             var index = 0;
             var $list = $('#fileList');
@@ -381,6 +386,8 @@
                 $('#loading3').removeClass('hidden');
                 index++;
             });
+
+            click++;
         })
 
         $(".date").datepicker({

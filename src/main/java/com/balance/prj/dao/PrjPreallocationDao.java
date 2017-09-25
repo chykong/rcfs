@@ -131,7 +131,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " no_card_homestead_area=:no_card_homestead_area, management_homestead_area=:management_homestead_area," +
                 " audit_co=:audit_co, demolition_card_code=:demolition_card_code, demolition_year_code=:demolition_year_code," +
                 " relocate_date=:relocate_date,status=:status," +
-                " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area" +
+                " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area, last_area=:last_area" +
                 " ,demolish_person=:demolish_person,appraise_person=:appraise_person,in_host_date=:in_host_date," +
                 "float_people=:float_people,car_num=:car_num,rmgl_num=:rmgl_num,rqgl_num=:rqgl_num,zqgl_num=:zqgl_num,jzzz_num=:jzzz_num" +
                 ",scqg_num=:scqg_num,qx_num=:qx_num,fz_num=:fz_num,wl_num=:wl_num,qt_num=:qt_num,scattered_coal=:scattered_coal WHERE map_id=:map_id";
@@ -265,9 +265,9 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
             }
         }
         if (prjPreallocationSearchVO.getSearch_date() != null && prjPreallocationSearchVO.getSearch_blank() != null) {
-            sql += " and plc." + getSearchField(prjPreallocationSearchVO.getSearch_date());
+            sql += " and (plc." + getSearchField(prjPreallocationSearchVO.getSearch_date());
             if (prjPreallocationSearchVO.getSearch_blank() == 0) {
-                sql += " is null or plc." + getSearchField(prjPreallocationSearchVO.getSearch_date()) + "=''";
+                sql += " is null or plc." + getSearchField(prjPreallocationSearchVO.getSearch_date()) + "='')";
             } else {
                 sql += " is not null and plc." + getSearchField(prjPreallocationSearchVO.getSearch_date()) + "!=''";
             }
@@ -376,5 +376,14 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         String sql = "SELECT id,host_name,cog_land_area,map_id,location,status,total_homestead_area,remarks,before_area,between_area,after_area,no_sign_reason,appraise_co,demolish_co,groups  FROM t_prj_preallocation WHERE id=?";
         List<HouseholdersDetailDTO> prjPreallocations = jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(HouseholdersDetailDTO.class));
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
+    }
+
+    public List<PrjPreallocation> findAllForExport(PrjPreallocationSearchVO preallocationSearchVO) {
+        String sql = "select plc.* from t_prj_preallocation plc";
+        sql += createSearchSql(preallocationSearchVO);
+        sql += " order by plc.id asc,status";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(preallocationSearchVO);
+        NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+        return namedParameterJdbcTemplate.query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
 }

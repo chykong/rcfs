@@ -3,7 +3,7 @@
 
 
 <div class="form-group">
-    <form:label path="management_co" cssClass="col-sm-3 control-label no-padding-right">
+    <form:label path="management_co" cssClass="col-sm-1 control-label no-padding-right">
         拆除前：
     </form:label>
     <div class="col-sm-9">
@@ -30,7 +30,7 @@
     </div>
 </div>
 <div class="form-group">
-    <form:label path="geo_co" cssClass="col-sm-3 control-label no-padding-right">
+    <form:label path="geo_co" cssClass="col-sm-1 control-label no-padding-right">
         拆除中：
     </form:label>
     <div class="col-sm-9">
@@ -57,7 +57,7 @@
     </div>
 </div>
 <div class="form-group">
-    <form:label path="appraise_co" cssClass="col-sm-3 control-label no-padding-right">
+    <form:label path="appraise_co" cssClass="col-sm-1 control-label no-padding-right">
         拆除后：
     </form:label>
     <div class="col-sm-9">

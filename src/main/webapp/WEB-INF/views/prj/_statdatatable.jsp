@@ -58,7 +58,6 @@
             serverSide: true,
             ajax: function (data, callback, settings) {
                 $.ajax({
-                    async: false,
                     type: "GET",
                     url: '<c:url value="/prj/preallocation/basic/getPreallocation.htm"/>',
                     data: {

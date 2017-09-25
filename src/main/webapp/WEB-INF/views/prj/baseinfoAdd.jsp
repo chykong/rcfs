@@ -63,6 +63,16 @@
 										</select> <label id="area_typeTip"></label>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">统计方式：</label>
+									<div class="col-sm-9 ">
+										<select name="stat_type" class="col-xs-10 col-sm-5">
+											<option value="1">按户统计</option>
+											<option value="3">按建筑面积统计</option>
+											<option value="2">按土地面积统计</option>
+										</select> <label id="stat_typeTip"></label>
+									</div>
+								</div>
 								<div class="clearfix form-actions">
 									<div class="col-md-offset-3 col-md-9">
 										<button class="btn btn-primary" type="submit">

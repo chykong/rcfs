@@ -146,5 +146,6 @@
         <property name="imageUploadPath" value="${imageUploadPath}"/>
         <property name="staticServer" value="${staticServer}"/>
         <property name="dynamicServer" value="${dynamicServer}"/>
+        <property name="filePath" value="${filePath}"/>
     </bean>
 </beans>

@@ -11,6 +11,7 @@ public class PrjBaseinfo {
     private String prj_name;// 项目名称
     private Integer progress;//当前阶段1、入户2、签约3、交房
     private Integer area_type;//面积方式  0-平方米  1-亩
+    private Integer stat_type;//统计方式统计  1-户  2-建面  3-土地
     private String introduction;//项目描述
     private String flow;//工作流程
     private String architecture;// 组织架构
@@ -132,5 +133,12 @@ public class PrjBaseinfo {
 	public void setType(String type) {
 		this.type = type;
 	}
-    
+
+    public Integer getStat_type() {
+        return stat_type;
+    }
+
+    public void setStat_type(Integer stat_type) {
+        this.stat_type = stat_type;
+    }
 }

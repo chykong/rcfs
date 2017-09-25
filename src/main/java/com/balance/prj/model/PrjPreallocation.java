@@ -129,7 +129,7 @@ public class PrjPreallocation {
     private String archive_date;//存档时间
 
     private String appraise_person;  //评估人员
-    private String  demolish_person;  //服务人员
+    private String demolish_person;  //服务人员
 
     private Integer rowIndex;  //导入时  行号
 
@@ -782,6 +782,29 @@ public class PrjPreallocation {
 
     public void setChoose_room_date(String choose_room_date) {
         this.choose_room_date = choose_room_date;
+    }
+
+    public String getStatusString() {
+        switch (status) {
+            case 0:
+                return "未入户";
+            case 10:
+                return "已入户未签约";
+            case 20:
+                return "已签约";
+            case 30:
+                return "已审核";
+            case 40:
+                return "已交房";
+            case 50:
+                return "已拆除";
+            case 60:
+                return "已放款";
+            case 70:
+                return "已归档";
+        }
+
+        return "";
     }
 
     public int getStatus() {

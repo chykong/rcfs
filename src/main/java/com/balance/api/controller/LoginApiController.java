@@ -62,10 +62,15 @@ public class LoginApiController {
             appSession.setCurrent_project_id(sysUser.getCurrent_project_id());
             PrjBaseinfo prjBaseinfo = prjBaseinfoService.get(sysUser.getCurrent_project_id());
             if (prjBaseinfo != null) appSession.setCurrent_project_name(prjBaseinfo.getPrj_name());//项目名称
-            appSession.setCurrent_land_status(sysUser.getCurrent_land_status());
-            appSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status()));
-            appSession.setCurrent_building_type(sysUser.getCurrent_building_type());
-            appSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type()));
+
+
+            appSession.setCurrent_land_status(sysUser.getCurrent_land_status() == 0 ? 2 : sysUser.getCurrent_land_status());
+            appSession.setCurrent_land_name(WebTag.getCurrentLandName(sysUser.getCurrent_land_status() == 0 ? 2 : sysUser.getCurrent_land_status()));
+
+
+            appSession.setCurrent_building_type(sysUser.getCurrent_building_type() == 0 ? 2 : sysUser.getCurrent_building_type());
+            appSession.setCurrent_building_name(WebTag.getCurrentBuildingName(sysUser.getCurrent_building_type() == 0 ? 2 : sysUser.getCurrent_building_type()));
+
             RedisUtil.set(RedisKeyUtil.APP_KEY + uuid, appSession);//
 
             UserLoginDTO userLoginDTO = new UserLoginDTO();

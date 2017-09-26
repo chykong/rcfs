@@ -659,8 +659,12 @@ public class PrjPreallocationBasicController extends BaseController {
 
         preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
-
-        String srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export.xls";
+        String srcFile;
+        if(SessionUtil.getUserSession(request).getCurrent_project_id() == 28){
+            srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export-huangcun.xls";
+        }else{
+            srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export.xls";
+        }
         String[][] data = preallocationService.export(preallocationSearchVO);
         writeExcel(data, srcFile, "被拆除腾退人信息导出" + com.balance.util.date.DateUtil.getSystemDate(),
                 response, 300);

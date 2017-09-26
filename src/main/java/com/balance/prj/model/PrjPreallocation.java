@@ -159,6 +159,7 @@ public class PrjPreallocation {
     private Float scattered_coal;  //散煤
 //    private List<PreallocationRelation> relations;  //户籍关系
 
+    private String content;  //特殊情况
 
     public String getArchive_file_name() {
         return archive_file_name;
@@ -1237,5 +1238,13 @@ public class PrjPreallocation {
 
     public void setLast_area(Double last_area) {
         this.last_area = last_area;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

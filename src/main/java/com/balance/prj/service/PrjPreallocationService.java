@@ -291,57 +291,63 @@ public class PrjPreallocationService {
             data[i][19] = preallocation.getBefore_area() == null ? "0" : preallocation.getBefore_area().toString();  //06年前面积
             data[i][20] = preallocation.getBetween_area() == null ? "0" : preallocation.getBetween_area().toString();  //06-09
             data[i][21] = preallocation.getAfter_area() == null ? "0" : preallocation.getAfter_area().toString();  //09后
-            data[i][22] = preallocation.getManagement_house_area() == null ? "0" : preallocation.getManagement_house_area().toString();  //房屋营业面积
-            data[i][23] = preallocation.getField_house_area() == null ? "0" : preallocation.getField_house_area().toString();  //场地营业面积
-            data[i][24] = preallocation.getMoney_homestead() == null ? "0" : preallocation.getMoney_homestead().toString();  //房屋补偿款
-            data[i][25] = preallocation.getMoney_adjunct() == null ? "0" : preallocation.getMoney_adjunct().toString();  //附属物补偿款
-            data[i][26] = preallocation.getMoney_machine() == null ? "0" : preallocation.getMoney_machine().toString();  //机器设备补偿款
-            data[i][27] = preallocation.getAppraise_compensation() == null ? "0" : preallocation.getAppraise_compensation().toString();  //评估补偿款
-            data[i][28] = preallocation.getMoney_ssbcf() == null ? "0" : preallocation.getMoney_ssbcf().toString();  //停产停业补助费
-            data[i][29] = preallocation.getProject_cooperate_award() == null ? "0" : preallocation.getProject_cooperate_award().toString();  //工程配合奖
-            data[i][30] = preallocation.getMoney_relocate() == null ? "0" : preallocation.getMoney_relocate().toString();  //搬家补助费
-            data[i][31] = preallocation.getMoney_dhyjf() == null ? "0" : preallocation.getMoney_dhyjf().toString();  //电话
-            data[i][32] = preallocation.getMoney_ktyjf() == null ? "0" : preallocation.getMoney_ktyjf().toString();  //空调
-            data[i][33] = preallocation.getMoney_kd() == null ? "0" : preallocation.getMoney_kd().toString();  //宽带
-            data[i][34] = preallocation.getMoney_yxdsyjf() == null ? "0" : preallocation.getMoney_yxdsyjf().toString();  //有线电视
-            data[i][35] = preallocation.getMoney_rsqyjf() == null ? "0" : preallocation.getMoney_rsqyjf().toString();  //热水器
-            data[i][36] = preallocation.getTotal_yjf() == null ? "0" : preallocation.getTotal_yjf().toString();  //移机费
-            data[i][37] = preallocation.getMoney_qt() == null ? "0" : preallocation.getMoney_qt().toString();  //其他
-            data[i][38] = preallocation.getSubsidy_relocate() == null ? "0" : preallocation.getSubsidy_relocate().toString();  //补助奖励费
-            data[i][39] = preallocation.getTotal_compensation() == null ? "0" : preallocation.getTotal_compensation().toString();  //总补偿款
-            data[i][40] = preallocation.getAppraise_money() == null ? "0" : preallocation.getAppraise_money().toString();  //评估价格
-            data[i][41] = preallocation.getIn_host_date() == null ? "" : preallocation.getIn_host_date();  //入户日期
-            data[i][42] = preallocation.getSigned_date() == null ? "" : preallocation.getSigned_date();  //签约日期
-            data[i][43] = preallocation.getHandover_house_date() == null ? "" : preallocation.getHandover_house_date();  //交房日期
-            data[i][44] = preallocation.getDemolished_date() == null ? "" : preallocation.getDemolished_date();  //拆除日期
-            data[i][45] = preallocation.getAudit_date()== null ? "" : preallocation.getAudit_date();  //审核日期
-            data[i][46] = preallocation.getMoney_date() == null ? "" : preallocation.getMoney_date();  //放款日期
-            data[i][47] = preallocation.getStatusString();  //状态
-            data[i][48] = preallocation.getNo_sign_reason();  //滞留原因
-            data[i][49] = preallocation.getLeader();  //包村干部
-            data[i][50] = preallocation.getManagement_co();  //管理公司
-            data[i][51] = preallocation.getGeo_co();  //测绘公司
-            data[i][52] = preallocation.getAppraise_co();  //测绘公司
-            data[i][53] = preallocation.getDemolish_co();  //拆迁公司
-            data[i][54] = preallocation.getAudit_co();  //审计公司
-            data[i][55] = preallocation.getPulledown_co();  //拆除公司
-            data[i][56] = preallocation.getDemolition_year_code();     //拆迁许可证年号
-            data[i][57] = preallocation.getDemolition_card_code();  //拆迁许可证证号
-            data[i][58] = preallocation.getRelocate_date();  //搬迁日期
-            data[i][59] = preallocation.getFloat_people() == null ? "0" : preallocation.getFloat_people().toString();  //流动人口
-            data[i][60] = preallocation.getCar_num() == null ? "0" : preallocation.getCar_num().toString();  //车辆数量
-            data[i][61] = preallocation.getRmgl_num() == null ? "0" : preallocation.getRmgl_num().toString();  //燃煤锅炉
-            data[i][62] = preallocation.getRqgl_num() == null ? "0" : preallocation.getRqgl_num().toString();  //燃气锅炉
-            data[i][63] = preallocation.getZqgl_num() == null ? "0" : preallocation.getZqgl_num().toString();  //蒸汽锅炉
-            data[i][64] = preallocation.getScattered_coal() == null ? "0" : preallocation.getScattered_coal().toString();  //散煤
-            data[i][65] = preallocation.getJzzz_num()== null ? "0" : preallocation.getJzzz_num().toString();  //家住制造
-            data[i][66] = preallocation.getScqg_num() == null ? "0" : preallocation.getScqg_num().toString();  //石材切割
-            data[i][67] = preallocation.getQx_num()== null ? "0" : preallocation.getQx_num().toString();  //汽修
-            data[i][68] = preallocation.getWl_num()== null ? "0" : preallocation.getWl_num().toString();  //物流
-            data[i][69] = preallocation.getFz_num()== null ? "0" : preallocation.getFz_num().toString();  //服装
-            data[i][70] = preallocation.getQt_num()== null ? "0" : preallocation.getQt_num().toString();  //其他
-            data[i][71] = preallocation.getArchive_date();  //归档时间
-            data[i][72] = preallocation.getArchives_cabinet_number();  //档案柜号
+            int j = 0;
+            if (preallocationSearchVO.getBase_info_id() == 28) {
+                data[i][22] = preallocation.getLast_area() == null ? "0" : preallocation.getLast_area().toString();  //09后
+                j = 1;
+            }
+
+            data[i][22 + j] = preallocation.getManagement_house_area() == null ? "0" : preallocation.getManagement_house_area().toString();  //房屋营业面积
+            data[i][23 + j] = preallocation.getField_house_area() == null ? "0" : preallocation.getField_house_area().toString();  //场地营业面积
+            data[i][24 + j] = preallocation.getMoney_homestead() == null ? "0" : preallocation.getMoney_homestead().toString();  //房屋补偿款
+            data[i][25 + j] = preallocation.getMoney_adjunct() == null ? "0" : preallocation.getMoney_adjunct().toString();  //附属物补偿款
+            data[i][26 + j] = preallocation.getMoney_machine() == null ? "0" : preallocation.getMoney_machine().toString();  //机器设备补偿款
+            data[i][27 + j] = preallocation.getAppraise_compensation() == null ? "0" : preallocation.getAppraise_compensation().toString();  //评估补偿款
+            data[i][28 + j] = preallocation.getMoney_ssbcf() == null ? "0" : preallocation.getMoney_ssbcf().toString();  //停产停业补助费
+            data[i][29 + j] = preallocation.getProject_cooperate_award() == null ? "0" : preallocation.getProject_cooperate_award().toString();  //工程配合奖
+            data[i][30 + j] = preallocation.getMoney_relocate() == null ? "0" : preallocation.getMoney_relocate().toString();  //搬家补助费
+            data[i][31 + j] = preallocation.getMoney_dhyjf() == null ? "0" : preallocation.getMoney_dhyjf().toString();  //电话
+            data[i][32 + j] = preallocation.getMoney_ktyjf() == null ? "0" : preallocation.getMoney_ktyjf().toString();  //空调
+            data[i][33 + j] = preallocation.getMoney_kd() == null ? "0" : preallocation.getMoney_kd().toString();  //宽带
+            data[i][34 + j] = preallocation.getMoney_yxdsyjf() == null ? "0" : preallocation.getMoney_yxdsyjf().toString();  //有线电视
+            data[i][35 + j] = preallocation.getMoney_rsqyjf() == null ? "0" : preallocation.getMoney_rsqyjf().toString();  //热水器
+            data[i][36 + j] = preallocation.getTotal_yjf() == null ? "0" : preallocation.getTotal_yjf().toString();  //移机费
+            data[i][37 + j] = preallocation.getMoney_qt() == null ? "0" : preallocation.getMoney_qt().toString();  //其他
+            data[i][38 + j] = preallocation.getSubsidy_relocate() == null ? "0" : preallocation.getSubsidy_relocate().toString();  //补助奖励费
+            data[i][39 + j] = preallocation.getTotal_compensation() == null ? "0" : preallocation.getTotal_compensation().toString();  //总补偿款
+            data[i][40 + j] = preallocation.getAppraise_money() == null ? "0" : preallocation.getAppraise_money().toString();  //评估价格
+            data[i][41 + j] = preallocation.getIn_host_date() == null ? "" : preallocation.getIn_host_date();  //入户日期
+            data[i][42 + j] = preallocation.getSigned_date() == null ? "" : preallocation.getSigned_date();  //签约日期
+            data[i][43 + j] = preallocation.getHandover_house_date() == null ? "" : preallocation.getHandover_house_date();  //交房日期
+            data[i][44 + j] = preallocation.getDemolished_date() == null ? "" : preallocation.getDemolished_date();  //拆除日期
+            data[i][45 + j] = preallocation.getAudit_date() == null ? "" : preallocation.getAudit_date();  //审核日期
+            data[i][46 + j] = preallocation.getMoney_date() == null ? "" : preallocation.getMoney_date();  //放款日期
+            data[i][47 + j] = preallocation.getStatusString();  //状态
+            data[i][48 + j] = preallocation.getNo_sign_reason();  //滞留原因
+            data[i][49 + j] = preallocation.getLeader();  //包村干部
+            data[i][50 + j] = preallocation.getManagement_co();  //管理公司
+            data[i][51 + j] = preallocation.getGeo_co();  //测绘公司
+            data[i][52 + j] = preallocation.getAppraise_co();  //测绘公司
+            data[i][53 + j] = preallocation.getDemolish_co();  //拆迁公司
+            data[i][54 + j] = preallocation.getAudit_co();  //审计公司
+            data[i][55 + j] = preallocation.getPulledown_co();  //拆除公司
+            data[i][56 + j] = preallocation.getDemolition_year_code();     //拆迁许可证年号
+            data[i][57 + j] = preallocation.getDemolition_card_code();  //拆迁许可证证号
+            data[i][58 + j] = preallocation.getRelocate_date();  //搬迁日期
+            data[i][59 + j] = preallocation.getFloat_people() == null ? "0" : preallocation.getFloat_people().toString();  //流动人口
+            data[i][60 + j] = preallocation.getCar_num() == null ? "0" : preallocation.getCar_num().toString();  //车辆数量
+            data[i][61 + j] = preallocation.getRmgl_num() == null ? "0" : preallocation.getRmgl_num().toString();  //燃煤锅炉
+            data[i][62 + j] = preallocation.getRqgl_num() == null ? "0" : preallocation.getRqgl_num().toString();  //燃气锅炉
+            data[i][63 + j] = preallocation.getZqgl_num() == null ? "0" : preallocation.getZqgl_num().toString();  //蒸汽锅炉
+            data[i][64 + j] = preallocation.getScattered_coal() == null ? "0" : preallocation.getScattered_coal().toString();  //散煤
+            data[i][65 + j] = preallocation.getJzzz_num() == null ? "0" : preallocation.getJzzz_num().toString();  //家住制造
+            data[i][66 + j] = preallocation.getScqg_num() == null ? "0" : preallocation.getScqg_num().toString();  //石材切割
+            data[i][67 + j] = preallocation.getQx_num() == null ? "0" : preallocation.getQx_num().toString();  //汽修
+            data[i][68 + j] = preallocation.getWl_num() == null ? "0" : preallocation.getWl_num().toString();  //物流
+            data[i][69 + j] = preallocation.getFz_num() == null ? "0" : preallocation.getFz_num().toString();  //服装
+            data[i][70 + j] = preallocation.getQt_num() == null ? "0" : preallocation.getQt_num().toString();  //其他
+            data[i][71 + j] = preallocation.getArchive_date();  //归档时间
+            data[i][72 + j] = preallocation.getArchives_cabinet_number();  //档案柜号
             i++;
         }
         return data;

@@ -75,6 +75,12 @@
                                         企业情况
                                     </a>
                                 </li>
+                                <li class="" data-type="7">
+                                    <a data-toggle="tab" href="#faq-tab-ts" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-question bigger-120"></i>
+                                        特殊情况
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/add.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
@@ -98,6 +104,9 @@
                                     </div>
                                     <div id="faq-tab-qy" class="tab-pane fade" data-type="6">
                                         <%@ include file="_qy_info.jspf" %>
+                                    </div>
+                                    <div id="faq-tab-ts" class="tab-pane fade" data-type="6">
+                                        <%@ include file="_ts_info.jspf" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
@@ -170,6 +179,8 @@
     <!-- /.modal-dialog -->
 </div>
 <%@ include file="../common/js.jsp" %>
+<%@ include file="../common/ueditor.jsp" %>
+
 <script src="<c:url value="/assets/webuploader-0.1.5/webuploader.js"/>"></script>
 
 <script src="<c:url value="/assets/js/jquery.form.js"/>"></script>
@@ -302,9 +313,14 @@
     }
     $(function () {
 
+        UE.getEditor('content', {
+            toolbars: ueditorToolbar1,
+            initialFrameHeight: 300,
+            imagePath: '${pageContext.request.contextPath}/'
+        });
+
         var click = 0;
         $('#toXc').on('shown.bs.tab',function(e){
-            console.log(click)
             if(click > 0){
                 return;
             }
@@ -496,6 +512,9 @@
                     })
                 }
             });
+        })
+        $('#checkFile').on('click',function(){
+            $("#material-modal").modal('show');
         })
 
         $("#save-form").validate({

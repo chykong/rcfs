@@ -173,6 +173,20 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-lg-3">
+                                                <div class="form-group">
+                                                    <label class="control-label col-xs-5 col-lg-5">是否特殊情况：</label>
+                                                    <div class="col-xs-7 col-lg-7">
+                                                        <form:select class="col-xs-10 col-sm-10 col-lg-8" path="content">
+                                                            <form:option value="">--全部--</form:option>
+                                                            <form:option value="1">是</form:option>
+                                                            <form:option value="2">否</form:option>
+                                                        </form:select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-actions">
                                             <div class="row">
                                                 <div class="col-sm-6 col-sm-offset-4  col-lg-4 col-lg-offset-8">

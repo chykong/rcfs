@@ -92,6 +92,7 @@
                         town: $("#town").val(),
                         village: $("#village").val(),
                         status: $("#status").val(),
+                        content: $("#content").val(),
                         page: parseInt(data.start / data.length) + 1,
                         size: data.length
                     },

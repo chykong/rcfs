@@ -33,6 +33,8 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
     private Integer search_date;//查询日期类型  1-入户  2-签约 3-交房  4-拆除  5-审核  6-放款
     private Integer search_blank;//是否为空   0-为空  1-不为空
 
+    private Integer content;  //是否特殊情况  是1  否2
+
     @Override
     public String toString() {
         return "PrjPreallocationSearchVO{" +
@@ -218,5 +220,13 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     public void setSearch_blank(Integer search_blank) {
         this.search_blank = search_blank;
+    }
+
+    public Integer getContent() {
+        return content;
+    }
+
+    public void setContent(Integer content) {
+        this.content = content;
     }
 }

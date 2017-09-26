@@ -94,9 +94,8 @@
                         删除
                     </button>
                 </div>
-                <button id="checkFile" href="#material-modal" type="button"
-                        class="btn btn-info btn-sm <c:if test="${!empty preallocation.other_file_path}">hidden</c:if>"
-                        data-toggle="modal">
+                <button id="checkFile" type="button"
+                        class="btn btn-info btn-sm <c:if test="${!empty preallocation.other_file_path}">hidden</c:if>">
                     <i class="ace-icon fa fa-file-o bigger-110"></i> 选择文件
                 </button>
             </div>

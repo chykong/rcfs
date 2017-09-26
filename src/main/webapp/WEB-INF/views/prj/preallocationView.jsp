@@ -75,6 +75,12 @@
                                         企业情况
                                     </a>
                                 </li>
+                                <li class="" data-type="7">
+                                    <a data-toggle="tab" href="#faq-tab-ts" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-question bigger-120"></i>
+                                        特殊情况
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
@@ -99,6 +105,9 @@
 
                                     <div id="faq-tab-qy" class="tab-pane fade" data-type="6">
                                         <%@ include file="_qy_info.jspf" %>
+                                    </div>
+                                    <div id="faq-tab-ts" class="tab-pane fade" data-type="6">
+                                            ${preallocation.content }
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">

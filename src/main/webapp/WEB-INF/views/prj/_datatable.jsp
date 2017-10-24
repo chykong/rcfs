@@ -17,7 +17,7 @@
         <th>编号</th>
         <th>被拆除腾退人</th>
         <th>房屋坐落</th>
-        <th>实际用地面积</th>
+        <th>土地总面积</th>
         <th>总建筑面积</th>
         <th>06年前面积</th>
         <th>06-09年间面积</th>
@@ -136,7 +136,7 @@
                     }
                 },
                 {
-                    data: "cog_land_area",
+                    data: "total_land_area",
                     width: "80px",
                     sClass: "text-right",
                     render: function (data) {

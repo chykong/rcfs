@@ -1,6 +1,5 @@
 package com.balance.prj.controller;
 
-import com.balance.base.service.BaseCompanyService;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.model.PrjSection;
 import com.balance.prj.service.PrjPreallocationService;

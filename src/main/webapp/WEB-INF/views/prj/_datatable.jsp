@@ -213,7 +213,7 @@
                     render: function (data, type, row) {
                         var retHtml = '';
                         if (row.status != 70 && ${bln:isP('PrjPreallocationUpdate')}) {
-                            retHtml += '<a class="btn-sm btn-info" href="javascript:updateBasic(' + data + ')"><i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
+                            retHtml += '<a class="btn-sm btn-info" href="javascript:updateBasic(\'' + data + '\',\'${land_status}\',\'${house_status}\')"><i class="ace-icon fa fa-pencil-square-o "></i>修改</a>';
                         }
                         retHtml += " ";
                         if (${bln:isP('PrjPreallocationDelete')}) {

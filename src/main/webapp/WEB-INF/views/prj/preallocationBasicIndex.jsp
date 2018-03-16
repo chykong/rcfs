@@ -195,7 +195,7 @@
                                                         <i class="ace-icon fa fa-search"></i> 查询
                                                     </button>
                                                     <c:if test="${bln:isP('PrjPreallocationAdd')}">
-                                                        <a href="javascript:addBasic();"
+                                                        <a href="javascript:addBasic('${land_status}','${house_status}');"
                                                            class="btn btn-success btn-sm">
                                                             <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                         </a>
@@ -447,8 +447,8 @@
             }
             return url;
         }
-        function addBasic() {
-            window.location = '<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl="/>' + geturl('${backUrl}');
+        function addBasic(land_status,house_status) {
+            window.location = '<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl="/>' + geturl('${backUrl}') + '&house_status=' + house_status;
         }
         // 删除
         function delBasic(id) {
@@ -459,8 +459,8 @@
             })
         }
         //修改
-        function updateBasic(id) {
-            window.location = '<c:url value="/prj/preallocation/basic/toUpdate.htm?type=1&backUrl="/>' + geturl('${backUrl}') + '&id=' + id;
+        function updateBasic(id,land_status,house_status) {
+            window.location = '<c:url value="/prj/preallocation/basic/toUpdate.htm?type=1&backUrl="/>' + geturl('${backUrl}') + '&id=' + id + '&house_status=' + house_status;
         }
         $(function () {
 

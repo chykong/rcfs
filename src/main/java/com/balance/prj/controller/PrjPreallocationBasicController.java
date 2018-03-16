@@ -70,6 +70,10 @@ public class PrjPreallocationBasicController extends BaseController {
         int land_status = SessionUtil.getUserSession(request).getCurrent_land_status();
         mv.addObject("land_status", land_status);
 
+        int house_status = SessionUtil.getUserSession(request).getCurrent_building_type();
+        mv.addObject("house_status", house_status);
+
+
         List<PrjSection> sectionList = prjSectionService.listByprj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         mv.addObject("sectionList", sectionList);
 
@@ -135,7 +139,11 @@ public class PrjPreallocationBasicController extends BaseController {
     @RequestMapping(value = "toAdd", method = RequestMethod.GET)
     public ModelAndView toAdd(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/prj/preallocationAdd");
+        if (preallocationSearchVO.getHouse_status() == 1) {
+            mv.setViewName("/prj/preallocationHouseAdd");
+        } else {
+            mv.setViewName("/prj/preallocationAdd");
+        }
 
         BackUrlUtil.createBackUrl(mv, request, createBackUrl(preallocationSearchVO));
         PrjPreallocation preallocation = new PrjPreallocation();
@@ -158,6 +166,9 @@ public class PrjPreallocationBasicController extends BaseController {
     public String add(PrjPreallocation preallocation, HttpServletRequest request) {
         preallocation.setCreated_by(SessionUtil.getUserSession(request).getUser_name());
         preallocation.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+
+        preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_building_name());
+        preallocation.setLand_property(SessionUtil.getUserSession(request).getCurrent_land_name());
         int flag = preallocationService.add(preallocation);
 
         if (flag == 0)
@@ -170,7 +181,6 @@ public class PrjPreallocationBasicController extends BaseController {
     public ModelAndView toUpdate(int id, int type, HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
 
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/prj/preallocationUpdate");
         BackUrlUtil.createBackUrl(mv, request, createBackUrl(preallocationSearchVO));
         PrjPreallocation preallocation = preallocationService.getById(id);
         if (preallocation == null) {
@@ -187,6 +197,11 @@ public class PrjPreallocationBasicController extends BaseController {
 
         mv.addObject("type", type);
 
+        if (preallocationSearchVO.getHouse_status() == 1) {
+            mv.setViewName("/prj/preallocationHouseUpdate");
+        } else {
+            mv.setViewName("/prj/preallocationUpdate");
+        }
         mv.addObject("preallocation", preallocation);
         return mv;
     }
@@ -660,9 +675,9 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
         preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
         String srcFile;
-        if(SessionUtil.getUserSession(request).getCurrent_project_id() == 28){
+        if (SessionUtil.getUserSession(request).getCurrent_project_id() == 28) {
             srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export-huangcun.xls";
-        }else{
+        } else {
             srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "export.xls";
         }
         String[][] data = preallocationService.export(preallocationSearchVO);

@@ -73,7 +73,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " money_ktyjf, money_rsqyjf, subsidy_relocate,total_compensation, handover_house_date,signed_date, leader," +
                 " management_co, geo_co, appraise_co, demolish_co, pulledown_co, prj_base_info_id, appraise_compensation," +
                 " archive_date, demolished_date, audit_date, remarks, created_by, created_at, section, groups, other_file_name," +
-                " other_file_path, lessee_name, legal_name, land_property, total_land_area, card_land_area, cog_land_area," +
+                " other_file_path, lessee_name, legal_name, house_property,land_property, total_land_area, card_land_area, cog_land_area," +
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
@@ -84,7 +84,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
                 " :management_co, :geo_co, :appraise_co, :demolish_co, :pulledown_co, :prj_base_info_id, :appraise_compensation," +
                 " :archive_date, :demolished_date, :audit_date, :remarks, :created_by, now(), :section, :groups, :other_file_name," +
-                " :other_file_path, :lessee_name, :legal_name, :land_property, :total_land_area, :card_land_area, :cog_land_area," +
+                " :other_file_path, :lessee_name, :legal_name,:house_property, :land_property, :total_land_area, :card_land_area, :cog_land_area," +
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
@@ -104,7 +104,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " management_co=:management_co, geo_co=:geo_co, appraise_co=:appraise_co, demolish_co=:demolish_co, pulledown_co=:pulledown_co," +
                 " prj_base_info_id=:prj_base_info_id, appraise_compensation=:appraise_compensation," +
                 " archive_date=:archive_date, demolished_date=:demolished_date, audit_date=:audit_date, remarks=:remarks, section=:section, groups=:groups, other_file_name=:other_file_name," +
-                " other_file_path=:other_file_path, lessee_name=:lessee_name, legal_name=:legal_name, land_property=:land_property," +
+                " other_file_path=:other_file_path, lessee_name=:lessee_name, legal_name=:legal_name," +
                 " total_land_area=:total_land_area, card_land_area=:card_land_area, cog_land_area=:cog_land_area," +
                 " lessee_land_area=:lessee_land_area, total_homestead_area=:total_homestead_area, card_homestead_area=:card_homestead_area," +
                 " no_card_homestead_area=:no_card_homestead_area, management_homestead_area=:management_homestead_area," +
@@ -125,7 +125,6 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " leader=:leader, management_co=:management_co, geo_co=:geo_co, appraise_co=:appraise_co," +
                 " demolish_co=:demolish_co, pulledown_co=:pulledown_co, prj_base_info_id=:prj_base_info_id," +
                 " remarks=:remarks, section=:section, groups=:groups, lessee_name=:lessee_name, legal_name=:legal_name," +
-                " land_property=:land_property," +
                 " total_land_area=:total_land_area, card_land_area=:card_land_area, cog_land_area=:cog_land_area," +
                 " lessee_land_area=:lessee_land_area, total_homestead_area=:total_homestead_area, card_homestead_area=:card_homestead_area," +
                 " no_card_homestead_area=:no_card_homestead_area, management_homestead_area=:management_homestead_area," +

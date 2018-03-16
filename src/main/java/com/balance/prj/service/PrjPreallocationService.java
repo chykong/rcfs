@@ -3,14 +3,14 @@ package com.balance.prj.service;
 import com.balance.api.dto.GisDTO;
 import com.balance.api.dto.HouseholdersDTO;
 import com.balance.api.dto.HouseholdersDetailDTO;
+import com.balance.base.dao.BasePlacementDetailDao;
+import com.balance.base.model.BasePlacementDetail;
 import com.balance.common.vo.ComboboxVO;
-import com.balance.prj.dao.PrjGroupDao;
-import com.balance.prj.dao.PrjPreallAttachDao;
-import com.balance.prj.dao.PrjPreallocationDao;
-import com.balance.prj.dao.PrjSectionDao;
+import com.balance.prj.dao.*;
 import com.balance.prj.model.PrjPreallAttach;
 import com.balance.prj.model.PrjPreallocation;
 import com.balance.prj.model.PrjSection;
+import com.balance.prj.model.PrjSelected;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.string.StringUtil;
@@ -35,7 +35,13 @@ public class PrjPreallocationService {
     @Autowired
     private PrjGroupDao prjGroupDao;
     @Autowired
+    private PrjSelectDao selectDao;
+    @Autowired
+    private PrjPreallocationRelaDao relaDao;
+    @Autowired
     private PrjPreallAttachDao prjPreallAttachDao;
+    @Autowired
+    private BasePlacementDetailDao placementDetailDao;
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         return prjPreallocationDao.findAll(prjPreallocationSearchVO);
@@ -352,4 +358,70 @@ public class PrjPreallocationService {
         }
         return data;
     }
+
+
+    /**
+     * 获取并更新最大选房顺序号
+     *
+     * @param mapId       编号
+     * @param projectId   项目id
+     * @param houseType   房屋类型
+     * @param landType    土地类型
+     * @param select_type 选择方式
+     * @return 最大顺序号
+     */
+    public int updateMaxCode(String mapId, int projectId, String houseType, String landType, int select_type) {
+        PrjSelected prjSelected = selectDao.getByMapId(mapId, projectId, houseType, landType);
+        if (prjSelected != null) {
+            prjSelected.setCompensation_type(select_type);
+            selectDao.updateType(prjSelected);
+            return prjSelected.getSelected_code();
+        }
+        int max = selectDao.getMaxCode(projectId, houseType, landType);
+
+        prjSelected = new PrjSelected();
+        prjSelected.setLand_type(landType);
+        prjSelected.setHouse_type(houseType);
+        prjSelected.setProject_id(projectId);
+        prjSelected.setMap_id(mapId);
+        prjSelected.setSelected_code(max + 1);
+        prjSelected.setCompensation_type(select_type);
+        selectDao.add(prjSelected);
+        return max + 1;
+    }
+
+    public PrjSelected getSelect(PrjPreallocation preallocation) {
+
+        String mapId = preallocation.getMap_id();
+        int projectId = preallocation.getPrj_base_info_id() == null ? 0 : preallocation.getPrj_base_info_id();
+        String houseType = preallocation.getHouse_property();
+        String landType = preallocation.getLand_property();
+        return selectDao.getByMapId(mapId, projectId, houseType, landType);
+    }
+
+    public PrjPreallocation getBySelect(String selectCode) {
+        PrjPreallocation preallocation = prjPreallocationDao.getBySelect(selectCode);
+        if (preallocation != null) {
+            int realNum = relaDao.count(preallocation.getMap_id(), preallocation.getPrj_base_info_id());
+            preallocation.setRelas_num(realNum);
+        }
+        return preallocation;
+    }
+    public int saveSelectHouse(String ids, String map_id, int projectId) {
+        int flag = 0;
+
+        for (String saveId : ids.split(",")) {
+            int id = Integer.valueOf(saveId);
+            BasePlacementDetail basePlacementDetail = placementDetailDao.get(id);
+            if (basePlacementDetail != null) {
+                flag = placementDetailDao.updateSelect(map_id, id);
+                if (flag == 1) {
+                    flag = prjPreallocationDao.updateSelect(id, map_id, projectId);
+                }
+            }
+        }
+
+        return flag;
+    }
+
 }

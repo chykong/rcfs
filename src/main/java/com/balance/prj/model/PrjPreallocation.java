@@ -161,6 +161,13 @@ public class PrjPreallocation {
 
     private String content;  //特殊情况
 
+
+    private String build_code;  //楼号
+    private String floor;  //楼层
+    private String map_code;  //门牌号
+    private int relas_num;
+    private String relas_detail;
+
     public String getArchive_file_name() {
         return archive_file_name;
     }
@@ -1246,5 +1253,45 @@ public class PrjPreallocation {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getBuild_code() {
+        return build_code;
+    }
+
+    public void setBuild_code(String build_code) {
+        this.build_code = build_code;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getMap_code() {
+        return map_code;
+    }
+
+    public void setMap_code(String map_code) {
+        this.map_code = map_code;
+    }
+
+    public int getRelas_num() {
+        return relas_num;
+    }
+
+    public void setRelas_num(int relas_num) {
+        this.relas_num = relas_num;
+    }
+
+    public String getRelas_detail() {
+        return relas_detail;
+    }
+
+    public void setRelas_detail(String relas_detail) {
+        this.relas_detail = relas_detail;
     }
 }

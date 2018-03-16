@@ -35,6 +35,7 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     private Integer content;  //是否特殊情况  是1  否2
 
+    private Integer chooseType;  //是否是选房查询
     @Override
     public String toString() {
         return "PrjPreallocationSearchVO{" +
@@ -228,5 +229,13 @@ public class PrjPreallocationSearchVO extends PageSearchVO {
 
     public void setContent(Integer content) {
         this.content = content;
+    }
+
+    public Integer getChooseType() {
+        return chooseType;
+    }
+
+    public void setChooseType(Integer chooseType) {
+        this.chooseType = chooseType;
     }
 }

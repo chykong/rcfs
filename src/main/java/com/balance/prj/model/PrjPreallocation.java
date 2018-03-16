@@ -166,6 +166,7 @@ public class PrjPreallocation {
     private String floor;  //楼层
     private String map_code;  //门牌号
     private int relas_num;
+    private int compensation_type;
     private String relas_detail;
 
     public String getArchive_file_name() {
@@ -1293,5 +1294,13 @@ public class PrjPreallocation {
 
     public void setRelas_detail(String relas_detail) {
         this.relas_detail = relas_detail;
+    }
+
+    public int getCompensation_type() {
+        return compensation_type;
+    }
+
+    public void setCompensation_type(int compensation_type) {
+        this.compensation_type = compensation_type;
     }
 }

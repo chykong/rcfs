@@ -44,7 +44,11 @@ public class PrjPreallocationService {
     private BasePlacementDetailDao placementDetailDao;
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        return prjPreallocationDao.findAll(prjPreallocationSearchVO);
+        if(prjPreallocationSearchVO.getChooseType() != null){
+            return prjPreallocationDao.findAllByChoose(prjPreallocationSearchVO);
+        }else{
+            return prjPreallocationDao.findAll(prjPreallocationSearchVO);
+        }
     }
 
     /**

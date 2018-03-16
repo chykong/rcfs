@@ -418,7 +418,7 @@
                 <div class="widget-box" style="border: none">
                     <div class="widget-body">
                         <div class="widget-main">
-                            <c:url value="/prj/preallocation/basic/saveSelectHouse.htm" var="save_url"/>
+                            <c:url value="/prj/preallocation/choose/saveSelectHouse.htm" var="save_url"/>
                             <form:form action="${save_url}" method="post" id="js_form">
                                 <input type="hidden" id="save_map" name="map_id" value=""/>
                                 <input type="hidden" id="save_select" name="id" value=""/>
@@ -490,7 +490,7 @@
                 }
 
                 $.ajax({
-                    url: '<c:url value="/prj/preallocation/basic/getBySelectCode.htm"/>',
+                    url: '<c:url value="/prj/preallocation/choose/getBySelectCode.htm"/>',
                     data: {
                         select_code: $("#search_input").val()
                     },
@@ -524,10 +524,10 @@
 
                             $('#js_total').html(transNum(json.allocation_housing_assess_price, 1));
                             if (json.compensation_type == 1) {
-                                $('#az_area').html(json.cog_home_area);
-                                $('#sub_area').html(json.cog_home_area);
-                                $('#qr_area').html(json.cog_home_area);
-                                $('#js_area').html(json.cog_home_area);
+                                $('#az_area').html(json.total_homestead_area);
+                                $('#sub_area').html(json.total_homestead_area);
+                                $('#qr_area').html(json.total_homestead_area);
+                                $('#js_area').html(json.total_homestead_area);
 
                                 $('.people').addClass('hidden');
                             } else {

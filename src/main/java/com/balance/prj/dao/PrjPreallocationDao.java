@@ -35,6 +35,16 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
 
+    public List<PrjPreallocation> findAllByChoose(PrjPreallocationSearchVO prjPreallocationSearchVO) {
+        String sql = "select DISTINCT plc.*,(select count(*) from t_prj_preallocationrela WHERE map_id=plc.map_id " +
+                "AND prj_base_info_id=plc.prj_base_info_id) relas_num,tbp.build_code,tbp.floor,tbp.map_code from t_prj_preallocation plc " +
+                "left join t_base_placementdetail tbp on plc.map_id=tbp.map_id and plc.prj_base_info_id=tbp.prj_base_info_id ";
+        sql += createSearchSql(prjPreallocationSearchVO);
+        sql += " order by status,plc.id desc";
+        SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
+        return getNamedParameterJdbcTemplate().query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
+    }
+
     /**
      * 分页列表
      *
@@ -73,7 +83,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " money_ktyjf, money_rsqyjf, subsidy_relocate,total_compensation, handover_house_date,signed_date, leader," +
                 " management_co, geo_co, appraise_co, demolish_co, pulledown_co, prj_base_info_id, appraise_compensation," +
                 " archive_date, demolished_date, audit_date, remarks, created_by, created_at, section, groups, other_file_name," +
-                " other_file_path, lessee_name, legal_name, house_property,land_property, total_land_area, card_land_area, cog_land_area," +
+                " other_file_path, lessee_name, legal_name,land_property, total_land_area, card_land_area, cog_land_area," +
                 " lessee_land_area, total_homestead_area, card_homestead_area, no_card_homestead_area, management_homestead_area," +
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
@@ -84,7 +94,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
                 " :management_co, :geo_co, :appraise_co, :demolish_co, :pulledown_co, :prj_base_info_id, :appraise_compensation," +
                 " :archive_date, :demolished_date, :audit_date, :remarks, :created_by, now(), :section, :groups, :other_file_name," +
-                " :other_file_path, :lessee_name, :legal_name,:house_property, :land_property, :total_land_area, :card_land_area, :cog_land_area," +
+                " :other_file_path, :lessee_name, :legal_name, :land_property, :total_land_area, :card_land_area, :cog_land_area," +
                 " :lessee_land_area, :total_homestead_area, :card_homestead_area, :no_card_homestead_area, :management_homestead_area," +
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +

@@ -44,6 +44,8 @@ public class BasePlacementDetailController {
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request, BasePlacementDetailSearchVO placementDetailSearchVO) {
         ModelAndView mv = new ModelAndView();
+        placementDetailSearchVO.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+
         List<BasePlacementDetail> list = basePlacementDetailService.listDetail(placementDetailSearchVO);
         mv.addObject("list", list);
         mv.addObject("placementDetailSearchVO", placementDetailSearchVO);

@@ -39,7 +39,7 @@
             ordering: false, //排序功能
             info: false,//页脚信息
             autoWidth: false,//自动宽度
-            scrollX: false,
+            scrollX: true,
             scrollY: true,
             paginate: false, //翻页功能
             sortable: false,
@@ -138,7 +138,7 @@
                 },
                 {
                     data: "id",
-                    width: "80px",
+                    width: "200px",
                     render: function (data, type, row) {
                         if ((row.first_audit_status == 2 || row.first_audit_status == 3 ) && ${bln:isP('PrjPreallocationUpdate')}) {
                             return '<a class="btn-sm btn-info" href="<c:url value="/prj/preallocation/basic/toUpdate.htm?backUrl=${backUrl}&type=1&id="/>' + data + '">\

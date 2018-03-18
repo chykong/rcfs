@@ -54,6 +54,7 @@
 
                     <td><input type="text" name="relas[${st.index}].age" class="col-lg-12 birthday"
                                placeholder="" value="${rela.age}"/></td>
+                    <td>
                     <select name="relas[${st.index}].marriage_status" class="col-lg-12">
                         <option value="">-请选择-</option>
                         <option value="1" <c:if test="${rela.marriage_status == 1}">selected</c:if>>未婚</option>
@@ -119,6 +120,7 @@
                     </td>
                     <td><input type="text" name="relas[${st.index}].age" class="col-lg-12 birthday"
                                placeholder="" value="${rela.age}"/></td>
+                    <td>
                     <select name="relas[${st.index}].marriage_status" class="col-lg-12">
                         <option value="">-请选择-</option>
                         <option value="1" <c:if test="${rela.marriage_status == 1}">selected</c:if>>未婚</option>

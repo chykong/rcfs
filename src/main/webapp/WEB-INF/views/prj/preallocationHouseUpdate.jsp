@@ -538,6 +538,70 @@
             });
         })
 
+        var $addRelaBody = $('#addRelaBody');
+        var indexRela = $addRelaBody.find('tr').length;
+        $('#addRela').on('click', function () {
+            var _html = '<tr id="trHome_' + indexRela + '">\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
+                <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="1"/>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
+                <td>\
+                <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
+                <option value="">-请选择-</option>\
+                <option value="1">未婚</option>\
+            <option value="2" >已婚</option>\
+            <option value="3" >再婚</option>\
+            <option value="4" >离异</option>\
+            <option value="5" >丧偶</option>\
+            </select>\
+            </td>\
+            <td><textarea name="relas[' + indexRela + '].note" class="col-lg-12"></textarea></td>\
+                <td>\
+                <a data-id="' + indexRela + '" class="del"> 删除 </a>\
+                </td>\
+                </tr>';
+
+            $addRelaBody.append(_html);
+            indexRela++;
+        });
+
+        var $addRelaBody1 = $('#addRelaBody1');
+        var indexRela1 = $addRelaBody1.find('tr').length;
+        $('#addRela').on('click', function () {
+            var _html = '<tr id="trHome_' + indexRela + '">\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
+                <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="1"/>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
+                <td>\
+                <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
+                <option value="">-请选择-</option>\
+                <option value="1">未婚</option>\
+            <option value="2" >已婚</option>\
+            <option value="3" >再婚</option>\
+            <option value="4" >离异</option>\
+            <option value="5" >丧偶</option>\
+            </select>\
+            </td>\
+            <td><textarea name="relas[' + indexRela + '].note" class="col-lg-12"></textarea></td>\
+                <td>\
+                <a data-id="' + indexRela + '" class="del"> 删除 </a>\
+                </td>\
+                </tr>';
+
+            $addRelaBody1.append(_html);
+            indexRela1++;
+        });
+        $('#addRelaBody').on('click', '.del', function () {
+            var $that = $(this);
+            var del_id = $that.attr('data-id');
+            var $tr = $('#trHome_' + del_id);
+            $tr.remove();
+        })
+
         $("#save-form").validate({
 //            debug : true,
             errorElement: "label",

@@ -39,33 +39,24 @@ public class PrjPreallocationRelaDao {
     }
 
     public int batchAdd(List<PreallocationRela> preallocationRelas) {
-        String sql = "INSERT INTO t_prj_preallocationrela(map_id, name, birthday, host_relation, householder_relation, note, " +
-                "created_at, created_by, prj_base_info_id, id_no, telphone, job_company, " +
-                "marriage_status, cog_status, show_status, az_area, sex, is_sign, other_card_no)" +
-                " VALUES(:map_id, :name, :birthday, :host_relation, :householder_relation, :note, " +
-                "now(), :created_by, :prj_base_info_id, :id_no, :telphone, :job_company, " +
-                ":marriage_status, :cog_status, :show_status, :az_area, :sex, :is_sign, :other_card_no)";
+        String sql = "INSERT INTO t_prj_preallocationrela(map_id,name,host_relation,note, " +
+                "created_at,created_by,prj_base_info_id,id_no," +
+                "marriage_status,age,type)VALUES(:map_id,:name,:host_relation,:note," +
+                "now(),:created_by,:prj_base_info_id,:id_no," +
+                ":marriage_status,:age,:type)";
         Map<String, Object>[] paramArray = new HashMap[preallocationRelas.size()];
         for (int i = 0; i < preallocationRelas.size(); i++) {
             Map<String, Object> mapParams = new HashMap<>();
             mapParams.put("map_id", preallocationRelas.get(i).getMap_id());
             mapParams.put("name", preallocationRelas.get(i).getName());
-            mapParams.put("birthday", preallocationRelas.get(i).getBirthday());
             mapParams.put("host_relation", preallocationRelas.get(i).getHost_relation());
-            mapParams.put("householder_relation", preallocationRelas.get(i).getHouseholder_relation());
             mapParams.put("note", preallocationRelas.get(i).getNote());
             mapParams.put("created_by", preallocationRelas.get(i).getCreated_by());
             mapParams.put("prj_base_info_id", preallocationRelas.get(i).getPrj_base_info_id());
             mapParams.put("id_no", preallocationRelas.get(i).getId_no());
-            mapParams.put("telphone", preallocationRelas.get(i).getTelphone());
-            mapParams.put("job_company", preallocationRelas.get(i).getJob_company());
             mapParams.put("marriage_status", preallocationRelas.get(i).getMarriage_status());
-            mapParams.put("cog_status", preallocationRelas.get(i).getCog_status());
-            mapParams.put("show_status", preallocationRelas.get(i).getShow_status());
-            mapParams.put("az_area", preallocationRelas.get(i).getAz_area());
-            mapParams.put("sex", preallocationRelas.get(i).getSex());
-            mapParams.put("is_sign", preallocationRelas.get(i).getIs_sign());
-            mapParams.put("other_card_no", preallocationRelas.get(i).getOther_card_no());
+            mapParams.put("age", preallocationRelas.get(i).getAge());
+            mapParams.put("type", preallocationRelas.get(i).getType());
             paramArray[i] = mapParams;
         }
         int[] result = new NamedParameterJdbcTemplate(jdbcTemplate).batchUpdate(sql, paramArray);

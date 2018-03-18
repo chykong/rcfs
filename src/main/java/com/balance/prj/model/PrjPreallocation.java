@@ -157,8 +157,8 @@ public class PrjPreallocation {
     private Integer fz_num;  //服装
     private Integer qt_num;   //其他
     private Float scattered_coal;  //散煤
-//    private List<PreallocationRelation> relations;  //户籍关系
-
+    //    private List<PreallocationRelation> relations;  //户籍关系
+    private List<PreallocationRela> relas;  //家庭成员集合
     private String content;  //特殊情况
 
 
@@ -168,6 +168,14 @@ public class PrjPreallocation {
     private int relas_num;
     private int compensation_type;
     private String relas_detail;
+
+    public List<PreallocationRela> getRelas() {
+        return relas;
+    }
+
+    public void setRelas(List<PreallocationRela> relas) {
+        this.relas = relas;
+    }
 
     public String getArchive_file_name() {
         return archive_file_name;

@@ -28,7 +28,7 @@ public class PreallocationRela {
     private String sex;// '性别  ';
     private Integer is_sign;// '是否在册  0-不在册  1-在册';
     private String note; // '备注';
-
+    private String age;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date created_at;
@@ -39,6 +39,23 @@ public class PreallocationRela {
     private Date last_modified_at;
     private String last_modified_by;
     private int prj_base_info_id;// '项目id';
+    private Integer type;//类型   1  在册   2 非在册
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public int getId() {
         return id;

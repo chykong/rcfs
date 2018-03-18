@@ -7,10 +7,7 @@ import com.balance.base.dao.BasePlacementDetailDao;
 import com.balance.base.model.BasePlacementDetail;
 import com.balance.common.vo.ComboboxVO;
 import com.balance.prj.dao.*;
-import com.balance.prj.model.PrjPreallAttach;
-import com.balance.prj.model.PrjPreallocation;
-import com.balance.prj.model.PrjSection;
-import com.balance.prj.model.PrjSelected;
+import com.balance.prj.model.*;
 import com.balance.prj.vo.PreallocationImportVO;
 import com.balance.prj.vo.PrjPreallocationSearchVO;
 import com.balance.util.string.StringUtil;
@@ -87,9 +84,32 @@ public class PrjPreallocationService {
             attachments = getAttachList(prjPreallocation.getPreallAttaches(), prjPreallocation.getCreated_by(), prjPreallocation.getMap_id());
             prjPreallAttachDao.batchAdd(attachments);
         }
+
+
+        List<PreallocationRela> relas = getSaveRela(prjPreallocation.getRelas(), prjPreallocation);
+        if (relas.size() > 0) {
+            relaDao.batchAdd(relas);
+        }
+
+
         return prjPreallocationDao.add(prjPreallocation);
     }
+    private List<PreallocationRela> getSaveRela(List<PreallocationRela> relas, PrjPreallocation prjPreallocation) {
+        List<PreallocationRela> saveRela = new ArrayList<>();
+        if (relas != null && relas.size() > 0) {
+            for (PreallocationRela rela : relas) {
+                if (StringUtil.isNotNullOrEmpty(rela.getName())
+                        && StringUtil.isNotNullOrEmpty(rela.getId_no())) {
+                    rela.setMap_id(prjPreallocation.getMap_id());
+                    rela.setPrj_base_info_id(prjPreallocation.getPrj_base_info_id());
+                    rela.setCreated_by(prjPreallocation.getCreated_by());
+                    saveRela.add(rela);
+                }
+            }
+        }
 
+        return saveRela;
+    }
     public int update(PrjPreallocation prjPreallocation) {
         List<PrjPreallAttach> attachments;
         prjPreallAttachDao.delete(prjPreallocation.getMap_id());
@@ -107,6 +127,17 @@ public class PrjPreallocationService {
             List<PrjPreallAttach> prjAttachments = prjPreallAttachDao.list(prjPreallocation.getMap_id());
             prjPreallocation.setPreallAttaches(prjAttachments);
         }
+
+        List<PreallocationRela> relas = relaDao.list(prjPreallocation.getMap_id(), prjPreallocation.getPrj_base_info_id());
+
+        prjPreallocation.setRelas(relas);
+        prjPreallocation.setRelas_num(relas.size());
+        String rela_detail = "";
+        for (PreallocationRela preallocationRela : relas) {
+            rela_detail += preallocationRela.getName() + ",";
+        }
+        prjPreallocation.setRelas_detail(rela_detail);
+
         return prjPreallocation;
     }
 

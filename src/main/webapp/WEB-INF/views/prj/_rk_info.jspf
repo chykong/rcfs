@@ -110,6 +110,7 @@
 
             <c:if test="${rela.type==2}">
                 <tr id="trHome_${st.index}">
+
                     <td><input type="text" name="relas[${st.index}].name" class="col-lg-12" value="${rela.name}"/></td>
                     <td><input type="text" name="relas[${st.index}].host_relation" class="col-lg-12"
                                value="${rela.host_relation}"/></td>

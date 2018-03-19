@@ -1,0 +1,501 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<form:hidden path="id"/>
+<input type="hidden" id="update_mapId" name="update_mapId" value="${preallocation.map_id}"/>
+<input type="hidden" id="update_hostName" name="update_hostName" value="${preallocation.host_name}"/>
+<input type="hidden" id="created_by" name="created_by" value="${preallocation.created_by}"/>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="form-group hidden">
+            <form:label path="land_property" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                土地性质：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="land_property" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地性质..."
+                            maxlength="200" readonly="true"/>
+                <label id="land_propertyTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="map_id" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                编号：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="map_id" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入编号..."
+                            maxlength="20"/>
+                <label id="map_idTip"></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <form:label path="host_name" cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                被拆迁人：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="host_name" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入被拆除腾退人..."
+                            maxlength="40"/>
+                <label id="host_nameTip"></label>
+            </div>
+        </div>
+        <div class="form-group hidden">
+            <form:label path="id_card" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                身份证号：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="id_card" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入身份证号..."
+                            maxlength="18"/>
+                <label id="id_cardTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="location" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                坐落：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="location" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入坐落..."
+                            maxlength="200"/>
+                <label id="locationTip"></label>
+            </div>
+        </div>
+        <div class="form-group hidden">
+            <label class="col-sm-3 col-lg-4 control-label">附件文件：</label>
+            <input type="hidden" id="other_file_path" name="other_file_path" value="${preallocation.other_file_path}"/>
+            <div class="col-sm-9 col-lg-8" id="fileDiv">
+                <div id="photoDiv"
+                     class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if>">
+                    <%--<img id="photo" class="col-lg-10" src="--%>
+                    <%--<c:if test="${!empty preallocation.other_file_path && !empty preallocation.other_file_name}">${imageServer}/${preallocation.other_file_path}</c:if>"/>--%>
+                    <a><input type="text" id="other_file_name"
+                              class="<c:if test="${empty preallocation.other_file_path || empty preallocation.other_file_name}">hidden</c:if> col-xs-10 col-sm-10 col-lg-9"
+                              name="other_file_name"
+                              value="${preallocation.other_file_name}" readonly/></a>
+                    <button id='delFile' type="button" class="btn btn-danger btn-sm">
+                        <span class="ace-icon fa fa-trash-o icon-on-right bigger-110"></span>
+                        删除
+                    </button>
+                </div>
+                <button id="checkFile" type="button"
+                        class="btn btn-info btn-sm <c:if test="${!empty preallocation.other_file_path}">hidden</c:if>">
+                    <i class="ace-icon fa fa-file-o bigger-110"></i> 选择文件
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <%--<div class="form-group">--%>
+        <%--<form:label path="total_land_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">--%>
+        <%--土地总面积：--%>
+        <%--</form:label>--%>
+        <%--<div class="col-sm-9 col-lg-8">--%>
+        <%--<form:input path="total_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地总面积..."--%>
+        <%--maxlength="12"/>--%>
+        <%--<label id="total_land_areaTip"></label>--%>
+        <%--</div>--%>
+        <%--</div>--%>
+        <div class="form-group">
+            <form:label path="card_land_area"
+                        cssClass="col-sm-3 col-lg-4  control-label no-padding-right no-padding-left">
+                实测宅基地面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="card_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入实测宅基地面积..."
+                            maxlength="12"/>
+                <label id="card_land_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="cog_land_area"
+                        cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                确权宅基地面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="cog_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入确权宅基地面积..."
+                            maxlength="12"/>
+                <label id="cog_land_areaTip"></label>
+            </div>
+        </div>
+        <%--<div class="form-group">--%>
+        <%--<form:label path="lessee_land_area"--%>
+        <%--cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">--%>
+        <%--土地租赁面积：--%>
+        <%--</form:label>--%>
+        <%--<div class="col-sm-9 col-lg-8">--%>
+        <%--<form:input path="lessee_land_area" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入土地租赁面积..."--%>
+        <%--maxlength="10"/>--%>
+        <%--<label id="lessee_land_areaTip"></label>--%>
+        <%--</div>--%>
+        <%--</div>--%>
+        <div class="form-group">
+            <form:label path="total_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                总建筑面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="total_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9"
+                            placeholder="请输入总建筑面积..."
+                            maxlength="10"/>
+                <label id="total_homestead_areaTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="card_homestead_area"
+                        cssClass="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                75%建筑面积：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="card_homestead_area" readonly="true" cssClass="col-xs-10 col-sm-10 col-lg-9"
+                            placeholder="自动算出75%建筑面积..."
+                            maxlength="10"/>
+                <label id="card_homestead_areaTip"></label>
+            </div>
+        </div>
+        <%--<div class="form-group ">--%>
+        <%--<form:label path="management_homestead_area" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">--%>
+        <%--经营面积：--%>
+        <%--</form:label>--%>
+        <%--<div class="col-sm-9 col-lg-8">--%>
+        <%--<form:input path="management_homestead_area" cssClass="col-xs-10 col-sm-10 col-lg-9"--%>
+        <%--placeholder="请输入经营面积..."--%>
+        <%--maxlength="10"/>--%>
+        <%--<label id="management_homestead_areaTip"></label>--%>
+        <%--</div>--%>
+        <%--</div>--%>
+
+    </div>
+    <div class="col-lg-4">
+        <div class="form-group">
+            <form:label path="town" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                镇：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="town" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输镇.."
+                            maxlength="30"/>
+                <label id="townTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="village" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                村：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="village" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入村..."
+                            maxlength="30"/>
+                <label id="villageTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="section" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                标段：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <select class="col-sm-3 col-lg-9 control-label no-padding-right" id="section"
+                        name="section">
+                    <option value="">--请选择--</option>
+                    <c:forEach items="${sectionList}" var="section">
+                        <option value="${section.name}"
+                                <c:if test="${preallocation.section eq section.name}">selected</c:if>
+                                data-id="${section.id}">${section.name}</option>
+                    </c:forEach>
+                </select>
+                <label id="sectionTip"></label>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="groups" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                组别：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <select class="col-sm-3 col-lg-9 control-label no-padding-right" id="groups"
+                        name="groups">
+                    <option value="">--请选择--</option>
+                </select>
+                <label id="groupsTip"></label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <a id="subHome" class="btn btn-primary btn-white"><i class="ace-icon fa fa-plus"></i> 分户</a>
+</div>
+<div id="subHomes">
+
+</div>
+<script type="application/javascript">
+    $(function () {
+        var indexRela = 0;
+        $('#subHome').on('click', function () {
+            var $subHomes = $('#subHomes');
+            var _html = '<div class="row"><div class="widget-box"><div class="widget-header"><h4 class="widget-title lighter smaller">\
+                <i class="ace-icon fa fa-user blue"></i><span class="show_text"></span>\
+                </h4>\
+                <div class="widget-toolbar">\
+                <strong class="show-head">收起</strong>\
+                <a href="#" data-action="collapse">\
+                <i class="ace-icon fa fa-chevron-up"></i>\
+                </a>\
+                <strong class="show-head">删除</strong>\
+                <a href="#" >\
+                <i class="ace-icon red fa fa-times"  data-index="' + indexRela + '"></i>\
+                </a>\
+                </div></div><div class="widget-body"><div class="widget-main no-padding row" style="margin-top: 5px">\
+                <div class="col-lg-4"><div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right">编号：</label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="map_id_' + indexRela + '" name="subHome[' + indexRela + '].map_id" data-index="' + indexRela + '" class="col-xs-10 col-sm-10 col-lg-9 map_show" \
+                placeholder="请输入编号..." maxlength="20"/>\
+                <label></label>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">\
+                确权宅基地面积：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="cog_land_area_' + indexRela + '" name="subHome[' + indexRela + '].cog_land_area"\
+                class="col-xs-10 col-sm-10 col-lg-9 cog_land_area" placeholder="请输入确权宅基地面积..." maxlength="12"/>\
+                <label></label>\
+                </div></div></div>\
+                <div class="col-lg-4"><div class="form-group"><label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">\
+                被拆迁人：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="host_name_' + indexRela + '" name="subHome[' + indexRela + '].host_name" data-index="' + indexRela + '" class="col-xs-10 col-sm-10 col-lg-9 host_show"\
+                placeholder="请输入被拆迁人..."\
+                maxlength="40"/>\
+                <label id=""></label>\
+                </div></div>\
+                <div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                总建筑面积：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="total_homestead_area_' + indexRela + '" name="subHome[' + indexRela + '].total_homestead_area"\
+                 class="col-xs-10 col-sm-10 col-lg-9 total_homestead"\
+                placeholder="请输入总建筑面积..." maxlength="10"/>\
+                <label></label>\
+                </div></div></div>\
+                <div class="col-lg-4">\
+                <div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                身份证号：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input  id="id_card_' + indexRela + '" name="subHome[' + indexRela + '].id_card"\
+                 type="text" class="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入身份证号..."\
+                maxlength="18"/>\
+                <label></label>\
+                </div></div>\
+                <div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">\
+                75%建筑面积：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input  id="card_homestead_area_' + indexRela + '" name="subHome[' + indexRela + '].card_homestead_area" type="text" \
+                class="col-xs-10 col-sm-10 col-lg-9 card_homestead" readonly \
+                placeholder="自动算出75%建筑面积..."\
+                maxlength="10"/>\
+                <label></label>\
+                </div></div></div>\
+                </div></div></div>\
+                </div>';
+
+            $subHomes.append(_html);
+
+            var $subBc = $('#subBc');
+            var _html2 = '<div class="row">\
+                <div class="widget-box" id="bc_' + indexRela + '">\
+                <div class="widget-header">\
+                <h4 class="widget-title lighter smaller">\
+                <i class="ace-icon fa fa-user blue"></i><span class="show_text"></span>\
+                </h4>\
+                <div class="widget-toolbar">\
+                <strong class="show-head">收起</strong>\
+                <a href="#" data-action="collapse">\
+                <i class="ace-icon fa fa-chevron-up"></i>\
+                </a>\
+                <strong class="show-head">删除</strong>\
+                <a href="#" >\
+                <i class="ace-icon red fa fa-times"></i>\
+                </a>\
+                </div>\
+                </div>\
+                <div class="widget-body">\
+                <div class="widget-main no-padding row" style="margin-top: 5px">\
+                <div class="col-lg-6">\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                宅基地区位补偿价：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="hidden" id="map_id_' + indexRela + '" name="subBc[' + indexRela + '].map_id" class="col-xs-10 col-sm-10 col-lg-9 bc_map" value="" placeholder="" maxlength="20"/>\
+                <input type="text" id="money_homestead_' + indexRela + '" name="subBc[' + indexRela + '].money_homestead" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入宅基地区位补偿价..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                装修及附属物补偿价：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_adjunct_' + indexRela + '" name="subBc[' + indexRela + '].money_adjunct" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入装修及附属物补偿价..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                资源节约和垃圾减量奖励：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_ljjl_' + indexRela + '" name="subBc[' + indexRela + '].money_ljjl" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入资源节约和垃圾减量奖励..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                工程配合奖：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="project_cooperate_award_' + indexRela + '" name="subBc[' + indexRela + '].project_cooperate_award" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入工程配合奖..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                搬家补助费：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_relocate_' + indexRela + '" name="subBc[' + indexRela + '].money_relocate" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入搬家补助费..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                弃楼补贴：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_ql_' + indexRela + '" name="subBc[' + indexRela + '].money_ql" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入弃楼补贴..." maxlength="20"/>\
+                </div>\
+                </div>\
+                </div>\
+                <div class="col-lg-6">\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                房屋重置成新价：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_new_house_' + indexRela + '" name="subBc[' + indexRela + '].money_new_house" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋重置成新价..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                未建房奖励：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_no_house_' + indexRela + '" name="subBc[' + indexRela + '].money_no_house" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入未建房奖励..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                创业补助：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_cy_' + indexRela + '" name="subBc[' + indexRela + '].money_cy" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入创业补助..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                房屋周转费：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_fwzh_' + indexRela + '" name="subBc[' + indexRela + '].money_fwzh" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋周转费..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                设备迁移费：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="total_yjf_' + indexRela + '" name="subBc[' + indexRela + '].total_yjf" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入设备迁移费..." maxlength="20"/>\
+                </div>\
+                </div>\
+                <div class="form-group">\
+                <label  class="col-sm-3 col-lg-4 control-label no-padding-right">\
+                其他：\
+            </label>\
+            <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="money_qt_' + indexRela + '" name="subBc[' + indexRela + '].money_qt" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入其他..." maxlength="20"/>\
+                </div>\
+                </div>\
+                </div>\
+                </div>\
+                </div>\
+                </div>\
+                </div>';
+            $subBc.append(_html2);
+
+            indexRela++;
+        });
+
+        $('#subHomes').on('change','.host_show',function(){
+            var $widget_box = $(this).closest('.widget-box');
+            var $show = $widget_box.find('.show_text');
+
+            var $bc_box = $('#bc_' + $(this).attr('data-index'));
+            var $bc_show = $bc_box.find('.show_text');
+
+            $show.html($(this).val());
+            $bc_show.html($(this).val());
+        });
+        $('#subHomes').on('change','.map_show',function(){
+            var $bc_box = $('#bc_' + $(this).attr('data-index'));
+            var $bc_map = $bc_box.find('.bc_map');
+
+            console.log($bc_map)
+            $bc_map.val($(this).val());
+        });
+        $('#subHomes').on('click','.fa-times',function(){
+            var $widget_box = $(this).closest('.widget-box');
+            var $bc_box = $('#bc_' + $(this).attr('data-index'));
+
+            $widget_box.remove();
+            $bc_box.remove();
+        });
+
+        $('#total_homestead_area').on('input propertychange',function () {
+            $('#card_homestead_area').val($(this).val() * 0.75);
+        })
+
+        $('#subHomes').on('input propertychange','.total_homestead',function () {
+            var $widget_box = $(this).closest('.widget-box');
+            var $card_homestead = $widget_box.find('.card_homestead');
+
+            $card_homestead.val($(this).val() * 0.75);
+        })
+
+
+        $('#subHomes').on('change','.cog_land_area',function () {
+            var $cog_land_area = $('.cog_land_area');
+            var $total_land_area = $('#cog_land_area');
+            var cog_land_area = 0;
+            var $that = $(this),flag = 0;
+
+            $cog_land_area.each(function (i, item) {
+                if($(item).val() != ''){
+                    cog_land_area += parseFloat($(item).val());
+                }else{
+                    flag ++;
+                }
+            })
+
+            if($total_land_area.val() == ''){
+                if(flag == 0){
+                    $total_land_area.val(cog_land_area);
+                }
+            }else{
+                if($total_land_area.val() < cog_land_area){
+                    $that.val('').focus();
+                    bootbox.alert('分户确权宅基地面积不能超过院的面积!');
+                }
+            }
+        })
+
+    })
+</script>
+
+
+
+

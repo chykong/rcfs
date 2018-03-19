@@ -58,7 +58,7 @@
                                     <a id="del_bus" class="hidden btn btn-white btn-danger" data-toggle="modal">
                                         <i class="ace-icon fa fa-trash-o bigger-110"></i> 删除
                                     </a>
-                                    <a href="#uploadImg-modal" class="btn btn-white btn-primary" data-toggle="modal">
+                                    <a id="openImg" class="btn btn-white btn-primary" data-toggle="modal">
                                         <i class="ace-icon fa fa-picture-o bigger-110"></i> 选择图片
                                     </a>
                                     <label id="bus_licenseTip"></label>
@@ -185,6 +185,9 @@
 
             <script type="text/javascript">
                 $(document).ready(function () {
+                    $('#openImg').on('click',function(){
+                        $('#uploadImg-modal').modal('show');
+                    })
                     //上传图片
                     $('#uploadImg-input').ace_file_input({
                         style: 'well',

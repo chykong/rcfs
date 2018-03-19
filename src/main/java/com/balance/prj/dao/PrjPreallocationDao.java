@@ -88,7 +88,8 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " money_machine, project_cooperate_award, money_kd, money_qt, relocate_date, audit_co, " +
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
                 " management_house_area, field_house_area, no_sign_reason,in_host_date,status,total_yjf,appraise_money," +
-                "float_people,car_num,rmgl_num,rqgl_num,zqgl_num,jzzz_num,scqg_num,qx_num,fz_num,wl_num,qt_num,scattered_coal,last_area,content) " +
+                "float_people,car_num,rmgl_num,rqgl_num,zqgl_num,jzzz_num,scqg_num,qx_num,fz_num,wl_num,qt_num,scattered_coal,last_area,content,signed_code" +
+                ",money_ql,money_ljjl,money_no_house,money_cy,money_fwzh) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
@@ -99,7 +100,8 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :money_machine, :project_cooperate_award, :money_kd, :money_qt, :relocate_date, :audit_co, " +
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
                 " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status,:total_yjf,:appraise_money," +
-                ":float_people,:car_num,:rmgl_num,:rqgl_num,:zqgl_num,:jzzz_num,:scqg_num,:qx_num,:fz_num,:wl_num,:qt_num,:scattered_coal,:last_area,:content)";
+                ":float_people,:car_num,:rmgl_num,:rqgl_num,:zqgl_num,:jzzz_num,:scqg_num,:qx_num,:fz_num,:wl_num,:qt_num,:scattered_coal,:last_area,:content,:signed_code" +
+                ",:money_ql,:money_ljjl,:money_no_house,:money_cy,:money_fwzh)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -124,7 +126,8 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " village=:village, town=:town, before_area=:before_area, between_area=:between_area, after_area=:after_area," +
                 " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reason=:no_sign_reason,status=:status," +
                 " float_people=:float_people,car_num=:car_num,rmgl_num=:rmgl_num,rqgl_num=:rqgl_num,zqgl_num=:zqgl_num,jzzz_num=:jzzz_num" +
-                ",scqg_num=:scqg_num,qx_num=:qx_num,fz_num=:fz_num,wl_num=:wl_num,qt_num=:qt_num,scattered_coal=:scattered_coal,last_area=:last_area,content=:content WHERE id=:id ";
+                ",scqg_num=:scqg_num,qx_num=:qx_num,fz_num=:fz_num,wl_num=:wl_num,qt_num=:qt_num,scattered_coal=:scattered_coal,last_area=:last_area,content=:content," +
+                "money_ql=:money_ql,money_ljjl=:money_ljjl,money_no_house=:money_no_house,money_cy=:money_cy,money_fwzh=:money_fwzh WHERE id=:id ";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);

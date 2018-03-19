@@ -42,8 +42,8 @@ public class PrjSelectDao {
      * @return 成功1 失败0
      */
     public int add(PrjSelected prjSelected) {
-        String sql = "INSERT INTO t_prj_selected(map_id, selected_code, project_id, house_type, land_type, selected_at)" +
-                "VALUES(:map_id, :selected_code, :project_id, :house_type, :land_type, now())";
+        String sql = "INSERT INTO t_prj_selected(map_id, selected_code, project_id, house_type, land_type, selected_at,compensation_type)" +
+                "VALUES(:map_id, :selected_code, :project_id, :house_type, :land_type, now(),:compensation_type)";
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjSelected);
         return new NamedParameterJdbcTemplate(jdbcTemplate).update(sql, param);
     }

@@ -48,6 +48,11 @@ public class PrjPreallocation {
     private BigDecimal money_rsqyjf;  //热水器移机费
     private BigDecimal total_yjf;  //总移机费
     private BigDecimal money_qt;  //其他
+    private BigDecimal money_ql;  //弃楼补贴
+    private BigDecimal money_ljjl;  //资源节约和垃圾减量奖励
+    private BigDecimal money_no_house;  //未建房奖励
+    private BigDecimal money_cy;  //创业补助
+    private BigDecimal money_fwzh;  //房屋周转费
     private BigDecimal subsidy_relocate;  //补助奖励费
     private BigDecimal total_compensation;  //总补偿款
     private String in_host_date;  //入户时间
@@ -166,8 +171,11 @@ public class PrjPreallocation {
     private String floor;  //楼层
     private String map_code;  //门牌号
     private int relas_num;
-    private int compensation_type;
+    private int compensation_type; //选房方式  1-面积  2-人口
     private String relas_detail;
+
+    private List<PrjPreallocation>  subHome;  //接收分户情况
+    private List<PrjPreallocation>  subBc;  //接收补偿情况
 
     public List<PreallocationRela> getRelas() {
         return relas;
@@ -1310,5 +1318,61 @@ public class PrjPreallocation {
 
     public void setCompensation_type(int compensation_type) {
         this.compensation_type = compensation_type;
+    }
+
+    public BigDecimal getMoney_ql() {
+        return money_ql;
+    }
+
+    public void setMoney_ql(BigDecimal money_ql) {
+        this.money_ql = money_ql;
+    }
+
+    public BigDecimal getMoney_ljjl() {
+        return money_ljjl;
+    }
+
+    public void setMoney_ljjl(BigDecimal money_ljjl) {
+        this.money_ljjl = money_ljjl;
+    }
+
+    public BigDecimal getMoney_no_house() {
+        return money_no_house;
+    }
+
+    public void setMoney_no_house(BigDecimal money_no_house) {
+        this.money_no_house = money_no_house;
+    }
+
+    public BigDecimal getMoney_cy() {
+        return money_cy;
+    }
+
+    public void setMoney_cy(BigDecimal money_cy) {
+        this.money_cy = money_cy;
+    }
+
+    public BigDecimal getMoney_fwzh() {
+        return money_fwzh;
+    }
+
+    public void setMoney_fwzh(BigDecimal money_fwzh) {
+        this.money_fwzh = money_fwzh;
+    }
+
+    public List<PrjPreallocation> getSubHome() {
+        return subHome;
+    }
+
+    public void setSubHome(List<PrjPreallocation> subHome) {
+        this.subHome = subHome;
+    }
+
+    public List<PrjPreallocation> getSubBc() {
+        return subBc;
+    }
+
+    public void setSubBc(List<PrjPreallocation> subBc) {
+        this.subBc = subBc;
     }
 }

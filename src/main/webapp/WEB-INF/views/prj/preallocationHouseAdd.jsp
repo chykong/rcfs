@@ -91,13 +91,13 @@
                                 <div class="tab-content no-border padding-24">
                                     <!-- 基本情况 begin-->
                                     <div id="faq-tab-basic" class="tab-pane fade active in" data-type="1">
-                                        <%@ include file="_formfields.jspf" %>
+                                        <%@ include file="./new_jsp/_fy_formfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-jd" class="tab-pane fade" data-type="2">
                                         <%@ include file="_jdformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-bc" class="tab-pane fade" data-type="3">
-                                        <%@ include file="_bcformfields.jspf" %>
+                                        <%@ include file="./new_jsp/_fy_bcformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
                                         <%@ include file="_inhost_formfields.jspf" %>

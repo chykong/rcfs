@@ -1,0 +1,124 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <form:label path="money_homestead" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                宅基地区位补偿价：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_homestead" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu"
+                       placeholder="请输入宅基地区位补偿价..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_adjunct" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                装修及附属物补偿价：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_adjunct"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入装修及附属物补偿价..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_ljjl" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                资源节约和垃圾减量奖励：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_ljjl" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入资源节约和垃圾减量奖励..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="project_cooperate_award" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                工程配合奖：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="project_cooperate_award"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入工程配合奖..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_relocate" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                搬家补助费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_relocate"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入搬家补助费..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_ql" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                弃楼补贴：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_ql"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入弃楼补贴..." maxlength="20"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="form-group">
+            <form:label path="money_new_house" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                房屋重置成新价：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_new_house" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu"
+                       placeholder="请输入房屋重置成新价..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_no_house" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                未建房奖励：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_no_house" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入未建房奖励..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_cy" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                创业补助：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_cy" cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入创业补助..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_fwzh" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                房屋周转费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_fwzh"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋周转费..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="total_yjf" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                设备迁移费：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="total_yjf"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入设备迁移费..." maxlength="20"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <form:label path="money_qt" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                其他：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="money_qt"
+                       cssClass="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入其他..." maxlength="20"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="subBc">
+</div>
+
+
+<script>
+    $(function () {
+        $('#subBc').on('click', '.fa-times', function () {
+            bootbox.alert('请在基本信息中删除对应分户');
+        });
+
+    })
+</script>

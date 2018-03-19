@@ -91,7 +91,21 @@ public class PrjPreallocationService {
             relaDao.batchAdd(relas);
         }
 
+        String mapId = prjPreallocation.getMap_id();
+        String houseType = prjPreallocation.getHouse_property();
+        int max = selectDao.getMaxCode(prjPreallocation.getPrj_base_info_id(), houseType, prjPreallocation.getLand_property());
+        max = max + 1;
+        prjPreallocation.setSigned_code(String.valueOf(max));
 
+        PrjSelected prjSelected = new PrjSelected();
+        prjSelected.setMap_id(mapId);
+        prjSelected.setCompensation_type(1);
+        prjSelected.setHouse_type(houseType);
+        prjSelected.setSelected_code(max);
+        prjSelected.setCompensation_type(1);
+        prjSelected.setProject_id(prjPreallocation.getPrj_base_info_id());
+        prjSelected.setLand_type(prjPreallocation.getLand_property());
+        selectDao.add(prjSelected);
         return prjPreallocationDao.add(prjPreallocation);
     }
 

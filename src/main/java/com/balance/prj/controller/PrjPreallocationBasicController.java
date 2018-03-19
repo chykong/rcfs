@@ -208,7 +208,10 @@ public class PrjPreallocationBasicController extends BaseController {
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String update(PrjPreallocation preallocation) {
+
+
         PrjPreallocation preallocation_DB = preallocationService.getById(preallocation.getId());
+
         preallocation.setPrj_base_info_id(preallocation_DB.getPrj_base_info_id());
         preallocation.setCreated_by(preallocation_DB.getCreated_by());
 
@@ -222,7 +225,17 @@ public class PrjPreallocationBasicController extends BaseController {
     @RequestMapping(value = "view", method = RequestMethod.GET)
     public ModelAndView view(int id, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/prj/preallocationView");
+
+        SessionUtil.getUserSession(request).getCurrent_project_id();
+
+        int house_status = SessionUtil.getUserSession(request).getCurrent_building_type();
+
+        if (house_status == 1) {
+            mv.setViewName("/prj/preallocationViewZZ");//住宅  显示人口
+        } else {
+            mv.setViewName("/prj/preallocationView");//非住宅  不显示人口
+        }
+
 
         PrjPreallocation preallocation = preallocationService.getById(id);
         if (preallocation == null) {

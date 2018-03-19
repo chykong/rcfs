@@ -38,6 +38,7 @@ public class PrjPreallocationRelaDao {
         return new NamedParameterJdbcTemplate(jdbcTemplate).update(sql, params);
     }
 
+    //添加人口信息
     public int batchAdd(List<PreallocationRela> preallocationRelas) {
         String sql = "INSERT INTO t_prj_preallocationrela(map_id,name,host_relation,note, " +
                 "created_at,created_by,prj_base_info_id,id_no," +
@@ -62,6 +63,29 @@ public class PrjPreallocationRelaDao {
         int[] result = new NamedParameterJdbcTemplate(jdbcTemplate).batchUpdate(sql, paramArray);
         return result.length == preallocationRelas.size() ? 1 : 0;
     }
+
+
+    //添加单个人员信息
+    public int batchOneAdd(PreallocationRela preallocationRelas) {
+        String sql = "INSERT INTO t_prj_preallocationrela(map_id,name,host_relation,note, " +
+                "created_at,created_by,prj_base_info_id,id_no," +
+                "marriage_status,age,type)VALUES(:map_id,:name,:host_relation,:note," +
+                "now(),:created_by,:prj_base_info_id,:id_no," +
+                ":marriage_status,:age,:type)";
+
+        return new NamedParameterJdbcTemplate(jdbcTemplate).update(sql, new BeanPropertySqlParameterSource(preallocationRelas));
+    }
+
+    //更新单个人员信息
+    public int batchOneUpdate(PreallocationRela preallocationRelas) {
+
+        String sql = "update  t_prj_preallocationrela  set  map_id=:map_id,name=:name,host_relation=:host_relation,note=:note, " +
+                "last_modified_at=now(),created_by=:created_by,id_no=:id_no," +
+                "marriage_status=:marriage_status,age=:age,type=:type  where id=:id  AND  prj_base_info_id=:prj_base_info_id";
+
+        return new NamedParameterJdbcTemplate(jdbcTemplate).update(sql, new BeanPropertySqlParameterSource(preallocationRelas));
+    }
+
 
     public int delete(String map_id, int prj_base_info_id) {
         String sql = "DELETE  FROM t_prj_preallocationrela WHERE map_id=? AND prj_base_info_id=?";

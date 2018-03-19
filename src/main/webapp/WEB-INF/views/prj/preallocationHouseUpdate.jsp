@@ -28,10 +28,12 @@
                     <li><i class="ace-icon fa fa-home home-icon"></i> <a href="#">首页</a></li>
                     <li class="active">系统管理</li>
                     <li class="active">拆除腾退户信息管理</li>
-                    <li class="active"><small>修改基本情况</small></li>
+                    <li class="active">
+                        <small>修改基本情况</small>
+                    </li>
                 </ul>
                 <!-- /.breadcrumb -->
-                <%@ include file="../common/navigate.jsp"%>
+                <%@ include file="../common/navigate.jsp" %>
             </div>
             <div class="page-content">
 
@@ -83,18 +85,22 @@
                                     </a>
                                 </li>
                             </ul>
-                            <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
+
+                            <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form"
+                                       method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
                                 <div class="tab-content no-border padding-24">
                                     <input type="hidden" name="backUrl" value="${backUrl}"/>
                                     <!-- 基本情况 begin-->
-                                    <div id="faq-tab-basic" class="tab-pane fade <c:if test="${type == 1}">active in</c:if>" data-type="1">
+                                    <div id="faq-tab-basic"
+                                         class="tab-pane fade <c:if test="${type == 1}">active in</c:if>" data-type="1">
                                         <%@ include file="_formfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-jd" class="tab-pane fade" data-type="2">
                                         <%@ include file="_jdformfields.jspf" %>
                                     </div>
-                                    <div id="faq-tab-bc" class="tab-pane fade <c:if test="${type == 2}">active in</c:if>" data-type="3">
+                                    <div id="faq-tab-bc"
+                                         class="tab-pane fade <c:if test="${type == 2}">active in</c:if>" data-type="3">
                                         <%@ include file="_bcformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
@@ -111,12 +117,13 @@
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
-                                            <button id="btn-save" class="btn btn-primary" type="submit">
+                                            <button id="btn-save1" class="btn btn-primary" type="button">
                                                 <i class="ace-icon fa fa-check bigger-110"></i>
                                                 保存
                                             </button>
                                             &nbsp; &nbsp; &nbsp;
-                                            <a id="btn-reset" class="btn" href="<c:url value="/prj/preallocation/basic/index.htm"/>">
+                                            <a id="btn-reset" class="btn"
+                                               href="<c:url value="/prj/preallocation/basic/index.htm"/>">
                                                 <i class="ace-icon fa fa-undo bigger-110"></i>
                                                 返回
                                             </a>
@@ -180,7 +187,7 @@
     <!-- /.modal-dialog -->
 </div>
 <%@ include file="../common/js.jsp" %>
-<%@ include file="../common/ueditor.jsp"%>
+<%@ include file="../common/ueditor.jsp" %>
 
 <script src="<c:url value="/assets/webuploader-0.1.5/webuploader.js"/>"></script>
 
@@ -189,11 +196,119 @@
 <script src="<c:url value="/assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"/>"></script>
 
 <script>
-    function initWebUploader(pick,fileUpload,fileList,loading){
+
+
+    $("#btn-save1").on('click', function () {
+
+        var $relaName = $(".relaName");
+        if ($relaName.length >= 1) {
+            var flag = 0;
+            $relaName.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $host = $(".host");
+        if ($host.length >= 1) {
+            var flag = 0;
+            $host.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+
+        var $relaIdNo = $(".relaIdNo");
+        if ($relaIdNo.length >= 1) {
+            var flag = 0;
+            $relaIdNo.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+
+        var $relaName1 = $(".relaName1");
+        if ($relaName1.length >= 1) {
+            var flag = 0;
+            $relaName1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $host1 = $(".host1");
+        if ($host1.length >= 1) {
+            var flag = 0;
+            $host1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $relaIdNo1 = $(".relaIdNo1");
+        if ($relaIdNo1.length >= 1) {
+            var flag = 0;
+            $relaIdNo1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        $("#btn-save1").submit();
+
+
+    });
+
+
+    function initWebUploader(pick, fileUpload, fileList, loading) {
         var uploader = WebUploader.create({
             // 选完文件后，是否自动上传。
             auto: false,
-            dnd:document.body,
+            dnd: document.body,
             disableGlobalDnd: true,
             paste: document.body,
 
@@ -215,10 +330,10 @@
             }
         });
 
-        $("#"+fileUpload).on('click', function () {
+        $("#" + fileUpload).on('click', function () {
             uploader.upload();
         });
-        var $list = $('#'+fileList);
+        var $list = $('#' + fileList);
 
         $list.on('click', '.del', function () {
             var $that = $(this);
@@ -237,15 +352,15 @@
 
             }
             var $file_items = $('.file-item');
-            var flag =0;
-            $file_items.each(function(i,item){
-                if(!$(item).hasClass('upload-state-done')){
+            var flag = 0;
+            $file_items.each(function (i, item) {
+                if (!$(item).hasClass('upload-state-done')) {
                     flag++;
                 }
             })
-            if(flag == 0){
-                $('#'+fileUpload).addClass('hidden');
-                $('#'+loading).addClass('hidden');
+            if (flag == 0) {
+                $('#' + fileUpload).addClass('hidden');
+                $('#' + loading).addClass('hidden');
             }
         });
 
@@ -268,7 +383,7 @@
         uploader.on('uploadSuccess', function (file, response) {
             var result = response._raw;
             var reg = /'/g;
-            result = result.replace(reg,'"');
+            result = result.replace(reg, '"');
             var json = $.parseJSON(result);
             var $file_item = $('#' + file.id);
             $file_item.find('[name*=file_name]').val(json.original_name);
@@ -292,13 +407,14 @@
 // 完成上传完了，成功或者失败，先删除进度条。
         uploader.on('uploadComplete', function (file) {
             $('#' + file.id).find('.progress').remove();
-            $('#'+loading).addClass('hidden');
-            $('#'+fileUpload).addClass('hidden');
+            $('#' + loading).addClass('hidden');
+            $('#' + fileUpload).addClass('hidden');
         });
 
         return uploader;
     }
-    function delete_img($file_item){
+
+    function delete_img($file_item) {
         if ($file_item.hasClass('upload-state-done')) {
             var file_path = $file_item.find('[name*=file_path]');
             $.ajax({
@@ -313,7 +429,8 @@
         }
         $file_item.remove();
     }
-    function image(uploader,$img,file){
+
+    function image(uploader, $img, file) {
         uploader.makeThumb(file, function (error, src) {
             if (error) {
                 $img.replaceWith('<span>不能预览</span>');
@@ -323,6 +440,8 @@
             $img.attr('src', src);
         }, 100, 100);
     }
+
+
     $(function () {
         UE.getEditor('content', {
             toolbars: ueditorToolbar1,
@@ -331,24 +450,24 @@
         });
         var click = 0;
 
-        $('#toXc').on('shown.bs.tab',function(e){
-            if(click > 0){
+        $('#toXc').on('shown.bs.tab', function (e) {
+            if (click > 0) {
                 return;
             }
-            var uploader = initWebUploader('filePicker','fileUpload','fileList','loading');
+            var uploader = initWebUploader('filePicker', 'fileUpload', 'fileList', 'loading');
             var $list = $('#fileList');
             var $file_items = $('.file-item');
             var index = $file_items.length;
             uploader.on('fileQueued', function (file) {
                 var $li = $(
-                        '<div id="' + file.id + '" class="file-item thumbnail">' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="1">'+
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
-                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
-                        '<img>' +
-                        '<div class="info">' + file.name + '</div>' +
-                        '</div>'
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].type" value="1">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                    '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '</div>'
                     ),
                     $img = $li.find('img');
                 // $list为容器jQuery实例
@@ -356,25 +475,25 @@
                 // 创建缩略图
                 // 如果为非图片文件，可以不用调用此方法。
                 // thumbnailWidth x thumbnailHeight 为 100 x 100
-                image(uploader,$img,file)
+                image(uploader, $img, file)
 
                 $('#fileUpload').removeClass('hidden');
                 $('#loading').removeClass('hidden');
                 index++;
             });
 
-            var uploader2 = initWebUploader('filePicker2','fileUpload2','fileList2','loading2');
+            var uploader2 = initWebUploader('filePicker2', 'fileUpload2', 'fileList2', 'loading2');
             var $list2 = $('#fileList2');
             uploader2.on('fileQueued', function (file) {
                 var $li = $(
-                        '<div id="' + file.id + '" class="file-item thumbnail">' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="2">'+
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
-                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
-                        '<img>' +
-                        '<div class="info">' + file.name + '</div>' +
-                        '</div>'
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].type" value="2">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                    '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '</div>'
                     ),
                     $img = $li.find('img');
                 // $list为容器jQuery实例
@@ -382,25 +501,25 @@
                 // 创建缩略图
                 // 如果为非图片文件，可以不用调用此方法。
                 // thumbnailWidth x thumbnailHeight 为 100 x 100
-                image(uploader2,$img,file)
+                image(uploader2, $img, file)
 
                 $('#fileUpload2').removeClass('hidden');
                 $('#loading2').removeClass('hidden');
                 index++;
             });
 
-            var uploader3 = initWebUploader('filePicker3','fileUpload3','fileList3','loading3');
+            var uploader3 = initWebUploader('filePicker3', 'fileUpload3', 'fileList3', 'loading3');
             var $list3 = $('#fileList3');
             uploader3.on('fileQueued', function (file) {
                 var $li = $(
-                        '<div id="' + file.id + '" class="file-item thumbnail">' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].type" value="3">'+
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
-                        '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
-                        '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
-                        '<img>' +
-                        '<div class="info">' + file.name + '</div>' +
-                        '</div>'
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].type" value="3">' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_name" value=""/>' +
+                    '<input type="hidden" name="preallAttaches[' + index + '].file_path" value=""/>' +
+                    '<div data-id="' + file.id + '" class="del red"><i class="ace-icon fa fa-trash-o"></i>   删除</div>' +
+                    '<img>' +
+                    '<div class="info">' + file.name + '</div>' +
+                    '</div>'
                     ),
                     $img = $li.find('img');
                 // $list为容器jQuery实例
@@ -408,7 +527,7 @@
                 // 创建缩略图
                 // 如果为非图片文件，可以不用调用此方法。
                 // thumbnailWidth x thumbnailHeight 为 100 x 100
-                image(uploader3,$img,file)
+                image(uploader3, $img, file)
 
                 $('#fileUpload3').removeClass('hidden');
                 $('#loading3').removeClass('hidden');
@@ -430,7 +549,7 @@
         var $group = $("#groups");
         var old_group = '${preallocation.groups}';
         $section.on('change', function () {
-            if($(this).val() == ''){
+            if ($(this).val() == '') {
                 $group.empty();
                 $group.append('<option value="">--请选择标段--</option>');
                 return;
@@ -440,18 +559,18 @@
                 url: url,
                 data: {
                     section_id: $section.find(":checked").attr("data-id"),
-                    is_search : 0
+                    is_search: 0
                 },
                 type: 'post',
                 success: function (result) {
-                    var json = eval('('+result + ')');
+                    var json = eval('(' + result + ')');
                     $group.empty();
                     if (json && json.length) {
                         $group.append('<option value="">--请选择--</option>');
                         $.each(json, function (i, group) {
-                            if(old_group == group.name){
+                            if (old_group == group.name) {
                                 $group.append('<option value="' + group.name + '" selected>' + group.name + '</option>');
-                            }else{
+                            } else {
                                 $group.append('<option value="' + group.name + '">' + group.name + '</option>');
                             }
                         });
@@ -483,7 +602,7 @@
                 $.notify({message: "文件大小不超过20M!!", z_index: 1051});
         });
 
-        $('#checkFile').on('click',function(){
+        $('#checkFile').on('click', function () {
             $("#material-modal").modal('show');
         })
         var $material_form = $("#material-form");
@@ -494,7 +613,7 @@
                 type: 'post', // 提交方式 get/post
                 url: $material_form.attr('action'),
                 success: function (result) {
-                    var json = eval('('+result + ')');
+                    var json = eval('(' + result + ')');
                     if (json.success) {
                         var file_path = json.createFilepath + "/" + json.createFilename;
                         $("#closematerial-modal").click();
@@ -523,7 +642,7 @@
                         },
                         type: 'post',
                         success: function (result) {
-                            var json = eval('('+result + ')');
+                            var json = eval('(' + result + ')');
                             console.log($("#other_file_path").val());
                             if (json.success) {
                                 $("#checkFile").removeClass("hidden");
@@ -538,14 +657,19 @@
             });
         })
 
+
         var $addRelaBody = $('#addRelaBody');
-        var indexRela = $addRelaBody.find('tr').length;
+        var $addRelaBody1 = $('#addRelaBody1');
+//        var indexRela =$addRelaBody.attr('data-id');;
+        var indexRela = $addRelaBody1.find('tr').length;
+        console.log(indexRela)
         $('#addRela').on('click', function () {
+
             var _html = '<tr id="trHome_' + indexRela + '">\
-                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12 relaName" value=""/></td>\
                 <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="1"/>\
-                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
-            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12 host" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no relaIdNo" value="" id="no' + indexRela + '" onblur="exist(' + indexRela + ')" /></td>\
                 <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
                 <td>\
                 <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
@@ -567,14 +691,23 @@
             indexRela++;
         });
 
+        $('#addRelaBody').on('click', '.del', function () {
+            var $that = $(this);
+            var del_id = $that.attr('data-id');
+            console.log(del_id)
+            var $tr = $('#trHome_' + del_id);
+            $tr.remove();
+        })
+
         var $addRelaBody1 = $('#addRelaBody1');
-        var indexRela1 = $addRelaBody1.find('tr').length;
-        $('#addRela').on('click', function () {
-            var _html = '<tr id="trHome_' + indexRela + '">\
-                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
-                <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="1"/>\
-                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
-            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+//        var indexRela1 =$addRelaBody1.find('tr').length;
+        console.log(indexRela)
+        $('#addRela1').on('click', function () {
+            var _html = '<tr id="trHome1_' + indexRela + '">\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12 relaName1" value=""/></td>\
+                <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="2"/>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12 host1" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no relaIdNo1" value=""  id="no' + indexRela + '" onblur="exist(' + indexRela + ')" /></td>\
                 <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
                 <td>\
                 <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
@@ -588,19 +721,22 @@
             </td>\
             <td><textarea name="relas[' + indexRela + '].note" class="col-lg-12"></textarea></td>\
                 <td>\
-                <a data-id="' + indexRela + '" class="del"> 删除 </a>\
+                <a data-id1="' + indexRela + '" class="del"> 删除 </a>\
                 </td>\
                 </tr>';
 
             $addRelaBody1.append(_html);
-            indexRela1++;
+            indexRela++;
         });
-        $('#addRelaBody').on('click', '.del', function () {
+
+        $('#addRelaBody1').on('click', '.del', function () {
             var $that = $(this);
-            var del_id = $that.attr('data-id');
-            var $tr = $('#trHome_' + del_id);
+            var del_id1 = $that.attr('data-id1');
+            console.log(del_id1)
+            var $tr = $('#trHome1_' + del_id1);
             $tr.remove();
         })
+
 
         $("#save-form").validate({
 //            debug : true,
@@ -670,18 +806,25 @@
                 },
                 pulledown_co: {
                     required: false
+                }, name: {
+                    required: true
+                }, id_no: {
+                    required: true
                 }
+
             },
             messages: {
                 map_id: {
                     remote: "<span class=\"red\">编号已存在</span>"
                 }
             },
-            submitHandler:function(form){
-               // return true;
+            submitHandler: function (form) {
+                // return true;
                 form.submit();
             }
         });
+
+
     })
 </script>
 </body>

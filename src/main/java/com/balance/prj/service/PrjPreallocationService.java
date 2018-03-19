@@ -41,9 +41,9 @@ public class PrjPreallocationService {
     private BasePlacementDetailDao placementDetailDao;
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        if(prjPreallocationSearchVO.getChooseType() != null){
+        if (prjPreallocationSearchVO.getChooseType() != null) {
             return prjPreallocationDao.findAllByChoose(prjPreallocationSearchVO);
-        }else{
+        } else {
             return prjPreallocationDao.findAll(prjPreallocationSearchVO);
         }
     }
@@ -94,6 +94,7 @@ public class PrjPreallocationService {
 
         return prjPreallocationDao.add(prjPreallocation);
     }
+
     private List<PreallocationRela> getSaveRela(List<PreallocationRela> relas, PrjPreallocation prjPreallocation) {
         List<PreallocationRela> saveRela = new ArrayList<>();
         if (relas != null && relas.size() > 0) {
@@ -110,6 +111,7 @@ public class PrjPreallocationService {
 
         return saveRela;
     }
+
     public int update(PrjPreallocation prjPreallocation) {
         List<PrjPreallAttach> attachments;
         prjPreallAttachDao.delete(prjPreallocation.getMap_id());
@@ -118,6 +120,14 @@ public class PrjPreallocationService {
             attachments = getAttachList(prjPreallocation.getPreallAttaches(), prjPreallocation.getCreated_by(), prjPreallocation.getMap_id());
             prjPreallAttachDao.batchAdd(attachments);
         }
+        List<PreallocationRela> relas = getSaveRela(prjPreallocation.getRelas(), prjPreallocation);
+        if (relas.size() > 0) {
+            relaDao.delete(prjPreallocation.getMap_id(), prjPreallocation.getPrj_base_info_id());
+
+            relaDao.batchAdd(relas);
+        }
+
+
         return prjPreallocationDao.update(prjPreallocation);
     }
 
@@ -442,6 +452,7 @@ public class PrjPreallocationService {
         }
         return preallocation;
     }
+
     public int saveSelectHouse(String ids, String map_id, int projectId) {
         int flag = 0;
 

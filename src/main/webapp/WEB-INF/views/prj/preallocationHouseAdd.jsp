@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
-                                            <button id="btn-save" class="btn btn-primary" type="submit">
+                                            <button id="btn-save" class="btn btn-primary" type="button">
                                                 <i class="ace-icon fa fa-check bigger-110"></i>
                                                 保存
                                             </button>
@@ -192,108 +192,108 @@
 <script src="<c:url value="/assets/js/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"/>"></script>
 <script>
 
-    //    $("#btn-save1").on('click', function () {
-    //
-    //        var $relaName = $(".relaName");
-    //        if ($relaName.length >= 1) {
-    //            var flag = 0;
-    //            $relaName.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //        var $host = $(".host");
-    //        if ($host.length >= 1) {
-    //            var flag = 0;
-    //            $host.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //
-    //        var $relaIdNo = $(".relaIdNo");
-    //        if ($relaIdNo.length >= 1) {
-    //            var flag = 0;
-    //            $relaIdNo.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //
-    //        var $relaName1 = $(".relaName1");
-    //        if ($relaName1.length >= 1) {
-    //            var flag = 0;
-    //            $relaName1.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //        var $host1 = $(".host1");
-    //        if ($host1.length >= 1) {
-    //            var flag = 0;
-    //            $host1.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //        var $relaIdNo1 = $(".relaIdNo1");
-    //        if ($relaIdNo1.length >= 1) {
-    //            var flag = 0;
-    //            $relaIdNo1.each(function (i, item) {
-    //                if ($(item).val() === '') {
-    //                    $(item).focus();
-    //                    $(item).attr('placeholder', '不能为空');
-    //                    flag = 1;
-    //                    return;
-    //                }
-    //            });
-    //            if (flag === 1) {
-    //                return;
-    //            }
-    //        }
-    //
-    //
-    //    });
+    $("#btn-save").on('click', function () {
+
+        var $relaName = $(".relaName");
+        if ($relaName.length >= 1) {
+            var flag = 0;
+            $relaName.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $host = $(".host");
+        if ($host.length >= 1) {
+            var flag = 0;
+            $host.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+
+        var $relaIdNo = $(".relaIdNo");
+        if ($relaIdNo.length >= 1) {
+            var flag = 0;
+            $relaIdNo.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+
+        var $relaName1 = $(".relaName1");
+        if ($relaName1.length >= 1) {
+            var flag = 0;
+            $relaName1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $host1 = $(".host1");
+        if ($host1.length >= 1) {
+            var flag = 0;
+            $host1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        var $relaIdNo1 = $(".relaIdNo1");
+        if ($relaIdNo1.length >= 1) {
+            var flag = 0;
+            $relaIdNo1.each(function (i, item) {
+                if ($(item).val() === '') {
+                    $(item).focus();
+                    $(item).attr('placeholder', '不能为空');
+                    flag = 1;
+                    return;
+                }
+            });
+            if (flag === 1) {
+                return;
+            }
+        }
+
+        $("#btn-save").submit();
+    });
 
 
     function initWebUploader(pick, fileUpload, fileList, loading) {
@@ -711,10 +711,10 @@
         $('#addRela').on('click', function () {
             var $addRelaBody = $('#addRelaBody');
             var _html = '<tr id="trHome_' + indexRela + '">\
-                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12 relaName" value=""/></td>\
                 <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="1"/>\
-                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
-            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12 host" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no relaIdNo " value="" id="no' + indexRela + '" onblur="exist(' + indexRela + ')"/></td>\
                 <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
                 <td>\
                 <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
@@ -752,9 +752,9 @@
             var $addRelaBody = $('#addRelaBody1');
             var _html = '<tr id="1trHome_' + indexRela + '">\
             <input type="hidden" name="relas[' + indexRela + '].type" class="col-lg-12" value="2"/>\
-                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12" value=""/></td>\
-                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12" value=""/></td>\
-            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].name" class="col-lg-12 relaName" value=""/></td>\
+                <td><input type="text" name="relas[' + indexRela + '].host_relation" class="col-lg-12 host1" value=""/></td>\
+            <td><input type="text" name="relas[' + indexRela + '].id_no" class="col-lg-12 id_no relaIdNo1" value="" id="no' + indexRela + '" onblur="exist(' + indexRela + ')"/></td>\
                 <td><input type="text" name="relas[' + indexRela + '].age" placeholder="来源自身份证号" class="col-lg-12 birthday" readonly value=""/></td>\
                 <td>\
                 <select name="relas[' + indexRela + '].marriage_status" class="col-lg-12">\
@@ -782,6 +782,17 @@
             $tr.remove();
         })
     })
+
+
+    function exist(id_no) {
+        var $no = $("#no" + id_no).val().length;
+        if ($no == 18 || $no == 16) {
+        } else {
+//            $no.focus()
+//            document.getElementById("#no" + id_no).focus();
+            bootbox.alert('请输入正确的身份证号！')
+        }
+    }
 </script>
 </body>
 </html>

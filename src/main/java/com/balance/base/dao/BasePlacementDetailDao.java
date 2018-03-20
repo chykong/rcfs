@@ -159,6 +159,12 @@ public class BasePlacementDetailDao {
         String sql = "SELECT t.*,(select house_image from t_base_house where id=t.house_type) house_url FROM t_base_placementdetail t WHERE prj_base_info_id=?";
         return jdbcTemplate.query(sql, new Object[]{prj_base_info_id}, new BeanPropertyRowMapper<>(BasePlacementDetail.class));
     }
+    public List<BasePlacementDetail> getByMap(int prj_base_info_id,String map_id) {
+        String sql = "SELECT t.*,(select house_image from t_base_house where id=t.house_type) house_url," +
+                "(select name from t_base_house where id=t.house_type) house_type_name FROM t_base_placementdetail t WHERE prj_base_info_id=? and map_id=?";
+        return jdbcTemplate.query(sql, new Object[]{prj_base_info_id,map_id}, new BeanPropertyRowMapper<>(BasePlacementDetail.class));
+    }
+
 
     public int updateSelect(String map_id,int id){
         String sql = "update t_base_placementdetail set map_id=?,selected_at=now(),is_select=1 WHERE id =?";

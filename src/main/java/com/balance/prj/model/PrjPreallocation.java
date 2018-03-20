@@ -1,6 +1,7 @@
 package com.balance.prj.model;
 
 
+import com.balance.base.model.BasePlacementDetail;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -174,11 +175,38 @@ public class PrjPreallocation {
     private int compensation_type; //选房方式  1-面积  2-人口
     private String relas_detail;
 
+    private List<BasePlacementDetail> selectHomes;  //选房信息
     private List<PrjPreallocation>  subHome;  //接收分户情况
     private List<PrjPreallocation>  subBc;  //接收补偿情况
+    private int parent_type;  //分院情况 0-否  1-院  2-户
+    private String parent_id; //分院id
 
     public List<PreallocationRela> getRelas() {
         return relas;
+    }
+
+    public int getParent_type() {
+        return parent_type;
+    }
+
+    public List<BasePlacementDetail> getSelectHomes() {
+        return selectHomes;
+    }
+
+    public void setSelectHomes(List<BasePlacementDetail> selectHomes) {
+        this.selectHomes = selectHomes;
+    }
+
+    public void setParent_type(int parent_type) {
+        this.parent_type = parent_type;
+    }
+
+    public String getParent_id() {
+        return parent_id;
+    }
+
+    public void setParent_id(String parent_id) {
+        this.parent_id = parent_id;
     }
 
     public void setRelas(List<PreallocationRela> relas) {

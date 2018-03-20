@@ -85,6 +85,7 @@
                             <form:form servletRelativeAction="/prj/preallocation/basic/add.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
                                 <input type="hidden" name="backUrl" value="${backUrl}"/>
+                                <input type="hidden" name="type" value="1"/>
                                 <div class="tab-content no-border padding-24">
                                     <!-- 基本情况 begin-->
                                     <div id="faq-tab-basic" class="tab-pane fade active in" data-type="1">

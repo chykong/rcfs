@@ -17,6 +17,7 @@ import com.balance.util.excel.Excel2007Util;
 import com.balance.util.json.JsonUtil;
 import com.balance.util.number.NumberUtil;
 import com.balance.util.session.SessionUtil;
+import com.balance.util.session.UserSession;
 import com.balance.util.string.StringUtil;
 import com.balance.util.web.WebUtil;
 import org.apache.commons.io.FilenameUtils;
@@ -121,8 +122,10 @@ public class PrjPreallocationBasicController extends BaseController {
     @ResponseBody
     public Map getBasic(PrjPreallocationSearchVO preallocationSearchVO, HttpServletRequest request) {
         Map<Object, Object> map = new HashMap<>();
-        preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
-        preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
+        UserSession userSession = SessionUtil.getUserSession(request);
+        preallocationSearchVO.setBase_info_id(userSession.getCurrent_project_id());
+        preallocationSearchVO.setLand_status(userSession.getCurrent_land_status());
+        preallocationSearchVO.setHouse_status(userSession.getCurrent_building_type());
 
         int count = preallocationService.count(preallocationSearchVO);
 
@@ -163,13 +166,13 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(PrjPreallocation preallocation, HttpServletRequest request) {
+    public String add(PrjPreallocation preallocation, HttpServletRequest request,int type) {
         preallocation.setCreated_by(SessionUtil.getUserSession(request).getUser_name());
         preallocation.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
 
         preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_building_name());
         preallocation.setLand_property(SessionUtil.getUserSession(request).getCurrent_land_name());
-        int flag = preallocationService.add(preallocation);
+        int flag = preallocationService.add(preallocation,type);
 
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("拆除腾退人新增失败");
@@ -207,15 +210,18 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(PrjPreallocation preallocation) {
+    public String update(PrjPreallocation preallocation,int type) {
 
 
         PrjPreallocation preallocation_DB = preallocationService.getById(preallocation.getId());
 
         preallocation.setPrj_base_info_id(preallocation_DB.getPrj_base_info_id());
+        preallocation.setLand_property(preallocation_DB.getLand_property());
+        preallocation.setHouse_property(preallocation_DB.getHouse_property());
         preallocation.setCreated_by(preallocation_DB.getCreated_by());
+        preallocation.setParent_type(preallocation_DB.getParent_type());
 
-        int flag = preallocationService.update(preallocation);
+        int flag = preallocationService.update(preallocation,type);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("拆除腾退人修改失败");
         else
@@ -225,8 +231,6 @@ public class PrjPreallocationBasicController extends BaseController {
     @RequestMapping(value = "view", method = RequestMethod.GET)
     public ModelAndView view(int id, HttpServletRequest request) {
         ModelAndView mv = new ModelAndView();
-
-        SessionUtil.getUserSession(request).getCurrent_project_id();
 
         int house_status = SessionUtil.getUserSession(request).getCurrent_building_type();
 
@@ -252,6 +256,8 @@ public class PrjPreallocationBasicController extends BaseController {
 
         mv.addObject("preallocation", preallocation);
         mv.addObject("view_type", 1);
+
+
         return mv;
     }
 

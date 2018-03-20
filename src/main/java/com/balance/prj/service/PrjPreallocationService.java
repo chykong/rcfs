@@ -78,7 +78,7 @@ public class PrjPreallocationService {
         return attachments;
     }
 
-    public int add(PrjPreallocation prjPreallocation) {
+    public int add(PrjPreallocation prjPreallocation, int type) {
         List<PrjPreallAttach> attachments;
         if (prjPreallocation != null && prjPreallocation.getPreallAttaches() != null && prjPreallocation.getPreallAttaches().size() > 0) {
             attachments = getAttachList(prjPreallocation.getPreallAttaches(), prjPreallocation.getCreated_by(), prjPreallocation.getMap_id());
@@ -91,22 +91,101 @@ public class PrjPreallocationService {
             relaDao.batchAdd(relas);
         }
 
-        String mapId = prjPreallocation.getMap_id();
-        String houseType = prjPreallocation.getHouse_property();
-        int max = selectDao.getMaxCode(prjPreallocation.getPrj_base_info_id(), houseType, prjPreallocation.getLand_property());
-        max = max + 1;
-        prjPreallocation.setSigned_code(String.valueOf(max));
+        //保存签约序号
 
-        PrjSelected prjSelected = new PrjSelected();
-        prjSelected.setMap_id(mapId);
-        prjSelected.setCompensation_type(1);
-        prjSelected.setHouse_type(houseType);
-        prjSelected.setSelected_code(max);
-        prjSelected.setCompensation_type(1);
-        prjSelected.setProject_id(prjPreallocation.getPrj_base_info_id());
-        prjSelected.setLand_type(prjPreallocation.getLand_property());
-        selectDao.add(prjSelected);
+
+        if (type == 2) {
+            int result = saveSubHome(prjPreallocation);
+            if (result > 0) {
+                prjPreallocation.setParent_type(1);
+            } else if (result == -1) {
+                return 0;
+            } else {
+                prjPreallocation.setSigned_code(String.valueOf(saveMaxCode(prjPreallocation)));
+                prjPreallocation.setParent_type(0);
+            }
+        } else {
+            prjPreallocation.setParent_type(0);
+        }
         return prjPreallocationDao.add(prjPreallocation);
+    }
+
+    private int saveSubHome(PrjPreallocation prjPreallocation) {
+        int flag = 0, sunNum = 0;
+        List<PrjPreallocation> subHomeList = prjPreallocation.getSubHome();
+        List<PrjPreallocation> subBcList = prjPreallocation.getSubBc();
+        for (int i = 0; i < subHomeList.size(); i++) {
+            PrjPreallocation subHome = subHomeList.get(i);
+            PrjPreallocation subBc = subBcList.get(i);
+            if (StringUtil.isNotNullOrEmpty(subHome.getMap_id()) && subHome.getMap_id().equals(subBc.getMap_id())) {
+                subHome.setMoney_homestead(subBc.getMoney_homestead());
+                subHome.setMoney_adjunct(subBc.getMoney_adjunct());
+                subHome.setMoney_ljjl(subBc.getMoney_ljjl());
+                subHome.setProject_cooperate_award(subBc.getProject_cooperate_award());
+                subHome.setMoney_relocate(subBc.getMoney_relocate());
+                subHome.setMoney_ql(subBc.getMoney_ql());
+                subHome.setMoney_new_house(subBc.getMoney_new_house());
+                subHome.setMoney_no_house(subBc.getMoney_no_house());
+                subHome.setMoney_cy(subBc.getMoney_cy());
+                subHome.setMoney_fwzh(subBc.getMoney_fwzh());
+                subHome.setTotal_yjf(subBc.getTotal_yjf());
+                subHome.setMoney_qt(subBc.getMoney_qt());
+
+                subHome.setParent_type(2);
+                subHome.setParent_id(prjPreallocation.getMap_id());
+                subHome.setPrj_base_info_id(prjPreallocation.getPrj_base_info_id());
+                subHome.setLand_property(prjPreallocation.getLand_property());
+                subHome.setHouse_property(prjPreallocation.getHouse_property());
+                subHome.setLocation(prjPreallocation.getLocation());
+                subHome.setTown(prjPreallocation.getTown());
+                subHome.setVillage(prjPreallocation.getVillage());
+                subHome.setSection(prjPreallocation.getSection());
+                subHome.setGroups(prjPreallocation.getGroups());
+
+                subHome.setSigned_code(String.valueOf(saveMaxCode(subHome)));
+
+                subHome.setStatus(prjPreallocation.getStatus());
+                subHome.setIn_host_date(prjPreallocation.getIn_host_date());
+                subHome.setSigned_date(prjPreallocation.getSigned_date());
+                if (prjPreallocationDao.add(subHome) == 0) {
+                    flag = 1;
+                    break;
+                }
+                sunNum++;
+            }
+        }
+        if (flag == 1) {
+            return -1;
+        }
+        return sunNum;
+
+    }
+
+    private int saveMaxCode(PrjPreallocation prjPreallocation) {
+        String mapId = prjPreallocation.getMap_id();
+        int projectId = prjPreallocation.getPrj_base_info_id();
+        String landType = prjPreallocation.getLand_property();
+        String houseType = prjPreallocation.getHouse_property();
+
+        PrjSelected prjSelectedDb = selectDao.getByMapId(mapId, projectId, houseType, landType);
+        if (prjSelectedDb == null) {
+            int max = selectDao.getMaxCode(projectId, houseType, landType);
+            max = max + 1;
+
+            PrjSelected prjSelected = new PrjSelected();
+            prjSelected.setMap_id(mapId);
+            prjSelected.setCompensation_type(1);
+            prjSelected.setHouse_type(houseType);
+            prjSelected.setSelected_code(max);
+            prjSelected.setCompensation_type(1);
+            prjSelected.setProject_id(prjPreallocation.getPrj_base_info_id());
+            prjSelected.setLand_type(prjPreallocation.getLand_property());
+            selectDao.add(prjSelected);
+            return max;
+        } else {
+            return prjSelectedDb.getSelected_code();
+        }
+
     }
 
     private List<PreallocationRela> getSaveRela(List<PreallocationRela> relas, PrjPreallocation prjPreallocation) {
@@ -126,7 +205,7 @@ public class PrjPreallocationService {
         return saveRela;
     }
 
-    public int update(PrjPreallocation prjPreallocation) {
+    public int update(PrjPreallocation prjPreallocation, int type) {
         List<PrjPreallAttach> attachments;
         prjPreallAttachDao.delete(prjPreallocation.getMap_id());
 
@@ -139,6 +218,13 @@ public class PrjPreallocationService {
             relaDao.delete(prjPreallocation.getMap_id(), prjPreallocation.getPrj_base_info_id());
 
             relaDao.batchAdd(relas);
+        }
+        if (type == 2 && prjPreallocation.getParent_type() == 1) {
+            prjPreallocationDao.deleteByParent(prjPreallocation.getMap_id(), prjPreallocation.getPrj_base_info_id());
+            int result = saveSubHome(prjPreallocation);
+            if (result == -1) {
+                return 0;
+            }
         }
 
 
@@ -162,6 +248,16 @@ public class PrjPreallocationService {
         }
         prjPreallocation.setRelas_detail(rela_detail);
 
+        if (prjPreallocation.getParent_type() == 1) {
+            List<PrjPreallocation> subHomes = prjPreallocationDao.getByparentId(prjPreallocation.getMap_id());
+            for (PrjPreallocation subHome : subHomes) {
+                if (StringUtil.isNotNullOrEmpty(subHome.getChoose_room_position()) && subHome.getStatus() == 50) {
+                    List<BasePlacementDetail> choose = placementDetailDao.getByMap(subHome.getPrj_base_info_id(),subHome.getMap_id());
+                    subHome.setSelectHomes(choose);
+                }
+            }
+            prjPreallocation.setSubHome(subHomes);
+        }
         return prjPreallocation;
     }
 

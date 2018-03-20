@@ -83,19 +83,25 @@
                                         特殊情况
                                     </a>
                                 </li>
+                                <li class="" data-type="8">
+                                    <a data-toggle="tab" href="#faq-tab-az" aria-expanded="true">
+                                        <i class="blue ace-icon fa fa-home bigger-120"></i>
+                                        安置情况
+                                    </a>
+                                </li>
                             </ul>
                             <form:form servletRelativeAction="/prj/preallocation/basic/update.htm" id="save-form" method="post"
                                        cssClass="form-horizontal" commandName="preallocation">
                                 <div class="tab-content no-border padding-24">
                                     <!-- 基本情况 begin-->
                                     <div id="faq-tab-basic" class="tab-pane fade active in" data-type="1">
-                                        <%@ include file="_formfields.jspf" %>
+                                        <%@ include file="./new_jsp/_fy_formfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-jd" class="tab-pane fade" data-type="2">
                                         <%@ include file="_jdformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-bc" class="tab-pane fade" data-type="3">
-                                        <%@ include file="_bcformfields.jspf" %>
+                                        <%@ include file="./new_jsp/_fy_bcformfields.jspf" %>
                                     </div>
                                     <div id="faq-tab-qt" class="tab-pane fade" data-type="4">
                                         <%@ include file="_inhost_formfields.jspf" %>
@@ -105,14 +111,15 @@
                                         <%@ include file="_xc_photo.jspf" %>
                                     </div>
 
-
-
                                     <div id="faq-tab-rk" class="tab-pane fade" data-type="6">
                                         <%@ include file="_rk_info.jspf" %>
                                     </div>
 
                                     <div id="faq-tab-ts" class="tab-pane fade" data-type="6">
                                             ${preallocation.content }
+                                    </div>
+                                    <div id="faq-tab-az" class="tab-pane fade" data-type="8">
+                                        <%@ include file="./new_jsp/_fy_select_datatable.jsp" %>
                                     </div>
                                     <div class="clearfix form-actions">
                                         <div class="col-md-offset-3 col-xs-offset-3 col-md-9">
@@ -142,6 +149,10 @@
         $("input").attr('placehodler','0');
         $("select").attr('disabled','true');
         $("textarea").attr('readonly','true');
+        var $times = $('.fa-times').closest('a');
+        var $strong = $times.prev();
+        $strong.remove();
+        $times.remove();
 
         $('[id*=filePicker]').addClass('hidden');
         $('.del').addClass('hidden');
@@ -152,7 +163,6 @@
         $("#delFile").addClass('hidden');
         $("#checkFile").addClass('hidden');
 
-        countYjf();
 
         var $section = $("#section");
         var $group = $("#groups");

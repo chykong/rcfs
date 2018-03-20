@@ -217,11 +217,113 @@
     <a id="subHome" class="btn btn-primary btn-white"><i class="ace-icon fa fa-plus"></i> 分户</a>
 </div>
 <div id="subHomes">
-
+    <c:forEach items="${preallocation.subHome}" var="subHome" varStatus="st">
+        <div class="row">
+            <div class="widget-box subHomeItem">
+                <div class="widget-header"><h4 class="widget-title lighter smaller">
+                    <i class="ace-icon fa fa-user blue"></i><span class="show_text">${subHome.host_name}</span>
+                </h4>
+                    <div class="widget-toolbar">
+                        <strong class="show-head">收起</strong>
+                        <a href="#" data-action="collapse">
+                            <i class="ace-icon fa fa-chevron-up"></i>
+                        </a>
+                        <strong class="show-head">删除</strong>
+                        <a href="#">
+                            <i class="ace-icon red fa fa-times" data-index="${st.index}"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main no-padding row" style="margin-top: 5px">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right">编号：</label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input type="text" id="map_id_${st.index}" name="subHome[${st.index}].map_id"
+                                           data-index="${st.index}" class="col-xs-10 col-sm-10 col-lg-9 map_show"
+                                           placeholder="请输入编号..." maxlength="20" value="${subHome.map_id}"/>
+                                    <label></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                                    确权宅基地面积：
+                                </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input type="text" id="cog_land_area_${st.index}"
+                                           name="subHome[${st.index}].cog_land_area" value="${subHome.cog_land_area}"
+                                           class="col-xs-10 col-sm-10 col-lg-9 cog_land_area"
+                                           placeholder="请输入确权宅基地面积..." maxlength="12"/>
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group"><label
+                                    class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                                被拆迁人：
+                            </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input type="text" id="host_name_${st.index}" name="subHome[${st.index}].host_name"
+                                           data-index="${st.index}" class="col-xs-10 col-sm-10 col-lg-9 host_show"
+                                           placeholder="请输入被拆迁人..." value="${subHome.host_name}"
+                                           maxlength="40"/>
+                                    <label id=""></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                    总建筑面积：
+                                </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input type="text" id="total_homestead_area_${st.index}"
+                                           name="subHome[${st.index}].total_homestead_area"
+                                           class="col-xs-10 col-sm-10 col-lg-9 total_homestead"
+                                           value="${subHome.total_homestead_area}"
+                                           placeholder="请输入总建筑面积..." maxlength="10"/>
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                    身份证号：
+                                </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input id="id_card_${st.index}" name="subHome[${st.index}].id_card"
+                                           value="${subHome.id_card}"
+                                           type="text" class="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入身份证号..."
+                                           maxlength="18"/>
+                                    <label></label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                                    75%建筑面积：
+                                </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input id="card_homestead_area_${st.index}"
+                                           name="subHome[${st.index}].card_homestead_area" type="text"
+                                           class="col-xs-10 col-sm-10 col-lg-9 card_homestead" readonly
+                                           value="${subHome.total_homestead_area * 0.75}"
+                                           placeholder="自动算出75%建筑面积..."
+                                           maxlength="10"/>
+                                    <label></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
 </div>
 <script type="application/javascript">
     $(function () {
-        var indexRela = 0;
+        var $subHomeItem = $('#subHomes').find('.subHomeItem');
+        var indexRela = $subHomeItem.length;
         $('#subHome').on('click', function () {
             var $subHomes = $('#subHomes');
             var _html = '<div class="row"><div class="widget-box"><div class="widget-header"><h4 class="widget-title lighter smaller">\
@@ -430,7 +532,7 @@
             indexRela++;
         });
 
-        $('#subHomes').on('change','.host_show',function(){
+        $('#subHomes').on('change', '.host_show', function () {
             var $widget_box = $(this).closest('.widget-box');
             var $show = $widget_box.find('.show_text');
 
@@ -440,14 +542,14 @@
             $show.html($(this).val());
             $bc_show.html($(this).val());
         });
-        $('#subHomes').on('change','.map_show',function(){
+        $('#subHomes').on('change', '.map_show', function () {
             var $bc_box = $('#bc_' + $(this).attr('data-index'));
             var $bc_map = $bc_box.find('.bc_map');
 
             console.log($bc_map)
             $bc_map.val($(this).val());
         });
-        $('#subHomes').on('click','.fa-times',function(){
+        $('#subHomes').on('click', '.fa-times', function () {
             var $widget_box = $(this).closest('.widget-box');
             var $bc_box = $('#bc_' + $(this).attr('data-index'));
 
@@ -455,11 +557,11 @@
             $bc_box.remove();
         });
 
-        $('#total_homestead_area').on('input propertychange',function () {
+        $('#total_homestead_area').on('input propertychange', function () {
             $('#card_homestead_area').val($(this).val() * 0.75);
         })
 
-        $('#subHomes').on('input propertychange','.total_homestead',function () {
+        $('#subHomes').on('input propertychange', '.total_homestead', function () {
             var $widget_box = $(this).closest('.widget-box');
             var $card_homestead = $widget_box.find('.card_homestead');
 
@@ -467,26 +569,26 @@
         })
 
 
-        $('#subHomes').on('change','.cog_land_area',function () {
+        $('#subHomes').on('change', '.cog_land_area', function () {
             var $cog_land_area = $('.cog_land_area');
             var $total_land_area = $('#cog_land_area');
             var cog_land_area = 0;
-            var $that = $(this),flag = 0;
+            var $that = $(this), flag = 0;
 
             $cog_land_area.each(function (i, item) {
-                if($(item).val() != ''){
+                if ($(item).val() != '') {
                     cog_land_area += parseFloat($(item).val());
-                }else{
-                    flag ++;
+                } else {
+                    flag++;
                 }
             })
 
-            if($total_land_area.val() == ''){
-                if(flag == 0){
+            if ($total_land_area.val() == '') {
+                if (flag == 0) {
                     $total_land_area.val(cog_land_area);
                 }
-            }else{
-                if($total_land_area.val() < cog_land_area){
+            } else {
+                if ($total_land_area.val() < cog_land_area) {
                     $that.val('').focus();
                     bootbox.alert('分户确权宅基地面积不能超过院的面积!');
                 }

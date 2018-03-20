@@ -87,6 +87,7 @@
                                        cssClass="form-horizontal" commandName="preallocation">
                                 <div class="tab-content no-border padding-24">
                                     <input type="hidden" name="backUrl" value="${backUrl}"/>
+                                    <input type="hidden" name="type" value="1"/>
                                     <!-- 基本情况 begin-->
                                     <div id="faq-tab-basic" class="tab-pane fade <c:if test="${type == 1}">active in</c:if>" data-type="1">
                                         <%@ include file="_formfields.jspf" %>

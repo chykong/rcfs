@@ -111,6 +111,132 @@
     </div>
 </div>
 <div id="subBc">
+<c:forEach items="${preallocation.subHome}" var="subHome" varStatus="st">
+    <div class="row">
+        <div class="widget-box" id="bc_${st.index}">
+            <div class="widget-header">
+                <h4 class="widget-title lighter smaller">
+                    <i class="ace-icon fa fa-user blue"></i><span class="show_text">${subHome.host_name}</span>
+                </h4>
+                <div class="widget-toolbar">
+                    <strong class="show-head">收起</strong>
+                    <a href="#" data-action="collapse">
+                        <i class="ace-icon fa fa-chevron-up"></i>
+                    </a>
+                    <strong class="show-head">删除</strong>
+                    <a href="#" >
+                        <i class="ace-icon red fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main no-padding row" style="margin-top: 5px">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                宅基地区位补偿价：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="hidden" id="map_id_${st.index}" name="subBc[${st.index}].map_id" class="col-xs-10 col-sm-10 col-lg-9 bc_map" value="${subHome.map_id}" placeholder="" maxlength="20"/>
+                                <input type="text" id="money_homestead_${st.index}" name="subBc[${st.index}].money_homestead" class="col-xs-10 col-sm-10 col-lg-9 pinggu"  value="${subHome.money_homestead}" placeholder="请输入宅基地区位补偿价..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                装修及附属物补偿价：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_adjunct_${st.index}" name="subBc[${st.index}].money_adjunct" class="col-xs-10 col-sm-10 col-lg-9 pinggu"  value="${subHome.money_adjunct}" placeholder="请输入装修及附属物补偿价..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                资源节约和垃圾减量奖励：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_ljjl_${st.index}" name="subBc[${st.index}].money_ljjl" class="col-xs-10 col-sm-10 col-lg-9 pinggu" value="${subHome.money_ljjl}" placeholder="请输入资源节约和垃圾减量奖励..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                工程配合奖：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="project_cooperate_award_${st.index}" name="subBc[${st.index}].project_cooperate_award" value="${subHome.project_cooperate_award}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入工程配合奖..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                搬家补助费：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_relocate_${st.index}" name="subBc[${st.index}].money_relocate" value="${subHome.money_relocate}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入搬家补助费..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                弃楼补贴：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_ql_${st.index}" name="subBc[${st.index}].money_ql" value="${subHome.money_ql}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入弃楼补贴..." maxlength="20"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                房屋重置成新价：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_new_house_${st.index}" name="subBc[${st.index}].money_new_house" value="${subHome.money_new_house}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋重置成新价..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                未建房奖励：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_no_house_${st.index}" name="subBc[${st.index}].money_no_house" value="${subHome.money_no_house}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入未建房奖励..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                创业补助：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_cy_${st.index}" name="subBc[${st.index}].money_cy" value="${subHome.money_cy}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入创业补助..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                房屋周转费：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_fwzh_${st.index}" name="subBc[${st.index}].money_fwzh" value="${subHome.money_fwzh}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入房屋周转费..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                设备迁移费：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="total_yjf_${st.index}" name="subBc[${st.index}].total_yjf" value="${subHome.total_yjf}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入设备迁移费..." maxlength="20"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  class="col-sm-3 col-lg-4 control-label no-padding-right">
+                                其他：
+                            </label>
+                            <div class="col-sm-9 col-lg-8">
+                                <input type="text" id="money_qt_${st.index}" name="subBc[${st.index}].money_qt" value="${subHome.money_qt}" class="col-xs-10 col-sm-10 col-lg-9 pinggu" placeholder="请输入其他..." maxlength="20"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</c:forEach>
 </div>
 
 

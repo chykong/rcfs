@@ -497,7 +497,7 @@
                     type: 'post',
                     success: function (result) {
                         var json = eval('(' + result + ')');
-                        if (json.status != 20 && json.status != 50) {
+                        if (json.status != 20) {
                             bootbox.alert('未签约完成无法选房!');
                             return;
                         }
@@ -612,7 +612,7 @@
                 $('#select-items').append(_html);
                 //表单显示
                 var table_html = $(select_item).attr("data-build") + '号楼 ' + $(select_item).attr("data-map");
-                var tr_html ='<tr  id="js_' + $(select_item).attr("id") +'">\
+                var tr_html = '<tr  id="js_' + $(select_item).attr("id") + '">\
                         <td class="text-right no-bg">选房位置：</td>\
                     <td class="no-bg" >' + table_html + '</td>\
                         <td class="text-right no-bg" width="120">选房面积：</td>\
@@ -649,12 +649,12 @@
                     return;
                 }
                 var map_ids = '';
-                $select_info.each(function(i,item){
+                $select_info.each(function (i, item) {
                     console.log($(item))
                     map_ids += $(item).attr("data-id") + ',';
                 })
-                if(map_ids.length > 1){
-                    map_ids = map_ids.substring(0,map_ids.length-1);
+                if (map_ids.length > 1) {
+                    map_ids = map_ids.substring(0, map_ids.length - 1);
                 }
                 $('#save_select').val(map_ids);
                 $('#save_map').val($('#qr_code').html());
@@ -672,6 +672,11 @@
                     success: function (data) { // data 保存提交后返回的数据，一般为 json 数据
                         var dataObj = eval("(" + data + ")");
                         console.log(dataObj);
+                        bootbox.alert(dataObj.msgText, function () {
+                            if(dataObj.success){
+                                window.location.reload();
+                            }
+                        });
                     }
                 });
             })

@@ -28,7 +28,7 @@ import java.util.Map;
 public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocationSearchVO> {
 
     public List<PrjPreallocation> findAll(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = "select plc.* from t_prj_preallocation plc";
+        String sql = "select plc.* from t_prj_preallocation plc where 1=1 and parent_type != 2";
         sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by plc.id asc,status";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
@@ -38,7 +38,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     public List<PrjPreallocation> findAllByChoose(PrjPreallocationSearchVO prjPreallocationSearchVO) {
         String sql = "select DISTINCT plc.*,(select count(*) from t_prj_preallocationrela WHERE map_id=plc.map_id " +
                 "AND prj_base_info_id=plc.prj_base_info_id) relas_num,tbp.build_code,tbp.floor,tbp.map_code from t_prj_preallocation plc " +
-                "left join t_base_placementdetail tbp on plc.map_id=tbp.map_id and plc.prj_base_info_id=tbp.prj_base_info_id ";
+                "left join t_base_placementdetail tbp on plc.map_id=tbp.map_id and plc.prj_base_info_id=tbp.prj_base_info_id where 1=1 and parent_type != 1";
         sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by status,plc.id desc";
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
@@ -52,7 +52,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
      * @return
      */
     public List<HouseholdersDTO> list(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = "select plc.id,plc.map_id,plc.cog_land_area ,plc.host_name from t_prj_preallocation plc ";
+        String sql = "select plc.id,plc.map_id,plc.cog_land_area ,plc.host_name from t_prj_preallocation plc where 1=1 ";
         sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by  CONVERT(host_name USING gbk)";
         sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
@@ -61,7 +61,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     }
 
     public List<GisDTO> listForGis(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = "select plc.* from t_prj_preallocation plc";
+        String sql = "select plc.* from t_prj_preallocation plc where 1=1 ";
         sql += createSearchSql(prjPreallocationSearchVO);
         sql += " order by  CONVERT(host_name USING gbk)";
         sql = PageUtil.createMysqlPageSql(sql, prjPreallocationSearchVO.getPageIndex(), prjPreallocationSearchVO.getPageSize());
@@ -70,7 +70,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     }
 
     public int count(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = "select count(*) from t_prj_preallocation plc";
+        String sql = "select count(*) from t_prj_preallocation plc where 1=1 ";
         sql += createSearchSql(prjPreallocationSearchVO);
 
         SqlParameterSource params = new BeanPropertySqlParameterSource(prjPreallocationSearchVO);
@@ -89,7 +89,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 "demolition_card_code, demolition_year_code, money_date, village, town, before_area, between_area, after_area," +
                 " management_house_area, field_house_area, no_sign_reason,in_host_date,status,total_yjf,appraise_money," +
                 "float_people,car_num,rmgl_num,rqgl_num,zqgl_num,jzzz_num,scqg_num,qx_num,fz_num,wl_num,qt_num,scattered_coal,last_area,content,signed_code" +
-                ",money_ql,money_ljjl,money_no_house,money_cy,money_fwzh) " +
+                ",money_ql,money_ljjl,money_no_house,money_cy,money_fwzh,parent_type,parent_id,money_new_house) " +
                 "VALUES(:map_id, :host_name, :location, :id_card, :house_property," +
                 " :money_homestead, :money_adjunct, :incentive_fees, :money_relocate, :money_ssbcf, :money_dhyjf,:money_yxdsyjf," +
                 " :money_ktyjf, :money_rsqyjf, :subsidy_relocate,:total_compensation, :handover_house_date,:signed_date, :leader," +
@@ -101,7 +101,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " :demolition_card_code, :demolition_year_code, :money_date, :village, :town, :before_area, :between_area, :after_area," +
                 " :management_house_area, :field_house_area, :no_sign_reason,:in_host_date,:status,:total_yjf,:appraise_money," +
                 ":float_people,:car_num,:rmgl_num,:rqgl_num,:zqgl_num,:jzzz_num,:scqg_num,:qx_num,:fz_num,:wl_num,:qt_num,:scattered_coal,:last_area,:content,:signed_code" +
-                ",:money_ql,:money_ljjl,:money_no_house,:money_cy,:money_fwzh)";
+                ",:money_ql,:money_ljjl,:money_no_house,:money_cy,:money_fwzh,:parent_type,:parent_id,:money_new_house)";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -127,7 +127,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
                 " management_house_area=:management_house_area, field_house_area=:field_house_area, no_sign_reason=:no_sign_reason,status=:status," +
                 " float_people=:float_people,car_num=:car_num,rmgl_num=:rmgl_num,rqgl_num=:rqgl_num,zqgl_num=:zqgl_num,jzzz_num=:jzzz_num" +
                 ",scqg_num=:scqg_num,qx_num=:qx_num,fz_num=:fz_num,wl_num=:wl_num,qt_num=:qt_num,scattered_coal=:scattered_coal,last_area=:last_area,content=:content," +
-                "money_ql=:money_ql,money_ljjl=:money_ljjl,money_no_house=:money_no_house,money_cy=:money_cy,money_fwzh=:money_fwzh WHERE id=:id ";
+                "money_ql=:money_ql,money_ljjl=:money_ljjl,money_no_house=:money_no_house,money_cy=:money_cy,money_fwzh=:money_fwzh,parent_type=:parent_type,money_new_house=:money_new_house WHERE id=:id ";
 
         SqlParameterSource param = new BeanPropertySqlParameterSource(prjPreallocation);
         return getNamedParameterJdbcTemplate().update(sql, param);
@@ -179,6 +179,11 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }
 
+    public List<PrjPreallocation> getByparentId(String map_id) {
+        String sql = "SELECT * FROM t_prj_preallocation WHERE parent_id=? AND parent_type=2";
+        return jdbcTemplate.query(sql, new Object[]{map_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
+    }
+
     public boolean existByMapId(String map_Id, int project_id) {
         String sql = "SELECT * FROM t_prj_preallocation WHERE map_id= ? AND prj_base_info_id=?";
         return jdbcTemplate.query(sql, new Object[]{map_Id, project_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class)).size() > 0;
@@ -211,6 +216,11 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     public int delete(int id) {
         String sql = "DELETE FROM t_prj_preallocation   WHERE id=?";
         return jdbcTemplate.update(sql, id);
+    }
+
+    public int deleteByParent(String map_id, int prj_base_info_id) {
+        String sql = "DELETE FROM t_prj_preallocation   WHERE parent_id=? AND parent_type=2 AND prj_base_info_id=?";
+        return jdbcTemplate.update(sql, map_id, prj_base_info_id);
     }
 
     public int deleteBatch(List<String> map_ids, int prj_base_info_id) {
@@ -249,7 +259,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     }
 
     private String createSearchSql(PrjPreallocationSearchVO prjPreallocationSearchVO) {
-        String sql = " where 1=1";
+        String sql = " ";
         if (prjPreallocationSearchVO.getLand_status() != null) {
             switch (prjPreallocationSearchVO.getLand_status()) {
                 case 1:
@@ -404,7 +414,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
     }
 
     public List<PrjPreallocation> findAllForExport(PrjPreallocationSearchVO preallocationSearchVO) {
-        String sql = "select plc.* from t_prj_preallocation plc";
+        String sql = "select plc.* from t_prj_preallocation plc where 1=1";
         sql += createSearchSql(preallocationSearchVO);
         sql += " order by plc.id asc,status";
         SqlParameterSource params = new BeanPropertySqlParameterSource(preallocationSearchVO);
@@ -417,6 +427,7 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         List<PrjPreallocation> prjPreallocations = jdbcTemplate.query(sql, new Object[]{selectCode}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }
+
     public int updateSelect(int selectId, String mapId, int projectId) {
         String sql = "UPDATE t_prj_preallocation SET  choose_room_position=?,choose_room_date=now(),status=50 WHERE map_id=? AND prj_base_info_id=?";
         return jdbcTemplate.update(sql, selectId, mapId, projectId);

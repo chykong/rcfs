@@ -179,9 +179,9 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }
 
-    public List<PrjPreallocation> getByparentId(String map_id) {
-        String sql = "SELECT * FROM t_prj_preallocation WHERE parent_id=? AND parent_type=2";
-        return jdbcTemplate.query(sql, new Object[]{map_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
+    public List<PrjPreallocation> getByparentId(String map_id, int prj_base_info_id) {
+        String sql = "SELECT * FROM t_prj_preallocation WHERE parent_id=? AND prj_base_info_id=? AND parent_type=2";
+        return jdbcTemplate.query(sql, new Object[]{map_id, prj_base_info_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
 
     public boolean existByMapId(String map_Id, int project_id) {

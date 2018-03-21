@@ -78,7 +78,7 @@
                             <option value="5" <c:if test="${rela.marriage_status == 5}">selected</c:if>>丧偶</option>
                         </select>
                     </td>
-                    <td><textarea name="relas[${st.index}].note" class="col-lg-12">${rela.note}</textarea></td>
+                    <td><input type="text" name="relas[${st.index}].note" class="col-lg-12" value="${rela.note}"/></td>
                     <c:if test="${view_type!=1}">
                         <td>
                             <a data-id="${st.index}" class="del"> 删除 </a>
@@ -151,7 +151,7 @@
                             <option value="5" <c:if test="${rela.marriage_status == 5}">selected</c:if>>丧偶</option>
                         </select>
                     </td>
-                    <td><textarea name="relas[${st.index}].note" class="col-lg-12">${rela.note}</textarea></td>
+                    <td><input type="text" name="relas[${st.index}].note" class="col-lg-12" value="${rela.note}"/></td>
                     <c:if test="${view_type!=1}">
                         <td>
                             <a data-id1="${st.index}" class="del"> 删除 </a>

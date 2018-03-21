@@ -235,8 +235,8 @@
                         <div class="hr hr-18 dotted hr-double"></div>
                         <div style="position: relative">
                             <c:choose>
-                                <c:when test="${land_status == 1}">
-                                    <%@ include file="_datatable.jsp" %>
+                                <c:when test="${house_status == 1}">
+                                    <%@ include file="./new_jsp/_fy_datatable.jsp" %>
                                 </c:when>
                                 <c:otherwise>
                                     <%@ include file="_datatable.jsp" %>

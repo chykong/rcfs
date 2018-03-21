@@ -407,7 +407,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         pulledown_co, demolition_year_code, demolition_card_code, relocate_date, remarks, in_host_date,
                         ldrk_num, car_num, rmgl_num, rqgl_num, zqgl_num, sm_num, jjzz_num, scqg_num, qx_num,
                         wl_num, fz_num, qt_num, getUserName(request), rowIndex, getProjectId(request));
-
+                preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_building_name());
                 preallocations.add(preallocation);
             }
         }
@@ -497,6 +497,7 @@ public class PrjPreallocationBasicController extends BaseController {
                         ldrk_num, car_num, rmgl_num, rqgl_num, zqgl_num, sm_num, jjzz_num, scqg_num, qx_num,
                         wl_num, fz_num, qt_num,
                         getUserName(request), rowIndex, getProjectId(request));
+                preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_building_name());
                 preallocations.add(preallocation);
             }
         }

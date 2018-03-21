@@ -57,6 +57,16 @@
                 <label id="locationTip"></label>
             </div>
         </div>
+        <div class="form-group">
+            <form:label path="signed_code" cssClass="col-sm-3 col-lg-4 control-label no-padding-right">
+                选房顺序号：
+            </form:label>
+            <div class="col-sm-9 col-lg-8">
+                <form:input path="signed_code" cssClass="col-xs-10 col-sm-10 col-lg-9" placeholder="请输入选房顺序号..."
+                            maxlength="200"/>
+                <label id="signed_codeTip"></label>
+            </div>
+        </div>
         <div class="form-group hidden">
             <label class="col-sm-3 col-lg-4 control-label">附件文件：</label>
             <input type="hidden" id="other_file_path" name="other_file_path" value="${preallocation.other_file_path}"/>
@@ -258,6 +268,18 @@
                                     <label></label>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">
+                                    选房顺序号：
+                                </label>
+                                <div class="col-sm-9 col-lg-8">
+                                    <input type="text" id="signed_code_${st.index}"
+                                           name="subHome[${st.index}].signed_code" value="${subHome.signed_code}"
+                                           class="col-xs-10 col-sm-10 col-lg-9 cog_land_area"
+                                           placeholder="请输入选房顺序号..." maxlength="12"/>
+                                    <label></label>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group"><label
@@ -355,7 +377,20 @@
                 <input type="text" id="cog_land_area_' + indexRela + '" name="subHome[' + indexRela + '].cog_land_area"\
                 class="col-xs-10 col-sm-10 col-lg-9 cog_land_area" placeholder="请输入确权宅基地面积..." maxlength="12"/>\
                 <label></label>\
-                </div></div></div>\
+                </div></div>\
+                <div class="form-group">\
+                <label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">\
+                选房顺序号：\
+                </label>\
+                <div class="col-sm-9 col-lg-8">\
+                <input type="text" id="signed_code_' + indexRela + '"\
+                name="subHome[' + indexRela + '].signed_code" value=""\
+                class="col-xs-10 col-sm-10 col-lg-9 cog_land_area"\
+                placeholder="请输入选房顺序号..." maxlength="12"/>\
+                <label></label>\
+                </div>\
+                </div>\
+                </div>\
                 <div class="col-lg-4"><div class="form-group"><label class="col-sm-3 col-lg-4 control-label no-padding-right no-padding-left">\
                 被拆迁人：\
                 </label>\
@@ -529,6 +564,11 @@
                 </div>';
             $subBc.append(_html2);
 
+            var $signed = $('#signed_code');
+            $signed.val('');
+            var $group = $signed.closest('.form-group');
+            $group.addClass('hidden');
+
             indexRela++;
         });
 
@@ -555,6 +595,14 @@
 
             $widget_box.remove();
             $bc_box.remove();
+
+            var $subHomes = $('#subHomes').find('.widget-box');
+            if($subHomes.length == 0){
+                var $signed = $('#signed_code');
+                var $group = $signed.closest('.form-group');
+                $group.removeClass('hidden');
+            }
+
         });
 
         $('#total_homestead_area').on('input propertychange', function () {

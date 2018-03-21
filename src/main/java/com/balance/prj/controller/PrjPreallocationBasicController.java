@@ -138,6 +138,13 @@ public class PrjPreallocationBasicController extends BaseController {
         return map;
     }
 
+    @RequestMapping(value = {"getSubHome"})
+    public ModelAndView getSubHome(HttpServletRequest request, String map_id) {
+        ModelAndView mv = new ModelAndView("prj/new_jsp/subHome");
+        List<PrjPreallocation> preallocations = preallocationService.getSubHome(map_id, SessionUtil.getUserSession(request).getCurrent_project_id());
+        mv.addObject("preallocations", preallocations);
+        return mv;
+    }
 
     @RequestMapping(value = "toAdd", method = RequestMethod.GET)
     public ModelAndView toAdd(HttpServletRequest request, PrjPreallocationSearchVO preallocationSearchVO) {
@@ -166,13 +173,13 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String add(PrjPreallocation preallocation, HttpServletRequest request,int type) {
+    public String add(PrjPreallocation preallocation, HttpServletRequest request, int type) {
         preallocation.setCreated_by(SessionUtil.getUserSession(request).getUser_name());
         preallocation.setPrj_base_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
 
         preallocation.setHouse_property(SessionUtil.getUserSession(request).getCurrent_building_name());
         preallocation.setLand_property(SessionUtil.getUserSession(request).getCurrent_land_name());
-        int flag = preallocationService.add(preallocation,type);
+        int flag = preallocationService.add(preallocation, type);
 
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("拆除腾退人新增失败");
@@ -210,7 +217,7 @@ public class PrjPreallocationBasicController extends BaseController {
     }
 
     @RequestMapping(value = "update", method = RequestMethod.POST)
-    public String update(PrjPreallocation preallocation,int type) {
+    public String update(PrjPreallocation preallocation, int type) {
 
 
         PrjPreallocation preallocation_DB = preallocationService.getById(preallocation.getId());
@@ -221,7 +228,7 @@ public class PrjPreallocationBasicController extends BaseController {
         preallocation.setCreated_by(preallocation_DB.getCreated_by());
         preallocation.setParent_type(preallocation_DB.getParent_type());
 
-        int flag = preallocationService.update(preallocation,type);
+        int flag = preallocationService.update(preallocation, type);
         if (flag == 0)
             return "forward:/error.htm?msg=" + StringUtil.encodeUrl("拆除腾退人修改失败");
         else

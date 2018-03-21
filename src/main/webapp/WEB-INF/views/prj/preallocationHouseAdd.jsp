@@ -727,7 +727,7 @@
             <option value="5" >丧偶</option>\
             </select>\
             </td>\
-            <td><textarea name="relas[' + indexRela + '].note" class="col-lg-12"></textarea></td>\
+            <td><input type="text" name="relas[' + indexRela + '].note"  class="col-lg-12"/></td>\
                 <td>\
                 <a data-id="' + indexRela + '" class="del"> 删除 </a>\
                 </td>\
@@ -767,7 +767,7 @@
             <option value="5" >丧偶</option>\
             </select>\
             </td>\
-            <td><textarea name="relas[' + indexRela + '].note" class="col-lg-12"></textarea></td>\
+            <td><input type="text" name="relas[' + indexRela + '].note" class="col-lg-12"/></td>\
                 <td>\
                 <a data-id="' + indexRela + '" class="del1"> 删除 </a>\
                 </td>\

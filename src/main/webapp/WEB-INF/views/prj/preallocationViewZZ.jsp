@@ -154,6 +154,14 @@
         $strong.remove();
         $times.remove();
 
+        $('#subHome').remove();
+        var $subHomes = $('#subHomes').find('.widget-box');
+        if($subHomes.length > 0){
+            var $signed = $('#signed_code');
+            var $groups = $signed.closest('.form-group');
+            $groups.addClass('hidden');
+        }
+
         $('[id*=filePicker]').addClass('hidden');
         $('.del').addClass('hidden');
         if($("#other_file_path").val() != '' && $("#other_file_name").val() != ''){

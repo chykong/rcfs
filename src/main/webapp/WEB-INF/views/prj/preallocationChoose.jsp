@@ -158,14 +158,18 @@
                                     </table>
                                     <div class="center">
                                         <a class="btn btn-success" id="select"><i class="ace-icon fa fa-check"></i>确认信息</a>
-                                        <a class="btn btn-danger hidden" id="no-select"><i
-                                                class="ace-icon fa fa-undo"></i>返回</a>
+
                                     </div>
                                 </div>
                                 <div class="col-xs-5 no-padding">
                                     <div id="select-items">
                                     </div>
                                     <div style="text-align: center">
+                                        <div  class="row center"
+                                             style="display: inline-block;float: left;">
+                                        <button class="btn btn-danger hidden" id="no-select" style="border-color: white"><i
+                                                class="ace-icon fa fa-undo"></i>返回</button>
+                                        </div>
                                         <div id="select_confirm" class="row center hidden"
                                              style="display: inline-block;">
                                             <button class="btn btn-primary">选房</button>

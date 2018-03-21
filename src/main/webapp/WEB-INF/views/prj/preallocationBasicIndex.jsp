@@ -178,7 +178,8 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-xs-5 col-lg-5">是否特殊情况：</label>
                                                     <div class="col-xs-7 col-lg-7">
-                                                        <form:select class="col-xs-10 col-sm-10 col-lg-8" path="content">
+                                                        <form:select class="col-xs-10 col-sm-10 col-lg-8"
+                                                                     path="content">
                                                             <form:option value="">--全部--</form:option>
                                                             <form:option value="1">是</form:option>
                                                             <form:option value="2">否</form:option>
@@ -200,13 +201,23 @@
                                                             <i class="ace-icon fa fa-plus bigger-110"></i>新增
                                                         </a>
                                                     </c:if>
-                                                    <c:if test="${bln:isP('PrjPreallocationImport')}">
+
+                                                    <c:if test="${bln:isP('PrjPreallocationImport')&&house_status==2}">
                                                         <button id="importBtn" type="button"
                                                                 class="btn btn-success btn-sm"
                                                                 data-toggle="modal">
                                                             <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
                                                         </button>
                                                     </c:if>
+
+                                                    <c:if test="${house_status==1}">
+                                                        <button id="importBtn" type="button"
+                                                                class="btn btn-success btn-sm"
+                                                                data-toggle="modal">
+                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入住在基本信息
+                                                        </button>
+                                                    </c:if>
+
                                                     <c:if test="${bln:isP('PrjPreallocationExport')}">
                                                         <button id="exportBtn" type="button"
                                                                 class="btn btn-waring btn-sm">
@@ -264,22 +275,35 @@
                             <div class="form-group">
                                 <div class="col-xs-12" style="margin-bottom: 10px">
                                     <span>请下载模板，按照模板格式整理数据：</span>
+
                                     <c:if test="${prj_base_info_id == 28}">
                                         <a href="<c:url value="/assets/templates/import-preallocations-huangcun-template.xlsx"/>"
                                            target="_blank">
                                             导入基本情况模板.xlsx
                                         </a>
                                     </c:if>
-                                    <c:if test="${prj_base_info_id != 28}">
+                                    <c:if test="${prj_base_info_id != 28&&house_status==2}">
                                         <a href="<c:url value="/assets/templates/import-preallocations-basic-template.xlsx"/>"
                                            target="_blank">
-                                            导入基本情况模板.xlsx
+                                            导入非住宅基本情况模板.xlsx
+                                        </a>
+                                    </c:if>
+                                    <c:if test="${prj_base_info_id != 28&&house_status==1}">
+                                        <a href="<c:url value="/assets/templates/import-preallocations-basicZZ-template.xlsx"/>"
+                                           target="_blank">
+                                            导入住宅基本情况模板.xlsx
                                         </a>
                                     </c:if>
                                 </div>
                             </div>
-                            <c:url value="/prj/preallocation/basic/import.htm"
-                                   var="import_url"/>
+                            <c:if test="${house_status==2}">
+                                <c:url value="/prj/preallocation/basic/import.htm"
+                                       var="import_url"/>
+                            </c:if>
+                            <c:if test="${house_status==1}">
+                                <c:url value="/prj/base/importZZ.htm"
+                                       var="import_url"/>
+                            </c:if>
                             <form:form action="${import_url}" enctype="multipart/form-data" method="post"
                                        id="preallocations-upload-form" cssClass="form-horizontal">
                                 <input type="hidden" name="file_type" value="preallocations">
@@ -447,9 +471,11 @@
             }
             return url;
         }
-        function addBasic(land_status,house_status) {
+
+        function addBasic(land_status, house_status) {
             window.location = '<c:url value="/prj/preallocation/basic/toAdd.htm?backUrl="/>' + geturl('${backUrl}') + '&house_status=' + house_status;
         }
+
         // 删除
         function delBasic(id) {
             bootbox.confirm("你确定要删除该记录吗？", function (result) {
@@ -458,10 +484,12 @@
                 }
             })
         }
+
         //修改
-        function updateBasic(id,land_status,house_status) {
+        function updateBasic(id, land_status, house_status) {
             window.location = '<c:url value="/prj/preallocation/basic/toUpdate.htm?type=1&backUrl="/>' + geturl('${backUrl}') + '&id=' + id + '&house_status=' + house_status;
         }
+
         $(function () {
 
             $("#coll-btn").on('click', function () {
@@ -561,6 +589,9 @@
             //导入提交
             var $preallocations_upload_form = $("#preallocations-upload-form");
             $preallocations_upload_form.on('submit', function () {
+                console.log($preallocations_upload_form.attr('action'))
+
+
                 var upload_check = $preallocations_import_input.val();
                 if (upload_check == '') {
                     $preallocations_import_input.ace_file_input('reset_input');

@@ -206,7 +206,7 @@
                                                         <button id="importBtn" type="button"
                                                                 class="btn btn-success btn-sm"
                                                                 data-toggle="modal">
-                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入基本信息
+                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入非住宅基本信息
                                                         </button>
                                                     </c:if>
 
@@ -214,7 +214,7 @@
                                                         <button id="importBtn" type="button"
                                                                 class="btn btn-success btn-sm"
                                                                 data-toggle="modal">
-                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入住在基本信息
+                                                            <i class="ace-icon fa fa-file-excel-o bigger-110"></i>导入住宅基本信息
                                                         </button>
                                                     </c:if>
 
@@ -304,7 +304,7 @@
                                 <c:url value="/prj/base/importZZ.htm"
                                        var="import_url"/>
                             </c:if>
-                            <form:form action="${import_url}" enctype="multipart/form-data" method="post"
+                            <form:form  action="${import_url}" enctype="multipart/form-data" method="post"
                                        id="preallocations-upload-form" cssClass="form-horizontal">
                                 <input type="hidden" name="file_type" value="preallocations">
                                 <div class="form-group">

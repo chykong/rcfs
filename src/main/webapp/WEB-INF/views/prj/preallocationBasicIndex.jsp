@@ -86,7 +86,16 @@
                                             </div>
                                             <div class="col-xs-4 col-lg-3">
                                                 <div class="form-group">
-                                                    <label class="control-label col-xs-5 col-lg-6">被拆除腾退人：</label>
+                                                    <label class="control-label col-xs-5 col-lg-6">
+                                                        <c:choose>
+                                                            <c:when test="${house_status == 1}">
+                                                                被拆迁人：
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                被拆除腾退人：
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </label>
                                                     <div class="col-xs-7 col-lg-6 no-padding-left">
                                                         <form:input type="text" path="host_name"
                                                                     class="col-xs-12 col-sm-12 col-lg-8" value=""/>
@@ -743,7 +752,15 @@
                     message: '你确定要导出吗？',
                     callback: function (result) {
                         if (result) {
-                            var url = '<c:url value="/prj/preallocation/basic/export?___=_"/>';
+                            <c:if test="${house_status==2}">
+                                <c:url value="/prj/preallocation/basic/export?___=_"
+                                       var="export_url"/>
+                            </c:if>
+                            <c:if test="${house_status==1}">
+                                <c:url value="/prj/preallocation/basic/exportZZ?___=_"
+                                       var="export_url"/>
+                            </c:if>
+                            var url = '${export_url}';
 
                             window.open(geturl(url));
                         } else {

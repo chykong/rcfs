@@ -712,6 +712,20 @@ public class PrjPreallocationBasicController extends BaseController {
                 response, 300);
         return true;
     }
+    @RequestMapping(value = "exportZZ", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean exportZZ(HttpServletRequest request, HttpServletResponse response,
+                          PrjPreallocationSearchVO preallocationSearchVO) {
+
+        preallocationSearchVO.setBase_info_id(SessionUtil.getUserSession(request).getCurrent_project_id());
+        preallocationSearchVO.setLand_status(SessionUtil.getUserSession(request).getCurrent_land_status());
+        String srcFile;
+        srcFile = pubConfig.getFilePath() + File.separator + "assets" + File.separator + "templates" + File.separator + "exportZZ.xls";
+        String[][] data = preallocationService.exportZZ(preallocationSearchVO);
+        writeExcel(data, srcFile, "被拆迁人信息导出" + com.balance.util.date.DateUtil.getSystemDate(),
+                response, 300);
+        return true;
+    }
 
     private void writeExcel(String[][] data, String srcFile, String file_name, HttpServletResponse response, int rowHeight) {
         OutputStream os = null;

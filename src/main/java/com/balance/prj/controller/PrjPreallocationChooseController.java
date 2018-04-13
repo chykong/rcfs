@@ -99,7 +99,8 @@ public class PrjPreallocationChooseController extends BaseController {
 
     @RequestMapping("/getBySelectCode")
     public void getBySelectCode(HttpServletRequest request, HttpServletResponse response, String select_code) {
-        PrjPreallocation preallocation = preallocationService.getBySelect(select_code);
+        int prj_base_info_id = SessionUtil.getUserSession(request).getCurrent_project_id();
+        PrjPreallocation preallocation = preallocationService.getBySelect(select_code,prj_base_info_id);
         WebUtil.out(response, JsonUtil.toStr(preallocation));
     }
 

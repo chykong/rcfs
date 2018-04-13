@@ -58,7 +58,7 @@
 															<i class="ace-icon fa fa-plus bigger-110"></i>新增
 														</button>
 													</c:if> <c:if test="${bln:isP('BaseParticipantImport')}">
-														<a href="#import_modal" class="btn btn-success btn-sm"
+														<a href="#" id="import_open" class="btn btn-success btn-sm"
 															data-backdrop="static" data-toggle="modal"> <i
 															class="ace-icon fa fa-file-excel-o"></i>导入
 														</a>
@@ -257,7 +257,9 @@
 		}
 
 		$(function(){
-
+            $('#import_open').on('click',function(){
+                $('#import_modal').modal('show');
+            })
 		      var $import_input = $('#import_input');
 		                $import_input.ace_file_input({
 		                    style: 'well',

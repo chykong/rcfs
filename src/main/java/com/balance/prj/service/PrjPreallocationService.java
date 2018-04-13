@@ -221,7 +221,7 @@ public class PrjPreallocationService {
 
             relaDao.batchAdd(relas);
         }
-        if (type == 2 && prjPreallocation.getParent_type() == 1) {
+        if (type == 2) {
             prjPreallocationDao.deleteByParent(prjPreallocation.getMap_id(), prjPreallocation.getPrj_base_info_id());
             int result = saveSubHome(prjPreallocation);
             if (result == -1) {
@@ -516,6 +516,34 @@ public class PrjPreallocationService {
         return data;
     }
 
+    public String[][] exportZZ(PrjPreallocationSearchVO preallocationSearchVO) {
+        List<PrjPreallocation> list = prjPreallocationDao.findAllForExport(preallocationSearchVO);
+        String[][] data = new String[list.size()][81];
+        int i = 0;
+        for (PrjPreallocation preallocation : list) {
+            data[i][0] = preallocation.getMap_id();  //编号
+            data[i][1] = preallocation.getId_card();  //身份证号
+            data[i][2] = preallocation.getHost_name(); //产权人
+            data[i][3] = preallocation.getLocation();  //房屋坐落
+            data[i][4] = preallocation.getCard_land_area() == null ? "0" : preallocation.getCard_land_area().toString();  //土地总面积
+            data[i][5] = preallocation.getCog_land_area() == null ? "0" : preallocation.getCog_land_area().toString(); // 证载土地面积
+            data[i][6] = preallocation.getTotal_homestead_area() == null ? "0" : preallocation.getTotal_homestead_area().toString();  //实际用地面积
+            data[i][7] = preallocation.getTown(); //镇
+            data[i][8] = preallocation.getVillage();  //村
+            data[i][9] = preallocation.getSection();  //标段
+            data[i][10] = preallocation.getGroups();  //组别
+            data[i][11] = preallocation.getParent_type() == 0 ? "否" : "是";  //是否分户
+            String parent_type = "";
+            if (preallocation.getParent_type() != 0) {
+                parent_type = preallocation.getParent_type() == 1 ? "院" : "户";
+            }
+            data[i][12] = parent_type;  //院还是户
+            data[i][13] = preallocation.getParent_id();  //院的编号
+            data[i][14] = preallocation.getSigned_code();  //选房顺序号
+            i++;
+        }
+        return data;
+    }
 
     /**
      * 获取并更新最大选房顺序号
@@ -556,8 +584,8 @@ public class PrjPreallocationService {
         return selectDao.getByMapId(mapId, projectId, houseType, landType);
     }
 
-    public PrjPreallocation getBySelect(String selectCode) {
-        PrjPreallocation preallocation = prjPreallocationDao.getBySelect(selectCode);
+    public PrjPreallocation getBySelect(String selectCode, int prj_base_info_id) {
+        PrjPreallocation preallocation = prjPreallocationDao.getBySelect(selectCode, prj_base_info_id);
         if (preallocation != null) {
             int realNum = relaDao.count(preallocation.getMap_id(), preallocation.getPrj_base_info_id());
             preallocation.setRelas_num(realNum);

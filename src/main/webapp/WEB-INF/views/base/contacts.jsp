@@ -62,7 +62,7 @@
                                                 </c:if>
 
                                                 <c:if test="${bln:isP('BaseContactsImport')}">
-                                                    <a href="#import_modal" class="btn btn-success btn-sm"
+                                                    <a href="#" id="import_open" class="btn btn-success btn-sm"
                                                        data-backdrop="static"
                                                        data-toggle="modal">
                                                         <i class="ace-icon fa fa-file-excel-o"></i>导入</a>
@@ -245,6 +245,9 @@
 					window.location = "toAdd.htm?backUrl=${backUrl }";
 				}
 $(function(){
+    $('#import_open').on('click',function(){
+        $('#import_modal').modal('show');
+    })
 
       var $import_input = $('#import_input');
                 $import_input.ace_file_input({

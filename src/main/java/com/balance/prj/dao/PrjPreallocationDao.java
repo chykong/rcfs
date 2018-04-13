@@ -422,9 +422,9 @@ public class PrjPreallocationDao extends BaseDao<PrjPreallocation, PrjPreallocat
         return namedParameterJdbcTemplate.query(sql, params, new BeanPropertyRowMapper<>(PrjPreallocation.class));
     }
 
-    public PrjPreallocation getBySelect(String selectCode) {
-        String sql = "SELECT * FROM t_prj_preallocation WHERE signed_code=?";
-        List<PrjPreallocation> prjPreallocations = jdbcTemplate.query(sql, new Object[]{selectCode}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
+    public PrjPreallocation getBySelect(String selectCode,int prj_base_info_id) {
+        String sql = "SELECT * FROM t_prj_preallocation WHERE signed_code=? and prj_base_info_id=?";
+        List<PrjPreallocation> prjPreallocations = jdbcTemplate.query(sql, new Object[]{selectCode,prj_base_info_id}, new BeanPropertyRowMapper<>(PrjPreallocation.class));
         return prjPreallocations.size() > 0 ? prjPreallocations.get(0) : null;
     }
 

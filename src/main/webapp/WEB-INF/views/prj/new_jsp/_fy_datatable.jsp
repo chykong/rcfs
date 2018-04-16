@@ -183,7 +183,7 @@
                 }
             ],
             fixedColumns: {
-                leftColumns: 0,
+                leftColumns: 2,
                 rightColumns: 1
             },
             language: {

@@ -148,7 +148,13 @@ public class PrjImportZZController {
             String card_land_area = Excel2007Util.getHssfCellStringValue(hssfRow, 4);//实测宅基地面积
             String cog_land_area = Excel2007Util.getHssfCellStringValue(hssfRow, 5);//确权宅基地面积
             String total_homestead_area = Excel2007Util.getHssfCellStringValue(hssfRow, 6);//总建筑面积
-            Double card_homestead_area = (Integer.parseInt(total_homestead_area) * 0.75);//总面积的百分之75
+            Double card_homestead_area;
+            if(StringUtil.isNotNullOrEmpty(total_homestead_area)){
+                card_homestead_area = (Integer.parseInt(total_homestead_area) * 0.75);//总面积的百分之75
+            }else{
+                card_homestead_area = 0d;//总面积的百分之75
+
+            }
             String town = Excel2007Util.getHssfCellStringValue(hssfRow, 7);//镇
             String village = Excel2007Util.getHssfCellStringValue(hssfRow, 8);//村
             String section = Excel2007Util.getHssfCellStringValue(hssfRow, 9);//标段
@@ -158,11 +164,14 @@ public class PrjImportZZController {
             String yardCode = Excel2007Util.getHssfCellStringValue(hssfRow, 13);//院的编号
             String select_house_code = Excel2007Util.getHssfCellStringValue(hssfRow, 14);//选房顺序号
             int parent_type = 0;
-            if (existFamily.equals("是")) {
-                parent_type = yardOrFamily.equals("院") ? 1 : yardOrFamily.equals("户") ? 2 : 1;
-            } else {
-                parent_type = 0;
+            if(StringUtil.isNotNullOrEmpty(existFamily)){
+                if (existFamily.equals("是") && StringUtil.isNotNullOrEmpty(yardOrFamily)) {
+                    parent_type = yardOrFamily.equals("院") ? 1 : yardOrFamily.equals("户") ? 2 : 1;
+                } else {
+                    parent_type = 0;
+                }
             }
+
 
             if (!checkImportParamsNull(map_id, host_name, section, groups)) {
                 PreallocationImportVO preallocationsImportDTO = new PreallocationImportVO();
@@ -204,16 +213,24 @@ public class PrjImportZZController {
             String village = Excel2007Util.getXssfCellStringValue(xssfRow, 8);
             String section = Excel2007Util.getXssfCellStringValue(xssfRow, 9);
             String groups = Excel2007Util.getXssfCellStringValue(xssfRow, 10);
-            Double card_homestead_area = (Integer.parseInt(total_homestead_area) * 0.75);//总面积的百分之75
+            Double card_homestead_area;
+            if(StringUtil.isNotNullOrEmpty(total_homestead_area)){
+                 card_homestead_area = (Integer.parseInt(total_homestead_area) * 0.75);//总面积的百分之75
+            }else{
+                 card_homestead_area = 0d;//总面积的百分之75
+
+            }
             String existFamily = Excel2007Util.getXssfCellStringValue(xssfRow, 11);//是否分户
             String yardOrFamily = Excel2007Util.getXssfCellStringValue(xssfRow, 12);//院还是户
             String yardCode = Excel2007Util.getXssfCellStringValue(xssfRow, 13);//院的编号
             String select_house_code = Excel2007Util.getXssfCellStringValue(xssfRow, 14);//选房顺序号
             int parent_type = 0;
-            if (existFamily.equals("是")) {
-                parent_type = yardOrFamily.equals("院") ? 1 : yardOrFamily.equals("户") ? 2 : 1;
-            } else {
-                parent_type = 0;
+            if(StringUtil.isNotNullOrEmpty(existFamily)){
+                if (existFamily.equals("是") && StringUtil.isNotNullOrEmpty(yardOrFamily)) {
+                    parent_type = yardOrFamily.equals("院") ? 1 : yardOrFamily.equals("户") ? 2 : 1;
+                } else {
+                    parent_type = 0;
+                }
             }
 
 
